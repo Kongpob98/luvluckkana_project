@@ -5,7 +5,7 @@
             <div class="navbar-content">
                 <!-- Left Menu -->
                 <div class="nav-menu nav-left">
-                    <a href="index.html#home" class="nav-link active">
+                    <a href="index.html" class="nav-link active">
                         Home
                     </a>
                     <a href="chatbot.html" class="nav-link">

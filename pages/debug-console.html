@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Console - Gemini API Monitor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #4ec9b0;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .info-box {
+            background: #252526;
+            border: 1px solid #3e3e42;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .info-box h2 {
+            color: #569cd6;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .step {
+            background: #2d2d30;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 3px solid #007acc;
+            border-radius: 4px;
+        }
+        
+        .step-number {
+            color: #ce9178;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .step-title {
+            color: #4ec9b0;
+            font-size: 16px;
+            margin: 5px 0;
+        }
+        
+        .step-desc {
+            color: #d4d4d4;
+            margin: 5px 0;
+        }
+        
+        code {
+            background: #1e1e1e;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #ce9178;
+            font-size: 14px;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 10px 0;
+            border: 1px solid #3e3e42;
+        }
+        
+        .code-block pre {
+            color: #d4d4d4;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        .highlight {
+            color: #4ec9b0;
+            font-weight: bold;
+        }
+        
+        .warning {
+            background: #332200;
+            border-left: 3px solid #ffa500;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .success {
+            background: #003322;
+            border-left: 3px solid #00ff00;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .icon {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        
+        .btn {
+            background: #007acc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            background: #005a9e;
+        }
+        
+        .btn-secondary {
+            background: #3e3e42;
+        }
+        
+        .btn-secondary:hover {
+            background: #505053;
+        }
+        
+        ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        li {
+            margin: 5px 0;
+            color: #d4d4d4;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Gemini API Debug Console</h1>
+        
+        <div class="info-box">
+            <h2>📋 วิธีดูข้อมูลที่ส่งให้ Gemini API</h2>
+            
+            <div class="step">
+                <div class="step-number">1️⃣</div>
+                <div class="step-title">เปิด Chatbot และ Developer Console</div>
+                <div class="step-desc">
+                    <ul>
+                        <li>เปิด <a href="chatbot.html" target="_blank" style="color: #4ec9b0">chatbot.html</a></li>
+                        <li>กด <code>F12</code> หรือ <code>Cmd+Option+I</code> (Mac)</li>
+                        <li>ไปที่แท็บ <span class="highlight">Console</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2️⃣</div>
+                <div class="step-title">ส่งข้อความในแชทบอท</div>
+                <div class="step-desc">
+                    ตัวอย่าง: "ทำนายดวงราศีมังกร"
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3️⃣</div>
+                <div class="step-title">ดู Debug Logs ใน Console</div>
+                <div class="step-desc">
+                    คุณจะเห็น:
+                    <div class="code-block">
+                        <pre>🔍 DEBUG: Gemini API Request
+  📝 System Prompt Length: 1234 characters
+  💬 User Message: ทำนายดวงราศีมังกร
+  📚 Knowledge Retrieved: 567 characters
+  📤 Full Prompt: [ข้อความทั้งหมดที่ส่งไป]
+
+🔍 DEBUG: Full Request Body
+  {
+    "contents": [...],
+    "generationConfig": {...},
+    "safetySettings": [...]
+  }
+
+📥 Response status: 200
+
+🔍 DEBUG: Full Response
+  Response Data: {...}
+  📊 Token Usage:
+    promptTokens: 450
+    completionTokens: 150
+    totalTokens: 600</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid">
+            <div class="info-box">
+                <h2>🌐 Network Tab</h2>
+                <div class="step-desc">
+                    <strong>ขั้นตอน:</strong>
+                    <ul>
+                        <li>F12 → แท็บ <code>Network</code></li>
+                        <li>กรอง: <code>generativelanguage.googleapis.com</code></li>
+                        <li>คลิกที่ request ชื่อ <code>generateContent</code></li>
+                        <li>ดูแท็บ:
+                            <ul>
+                                <li><code>Headers</code> - ข้อมูล Request</li>
+                                <li><code>Payload</code> - ข้อมูลที่ส่งไป</li>
+                                <li><code>Response</code> - ข้อมูลที่ได้รับกลับ</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <h2>🏠 Google AI Studio</h2>
+                <div class="step-desc">
+                    <strong>ประวัติการใช้งาน:</strong>
+                    <ul>
+                        <li>เปิด <a href="https://aistudio.google.com/prompts/history" target="_blank" style="color: #4ec9b0">AI Studio History</a></li>
+                        <li>ดูทุก request ที่เคยส่ง</li>
+                        <li>ดู prompt และ response</li>
+                        <li>ตรวจสอบการใช้ quota</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <h2>🎯 ข้อมูลที่คุณจะเห็น</h2>
+            
+            <div class="success">
+                <strong class="icon">✅</strong>
+                <strong>Request Data (ข้อมูลที่ส่งไป):</strong>
+                <ul>
+                    <li><strong>System Prompt:</strong> คำสั่งให้ AI ทำหน้าที่เป็นโหร (~1,500 ตัวอักษร)</li>
+                    <li><strong>Knowledge Base:</strong> ข้อมูลราศี/ดวง/เลขศาสตร์ที่เกี่ยวข้อง</li>
+                    <li><strong>User Message:</strong> คำถามของคุณ</li>
+                    <li><strong>Generation Config:</strong> temperature, topK, topP, maxOutputTokens</li>
+                    <li><strong>Safety Settings:</strong> การตั้งค่าความปลอดภัย</li>
+                </ul>
+            </div>
+            
+            <div class="success">
+                <strong class="icon">📊</strong>
+                <strong>Response Data (ข้อมูลที่ได้กลับ):</strong>
+                <ul>
+                    <li><strong>Text:</strong> คำตอบจาก AI</li>
+                    <li><strong>Prompt Tokens:</strong> จำนวนโทเค็นที่ส่งไป</li>
+                    <li><strong>Completion Tokens:</strong> จำนวนโทเค็นที่ตอบกลับ</li>
+                    <li><strong>Total Tokens:</strong> รวมทั้งหมด</li>
+                    <li><strong>Safety Ratings:</strong> คะแนนความปลอดภัย</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <h2>⚙️ การตั้งค่า Debug Mode</h2>
+            
+            <div class="warning">
+                <strong class="icon">⚠️</strong>
+                ตอนนี้ <code>DEBUG_MODE = true</code> ใน chatbot.js
+            </div>
+            
+            <div class="code-block">
+                <pre>// ใน js/components/chatbot.js บรรทัดที่ 10
+const DEBUG_MODE = true;  // เปิด Debug
+// const DEBUG_MODE = false; // ปิด Debug (ใช้ตอน production)</pre>
+            </div>
+            
+            <div class="step-desc">
+                <strong>คำแนะนำ:</strong>
+                <ul>
+                    <li>✅ เปิด <code>DEBUG_MODE = true</code> ตอนพัฒนา</li>
+                    <li>⚠️ ปิด <code>DEBUG_MODE = false</code> ก่อน publish</li>
+                    <li>📊 Debug จะแสดง console.log ทุกขั้นตอน</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <h2>🛠️ เครื่องมือเพิ่มเติม</h2>
+            
+            <a href="chatbot.html" class="btn" target="_blank">
+                🤖 เปิด Chatbot
+            </a>
+            
+            <a href="https://aistudio.google.com/apikey" class="btn btn-secondary" target="_blank">
+                🔑 API Keys
+            </a>
+            
+            <a href="https://aistudio.google.com/prompts/history" class="btn btn-secondary" target="_blank">
+                📊 History
+            </a>
+            
+            <a href="GEMINI_API_LIMITS.md" class="btn btn-secondary">
+                📖 API Limits
+            </a>
+        </div>
+        
+        <div class="info-box">
+            <h2>💡 Tips</h2>
+            <ul>
+                <li>🔍 ใช้ Console Filter: พิมพ์ <code>🔍</code> เพื่อดูแค่ Debug logs</li>
+                <li>📋 Copy Request: คลิกขวา → Copy object เพื่อ copy ข้อมูล</li>
+                <li>💾 Save Log: คลิกขวาใน Console → Save as...</li>
+                <li>🎨 Theme: Console รองรับ Dark/Light mode</li>
+                <li>⚡ Performance: ดูเวลาตอบกลับใน Network timing tab</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // Auto-refresh indicator
+        console.log('%c🔍 Debug Console Ready!', 'color: #4ec9b0; font-size: 20px; font-weight: bold');
+        console.log('%cเปิด chatbot.html และส่งข้อความเพื่อดู debug logs', 'color: #d4d4d4; font-size: 14px');
+    </script>
+</body>
+</html>

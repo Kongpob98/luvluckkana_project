@@ -1,0 +1,2133 @@
+/* Home Container */
+.home-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.home-container #footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 200;
+}
+
+/* Starfield Background */
+.starfield {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -20;
+    background: transparent;
+    opacity: 0.6;
+}
+
+.starfield::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 300%;
+    background: 
+        radial-gradient(2px 2px at 20px 30px, white, transparent),
+        radial-gradient(2px 2px at 60px 70px, white, transparent),
+        radial-gradient(1px 1px at 50px 50px, white, transparent),
+        radial-gradient(1px 1px at 130px 80px, white, transparent),
+        radial-gradient(2px 2px at 90px 10px, white, transparent),
+        radial-gradient(1px 1px at 150px 120px, white, transparent),
+        radial-gradient(2px 2px at 200px 40px, white, transparent),
+        radial-gradient(1px 1px at 170px 90px, white, transparent),
+        radial-gradient(2px 2px at 240px 60px, white, transparent),
+        radial-gradient(1px 1px at 280px 20px, white, transparent),
+        radial-gradient(1px 1px at 220px 110px, white, transparent),
+        radial-gradient(2px 2px at 320px 80px, white, transparent),
+        radial-gradient(1px 1px at 360px 50px, white, transparent),
+        radial-gradient(2px 2px at 300px 130px, white, transparent),
+        radial-gradient(1px 1px at 400px 30px, white, transparent),
+        radial-gradient(2px 2px at 380px 100px, white, transparent),
+        radial-gradient(1px 1px at 440px 70px, white, transparent),
+        radial-gradient(2px 2px at 100px 150px, white, transparent),
+        radial-gradient(1px 1px at 180px 160px, white, transparent),
+        radial-gradient(2px 2px at 260px 170px, white, transparent);
+    background-size: 500px 200px, 500px 200px, 500px 200px, 500px 200px, 500px 200px,
+                     500px 200px, 500px 200px, 500px 200px, 500px 200px, 500px 200px,
+                     500px 200px, 500px 200px, 500px 200px, 500px 200px, 500px 200px,
+                     500px 200px, 500px 200px, 500px 200px, 500px 200px, 500px 200px;
+    background-repeat: repeat;
+    animation: starMove 200s linear infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+@keyframes starMove {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(33.33%);
+    }
+}
+
+/* Shooting Stars */
+.shooting-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -15;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.shooting-star {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, #ffffff 0%, #ffffaa 40%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(0.5px);
+    opacity: 0;
+    animation: meteorEffect 3s ease-out infinite;
+}
+
+.shooting-star::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    height: 2px;
+    width: 120px;
+    transform: translateY(-50%);
+    background: linear-gradient(to right, 
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(255, 255, 200, 0.7) 15%,
+        rgba(255, 255, 150, 0.4) 40%,
+        rgba(255, 200, 100, 0.2) 70%,
+        transparent 100%);
+    filter: blur(1px);
+}
+
+.shooting-star::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    height: 1px;
+    width: 150px;
+    transform: translateY(-50%);
+    background: linear-gradient(to right, 
+        rgba(255, 255, 255, 0.5) 0%,
+        rgba(255, 255, 200, 0.3) 20%,
+        transparent 60%);
+    filter: blur(2px);
+}
+
+.shooting-star:nth-child(1) {
+    top: 15%;
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 2.8s;
+}
+
+.shooting-star:nth-child(2) {
+    top: 25%;
+    left: 80%;
+    animation-delay: 3.5s;
+    animation-duration: 3.2s;
+}
+
+.shooting-star:nth-child(3) {
+    top: 40%;
+    left: 50%;
+    animation-delay: 7s;
+    animation-duration: 2.5s;
+}
+
+.shooting-star:nth-child(4) {
+    top: 60%;
+    left: 30%;
+    animation-delay: 11s;
+    animation-duration: 3s;
+}
+
+.shooting-star:nth-child(5) {
+    top: 10%;
+    left: 90%;
+    animation-delay: 15s;
+    animation-duration: 2.7s;
+}
+
+@keyframes meteorEffect {
+    0% {
+        transform: translate(200px, -200px) rotate(-45deg);
+        opacity: 0;
+    }
+    5% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-400px, 400px) rotate(-45deg);
+        opacity: 0;
+    }
+}
+
+/* Circle Background Images */
+.circle-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    opacity: 1;
+}
+
+.circle-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    animation: circlePulse 4s ease-in-out infinite;
+}
+
+/* แต่ละ circle มีขนาดที่เพิ่มขึ้นเท่า ๆ กัน (120px ต่อชั้น) */
+.circle-bg-1 {
+    width: 560px;
+    height: 560px;
+    animation-delay: 0s;
+    opacity: 0.6;
+}
+
+.circle-bg-2 {
+    width: 640px;
+    height: 640px;
+    animation-delay: 0.2s;
+    opacity: 0.5;
+}
+
+.circle-bg-3 {
+    width: 680px;
+    height: 680px;
+    animation-delay: 0.4s;
+    opacity: 0.4;
+}
+
+.circle-bg-4 {
+    width: 760px;
+    height: 760px;
+    animation-delay: 0.6s;
+    opacity: 0.3;
+}
+
+.circle-bg-5 {
+    width: 800px;
+    height: 800px;
+    animation-delay: 0.8s;
+    opacity: 0.2;
+}
+
+@keyframes circlePulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(1.02);
+    }
+}
+
+/* Circle Lines */
+.circle-lines {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.circle-line {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+    animation: circleGlow 4s ease-in-out infinite;
+}
+
+@keyframes circleGlow {
+    0%, 100% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.circle-line-1 {
+    width: 560px;
+    height: 560px;
+    animation-delay: 0s;
+}
+
+.circle-line-2 {
+    width: 680px;
+    height: 680px;
+    animation-delay: 0.8s;
+}
+
+.circle-line-3 {
+    width: 800px;
+    height: 800px;
+    animation-delay: 1.6s;
+}
+
+.circle-line-4 {
+    width: 640px;
+    height: 640px;
+    animation-delay: 0.4s;
+}
+
+.circle-line-5 {
+    width: 760px;
+    height: 760px;
+    animation-delay: 1.2s;
+}
+
+/* Star Container - Rotating Stars */
+.star-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    z-index: 15;
+}
+
+.star-orbit {
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: 0;
+}
+
+/* แต่ละ orbit หมุนด้วยความเร็วต่างกัน */
+.orbit-1 {
+    animation: rotateOrbit 25s linear infinite;
+}
+
+.orbit-2 {
+    animation: rotateOrbit 22s linear infinite;
+}
+
+.orbit-3 {
+    animation: rotateOrbit 20s linear infinite;
+}
+
+.orbit-4 {
+    animation: rotateOrbit 18s linear infinite;
+}
+
+.orbit-5 {
+    animation: rotateOrbit 15s linear infinite;
+}
+
+.star-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.star {
+    width: 50px;
+    height: 50px;
+    display: block;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    transition: all 0.3s ease;
+}
+
+.star:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.6));
+}
+
+/* วาง star ในตำแหน่งที่ต่างกันรอบศูนย์กลาง - ตรงกับขนาด circle */
+.orbit-1 .star-wrapper {
+    transform: rotate(0deg) translateY(-280px) rotate(0deg);
+}
+
+.orbit-2 .star-wrapper {
+    transform: rotate(72deg) translateY(-320px) rotate(-72deg);
+}
+
+.orbit-3 .star-wrapper {
+    transform: rotate(144deg) translateY(-340px) rotate(-144deg);
+}
+
+.orbit-4 .star-wrapper {
+    transform: rotate(216deg) translateY(-380px) rotate(-216deg);
+}
+
+.orbit-5 .star-wrapper {
+    transform: rotate(288deg) translateY(-400px) rotate(-288deg);
+}
+
+@keyframes rotateOrbit {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Logo Container */
+.logo-container {
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 650px;
+    z-index: 10;
+    animation: logoFloat 4s ease-in-out infinite;
+}
+
+.logo {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 4px 20px rgba(255, 255, 255, 0.3));
+    animation: logoGlow 3s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-15px);
+    }
+}
+
+@keyframes logoGlow {
+    0%, 100% {
+        filter: drop-shadow(0 4px 20px rgba(255, 255, 255, 0.3));
+    }
+    50% {
+        filter: drop-shadow(0 8px 30px rgba(255, 255, 255, 0.6));
+    }
+}
+
+/* CTA Button */
+.cta-container {
+    position: absolute;
+    top: 649px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.cta-button {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+    font-family: var(--font-primary);
+    font-size: var(--font-size-cta);
+    font-weight: 400;
+    padding: 14px 40px;
+    border: none;
+    border-radius: 41px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.cta-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
+}
+
+.cta-button i {
+    font-size: 20px;
+}
+
+/* Hands Container - Parallax Effect */
+.hands-container {
+    position: absolute;
+    top: 305px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1751px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 311px;
+    padding: 44px 0;
+    pointer-events: none;
+    z-index: 100;
+    will-change: transform;
+}
+
+.hand {
+    width: 720px;
+    height: auto;
+    transition: transform 0.1s ease-out;
+    will-change: transform;
+}
+
+.hand-left {
+    transform-origin: right center;
+}
+
+.hand-right {
+    transform-origin: left center;
+}
+
+/* Responsive Design */
+@media (max-width: 1440px) {
+    .circle-group {
+        width: 100vw;
+        height: 70vh;
+    }
+    
+    .logo-container {
+        width: 500px;
+        top: 30vh;
+    }
+    
+    .cta-container {
+        top: 55vh;
+    }
+    
+    .hands-container {
+        max-width: 100%;
+        gap: 100px;
+        padding: 0 50px;
+    }
+    
+    .hand {
+        width: 40vw;
+        max-width: 600px;
+    }
+}
+
+/* Cursor Trail Effect */
+.cursor-trail-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+/* Page Load Animations */
+body {
+    opacity: 0;
+    animation: pageLoad 0.5s ease-out forwards;
+}
+
+@keyframes pageLoad {
+    to {
+        opacity: 1;
+    }
+}
+
+.logo-container {
+    opacity: 0;
+    animation: fadeIn 1s ease-out 0.3s forwards, logoFloat 3s ease-in-out 1.5s infinite, logoGlow 2s ease-in-out 1.5s infinite;
+}
+
+.cta-container {
+    opacity: 0;
+    animation: fadeIn 1s ease-out 0.6s forwards;
+}
+
+.hands-container {
+    opacity: 0;
+    animation: fadeIn 1.2s ease-out 0.9s forwards;
+}
+
+.hand-left {
+    opacity: 0;
+    animation: fadeIn 1s ease-out 1s forwards;
+}
+
+.hand-right {
+    opacity: 0;
+    animation: fadeIn 1s ease-out 1s forwards;
+}
+
+.star-container {
+    opacity: 0;
+    animation: fadeIn 1s ease-out 0.5s forwards;
+}
+
+.shooting-stars {
+    opacity: 0;
+    animation: fadeIn 1.5s ease-out 1.2s forwards;
+}
+
+.starfield {
+    opacity: 0;
+    animation: fadeIn 2s ease-out 0.2s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes logoFloat {
+    0%, 100% {
+        transform: translate(-50%, 0);
+    }
+    50% {
+        transform: translate(-50%, -15px);
+    }
+}
+
+@keyframes logoGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    }
+    50% {
+        filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 50px rgba(255, 223, 127, 0.5));
+    }
+}
+
+@keyframes slideInLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.cursor-trail-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.cursor-star {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,223,127,0.8) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: starFade 0.8s ease-out forwards, starTwinkle 0.5s ease-in-out infinite;
+    box-shadow: 
+        0 0 10px rgba(255,255,255,0.8),
+        0 0 20px rgba(255,223,127,0.6),
+        0 0 30px rgba(255,200,100,0.4);
+}
+
+.cursor-star::before,
+.cursor-star::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+}
+
+.cursor-star::before {
+    width: 12px;
+    height: 2px;
+    box-shadow: 0 0 4px rgba(255,255,255,0.8);
+}
+
+.cursor-star::after {
+    width: 2px;
+    height: 12px;
+    box-shadow: 0 0 4px rgba(255,255,255,0.8);
+}
+
+@keyframes starFade {
+    0% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.3) rotate(180deg);
+    }
+}
+
+@keyframes starTwinkle {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.5);
+    }
+}
+
+/* About Section */
+.about-section {
+    position: relative;
+    min-height: 100vh;
+    background-color: #000000;
+    padding: 32px 25px;
+    overflow: hidden;
+}
+
+/* About Section Load Animations */
+.about-logo-bg {
+    opacity: 0;
+    animation: fadeIn 1s ease-out 0.2s forwards;
+}
+
+.about-phone {
+    opacity: 0;
+    animation: fadeIn 1s ease-out 0.4s forwards;
+}
+
+.social-instagram {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.6s forwards;
+}
+
+.social-line {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.7s forwards;
+}
+
+.thesis-badge {
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out 0.8s forwards;
+}
+
+.about-content-left {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.9s forwards;
+}
+
+.about-content-right {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 1s forwards;
+}
+
+@keyframes fadeInDown {
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes zoomIn {
+    to {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+@keyframes slideInFromRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Background Logo (ด้านบนสุด) */
+.about-logo-bg {
+    position: absolute;
+    top: 93px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1038px;
+    max-width: 90%;
+    z-index: 100;
+}
+
+.about-logo-img {
+    width: 100%;
+    height: auto;
+    opacity: 1;
+}
+
+/* Phone Mockup (ด้านหลังสุด) */
+.about-phone {
+    position: absolute;
+    bottom: 219px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 481px;
+    height: auto;
+    z-index: 1;
+}
+
+.about-phone img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Social Links */
+.social-link {
+    position: absolute;
+    background-color: #ffffff;
+    border-radius: 41px;
+    padding: 5px 21px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 15;
+    text-decoration: none;
+}
+
+.social-link img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+}
+
+.social-link span {
+    font-family: 'General Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: black;
+    white-space: nowrap;
+}
+
+.social-instagram {
+    top: 454px;
+    left: 855px;
+}
+
+.social-line {
+    top: 550px;
+    left: 316px;
+}
+
+/* Content Wrapper */
+.about-content-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 28px;
+    right: 28px;
+    padding: 14px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 20;
+}
+
+/* Content Left */
+.about-content-left {
+    position: relative;
+    max-width: 604px;
+}
+
+.about-content-left .screen-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.about-content-left .content-text {
+    position: relative;
+    z-index: 2;
+    padding: 30px;
+}
+
+/* Content Right Wrapper */
+.about-content-right-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+    max-width: 760px;
+    align-items: flex-end;
+}
+
+/* Thesis Badge */
+.thesis-badge {
+    border: 1px solid #000000;
+    border-radius: 41px;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    width: fit-content;
+}
+
+.thesis-badge p {
+    font-family: 'General Sans', sans-serif;
+    font-size: 24px;
+    color: black;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.thesis-badge .bold-italic {
+    font-weight: 700;
+    font-style: italic;
+}
+
+/* Content Right */
+.about-content-right {
+    position: relative;
+    max-width: 686px;
+}
+
+.about-content-right .screen-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.about-content-right .content-text {
+    position: relative;
+    z-index: 2;
+    padding: 30px;
+}
+
+.intro-text {
+    font-family: 'General Sans', sans-serif;
+    font-size: 24px;
+    color: black;
+    line-height: normal;
+    margin-bottom: 16px;
+}
+
+.intro-text:first-child {
+    max-width: 406px;
+}
+
+.description-text {
+    font-family: 'General Sans', sans-serif;
+    font-size: 24px;
+    color: black;
+    line-height: normal;
+    margin-bottom: 16px;
+}
+
+.description-text:last-child {
+    margin-bottom: 0;
+}
+
+.intro-text strong,
+.description-text strong {
+    font-weight: 600;
+}
+
+/* Responsive Design for About Section */
+@media (max-width: 1440px) {
+    .about-section {
+        padding: 32px 20px;
+    }
+    
+    .about-logo-bg {
+        width: 80%;
+        top: 60px;
+    }
+    
+    .about-phone {
+        width: 400px;
+        bottom: 180px;
+    }
+    
+    .social-instagram {
+        top: 380px;
+        left: auto;
+        right: 120px;
+    }
+    
+    .social-line {
+        top: 480px;
+        left: 120px;
+    }
+    
+    .about-content-wrapper {
+        left: 20px;
+        right: 20px;
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .about-content-left .content-text,
+    .about-content-right .content-text {
+        padding: 25px;
+    }
+    
+    .about-content-left,
+    .about-content-right {
+        max-width: 100%;
+    }
+    
+    .about-content-right-wrapper {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-section {
+        min-height: auto;
+        padding: 40px 20px 100px;
+    }
+    
+    .about-logo-bg {
+        width: 90%;
+        top: 20px;
+    }
+    
+    .about-phone {
+        position: relative;
+        width: 280px;
+        margin: 320px auto 40px;
+        left: 0;
+        bottom: 0;
+        transform: none;
+    }
+    
+    .social-link {
+        position: relative;
+        margin: 15px auto;
+        left: 0 !important;
+        right: 0 !important;
+        top: 0 !important;
+        width: fit-content;
+        padding: 8px 18px;
+    }
+    
+    .social-link img {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .social-link span {
+        font-size: 18px;
+    }
+    
+    .about-content-wrapper {
+        position: relative;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 0;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .thesis-badge {
+        margin: 0 auto 15px;
+    }
+    
+    .thesis-badge p {
+        font-size: 18px;
+    }
+    
+    .about-content-left,
+    .about-content-right {
+        max-width: 100%;
+    }
+    
+    .about-content-left .content-text,
+    .about-content-right .content-text {
+        padding: 20px;
+    }
+    
+    .about-content-right-wrapper {
+        width: 100%;
+    }
+    
+    .intro-text,
+    .description-text {
+        font-size: 18px;
+        line-height: 1.4;
+    }
+    
+    .intro-text:first-child {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo-container {
+        width: 350px;
+        top: 25vh;
+    }
+    
+    .cta-button {
+        font-size: 18px;
+        padding: 12px 30px;
+    }
+    
+    .hands-container {
+        gap: 50px;
+        padding: 0 20px;
+    }
+    
+    .hand {
+        width: 35vw;
+    }
+    
+    .star {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* ========================================
+   UNIVERSE SECTION STYLES (Section 2)
+   ======================================== */
+
+.universe-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(180deg, 
+        #000000 0%, 
+        #0d0820 15%,
+        #160f35 35%,
+        #1a1240 50%,
+        #160f35 65%,
+        #0d0820 85%,
+        #000000 100%);
+    padding: 100px 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.universe-container {
+    position: relative;
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 2;
+}
+
+/* Background Layers with Parallax */
+.universe-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.universe-stars {
+    background-image: 
+        radial-gradient(2px 2px at 10% 20%, rgba(255, 255, 255, 0.8), transparent),
+        radial-gradient(1px 1px at 25% 45%, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(2px 2px at 45% 15%, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(1px 1px at 65% 60%, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(2px 2px at 80% 30%, rgba(255, 255, 255, 0.8), transparent),
+        radial-gradient(1px 1px at 90% 70%, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(2px 2px at 15% 80%, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(1px 1px at 40% 90%, rgba(255, 255, 255, 0.5), transparent);
+    background-size: 100% 100%;
+    animation: universeTwinkle 8s ease-in-out infinite;
+}
+
+.universe-nebula {
+    background: transparent;
+    animation: universeNebulaFloat 20s ease-in-out infinite;
+}
+
+.universe-planets {
+    background: 
+        radial-gradient(circle 80px at 85% 20%, rgba(147, 51, 234, 0.2) 0%, transparent 70%),
+        radial-gradient(circle 60px at 15% 85%, rgba(220, 38, 255, 0.15) 0%, transparent 70%);
+    animation: universePlanetsOrbit 30s linear infinite;
+}
+
+/* Content Styling */
+.universe-content {
+    text-align: center;
+    position: relative;
+    z-index: 3;
+}
+
+.universe-title {
+    font-family: 'General Sans', sans-serif;
+    font-size: 72px;
+    font-weight: 600;
+    margin: 0 0 40px 0;
+    line-height: 1.2;
+}
+
+.universe-text-line {
+    display: block;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(220, 180, 255, 0.95) 50%,
+        rgba(255, 255, 255, 1) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.universe-highlight {
+    background: linear-gradient(
+        135deg,
+        rgba(220, 38, 255, 1) 0%,
+        rgba(147, 51, 234, 1) 50%,
+        rgba(220, 38, 255, 1) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.universe-description {
+    font-family: 'General Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Floating Elements */
+.universe-floating-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.floating-star {
+    position: absolute;
+    font-size: 32px;
+    color: rgba(220, 38, 255, 0.6);
+    text-shadow: 0 0 20px rgba(220, 38, 255, 0.8);
+    animation: floatingStar 6s ease-in-out infinite;
+}
+
+.floating-1 {
+    top: 15%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.floating-2 {
+    top: 25%;
+    right: 15%;
+    animation-delay: 1s;
+}
+
+.floating-3 {
+    bottom: 30%;
+    left: 12%;
+    animation-delay: 2s;
+}
+
+.floating-4 {
+    bottom: 20%;
+    right: 18%;
+    animation-delay: 3s;
+}
+
+.floating-5 {
+    top: 50%;
+    left: 5%;
+    animation-delay: 1.5s;
+}
+
+.floating-6 {
+    top: 60%;
+    right: 8%;
+    animation-delay: 2.5s;
+}
+
+/* Animations */
+@keyframes universeTwinkle {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes universeNebulaFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-20px) scale(1.05);
+        opacity: 0.8;
+    }
+}
+
+@keyframes universePlanetsOrbit {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes floatingStar {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateY(-20px) scale(1.2);
+        opacity: 1;
+    }
+}
+
+/* Scroll Animation */
+.scroll-animate {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.scroll-animate.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-animate[data-delay="100"] {
+    transition-delay: 0.1s;
+}
+
+.scroll-animate[data-delay="200"] {
+    transition-delay: 0.2s;
+}
+
+.scroll-animate[data-delay="300"] {
+    transition-delay: 0.3s;
+}
+
+/* Responsive Design for Universe Section */
+@media (max-width: 1024px) {
+    .universe-section {
+        padding: 80px 30px;
+    }
+
+    .universe-title {
+        font-size: 56px;
+    }
+
+    .universe-description {
+        font-size: 20px;
+        max-width: 700px;
+    }
+
+    .floating-star {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .universe-section {
+        padding: 60px 20px;
+    }
+
+    .universe-title {
+        font-size: 42px;
+    }
+
+    .universe-description {
+        font-size: 18px;
+        max-width: 500px;
+    }
+
+    .floating-star {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .universe-section {
+        padding: 50px 15px;
+    }
+
+    .universe-title {
+        font-size: 32px;
+    }
+
+    .universe-description {
+        font-size: 16px;
+        max-width: 100%;
+    }
+
+    .floating-star {
+        font-size: 16px;
+    }
+}
+
+/* ========================================
+   DETAIL SECTION STYLES (Section 3 - Figma Design)
+   ======================================== */
+
+.detail-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: #000000;
+    padding: 100px 72.5px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Background Overlay */
+.detail-bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.detail-bg-overlay img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+}
+
+/* Grid Layout */
+.detail-grid {
+    position: relative;
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    z-index: 2;
+}
+
+/* Left Column - Content */
+.detail-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-right: 20px;
+}
+
+/* Logo */
+.detail-logo-top {
+    width: 100%;
+    max-width: 1000px;
+    margin-bottom: 32px;
+}
+
+.detail-logo-top img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Main Heading */
+.detail-heading {
+    font-family: 'General Sans', sans-serif;
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 0 0 24px 0;
+}
+
+.heading-line {
+    display: block;
+    background: linear-gradient(
+        177deg,
+        rgb(255, 255, 255) 32%,
+        rgba(255, 255, 255, 0.78) 71%,
+        rgba(255, 255, 255, 0.2) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Description */
+.detail-description {
+    font-family: 'General Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 1);
+    margin-bottom: 32px;
+}
+
+.detail-description p {
+    margin: 0 0 16px 0;
+}
+
+.detail-description p:last-child {
+    margin-bottom: 0;
+}
+
+/* CTA Button */
+.detail-cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    font-family: 'General Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+    background: linear-gradient(
+        17.42deg,
+        rgb(255, 122, 251) 0%,
+        rgb(124, 43, 254) 100%
+    );
+    border-radius: 200px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: fit-content;
+}
+
+.detail-cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 122, 251, 0.4);
+}
+
+.detail-cta-button:active {
+    transform: translateY(0);
+}
+
+/* Right Column - Visual */
+.detail-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.detail-visual img {
+    width: 100%;
+    max-width: 632px;
+    height: auto;
+    display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .detail-section {
+        padding: 80px 40px;
+    }
+    
+    .detail-grid {
+        gap: 40px;
+    }
+    
+    .detail-heading {
+        font-size: 38px;
+    }
+    
+    .detail-description {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 968px) {
+    .detail-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+    
+    .detail-content {
+        padding-right: 0;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    .detail-visual {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .detail-section {
+        padding: 60px 20px;
+    }
+    
+    .detail-heading {
+        font-size: 30px;
+    }
+    
+    .detail-description {
+        font-size: 18px;
+    }
+    
+    .detail-logo-top {
+        max-width: 800px;
+    }
+}
+
+@media (max-width: 480px) {
+    .detail-heading {
+        font-size: 24px;
+    }
+    
+    .detail-description {
+        font-size: 16px;
+    }
+    
+    .detail-logo-top {
+        max-width: 600px;
+    }
+    
+    .detail-cta-button {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}
+
+/* ==========================================
+   Menu Section
+   ========================================== */
+
+.menu-section {
+    background: #000000;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animated Evening Sky Background */
+.menu-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -10%;
+    right: -10%;
+    bottom: -50%;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(30, 60, 114, 0.4) 0%,
+        rgba(42, 82, 152, 0.35) 15%,
+        rgba(58, 123, 213, 0.3) 30%,
+        rgba(72, 149, 239, 0.25) 45%,
+        rgba(30, 60, 100, 0.15) 60%,
+        rgba(20, 30, 60, 0.08) 75%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    opacity: 0;
+    transform: scale(0.8) translateY(100px);
+    transition: all 3s cubic-bezier(0.19, 1, 0.22, 1);
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(60px);
+}
+
+.menu-section.visible::before {
+    opacity: 1;
+    transform: scale(1.2) translateY(0);
+    background: radial-gradient(
+        ellipse at center,
+        rgba(255, 120, 50, 0.5) 0%,
+        rgba(255, 94, 77, 0.4) 15%,
+        rgba(255, 133, 82, 0.35) 30%,
+        rgba(230, 126, 128, 0.25) 45%,
+        rgba(180, 100, 150, 0.18) 60%,
+        rgba(100, 60, 100, 0.1) 75%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
+
+/* Animated Gradient Overlay */
+.menu-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(42, 82, 152, 0.15) 0%,
+        rgba(72, 149, 239, 0.12) 50%,
+        rgba(58, 123, 213, 0.1) 100%
+    );
+    opacity: 0;
+    transform: rotate(0deg) scale(1);
+    transition: all 3.5s cubic-bezier(0.19, 1, 0.22, 1);
+    pointer-events: none;
+    z-index: 0;
+    animation: skyRotate 20s ease-in-out infinite;
+    animation-play-state: paused;
+}
+
+.menu-section.visible::after {
+    opacity: 0.7;
+    transform: rotate(180deg) scale(1.1);
+    background: linear-gradient(
+        135deg,
+        rgba(255, 120, 50, 0.2) 0%,
+        rgba(255, 94, 77, 0.15) 50%,
+        rgba(230, 126, 128, 0.18) 100%
+    );
+    animation-play-state: running;
+}
+
+/* Sky Rotation Animation */
+@keyframes skyRotate {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Floating Stars Layer */
+.menu-section .menu-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255, 255, 255, 0.6) 1.5px, transparent 1.5px),
+        radial-gradient(circle, rgba(255, 255, 255, 0.9) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255, 255, 255, 0.7) 2px, transparent 2px);
+    background-size: 
+        250px 250px,
+        350px 350px,
+        200px 200px,
+        300px 300px;
+    background-position: 
+        0 0,
+        40px 60px,
+        130px 270px,
+        70px 100px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 3s cubic-bezier(0.19, 1, 0.22, 1) 0.8s;
+    pointer-events: none;
+    z-index: 1;
+    animation: floatingStars 40s ease-in-out infinite;
+    animation-play-state: paused;
+}
+
+.menu-section.visible .menu-stars {
+    opacity: 0.6;
+    transform: translateY(0);
+    animation-play-state: running;
+}
+
+@keyframes floatingStars {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+    25% {
+        transform: translateY(-10px) translateX(5px);
+    }
+    50% {
+        transform: translateY(-20px) translateX(10px);
+    }
+    75% {
+        transform: translateY(-10px) translateX(5px);
+    }
+    100% {
+        transform: translateY(0) translateX(0);
+    }
+}
+
+/* Animated Clouds */
+.menu-section .menu-clouds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: all 3.5s cubic-bezier(0.19, 1, 0.22, 1) 1.2s;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.menu-section.visible .menu-clouds {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.menu-section .menu-clouds::before,
+.menu-section .menu-clouds::after {
+    content: '';
+    position: absolute;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(200, 150, 200, 0.08) 50%,
+        transparent 100%
+    );
+    border-radius: 50%;
+    filter: blur(40px);
+    animation: floatClouds 18s ease-in-out infinite;
+}
+
+.menu-section .menu-clouds::before {
+    width: 400px;
+    height: 200px;
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.menu-section .menu-clouds::after {
+    width: 350px;
+    height: 180px;
+    top: 60%;
+    right: 15%;
+    animation-delay: 4s;
+}
+
+@keyframes floatClouds {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.2;
+    }
+    25% {
+        transform: translateY(-15px) translateX(10px);
+        opacity: 0.4;
+    }
+    50% {
+        transform: translateY(-30px) translateX(20px);
+        opacity: 0.6;
+    }
+    75% {
+        transform: translateY(-15px) translateX(10px);
+        opacity: 0.4;
+    }
+}
+
+.menu-container {
+    max-width: 1188px;
+    width: 100%;
+    height: 535px;
+    display: flex;
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Left Card - 12 Zodiac Signs */
+.menu-card-left {
+    flex: 0 0 387px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 41px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    animation: menuFloatLeft 6s ease-in-out infinite;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+}
+
+.menu-card-left a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-card-left img {
+    width: 448px;
+    height: 359px;
+    object-fit: cover;
+}
+
+/* Right Group */
+.menu-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Ascendant Card */
+.menu-card-ascendant {
+    width: 100%;
+    height: 182px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 41px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    animation: menuFloatTop 5s ease-in-out infinite;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+}
+
+.menu-card-ascendant img {
+    width: 771px;
+    height: auto;
+}
+
+/* Bottom Row */
+.menu-bottom-row {
+    display: flex;
+    gap: 14px;
+    height: 337px;
+}
+
+/* Chinese Zodiac Card */
+.menu-card-chinese {
+    flex: 0 0 517px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 41px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    animation: menuFloatChinese 7s ease-in-out infinite;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+}
+
+.menu-card-chinese img {
+    width: 382px;
+    height: auto;
+}
+
+/* Syamsi Card */
+.menu-card-syamsi {
+    flex: 0 0 260px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 41px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    animation: menuFloatSyamsi 5.5s ease-in-out infinite;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+}
+
+.menu-card-syamsi img {
+    width: 202px;
+    height: 80px;
+    object-fit: contain;
+}
+
+/* Menu Card Scroll Animations */
+.menu-card {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    cursor: pointer;
+}
+
+.menu-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.menu-card:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 12px 40px rgba(255, 255, 255, 0.2);
+    filter: brightness(1.1);
+}
+
+/* Stagger animation delays */
+.menu-card[data-delay="0"].visible {
+    transition-delay: 0s;
+}
+
+.menu-card[data-delay="150"].visible {
+    transition-delay: 0.15s;
+}
+
+.menu-card[data-delay="300"].visible {
+    transition-delay: 0.3s;
+}
+
+.menu-card[data-delay="450"].visible {
+    transition-delay: 0.45s;
+}
+
+/* Menu Card Floating Animations */
+@keyframes menuFloatLeft {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes menuFloatTop {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+@keyframes menuFloatChinese {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes menuFloatSyamsi {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-18px);
+    }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .menu-container {
+        flex-direction: column;
+        height: auto;
+        gap: 20px;
+    }
+
+    .menu-card-left {
+        flex: none;
+        width: 100%;
+        height: 400px;
+    }
+
+    .menu-right {
+        width: 100%;
+    }
+
+    .menu-bottom-row {
+        flex-direction: column;
+        height: auto;
+        gap: 20px;
+    }
+
+    .menu-card-chinese,
+    .menu-card-syamsi {
+        flex: none;
+        width: 100%;
+        height: 300px;
+    }
+}
+
+/* ===================================
+   12 ZODIAC PAGE STYLES
+   Based on Figma Design (Node: 94-206)
+   =================================== */
+

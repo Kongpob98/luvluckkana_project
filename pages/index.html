@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luckkana Star - AI-Powered Astrology</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=General+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar Component -->
+    <nav id="navbar"></nav>
+
+    <!-- Cursor Trail -->
+    <div class="cursor-trail-container"></div>
+
+    <!-- Main Content -->
+    <main id="home" class="home-container">
+        <!-- Starfield Background -->
+        <div class="starfield"></div>
+
+        <!-- Shooting Stars -->
+        <div class="shooting-stars">
+            <div class="shooting-star"></div>
+            <div class="shooting-star"></div>
+            <div class="shooting-star"></div>
+            <div class="shooting-star"></div>
+            <div class="shooting-star"></div>
+        </div>
+
+       
+      
+
+        <!-- Star Group - Rotating Around Circle -->
+        <div class="star-container">
+            <div class="star-orbit orbit-1">
+                <div class="star-wrapper">
+                    <img src="../assets/images/star1.png" alt="" class="star">
+                </div>
+            </div>
+            <div class="star-orbit orbit-2">
+                <div class="star-wrapper">
+                    <img src="../assets/images/star2.png" alt="" class="star">
+                </div>
+            </div>
+            <div class="star-orbit orbit-3">
+                <div class="star-wrapper">
+                    <img src="../assets/images/star2.png" alt="" class="star">
+                </div>
+            </div>
+            <div class="star-orbit orbit-4">
+                <div class="star-wrapper">
+                    <img src="../assets/images/star2.png" alt="" class="star">
+                </div>
+            </div>
+            <div class="star-orbit orbit-5">
+                <div class="star-wrapper">
+                    <img src="../assets/images/star1.png" alt="" class="star">
+                </div>
+            </div>
+        </div>
+
+        <!-- Logo -->
+        <div class="logo-container">
+            <img src="../assets/images/Logo2.svg.svg" alt="Luckkana Star Logo" class="logo">
+        </div>
+
+        <!-- CTA Button -->
+        <div class="cta-container">
+            <a href="chatbot.html" class="cta-button">
+                <i class="fas fa-star"></i> CHAT WITH STAR
+            </a>
+        </div>
+
+        <!-- Hands with Parallax -->
+        <div class="hands-container">
+            <img src="../assets/images/hand-left.png" alt="Left Hand" class="hand hand-left" data-parallax="1.2">
+            <img src="../assets/images/hand-right.png" alt="Right Hand" class="hand hand-right" data-parallax="1.2">
+        </div>
+
+        <!-- Footer Component -->
+        <footer id="footer"></footer>
+    </main>
+
+    <!-- Universe Section -->
+    <section id="universe" class="universe-section">
+        <div class="universe-container">
+            <!-- Background Layers with Parallax -->
+            <div class="universe-layer universe-stars" data-speed="0.2"></div>
+            <div class="universe-layer universe-nebula" data-speed="0.4"></div>
+            <div class="universe-layer universe-planets" data-speed="0.6"></div>
+            
+            <!-- Content -->
+            <div class="universe-content">
+                <h2 class="universe-title scroll-animate">
+                    <span class="universe-text-line">Luckkana Star</span>
+                    <span class="universe-text-line universe-highlight">คืออะไร?</span>
+                </h2>
+                <p class="universe-description scroll-animate" data-delay="100">
+                    มาร่วมเปิดโลกโหราศาสตร์และทำความเข้าใจตัวตนที่แท้จริงผ่านลัคนาราศีและ AI ไปพร้อมๆ กันเถอะ
+                </p>
+            </div>
+
+            <!-- Floating Elements -->
+            <div class="universe-floating-elements">
+                <div class="floating-star floating-1" data-speed="0.3">✦</div>
+                <div class="floating-star floating-2" data-speed="0.5">✧</div>
+                <div class="floating-star floating-3" data-speed="0.4">✦</div>
+                <div class="floating-star floating-4" data-speed="0.6">✧</div>
+                <div class="floating-star floating-5" data-speed="0.35">✦</div>
+                <div class="floating-star floating-6" data-speed="0.55">✧</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detail Section (Section 3) - AI Chat Visual Board -->
+    <section id="detail" class="detail-section">
+        <!-- Background Overlay -->
+        <div class="detail-bg-overlay">
+            <img src="../assets/images/section3-bg-overlay.png" alt="" aria-hidden="true">
+        </div>
+        
+        <div class="detail-grid">
+            <!-- Left Column: Text Content -->
+            <div class="detail-content scroll-animate">
+                <!-- Logo -->
+                <div class="detail-logo-top">
+                    <img src="../assets/images/Logo 300.png" alt="Luckkana Star">
+                </div>
+                
+                <!-- Main Heading -->
+                <h2 class="detail-heading">
+                    <span class="heading-line">AI Chat with Anything—</span>
+                    <span class="heading-line">On Your AI Visual Board</span>
+                </h2>
+                
+                <!-- Description -->
+                <div class="detail-description">
+                    <p>"เราสร้าง AI Chatbot นี้ขึ้นมา ไม่ใช่เพียงเพื่อทำนายอนาคต แต่เพื่อคำนวณหา 'ลัคนา' (Ascendant / Rising Sign) ด้วยความแม่นยำทางคณิตศาสตร์ ซึ่งเหนือชั้นกว่าการดูดวงราศีแบบทั่วไป</p>
+                    <p>ภารกิจของเราคือการสร้าง 'เพื่อนคู่คิดดิจิทัล' (Digital Companion) ที่คอยให้คำแนะนำโดยอ้างอิงจากข้อมูลทางโหราศาสตร์ที่ผ่านการวิจัยและรวบรวมมาอย่างละเอียดตลอดปีการศึกษานี้.</p>
+                </div>
+                
+                <!-- CTA Button -->
+                <a href="chatbot.html" class="detail-cta-button">
+                    Start Now
+                </a>
+            </div>
+            
+            <!-- Right Column: 3D Visualization -->
+            <div class="detail-visual scroll-animate" data-delay="200">
+                <img src="../assets/images/section3-3d-visual.png" alt="AI Visual Board 3D Visualization">
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+        <div class="menu-stars"></div>
+        <div class="menu-clouds"></div>
+        <div class="menu-container">
+            <!-- Left Card: 12 Zodiac Signs -->
+            <div class="menu-card menu-card-left scroll-animate" data-delay="0">
+                <a href="12zodiac.html">
+                    <img src="../assets/images/12zo.png" alt="12 Zodiac Signs">
+                </a>
+            </div>
+
+            <!-- Right Group -->
+            <div class="menu-right">
+                <!-- Top Card: Ascendant -->
+                <div class="menu-card menu-card-ascendant scroll-animate" data-delay="150">
+                    <img src="../assets/images/ascendant.png" alt="Ascendant">
+                </div>
+
+                <!-- Bottom Row -->
+                <div class="menu-bottom-row">
+                    <!-- Chinese Zodiac -->
+                    <div class="menu-card menu-card-chinese scroll-animate" data-delay="300">
+                        <img src="../assets/images/chinese-zodiac.png" alt="Chinese Zodiac">
+                    </div>
+
+                    <!-- Syamsi -->
+                    <div class="menu-card menu-card-syamsi scroll-animate" data-delay="450">
+                        <img src="../assets/images/syamsi.png" alt="Syamsi">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="../js/cursor-trail.js"></script>
+    <script src="../js/scroll-animations.js"></script>
+    <script src="../js/universe-animations.js"></script>
+    <script src="../js/components/navbar.js"></script>
+    <script src="../js/components/footer.js"></script>
+    <script src="../js/animations.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // Scroll Animation for Detail Section
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.dataset.delay || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('animate-in');
+                    }, delay);
+                } else {
+                    // Remove class when scrolling away to allow re-animation
+                    entry.target.classList.remove('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Detail Section Parallax Effect
+        const detailSection = document.querySelector('.detail-section');
+        const detailLeft = document.querySelector('.detail-left');
+        const detailPhone = document.querySelector('.detail-phone');
+        const detailLogo = document.querySelector('.detail-logo');
+        const detailTextBlocks = document.querySelectorAll('.detail-text-top, .detail-middle, .detail-text-bottom');
+
+        if (detailSection) {
+            let ticking = false;
+            
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const scrolled = window.pageYOffset;
+                        const sectionTop = detailSection.offsetTop;
+                        const sectionHeight = detailSection.offsetHeight;
+                        const windowHeight = window.innerHeight;
+
+                        // Only apply parallax when section is in view
+                        if (scrolled + windowHeight > sectionTop && scrolled < sectionTop + sectionHeight) {
+                            const offset = scrolled - sectionTop + windowHeight;
+
+                            // Parallax for phone (smooth, consistent speed)
+                            if (detailPhone) {
+                                const phoneMove = -(offset * 0.1);
+                                detailPhone.style.transform = `translateY(${phoneMove}px)`;
+                            }
+
+                            // Parallax for logo (different speed, smooth)
+                            if (detailLogo) {
+                                const logoMove = -(offset * 0.15);
+                                detailLogo.style.transform = `translateY(${logoMove}px)`;
+                            }
+
+                            // Parallax for text blocks (layered speeds)
+                            detailTextBlocks.forEach((block, index) => {
+                                const speed = 0.05 + (index * 0.03);
+                                const textMove = -(offset * speed);
+                                block.style.transform = `translateY(${textMove}px)`;
+                            });
+                        }
+                        
+                        ticking = false;
+                    });
+                    
+                    ticking = true;
+                }
+            });
+        }
+
+        // Universe Parallax Effect
+        const universeSection = document.querySelector('.universe-section');
+        const universeLayers = document.querySelectorAll('.universe-layer');
+        const floatingStars = document.querySelectorAll('.floating-star');
+
+        if (universeSection) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const sectionTop = universeSection.offsetTop;
+                const sectionHeight = universeSection.offsetHeight;
+                const windowHeight = window.innerHeight;
+
+                // Only apply parallax when section is in view
+                if (scrolled + windowHeight > sectionTop && scrolled < sectionTop + sectionHeight) {
+                    const offset = scrolled - sectionTop + windowHeight;
+
+                    // Parallax for background layers
+                    universeLayers.forEach(layer => {
+                        const speed = layer.dataset.speed || 0.5;
+                        const yPos = -(offset * speed);
+                        layer.style.transform = `translateY(${yPos}px)`;
+                    });
+
+                    // Parallax for floating stars
+                    floatingStars.forEach(star => {
+                        const speed = star.dataset.speed || 0.3;
+                        const yPos = -(offset * speed * 0.5);
+                        star.style.transform = `translateY(${yPos}px)`;
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
