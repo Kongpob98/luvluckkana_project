@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syamsi - Luckkana Star</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/simsy.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=General+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar Component -->
+    <nav id="navbar"></nav>
+
+    <!-- Cursor Trail -->
+    <div class="cursor-trail-container"></div>
+
+    <!-- Main Content -->
+    <main class="simsy-page-container">
+        <!-- Section 1: Hero Section with Syamsi Title -->
+        <section class="simsy-hero-section">
+            <!-- Background Frame Layer -->
+            <div class="simsy-frame-bg"></div>
+
+            <!-- Syamsi Title -->
+            <div class="simsy-hero-content">
+                <h1 class="simsy-title">Syamsi</h1>
+            </div>
+        </section>
+
+        <!-- Section 2: Wish Section with Star and Garland -->
+        <section class="simsy-wish-section">
+            <!-- Video Background -->
+            <video autoplay loop muted playsinline class="simsy-video-background">
+                <source src="../assets/images/simsy/กิ้งก้านใบ.mp4" type="video/mp4">
+            </video>
+
+            <!-- Central Star Shape -->
+            <div class="simsy-star-shape">
+                <img src="../assets/images/simsy/shape-star.svg" alt="Star Shape" class="simsy-star-image">
+                <!-- Scattered Stars -->
+                <div class="sparkle sparkle-1">✦</div>
+                <div class="sparkle sparkle-2">✧</div>
+                <div class="sparkle sparkle-3">✦</div>
+                <div class="sparkle sparkle-4">✧</div>
+                <div class="sparkle sparkle-5">✦</div>
+                <div class="sparkle sparkle-6">✧</div>
+                <div class="sparkle sparkle-7">✦</div>
+                <div class="sparkle sparkle-8">✧</div>
+            </div>
+
+            <!-- Start Your Wish Button -->
+            <div class="simsy-wish-button-wrapper">
+                <button class="simsy-wish-button">
+                    start you wish
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Component -->
+    <footer id="footer"></footer>
+
+    <!-- Scripts -->
+    <script src="../js/components/navbar.js"></script>
+    <script src="../js/components/footer.js"></script>
+    <script src="../js/cursor-trail.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // Navigate to result page when clicking "start you wish" button
+        document.addEventListener('DOMContentLoaded', function() {
+            const wishButton = document.querySelector('.simsy-wish-button');
+            if (wishButton) {
+                wishButton.addEventListener('click', function() {
+                    // Generate random result number (1-10)
+                    const resultNumber = Math.floor(Math.random() * 10) + 1;
+                    // Save to sessionStorage
+                    sessionStorage.setItem('simsyResult', resultNumber);
+                    // Navigate to result page
+                    window.location.href = 'simsy-result.html';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

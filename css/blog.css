@@ -1,0 +1,531 @@
+/* ========================================
+   Blog Page Styles - From Figma Design
+   ======================================== */
+
+/* Design Tokens from Figma */
+:root {
+    /* Colors */
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-purple-dark: #4a1384;
+    --color-purple-bright: #5f57e7;
+    --color-pink-bright: #e341ff;
+    --color-pink-light: #fa8bbf;
+    --color-pink-rose: #ce699a;
+    
+    /* Spacing */
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 32px;
+    --spacing-xl: 48px;
+    --spacing-2xl: 64px;
+    
+    /* Border Radius */
+    --radius-sm: 16px;
+    --radius-md: 34px;
+    --radius-lg: 88px;
+    
+    /* Typography */
+    --font-sans: 'General Sans', sans-serif;
+    --font-poppins: 'Poppins', sans-serif;
+    --font-thai: 'DB Helvethaica X', sans-serif;
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* ========================================
+   Base Styles
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+body {
+    font-family: var(--font-thai), var(--font-sans), sans-serif;
+    background-color: #000000;
+    color: var(--color-white);
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    max-width: 100vw;
+}
+
+/* ========================================
+   Starfield Background - ใช้จาก common.css
+   ======================================== */
+
+/* Starfield will be loaded from common.css */
+
+/* ========================================
+   Blog Container
+   ======================================== */
+
+.blog-container {
+    position: relative;
+    min-height: 100vh;
+    padding: 120px var(--spacing-md) var(--spacing-2xl);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+.blog-content {
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: var(--spacing-xl) 0;
+    overflow-x: hidden;
+}
+
+/* ========================================
+   Blog Header
+   ======================================== */
+
+.blog-header {
+    text-align: left;
+    margin-bottom: var(--spacing-2xl);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-xl);
+    flex-wrap: wrap;
+}
+
+.blog-title {
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: var(--spacing-sm);
+}
+
+.title-main {
+    font-family: var(--font-poppins);
+    font-weight: 600;
+    color: var(--color-white);
+    margin-right: 16px;
+}
+
+.title-highlight {
+    font-family: var(--font-thai);
+    font-weight: 400;
+    background: linear-gradient(180deg, var(--color-pink-light) 0%, #ff7dba 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.blog-intro {
+    max-width: 340px;
+    text-align: left;
+}
+
+.blog-intro p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-white);
+    opacity: 0.9;
+}
+
+/* ========================================
+   Button - Start Wish
+   ======================================== */
+
+.btn-start-wish {
+    display: inline-block;
+    padding: 12px 32px;
+    font-family: var(--font-poppins);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--color-white);
+    background: linear-gradient(90deg, #fc45ff 0%, #343081 100%);
+    border: 1.4px solid var(--color-purple-bright);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-start-wish::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, transparent 70%);
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.btn-start-wish:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(95, 87, 231, 0.5);
+}
+
+.btn-start-wish:active {
+    transform: translateY(0);
+}
+
+/* ========================================
+   Cards Grid
+   ======================================== */
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+    align-items: stretch;
+    justify-content: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-sm);
+    width: 100%;
+}
+
+@media (min-width: 1024px) {
+    .cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-lg);
+    }
+}
+
+/* ========================================
+   Blog Cards - Base Styles
+   ======================================== */
+
+.blog-card {
+    position: relative;
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    overflow: visible;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    height: 100%;
+    min-height: 420px;
+    padding: var(--spacing-md) var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Card Hover Effect - Scale Up + Shadow + Text Grow */
+.blog-card:hover {
+    transform: scale(1.05);
+    box-shadow: 
+        0 25px 70px rgba(255, 255, 255, 0.2),
+        0 0 60px rgba(227, 65, 255, 0.5),
+        inset 0 0 50px rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.7);
+    z-index: 10;
+}
+
+@media (min-width: 1024px) {
+    .blog-card:hover {
+        transform: scale(1.1);
+    }
+}
+
+.blog-card:hover .card-gradient {
+    opacity: 1;
+    filter: blur(30px);
+    transform: scale(1.1);
+}
+
+.blog-card:hover .card-title {
+    transform: scale(1.1);
+    letter-spacing: 0.02em;
+}
+
+.blog-card:hover .card-description {
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+@media (min-width: 1024px) {
+    .blog-card {
+        min-height: 450px;
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+}
+
+/* ========================================
+   Card Backgrounds
+   ======================================== */
+
+.card-background {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 160px;
+    border-radius: 40px;
+    z-index: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Gradient Overlays */
+.card-gradient {
+    width: 100%;
+    height: 100%;
+    border-radius: 40px;
+    filter: blur(20px);
+    transition: opacity var(--transition-smooth);
+}
+
+/* Purple Background (Card 01) */
+.card-bg-purple .card-gradient {
+    background: linear-gradient(180deg, var(--color-purple-dark) 0%, var(--color-black) 100%);
+    opacity: 0.8;
+}
+
+/* Pink Background (Card 02) */
+.card-bg-pink .card-gradient {
+    background: linear-gradient(180deg, var(--color-pink-bright) 0%, var(--color-black) 100%);
+    opacity: 0.8;
+}
+
+/* Rose Background (Card 03) */
+.card-bg-rose .card-gradient {
+    background: linear-gradient(180deg, var(--color-pink-rose) 0%, var(--color-black) 100%);
+    opacity: 0.8;
+}
+
+/* ========================================
+   Card Content
+   ======================================== */
+
+.card-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    padding-bottom: var(--spacing-lg);
+}
+
+/* Card Info */
+.card-info {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    width: 100%;
+}
+
+.card-title {
+    font-family: var(--font-thai);
+    font-size: clamp(32px, 5vw, 40px);
+    font-weight: 400;
+    color: var(--color-white);
+    line-height: 1.3;
+    transition: all 0.3s ease;
+    margin-bottom: var(--spacing-xs);
+    text-align: center;
+    width: 100%;
+}
+
+.card-description {
+    font-family: var(--font-thai);
+    font-size: clamp(15px, 2vw, 17px);
+    font-weight: 400;
+    color: var(--color-white);
+    line-height: 1.6;
+    opacity: 0.85;
+    transition: all 0.3s ease;
+    text-align: center;
+    width: 100%;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 1024px) {
+    .blog-container {
+        padding: 100px var(--spacing-md) var(--spacing-xl);
+    }
+    
+    .blog-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .blog-intro {
+        text-align: center;
+        max-width: 100%;
+    }
+    
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+        padding: 0 var(--spacing-xs);
+    }
+    
+    .blog-card {
+        min-height: 400px;
+    }
+    
+    .blog-card:hover {
+        transform: scale(1.02);
+    }
+}
+
+@media (max-width: 768px) {
+    .blog-container {
+        padding: 90px var(--spacing-sm) var(--spacing-lg);
+    }
+    
+    .blog-title {
+        font-size: 48px;
+    }
+    
+    .card-title {
+        font-size: 28px;
+    }
+    
+    .card-description {
+        font-size: 15px;
+    }
+    
+    .blog-card {
+        min-height: 380px;
+    }
+    
+    .blog-card:hover {
+        transform: scale(1.02);
+    }
+    
+    .cards-grid {
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-container {
+        padding: 80px 12px var(--spacing-md);
+    }
+    
+    .blog-title {
+        font-size: 36px;
+    }
+    
+    .btn-start-wish {
+        font-size: 18px;
+        padding: 10px 24px;
+    }
+    
+    .blog-card {
+        min-height: 350px;
+        padding: var(--spacing-sm);
+    }
+    
+    .card-title {
+        font-size: 24px;
+    }
+    
+    .card-description {
+        font-size: 14px;
+    }
+    
+    .blog-card:hover {
+        transform: scale(1.01);
+    }
+}
+
+/* ========================================
+   Safe Area for Notched Devices
+   ======================================== */
+
+@supports (padding: max(0px)) {
+    .blog-container {
+        padding-top: max(120px, env(safe-area-inset-top) + 80px);
+        padding-bottom: max(var(--spacing-2xl), env(safe-area-inset-bottom) + 20px);
+        padding-left: max(var(--spacing-md), env(safe-area-inset-left) + 10px);
+        padding-right: max(var(--spacing-md), env(safe-area-inset-right) + 10px);
+    }
+    
+    @media (max-width: 1024px) {
+        .blog-container {
+            padding-top: max(100px, env(safe-area-inset-top) + 60px);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .blog-container {
+            padding-top: max(90px, env(safe-area-inset-top) + 50px);
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .blog-container {
+            padding-top: max(80px, env(safe-area-inset-top) + 40px);
+        }
+    }
+}
+
+/* ========================================
+   Touch Device Optimizations
+   ======================================== */
+
+@media (hover: none) and (pointer: coarse) {
+    .blog-card:hover {
+        transform: none;
+    }
+    
+    .blog-card:active {
+        transform: scale(0.98);
+        opacity: 0.9;
+    }
+    
+    .btn-start-wish:hover {
+        transform: none;
+    }
+    
+    .btn-start-wish:active {
+        transform: scale(0.95);
+    }
+}
+
+/* ========================================
+   Cursor Trail
+   ======================================== */
+
+.cursor-trail-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}

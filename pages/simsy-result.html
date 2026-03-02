@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ผลลัพฑ์ Syamsi - Luckkana Star</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/simsy-result.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=General+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar Component -->
+    <nav id="navbar"></nav>
+
+    <!-- Cursor Trail -->
+    <div class="cursor-trail-container"></div>
+
+    <!-- Main Content -->
+    <main class="simsy-result-container">
+        <!-- Left Card: Result Number -->
+        <div class="result-card">
+            <!-- Card Frame with decorative elements from Figma -->
+            <div class="card-frame">
+                <!-- Background Layer (Vector41) -->
+                <img src="../assets/images/simsy-result/card-background.svg" alt="Card Background" class="card-bg-layer">
+                
+                <!-- Main Outline (Vector40) -->
+                <img src="../assets/images/simsy-result/card-main-outline.svg" alt="Card Outline" class="card-outline-layer">
+                
+                <!-- Result Number Section (Top) -->
+                <div class="result-number-section">
+                    <!-- Result Number -->
+                    <div class="result-number">10</div>
+                </div>
+                
+                <!-- Decorative Elements Top -->
+                <div class="card-decor-top">
+                    <!-- decor-1 and decor-2 removed -->
+                </div>
+                
+                <!-- Decorative Elements Bottom -->
+                <div class="card-decor-bottom">
+                    <!-- decor-4 and decor-5 removed -->
+                </div>
+                
+                <!-- Glow effect in the center -->
+                <div class="card-glow-container">
+                    <img src="../assets/images/simsy-result/card-glow.svg" alt="Glow" class="card-glow">
+                </div>
+
+                <!-- Star Outline (Vector4) -->
+                <img src="../assets/images/simsy-result/star-outline.svg" alt="Star" class="star-bg-shape">
+            </div>
+        </div>
+
+        <!-- Right Buttons: Share & Restart -->
+        <div class="action-buttons">
+            <!-- Share Button -->
+            <button class="glass-button share-button">
+                <svg class="button-icon" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M43.5 29C43.5 29 36.25 20.3906 29 20.3906C21.75 20.3906 14.5 29 14.5 29M14.5 29L21.75 36.25M14.5 29L21.75 21.75M36.25 29H43.5C43.5 29 43.5 38.9375 43.5 43.5H14.5V29" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>แชร์ลัพธ์เซียมซี</span>
+            </button>
+
+            <!-- Restart Button -->
+            <button class="glass-button restart-button">
+                <svg class="button-icon" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="36" cy="36" r="30" stroke="white" stroke-width="2"/>
+                    <path d="M36 18V12L27 21L36 30V24C42.6274 24 48 29.3726 48 36C48 38.2091 47.4068 40.2787 46.3889 42.0592" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M36 54V60L45 51L36 42V48C29.3726 48 24 42.6274 24 36C24 33.7909 24.5932 31.7213 25.6111 29.9408" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span>เริ่มอธิษฐานใหม่</span>
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer Component -->
+    <footer id="footer"></footer>
+
+    <!-- Scripts -->
+    <script src="../js/components/navbar.js"></script>
+    <script src="../js/components/footer.js"></script>
+    <script src="../js/cursor-trail.js"></script>
+    <script src="../js/main.js"></script>
+    <!-- html2canvas for capturing card -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Display result number from sessionStorage
+            const resultNumber = sessionStorage.getItem('simsyResult') || '10';
+            const resultElement = document.querySelector('.result-number');
+            if (resultElement) {
+                resultElement.textContent = resultNumber;
+            }
+
+            // Restart button - go back to simsy.html
+            const restartButton = document.querySelector('.restart-button');
+            if (restartButton) {
+                restartButton.addEventListener('click', function() {
+                    sessionStorage.removeItem('simsyResult');
+                    window.location.href = 'simsy.html';
+                });
+            }
+
+            // Share button - capture card and share to Instagram Story
+            const shareButton = document.querySelector('.share-button');
+            if (shareButton) {
+                shareButton.addEventListener('click', async function() {
+                    try {
+                        // Show loading state
+                        const originalText = this.querySelector('span').textContent;
+                        this.querySelector('span').textContent = 'กำลังสร้างภาพ...';
+                        this.disabled = true;
+
+                        const cardElement = document.querySelector('.result-card');
+                        const cardFrame = document.querySelector('.card-frame');
+                        
+                        // Enable capture mode - stops all animations and transforms
+                        cardElement.classList.add('capture-mode');
+                        
+                        // Wait for styles to apply
+                        await new Promise(resolve => setTimeout(resolve, 150));
+
+                        // Capture the card-frame directly (contains all visual elements)
+                        const canvas = await html2canvas(cardFrame, {
+                            backgroundColor: 'transparent',
+                            scale: 3, // Very high quality for Instagram
+                            logging: false,
+                            useCORS: true,
+                            allowTaint: false,
+                            imageTimeout: 0,
+                            removeContainer: true
+                        });
+                        
+                        // Remove capture mode
+                        cardElement.classList.remove('capture-mode');
+
+                        // Convert canvas to blob
+                        const blob = await new Promise(resolve => {
+                            canvas.toBlob(resolve, 'image/png', 1.0);
+                        });
+
+                        // Create file from blob
+                        const fileName = `simsy-result-${resultNumber}.png`;
+                        const file = new File([blob], fileName, { type: 'image/png' });
+
+                        // Restore button state
+                        this.querySelector('span').textContent = originalText;
+                        this.disabled = false;
+
+                        // Try to share using Web Share API (works on mobile)
+                        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                            try {
+                                await navigator.share({
+                                    title: 'ผลลัพฑ์ Syamsi - Luckkana Star',
+                                    text: `ผลลัพฑ์ Syamsi ของฉันคือ ${resultNumber}!`,
+                                    files: [file]
+                                });
+                                console.log('Shared successfully!');
+                            } catch (err) {
+                                if (err.name !== 'AbortError') {
+                                    console.log('Error sharing:', err);
+                                    fallbackDownload(blob, fileName);
+                                }
+                            }
+                        } else {
+                            // Fallback: download the image
+                            fallbackDownload(blob, fileName);
+                        }
+                    } catch (error) {
+                        console.error('Error capturing card:', error);
+                        alert('เกิดข้อผิดพลาดในการสร้างภาพ กรุณาลองอีกครั้ง');
+                        this.querySelector('span').textContent = originalText;
+                        this.disabled = false;
+                    }
+                });
+            }
+
+            // Fallback download function
+            function fallbackDownload(blob, fileName) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                // Show instruction for Instagram
+                setTimeout(() => {
+                    alert('ภาพถูกดาวน์โหลดแล้ว! คุณสามารถอัปโหลดไปยัง Instagram Story ได้');
+                }, 300);
+            }
+        });
+    </script>
+</body>
+</html>

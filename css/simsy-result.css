@@ -1,0 +1,860 @@
+/* ==========================================
+   SIMSY RESULT PAGE STYLES
+   หน้าแสดงผลลัพฑ์ Syamsi
+   ========================================== */
+
+/* ========================================
+   Main Container
+   ======================================== */
+
+.simsy-result-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #000000 0%, #1a0033 50%, #2d1b69 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 120px 40px 40px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* ========================================
+   Result Card (Left Side)
+   ======================================== */
+
+.result-card {
+    position: relative;
+    z-index: 10;
+    margin-right: auto;
+    margin-left: 80px;
+    animation: cardEntrance 1s ease-out;
+}
+
+@keyframes cardEntrance {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px) rotate(-10deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) rotate(0);
+    }
+}
+
+.card-frame {
+    position: relative;
+    width: 456.83px;
+    height: 1011.1px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+}
+
+/* Card Background Layer (Vector41) */
+.card-bg-layer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom center;
+    z-index: 1;
+    opacity: 0.9;
+}
+
+/* Card Main Outline (Vector40) */
+.card-outline-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 2;
+    filter: drop-shadow(0 0 30px rgba(138, 43, 226, 0.8));
+}
+
+/* Decorative Elements Top */
+.card-decor-top {
+    position: absolute;
+    top: 1.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 65%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 3;
+}
+
+/* Decorative Elements Bottom */
+.card-decor-bottom {
+    position: absolute;
+    bottom: 1.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 65%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 3;
+}
+
+.decor-elem {
+    width: auto;
+    height: 50px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(138, 43, 226, 0.6));
+}
+
+/* Star Background Shape */
+.star-bg-shape {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20%;
+    height: auto;
+    z-index: 3;
+    opacity: 0.8;
+    object-fit: contain;
+}
+
+/* Glow Effect in Center */
+.card-glow-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 280px;
+    height: 280px;
+    z-index: 4;
+}
+
+.card-glow {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: blur(30px);
+    opacity: 0.9;
+    animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* Result Number Section (Top of Card) */
+.result-number-section {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 8;
+}
+
+/* Background decoration behind number */
+.decor-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: 180px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(138, 43, 226, 0.8));
+    z-index: 1;
+}
+
+/* Result Number */
+.result-number {
+    position: relative;
+    z-index: 10;
+    font-family: 'General Sans', sans-serif;
+    font-size: 180px;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 
+        0 0 40px rgba(252, 69, 255, 1),
+        0 0 80px rgba(138, 43, 226, 0.8),
+        0 0 120px rgba(95, 87, 231, 0.6);
+}
+
+@keyframes numberFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* ========================================
+   Action Buttons (Right Side)
+   ======================================== */
+
+.action-buttons {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    margin-left: auto;
+    margin-right: 120px;
+    animation: buttonsEntrance 1s ease-out 0.3s backwards;
+    width: auto;
+}
+
+@keyframes buttonsEntrance {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Glass Morphism Button */
+.glass-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px 60px;
+    min-width: 440px;
+    height: 174px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 225px;
+    backdrop-filter: blur(75px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    box-shadow: 
+        inset 29.8px 29.8px 5px -35px rgba(255, 255, 255, 0.5),
+        inset 19.9px 19.9px 10px -20px rgba(179, 179, 179, 0.3),
+        inset -19.9px -19.9px 10px -20px rgba(179, 179, 179, 0.3),
+        inset 0 0 0 10px rgba(153, 153, 153, 0.2),
+        0 0 220px rgba(242, 242, 242, 0.3);
+}
+
+/* Glass button pseudo-element for gradient overlay */
+.glass-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse at 20% 30%,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 70%
+    );
+    pointer-events: none;
+    border-radius: inherit;
+    mix-blend-mode: plus-lighter;
+}
+
+/* Lens blur layers */
+.glass-button::after {
+    content: '';
+    position: absolute;
+    inset: -2px -2.5px -2px -3px;
+    border-radius: 1000px;
+    backdrop-filter: blur(50px);
+    background: rgba(255, 255, 255, 0.01);
+    pointer-events: none;
+    filter: blur(4px);
+}
+
+.glass-button:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 
+        inset 29.8px 29.8px 5px -35px rgba(255, 255, 255, 0.7),
+        inset 19.9px 19.9px 10px -20px rgba(179, 179, 179, 0.5),
+        inset -19.9px -19.9px 10px -20px rgba(179, 179, 179, 0.5),
+        inset 0 0 0 10px rgba(153, 153, 153, 0.4),
+        0 0 280px rgba(242, 242, 242, 0.5),
+        0 20px 60px rgba(138, 43, 226, 0.6);
+}
+
+.glass-button:active {
+    transform: translateY(-2px) scale(0.98);
+}
+
+/* Button Icon */
+.button-icon {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
+}
+
+.restart-button .button-icon {
+    width: 72px;
+    height: 72px;
+}
+
+/* Button Text */
+.glass-button span {
+    font-family: 'General Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 1440px) {
+    .simsy-result-container {
+        padding: 80px 30px 0;
+    }
+
+    .result-card {
+        margin-left: 60px;
+    }
+
+    .card-frame {
+        width: 400px;
+        height: 885px;
+    }
+
+    .result-number {
+        font-size: 150px;
+    }
+
+    .decor-bg {
+        height: 150px;
+    }
+
+    .decor-elem {
+        height: 42px;
+    }
+
+    .action-buttons {
+        margin-right: 80px;
+        gap: 40px;
+    }
+
+    .glass-button {
+        min-width: 400px;
+        height: 160px;
+        padding: 35px 50px;
+    }
+
+    .glass-button span {
+        font-size: 28px;
+    }
+
+    .button-icon {
+        width: 52px;
+        height: 52px;
+    }
+
+    .restart-button .button-icon {
+        width: 64px;
+        height: 64px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .simsy-result-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 80px 20px 40px;
+        gap: 50px;
+    }
+
+    .result-card {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .card-frame {
+        width: 350px;
+        height: 774px;
+    }
+
+    .result-number {
+        font-size: 120px;
+    }
+
+    .decor-bg {
+        height: 130px;
+    }
+
+    .decor-elem {
+        height: 36px;
+    }
+
+    .action-buttons {
+        margin-left: 0;
+        margin-right: 0;
+        gap: 30px;
+        width: 100%;
+        max-width: 400px;
+        align-items: center;
+    }
+
+    .glass-button {
+        min-width: 350px;
+        width: 100%;
+        max-width: 400px;
+        height: 140px;
+        padding: 30px 40px;
+    }
+
+    .glass-button span {
+        font-size: 24px;
+    }
+
+    .button-icon {
+        width: 45px;
+        height: 45px;
+    }
+
+    .restart-button .button-icon {
+        width: 56px;
+        height: 56px;
+    }
+}
+
+@media (max-width: 768px) {
+    .simsy-result-container {
+        padding: 70px 20px 30px;
+        gap: 40px;
+    }
+
+    .card-frame {
+        width: 300px;
+        height: 663px;
+    }
+
+    .result-number {
+        font-size: 100px;
+    }
+
+    .decor-bg {
+        height: 110px;
+    }
+
+    .card-glow-container {
+        width: 200px;
+        height: 200px;
+    }
+
+    .decor-elem {
+        height: 30px;
+    }
+
+    .action-buttons {
+        gap: 25px;
+        max-width: 350px;
+    }
+
+    .glass-button {
+        min-width: unset;
+        width: 100%;
+        height: 120px;
+        padding: 25px 30px;
+        gap: 15px;
+    }
+
+    .glass-button span {
+        font-size: 20px;
+    }
+
+    .button-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .restart-button .button-icon {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 640px) {
+    .simsy-result-container {
+        padding: 70px 15px 25px;
+        gap: 35px;
+    }
+
+    .card-frame {
+        width: 280px;
+        height: 619px;
+    }
+
+    .result-number {
+        font-size: 90px;
+    }
+
+    .decor-bg {
+        height: 100px;
+    }
+
+    .card-glow-container {
+        width: 180px;
+        height: 180px;
+    }
+
+    .decor-elem {
+        height: 28px;
+    }
+
+    .action-buttons {
+        gap: 20px;
+        max-width: 320px;
+    }
+
+    .glass-button {
+        min-width: unset;
+        width: 100%;
+        height: 110px;
+        padding: 20px 25px;
+        gap: 12px;
+        border-radius: 150px;
+    }
+
+    .glass-button span {
+        font-size: 18px;
+    }
+
+    .button-icon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .restart-button .button-icon {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+@media (max-width: 480px) {
+    .simsy-result-container {
+        padding: 65px 12px 20px;
+        gap: 30px;
+    }
+
+    .card-frame {
+        width: 240px;
+        height: 531px;
+    }
+
+    .result-number {
+        font-size: 75px;
+    }
+
+    .decor-bg {
+        height: 85px;
+    }
+
+    .card-glow-container {
+        width: 160px;
+        height: 160px;
+    }
+
+    .decor-elem {
+        height: 24px;
+    }
+
+    .action-buttons {
+        gap: 18px;
+        max-width: 280px;
+    }
+
+    .glass-button {
+        height: 100px;
+        padding: 18px 22px;
+        gap: 10px;
+        border-radius: 120px;
+    }
+
+    .glass-button span {
+        font-size: 16px;
+    }
+
+    .button-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .restart-button .button-icon {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+@media (max-width: 375px) {
+    .simsy-result-container {
+        padding: 60px 10px 20px;
+        gap: 25px;
+    }
+
+    .card-frame {
+        width: 220px;
+        height: 487px;
+    }
+
+    .result-number {
+        font-size: 65px;
+    }
+
+    .decor-bg {
+        height: 75px;
+    }
+
+    .card-glow-container {
+        width: 140px;
+        height: 140px;
+    }
+
+    .decor-elem {
+        height: 20px;
+    }
+
+    .action-buttons {
+        gap: 15px;
+        max-width: 260px;
+    }
+
+    .glass-button {
+        height: 90px;
+        padding: 15px 20px;
+        gap: 8px;
+        border-radius: 100px;
+    }
+
+    .glass-button span {
+        font-size: 15px;
+    }
+
+    .button-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .restart-button .button-icon {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 360px) {
+    .simsy-result-container {
+        padding: 60px 8px 18px;
+    }
+
+    .card-frame {
+        width: 200px;
+        height: 442px;
+    }
+
+    .result-number {
+        font-size: 60px;
+    }
+
+    .decor-bg {
+        height: 70px;
+    }
+
+    .card-glow-container {
+        width: 130px;
+        height: 130px;
+    }
+
+    .action-buttons {
+        max-width: 240px;
+    }
+
+    .glass-button {
+        height: 85px;
+        padding: 14px 18px;
+    }
+
+    .glass-button span {
+        font-size: 14px;
+    }
+}
+
+/* ========================================
+   Capture Mode - for clean screenshots
+   ======================================== */
+
+.result-card.capture-mode {
+    animation: none !important;
+    transform: none !important;
+    margin: 0 !important;
+    width: 457px !important;
+    height: 1012px !important;
+    overflow: visible !important;
+}
+
+.result-card.capture-mode .card-frame {
+    width: 457px !important;
+    height: 1012px !important;
+    overflow: visible !important;
+}
+
+.result-card.capture-mode * {
+    animation: none !important;
+}
+
+/* ========================================
+   Touch Device Optimizations
+   ======================================== */
+
+/* Disable hover effects on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .glass-button:hover {
+        transform: none;
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 
+            inset 29.8px 29.8px 5px -35px rgba(255, 255, 255, 0.5),
+            inset 19.9px 19.9px 10px -20px rgba(179, 179, 179, 0.3),
+            inset -19.9px -19.9px 10px -20px rgba(179, 179, 179, 0.3),
+            inset 0 0 0 10px rgba(153, 153, 153, 0.2),
+            0 0 220px rgba(242, 242, 242, 0.3);
+    }
+    
+    .glass-button:active {
+        transform: scale(0.95);
+        opacity: 0.9;
+    }
+}
+
+/* ========================================
+   Safe Area for Notched Devices (iPhone)
+   ======================================== */
+
+@supports (padding: max(0px)) {
+    .simsy-result-container {
+        padding-top: max(120px, env(safe-area-inset-top) + 80px);
+        padding-bottom: max(40px, env(safe-area-inset-bottom) + 20px);
+        padding-left: max(40px, env(safe-area-inset-left) + 20px);
+        padding-right: max(40px, env(safe-area-inset-right) + 20px);
+    }
+    
+    @media (max-width: 768px) {
+        .simsy-result-container {
+            padding-top: max(70px, env(safe-area-inset-top) + 50px);
+            padding-bottom: max(30px, env(safe-area-inset-bottom) + 15px);
+            padding-left: max(20px, env(safe-area-inset-left) + 10px);
+            padding-right: max(20px, env(safe-area-inset-right) + 10px);
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .simsy-result-container {
+            padding-top: max(65px, env(safe-area-inset-top) + 45px);
+            padding-bottom: max(20px, env(safe-area-inset-bottom) + 10px);
+            padding-left: max(12px, env(safe-area-inset-left) + 8px);
+            padding-right: max(12px, env(safe-area-inset-right) + 8px);
+        }
+    }
+}
+
+/* ========================================
+   Landscape Mode Adjustments
+   ======================================== */
+
+@media (max-height: 600px) and (orientation: landscape) {
+    .simsy-result-container {
+        flex-direction: row;
+        align-items: center;
+        padding: 100px 30px 30px;
+        gap: 40px;
+    }
+    
+    .card-frame {
+        width: 200px;
+        height: 442px;
+    }
+    
+    .result-number {
+        font-size: 60px;
+    }
+    
+    .decor-bg {
+        height: 70px;
+    }
+    
+    .card-glow-container {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .decor-elem {
+        height: 20px;
+    }
+    
+    .action-buttons {
+        gap: 20px;
+        max-width: 300px;
+    }
+    
+    .glass-button {
+        height: 80px;
+        padding: 12px 20px;
+        gap: 8px;
+    }
+    
+    .glass-button span {
+        font-size: 14px;
+    }
+    
+    .button-icon {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .restart-button .button-icon {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+
+@media print {
+    .simsy-result-container {
+        background: white;
+        padding: 20px;
+    }
+    
+    .action-buttons {
+        display: none;
+    }
+    
+    .starfield,
+    .cursor-trail-container,
+    nav,
+    footer {
+        display: none !important;
+    }
+}

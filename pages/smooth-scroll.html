@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luckkana Star - AI-Powered Astrology</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=General+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'General Sans', -apple-system, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Shooting Stars Background */
+        .shooting-stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 10;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 20px 5px rgba(255, 255, 255, 1);
+            animation: shoot linear infinite;
+            opacity: 0;
+        }
+
+        .shooting-star:nth-child(1) {
+            top: 10%;
+            left: 20%;
+            animation-duration: 2s;
+            animation-delay: 0s;
+        }
+
+        .shooting-star:nth-child(2) {
+            top: 30%;
+            left: 60%;
+            animation-duration: 1.8s;
+            animation-delay: 0.5s;
+        }
+
+        .shooting-star:nth-child(3) {
+            top: 50%;
+            left: 10%;
+            animation-duration: 2.2s;
+            animation-delay: 1s;
+        }
+
+        .shooting-star:nth-child(4) {
+            top: 70%;
+            left: 80%;
+            animation-duration: 1.9s;
+            animation-delay: 0.3s;
+        }
+
+        .shooting-star:nth-child(5) {
+            top: 20%;
+            left: 90%;
+            animation-duration: 2.1s;
+            animation-delay: 0.7s;
+        }
+
+        .shooting-star:nth-child(6) {
+            top: 60%;
+            left: 40%;
+            animation-duration: 1.7s;
+            animation-delay: 1.2s;
+        }
+
+        .shooting-star:nth-child(7) {
+            top: 40%;
+            left: 70%;
+            animation-duration: 2s;
+            animation-delay: 0.4s;
+        }
+
+        .shooting-star:nth-child(8) {
+            top: 80%;
+            left: 30%;
+            animation-duration: 1.85s;
+            animation-delay: 0.9s;
+        }
+
+        @keyframes shoot {
+            0% {
+                transform: translate(0, 0) rotate(45deg);
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-300px, 300px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        .shooting-star::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0.5), transparent);
+            transform: translateX(-200px);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 1);
+        }
+
+        /* Starfield Background */
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 9;
+            pointer-events: none;
+            background: 
+                radial-gradient(2px 2px at 20% 30%, white, transparent),
+                radial-gradient(2px 2px at 60% 70%, white, transparent),
+                radial-gradient(1px 1px at 50% 50%, white, transparent),
+                radial-gradient(1px 1px at 15% 80%, white, transparent),
+                radial-gradient(2px 2px at 85% 10%, white, transparent),
+                radial-gradient(1px 1px at 90% 60%, white, transparent),
+                radial-gradient(2px 2px at 10% 40%, white, transparent),
+                radial-gradient(1px 1px at 70% 90%, white, transparent),
+                radial-gradient(2px 2px at 30% 20%, white, transparent),
+                radial-gradient(1px 1px at 80% 40%, white, transparent),
+                radial-gradient(2px 2px at 40% 60%, white, transparent),
+                radial-gradient(1px 1px at 25% 45%, white, transparent),
+                radial-gradient(2px 2px at 75% 25%, white, transparent),
+                radial-gradient(1px 1px at 55% 85%, white, transparent),
+                radial-gradient(2px 2px at 95% 50%, white, transparent);
+            background-size: 300px 300px;
+            background-repeat: repeat;
+            opacity: 0.5;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Smooth Scroll Container */
+        #smooth-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        #smooth-content {
+            position: relative;
+            will-change: transform;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.5);
+            transition: background 0.3s;
+        }
+
+        .nav.scrolled {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.6;
+        }
+
+        /* Hero Section with Image Sequence */
+        .hero-section {
+            position: relative;
+            height: 200vh;
+            background: #000;
+        }
+
+        .hero-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .sequence-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: radial-gradient(circle at center, #1a0033 0%, #000 100%);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.5) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-logo {
+            width: clamp(200px, 40vw, 500px);
+            height: auto;
+            opacity: 0;
+            animation: fadeInUp 1s forwards 0.3s;
+            filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.3));
+        }
+
+        .logo-container {
+            margin-bottom: 2rem;
+        }
+
+        .hero-cta {
+            margin-top: 2rem;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: fadeInUp 1s forwards 0.9s;
+            transition: all 0.3s;
+            letter-spacing: 2px;
+        }
+
+        .hero-cta:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+
+        /* About Section */
+        .about-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 4rem;
+            background: linear-gradient(180deg, #000 0%, #0a001a 50%, #1a0033 100%);
+        }
+
+        .floating-stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .floating-star {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Detail Section */
+        .detail-section {
+            position: relative;
+            min-height: 100vh;
+            padding: 8rem 4rem;
+            background: linear-gradient(180deg, #1a0033 0%, #000 50%, #0a001a 100%);
+        }
+
+        .detail-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .detail-heading {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 2rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .detail-description {
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .detail-cta-button {
+            display: inline-block !important;
+            margin-top: 2rem;
+            padding: 1rem 3rem;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: #fff !important;
+            text-decoration: none !important;
+            border-radius: 50px;
+            transition: all 0.3s;
+            letter-spacing: 2px;
+        }
+
+        .detail-cta-button:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.6);
+            transform: translateY(-3px);
+        }
+
+        /* Menu Section */
+        .menu-section {
+            position: relative;
+            min-height: 100vh;
+            padding: 8rem 4rem;
+            background: linear-gradient(180deg, #0a001a 0%, #000 100%);
+        }
+
+        .menu-container-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-card {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .menu-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-card a {
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .menu-card a:hover {
+            transform: scale(1.05);
+        }
+
+        .menu-card img {
+            width: 100%;
+            border-radius: 20px;
+            display: block;
+        }
+
+        .about-content {
+            max-width: 1200px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .about-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-title {
+            font-size: clamp(2.5rem, 6vw, 6rem);
+            margin-bottom: 2rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+        }
+
+        .about-description {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            line-height: 1.8;
+            opacity: 0.9;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Features Section */
+        .features-section {
+            position: relative;
+            min-height: 100vh;
+            padding: 8rem 4rem;
+            background: linear-gradient(180deg, #1a0033 0%, #000 100%);
+        }
+
+        .features-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .feature-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            opacity: 0.8;
+        }
+
+        /* Pinned Section */
+        .pinned-section {
+            position: relative;
+            height: 300vh;
+        }
+
+        .pinned-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .pinned-text {
+            font-size: clamp(2rem, 6vw, 7rem);
+            font-weight: 700;
+            text-align: center;
+            max-width: 1400px;
+            line-height: 1.3;
+            padding: 2rem;
+            letter-spacing: -2px;
+        }
+
+        .pinned-text .word {
+            display: inline-block;
+            opacity: 0.2;
+            transition: opacity 0.3s ease;
+            margin: 0 0.3em;
+        }
+
+        .pinned-text .word.active {
+            opacity: 1;
+        }
+
+        /* Parallax Section */
+        .parallax-section {
+            position: relative;
+            height: 150vh;
+            overflow: hidden;
+            background: linear-gradient(180deg, #000 0%, #001a33 100%);
+        }
+
+        .parallax-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            will-change: transform;
+        }
+
+        .parallax-content {
+            text-align: center;
+            padding: 2rem;
+            max-width: 1000px;
+        }
+
+        .parallax-content h2 {
+            font-size: clamp(2.5rem, 5vw, 5rem);
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .parallax-content p {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        /Starfield Background -->
+    <div class="starfield"></div>
+
+    <!-- Shooting Stars Background -->
+    <div class="shooting-stars">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+    </div>
+
+    <!-- * Footer */
+        .footer {
+            padding: 4rem;
+            text-align: center;
+            background: #000;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-text {
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .loading-progress {
+            width: 200px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loading-bar {
+            width: 0%;
+            height: 100%;
+            background: #fff;
+            transition: width 0.3s;
+        }
+
+        /* Scroll Progress Indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #fff, #888);
+            z-index: 9999;
+            transition: width 0.1s;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1rem 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-section,
+            .features-section {
+                padding: 4rem 2rem;
+            }
+
+            .detail-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-container-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-section,
+            .menu-section {
+                padding: 4rem 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-text" id="loading-text">LOADING</div>
+        <div class="loading-progress">
+            <div class="loading-bar" id="loading-bar"></div>
+        </div>
+        <p style="font-size: 0.9rem; margin-top: 1rem; opacity: 0.6;" id="loading-status">Initializing...</p>
+    </div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <!-- Starfield Background -->
+    <div class="starfield"></div>
+
+    <!-- Shooting Stars Background -->
+    <div class="shooting-stars">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="logo">LUCKKANA ✨</div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#universe">About</a></li>
+            <li><a href="#detail">AI Chat</a></li>
+            <li><a href="#menu">Services</a></li>
+            <li><a href="index.html">Original</a></li>
+        </ul>
+    </nav>
+
+    <!-- Smooth Scroll Container -->
+    <div id="smooth-container">
+        <div id="smooth-content">
+
+            <!-- Hero Section with Image Sequence -->
+            <section class="hero-section" id="hero">
+                <div class="hero-sticky">
+                    <canvas class="sequence-canvas" id="sequence-canvas"></canvas>
+                    <div class="hero-overlay"></div>
+                    <div class="hero-content">
+                        <div class="logo-container">
+                            <img src="../assets/images/Logo2.svg.svg" alt="Luckkana Star Logo" class="hero-logo">
+                        </div>
+                        <a href="chatbot.html" class="hero-cta">
+                            <i class="fas fa-star"></i> CHAT WITH STAR
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Universe Section -->
+            <section class="about-section universe-section" id="universe">
+                <div class="about-content" data-observe>
+                    <h2 class="about-title">
+                        <span style="display: block;">Luckkana Star</span>
+                        <span style="display: block; color: #a78bfa;">คืออะไร?</span>
+                    </h2>
+                    <p class="about-description">
+                        มาร่วมเปิดโลกโหราศาสตร์และทำความเข้าใจตัวตนที่แท้จริงผ่านลัคนาราศีและ AI ไปพร้อมๆ กันเถอะ
+                    </p>
+                </div>
+                <div class="floating-stars" data-observe>
+                    <div class="floating-star" style="position: absolute; top: 10%; left: 10%; font-size: 2rem; opacity: 0.6;">✦</div>
+                    <div class="floating-star" style="position: absolute; top: 20%; right: 15%; font-size: 1.5rem; opacity: 0.5;">✧</div>
+                    <div class="floating-star" style="position: absolute; bottom: 30%; left: 20%; font-size: 1.8rem; opacity: 0.7;">✦</div>
+                    <div class="floating-star" style="position: absolute; bottom: 20%; right: 25%; font-size: 2rem; opacity: 0.6;">✧</div>
+                </div>
+            </section>
+
+            <!-- Detail Section - AI Chat -->
+            <section class="detail-section" id="detail">
+                <div class="detail-container">
+                    <div class="detail-content" data-observe>
+                        <div class="detail-logo-top">
+                            <img src="../assets/images/Logo 300.png" alt="Luckkana Star" style="width: 150px; margin-bottom: 2rem;">
+                        </div>
+                        <h2 class="detail-heading">
+                            <span style="display: block; margin-bottom: 0.5rem;">AI Chat with Anything—</span>
+                            <span style="display: block;">On Your AI Visual Board</span>
+                        </h2>
+                        <div class="detail-description">
+                            <p style="margin-bottom: 1.5rem;">
+                                "เราสร้าง AI Chatbot นี้ขึ้นมา ไม่ใช่เพียงเพื่อทำนายอนาคต แต่เพื่อคำนวณหา 'ลัคนา' (Ascendant / Rising Sign) 
+                                ด้วยความแม่นยำทางคณิตศาสตร์ ซึ่งเหนือชั้นกว่าการดูดวงราศีแบบทั่วไป
+                            </p>
+                            <p>
+                                ภารกิจของเราคือการสร้าง 'เพื่อนคู่คิดดิจิทัล' (Digital Companion) ที่คอยให้คำแนะนำโดยอ้างอิงจาก
+                                ข้อมูลทางโหราศาสตร์ที่ผ่านการวิจัยและรวบรวมมาอย่างละเอียดตลอดปีการศึกษานี้.
+                            </p>
+                        </div>
+                        <a href="chatbot.html" class="detail-cta-button">
+                            Start Now
+                        </a>
+                    </div>
+                    <div class="detail-visual" data-observe>
+                        <img src="../assets/images/section3-3d-visual.png" alt="AI Visual Board" style="width: 100%; max-width: 600px; margin: 0 auto; display: block;">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Menu Section -->
+            <section class="menu-section" id="menu">
+                <div class="menu-container-grid">
+                    <div class="menu-card" data-observe>
+                        <a href="12zodiac.html">
+                            <img src="../assets/images/12zo.png" alt="12 Zodiac Signs">
+                        </a>
+                    </div>
+                    <div class="menu-card" data-observe>
+                        <img src="../assets/images/ascendant.png" alt="Ascendant">
+                    </div>
+                    <div class="menu-card" data-observe>
+                        <img src="../assets/images/chinese-zodiac.png" alt="Chinese Zodiac">
+                    </div>
+                    <div class="menu-card" data-observe>
+                        <a href="simsy.html">
+                            <img src="../assets/images/syamsi.png" alt="Syamsi">
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pinned Text Section -->
+            <section class="pinned-section" id="pinned">
+                <div class="pinned-sticky">
+                    <div class="pinned-text" id="pinned-text">
+                        <span class="word">Your</span>
+                        <span class="word">cosmic</span>
+                        <span class="word">journey</span>
+                        <span class="word">through</span>
+                        <span class="word">the</span>
+                        <span class="word">universe</span>
+                        <span class="word">begins</span>
+                        <span class="word">here.</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Parallax Section -->
+            <section class="parallax-section" id="parallax">
+                <div class="parallax-layer" data-speed="0.3">
+                    <div class="parallax-content">
+                        <h2>Beyond The Stars</h2>
+                        <p>
+                            Join thousands of users who have discovered their true path 
+                            through the power of AI and ancient astrological wisdom. 
+                            Your destiny awaits in the digital cosmos.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="chatbot.html">Chat</a>
+                        <a href="12zodiac.html">Zodiac</a>
+                        <a href="simsy.html">Numerology</a>
+                    </div>
+                    <p style="opacity: 0.7;">&copy; 2024 Luckkana Star. All rights reserved.</p>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <script>
+        // ==================== SMOOTH SCROLL ENGINE ====================
+        class SmoothScroll {
+            constructor(options = {}) {
+                this.current = 0;
+                this.target = 0;
+                this.ease = options.ease || 0.075;
+                this.container = null;
+                this.content = null;
+                this.isRunning = false;
+                this.rafId = null;
+            }
+
+            init() {
+                this.container = document.getElementById('smooth-container');
+                this.content = document.getElementById('smooth-content');
+                
+                if (!this.container || !this.content) return;
+
+                this.setHeight();
+                this.addEvents();
+                this.start();
+            }
+
+            setHeight() {
+                if (!this.content) return;
+                document.body.style.height = `${this.content.offsetHeight}px`;
+            }
+
+            addEvents() {
+                window.addEventListener('resize', () => {
+                    this.setHeight();
+                });
+
+                window.addEventListener('scroll', () => {
+                    this.target = window.pageYOffset;
+                });
+            }
+
+            update() {
+                this.current += (this.target - this.current) * this.ease;
+                
+                if (this.content) {
+                    this.content.style.transform = `translate3d(0, -${this.current}px, 0)`;
+                }
+
+                // Dispatch custom event
+                const progress = this.current / (document.body.offsetHeight - window.innerHeight);
+                window.dispatchEvent(new CustomEvent('smoothscroll', {
+                    detail: { 
+                        scroll: this.current,
+                        target: this.target,
+                        progress: Math.max(0, Math.min(1, progress))
+                    }
+                }));
+            }
+
+            render() {
+                this.update();
+                if (this.isRunning) {
+                    this.rafId = requestAnimationFrame(() => this.render());
+                }
+            }
+
+            start() {
+                if (!this.isRunning) {
+                    this.isRunning = true;
+                    this.render();
+                }
+            }
+
+            stop() {
+                this.isRunning = false;
+                if (this.rafId) {
+                    cancelAnimationFrame(this.rafId);
+                }
+            }
+        }
+
+        // ==================== IMAGE SEQUENCE ====================
+        class ImageSequence {
+            constructor(canvas, options = {}) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.frameCount = options.frameCount || 30;
+                this.folder = options.folder || '../assets/images/sequence';
+                this.prefix = options.prefix || 'frame';
+                this.extension = options.extension || 'jpg';
+                this.images = [];
+                this.currentFrame = 0;
+                this.isLoaded = false;
+                this.loadProgress = 0;
+            }
+
+            async preload() {
+                const promises = [];
+                let loadedCount = 0;
+
+                console.log(`Preloading ${this.frameCount} frames from ${this.folder}/${this.prefix}_XXXX.${this.extension}`);
+
+                for (let i = 1; i <= this.frameCount; i++) {
+                    const img = new Image();
+                    const frameNum = String(i).padStart(4, '0');
+                    img.src = `${this.folder}/${this.prefix}_${frameNum}.${this.extension}`;
+                    
+                    console.log(`Loading frame ${i}/${this.frameCount}: ${img.src}`);
+                    
+                    const promise = new Promise((resolve) => {
+                        img.onload = () => {
+                            loadedCount++;
+                            this.loadProgress = (loadedCount / this.frameCount) * 100;
+                            this.updateLoadingBar(this.loadProgress);
+                            console.log(`✓ Loaded frame ${i}/${this.frameCount} (${Math.round(this.loadProgress)}%)`);
+                            resolve();
+                        };
+                        img.onerror = (e) => {
+                            loadedCount++;
+                            this.loadProgress = (loadedCount / this.frameCount) * 100;
+                            this.updateLoadingBar(this.loadProgress);
+                            console.warn(`✗ Failed to load frame ${i}: ${img.src}`, e);
+                            resolve();
+                        };
+                        
+                        // Timeout after 5 seconds per image
+                        setTimeout(() => {
+                            if (!img.complete) {
+                                console.warn(`⏱ Timeout loading frame ${i}`);
+                                loadedCount++;
+                                this.loadProgress = (loadedCount / this.frameCount) * 100;
+                                this.updateLoadingBar(this.loadProgress);
+                                resolve();
+                            }
+                        }, 5000);
+                    });
+                    
+                    promises.push(promise);
+                    this.images.push(img);
+                }
+
+                await Promise.all(promises);
+                this.isLoaded = true;
+                console.log(`Image preload finished. ${this.images.filter(img => img.complete).length}/${this.frameCount} images loaded successfully`);
+                this.resize();
+                this.render(0);
+            }
+
+            updateLoadingBar(progress) {
+                const bar = document.getElementById('loading-bar');
+                const status = document.getElementById('loading-status');
+                if (bar) {
+                    bar.style.width = `${progress}%`;
+                }
+                if (status) {
+                    status.textContent = `Loading images... ${Math.round(progress)}%`;
+                }
+            }
+
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                this.render(this.currentFrame);
+            }
+
+            render(frameIndex) {
+                if (!this.isLoaded) return;
+                
+                const index = Math.min(Math.max(Math.floor(frameIndex), 0), this.frameCount - 1);
+                const img = this.images[index];
+                
+                if (!img || !img.complete) return;
+
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // Cover fit
+                const imgRatio = img.naturalWidth / img.naturalHeight;
+                const canvasRatio = this.canvas.width / this.canvas.height;
+                
+                let drawWidth, drawHeight, offsetX, offsetY;
+                
+                if (imgRatio > canvasRatio) {
+                    drawHeight = this.canvas.height;
+                    drawWidth = drawHeight * imgRatio;
+                    offsetX = (this.canvas.width - drawWidth) / 2;
+                    offsetY = 0;
+                } else {
+                    drawWidth = this.canvas.width;
+                    drawHeight = drawWidth / imgRatio;
+                    offsetX = 0;
+                    offsetY = (this.canvas.height - drawHeight) / 2;
+                }
+                
+                this.ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+                this.currentFrame = index;
+            }
+
+            updateByProgress(progress) {
+                const frameIndex = progress * (this.frameCount - 1);
+                this.render(frameIndex);
+            }
+        }
+
+        // ==================== OBSERVERS ====================
+        class ScrollObserver {
+            constructor() {
+                this.observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry, i) => {
+                            if (entry.isIntersecting) {
+                                setTimeout(() => {
+                                    entry.target.classList.add('visible');
+                                }, i * 100);
+                            }
+                        });
+                    },
+                    { threshold: 0.15 }
+                );
+            }
+
+            observe(elements) {
+                elements.forEach(el => this.observer.observe(el));
+            }
+        }
+
+        // ==================== INIT ====================
+        let smoothScroll, imageSequence;
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            console.log('Page loaded, initializing...');
+            
+            // Force hide loading screen after 3 seconds regardless
+            const forceHideLoading = setTimeout(() => {
+                console.log('Force hiding loading screen');
+                document.querySelector('.loading-screen').classList.add('hidden');
+            }, 3000);
+
+            // Initialize smooth scroll
+            smoothScroll = new SmoothScroll({ ease: 0.075 });
+            smoothScroll.init();
+
+            // Initialize image sequence
+            const canvas = document.getElementById('sequence-canvas');
+            imageSequence = new ImageSequence(canvas, {
+                frameCount: 15,  // ลดเหลือ 15 เฟรมเพื่อโหลดเร็วขึ้น
+                folder: '../assets/images/sequence',
+                prefix: 'frame',
+                extension: 'jpg'
+            });
+
+            try {
+                // Test first image path
+                const testImg = new Image();
+                testImg.src = '../assets/images/sequence/frame_0001.jpg';
+                console.log('Testing image path:', testImg.src);
+                
+                // Preload images
+                console.log('Starting image preload...');
+                await imageSequence.preload();
+                console.log('Image preload complete');
+                
+                // Clear force timeout since we loaded successfully
+                clearTimeout(forceHideLoading);
+                
+                // Hide loading screen
+                setTimeout(() => {
+                    document.querySelector('.loading-screen').classList.add('hidden');
+                }, 300);
+            } catch (error) {
+                console.error('Error loading images:', error);
+                // Hide loading anyway
+                clearTimeout(forceHideLoading);
+                document.querySelector('.loading-screen').classList.add('hidden');
+            }
+
+            // Update sequence on scroll
+            const heroSection = document.querySelector('.hero-section');
+            window.addEventListener('smoothscroll', (e) => {
+                const scroll = e.detail.scroll;
+                const heroHeight = heroSection.offsetHeight;
+                const progress = Math.min(Math.max(scroll / heroHeight, 0), 1);
+                imageSequence.updateByProgress(progress);
+
+                // Update scroll progress bar
+                const progressBar = document.getElementById('scroll-progress');
+                progressBar.style.width = `${e.detail.progress * 100}%`;
+
+                // Update nav on scroll
+                const nav = document.getElementById('nav');
+                if (scroll > 100) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
+
+            // Resize handler
+            window.addEventListener('resize', () => {
+                imageSequence.resize();
+            });
+
+            // Initialize scroll observer
+            const observer = new ScrollObserver();
+            const observeElements = document.querySelectorAll('[data-observe]');
+            observer.observe(observeElements);
+
+            // Also observe menu cards separately with stagger effect
+            const menuCards = document.querySelectorAll('.menu-card');
+            menuCards.forEach((card, i) => {
+                const cardObserver = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                setTimeout(() => {
+                                    entry.target.classList.add('visible');
+                                }, i * 150);
+                            }
+                        });
+                    },
+                    { threshold: 0.15 }
+                );
+                cardObserver.observe(card);
+            });
+
+            // Parallax for parallax section
+            const parallaxLayers = document.querySelectorAll('.parallax-layer');
+            window.addEventListener('smoothscroll', (e) => {
+                const scroll = e.detail.scroll;
+                
+                parallaxLayers.forEach(layer => {
+                    const speed = parseFloat(layer.dataset.speed) || 0.5;
+                    const section = layer.closest('.parallax-section');
+                    if (!section) return;
+                    
+                    const rect = section.getBoundingClientRect();
+                    const offset = rect.top + scroll;
+                    const distance = scroll - offset;
+                    
+                    if (distance > -window.innerHeight && distance < section.offsetHeight) {
+                        layer.style.transform = `translateY(${distance * speed}px)`;
+                    }
+                });
+            });
+
+            // Pinned text animation
+            const words = document.querySelectorAll('.pinned-text .word');
+            const pinnedSection = document.querySelector('.pinned-section');
+            
+            window.addEventListener('smoothscroll', (e) => {
+                const scroll = e.detail.scroll;
+                const rect = pinnedSection.getBoundingClientRect();
+                const offset = rect.top + scroll;
+                const distance = scroll - offset;
+                const progress = distance / (pinnedSection.offsetHeight - window.innerHeight);
+                
+                if (progress >= 0 && progress <= 1) {
+                    words.forEach((word, i) => {
+                        const wordProgress = (progress - (i / words.length)) * words.length;
+                        word.classList.toggle('active', wordProgress >= 0 && wordProgress <= 1);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

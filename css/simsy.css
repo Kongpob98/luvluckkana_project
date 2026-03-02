@@ -1,0 +1,355 @@
+/* Simsy (Syamsi) Page Styles */
+
+/* Main Page Container */
+.simsy-page-container {
+    position: relative;
+    width: 100%;
+    background-color: #000000;
+}
+
+/* ========================================
+   Section 1: Hero Section with Syamsi Title
+   ======================================== */
+
+.simsy-hero-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Frame Background Layer - Gradient Stripes */
+.simsy-frame-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1a1a1a;
+    background-image: url('../assets/images/simsy/rectangle-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+/* Hero Content Wrapper */
+.simsy-hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Syamsi Title */
+.simsy-title {
+    font-family: 'General Sans', sans-serif;
+    font-size: clamp(60px, 12vw, 180px);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    letter-spacing: -0.02em;
+    text-shadow: 
+        0 0 40px rgba(138, 43, 226, 0.8),
+        0 0 80px rgba(138, 43, 226, 0.5),
+        0 0 120px rgba(138, 43, 226, 0.3),
+        0 4px 20px rgba(0, 0, 0, 0.5);
+    animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    from {
+        text-shadow: 
+            0 0 40px rgba(138, 43, 226, 0.8),
+            0 0 80px rgba(138, 43, 226, 0.5),
+            0 0 120px rgba(138, 43, 226, 0.3),
+            0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+    to {
+        text-shadow: 
+            0 0 60px rgba(138, 43, 226, 1),
+            0 0 100px rgba(138, 43, 226, 0.7),
+            0 0 140px rgba(138, 43, 226, 0.5),
+            0 4px 30px rgba(0, 0, 0, 0.7);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .simsy-title {
+        font-size: clamp(48px, 10vw, 120px);
+    }
+}
+
+@media (max-width: 480px) {
+    .simsy-title {
+        font-size: clamp(36px, 8vw, 80px);
+    }
+}
+
+/* Animation Effects */
+.simsy-hero-content {
+    animation: fadeInScale 1.2s ease-out 0.3s both;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ========================================
+   Section 2: Wish Section
+   ======================================== */
+
+.simsy-wish-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #000000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    gap: 80px;
+    overflow: hidden;
+}
+
+/* Video Background */
+.simsy-video-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    object-fit: cover;
+    opacity: 0.8;
+    border-radius: 0;
+}
+
+/* Central Star Shape */
+.simsy-star-shape {
+    position: relative;
+    width: 400px;
+    max-width: 60vw;
+    height: auto;
+    aspect-ratio: 1;
+    z-index: 5;
+    animation: starFloat 6s ease-in-out infinite;
+}
+
+.simsy-star-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 10;
+}
+
+@keyframes starFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+}
+
+/* Scattered Sparkle Stars */
+.sparkle {
+    position: absolute;
+    color: rgba(252, 69, 255, 0.9);
+    font-size: 30px;
+    text-shadow: 
+        0 0 10px rgba(252, 69, 255, 0.8),
+        0 0 20px rgba(138, 43, 226, 0.6),
+        0 0 30px rgba(95, 87, 231, 0.4);
+    animation: sparkle 2s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.sparkle-1 {
+    top: 10%;
+    left: 15%;
+    font-size: 25px;
+    animation-delay: 0s;
+}
+
+.sparkle-2 {
+    top: 20%;
+    right: 10%;
+    font-size: 35px;
+    animation-delay: 0.3s;
+}
+
+.sparkle-3 {
+    bottom: 15%;
+    left: 10%;
+    font-size: 28px;
+    animation-delay: 0.6s;
+}
+
+.sparkle-4 {
+    bottom: 20%;
+    right: 15%;
+    font-size: 32px;
+    animation-delay: 0.9s;
+}
+
+.sparkle-5 {
+    top: 50%;
+    left: -5%;
+    font-size: 22px;
+    animation-delay: 1.2s;
+}
+
+.sparkle-6 {
+    top: 50%;
+    right: -5%;
+    font-size: 24px;
+    animation-delay: 1.5s;
+}
+
+.sparkle-7 {
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    animation-delay: 1.8s;
+}
+
+.sparkle-8 {
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 26px;
+    animation-delay: 2.1s;
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(0.8) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(180deg);
+    }
+}
+
+/* Wish Button Wrapper */
+.simsy-wish-button-wrapper {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Wish Button */
+.simsy-wish-button {
+    max-width: 90vw;
+    height: auto;
+    min-height: 70px;
+    padding: 20px 50px;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(20px, 4vw, 35.8px);
+    font-weight: 500;
+    color: #ffffff;
+    background: linear-gradient(90deg, rgb(252, 69, 255) 0%, rgb(52, 48, 129) 100%),
+                radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
+    background-blend-mode: normal;
+    border: 1.377px solid #5f57e7;
+    border-radius: 88.124px;
+    cursor: pointer;
+    transform: rotate(-5.35deg);
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 0 30px rgba(252, 69, 255, 0.5),
+        0 4px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    line-height: 1.5;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.simsy-wish-button:hover {
+    transform: rotate(-5.35deg) scale(1.05) translateY(-5px);
+    box-shadow: 
+        0 0 50px rgba(252, 69, 255, 0.8),
+        0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.simsy-wish-button:active {
+    transform: rotate(-5.35deg) scale(0.98);
+}
+
+/* Responsive Design for Section 2 */
+@media (max-width: 1024px) {
+    .simsy-video-background {
+        width: 100%;
+        max-height: 65vh;
+    }
+
+    .simsy-star-shape {
+        max-width: 50vw;
+    }
+
+    .simsy-wish-button {
+        padding: 15px 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .simsy-wish-section {
+        padding: 40px 20px;
+        gap: 60px;
+    }
+
+    .simsy-video-background {
+        width: 100%;
+        max-height: 60vh;
+    }
+
+    .simsy-star-shape {
+        max-width: 60vw;
+    }
+
+    .simsy-wish-button {
+        padding: 12px 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .simsy-video-background {
+        width: 100%;
+        max-height: 50vh;
+    }
+
+    .simsy-wish-section {
+        gap: 40px;
+        padding: 30px 15px;
+    }
+
+    .simsy-star-shape {
+        max-width: 70vw;
+    }
+
+    .simsy-wish-button {
+        padding: 10px 25px;
+    }
+}

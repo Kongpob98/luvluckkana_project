@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>บทความ - How to สายมู | Luckkana Star</title>
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/blog.css">
@@ -93,21 +93,8 @@
     <script src="../js/components/footer.js"></script>
     <script src="../js/cursor-trail.js"></script>
     <script>
-        // Initialize components
+        // Initialize cursor trail
         document.addEventListener('DOMContentLoaded', () => {
-            // Load navbar
-            const navbarContainer = document.getElementById('navbar');
-            if (navbarContainer) {
-                navbarContainer.innerHTML = createNavbar();
-            }
-
-            // Load footer
-            const footerContainer = document.getElementById('footer');
-            if (footerContainer) {
-                footerContainer.innerHTML = createFooter();
-            }
-
-            // Initialize cursor trail
             if (typeof initCursorTrail === 'function') {
                 initCursorTrail();
             }
