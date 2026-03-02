@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บทความ - How to สายมู | Luckkana Star</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=General+Sans:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar Component -->
+    <nav id="navbar"></nav>
+
+    <!-- Cursor Trail -->
+    <div class="cursor-trail-container"></div>
+
+    <!-- Main Content -->
+    <main class="blog-container">
+        <!-- Starfield Background -->
+        <div class="starfield"></div>
+
+        <!-- Blog Content -->
+        <div class="blog-content">
+            <!-- Header Section -->
+            <div class="blog-header">
+                <h1 class="blog-title">
+                    <span class="title-main">How to</span>
+                    <span class="title-highlight">สายมู</span>
+                </h1>
+                
+                <div class="blog-intro">
+                    <p>ปล่อยใจสบายๆ แล้วมาเสี่ยงทายโชคชะตากัน! ให้เซียมซีเป็นกระจกสะท้อนดวงชะตา นำทางความราบรื่น และมอบคำแนะนำดีๆ ให้คุณในวันนี้ ใครจะรู้... ใบที่คุณสุ่มได้ อาจจะเป็น 'ข่าวดี' ที่คุณรอมานานก็ได้นะ มาลุ้นกัน</p>
+                    <button class="btn-start-wish">Start you wish</button>
+                </div>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="cards-grid">
+                <!-- Card 01 - Left -->
+                <div class="blog-card" data-card="01">
+                    <div class="card-background card-bg-purple">
+                        <div class="card-gradient"></div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3 class="card-title">ศาสตร์ตัวเลข</h3>
+                            <p class="card-description">เจาะลึกศาสตร์ตัวเลขถอด<br>รหัสดวงชะตาเพื่อความสำเร็จ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 02 - Center -->
+                <div class="blog-card" data-card="02" onclick="window.location.href='colors.html'">
+                    <div class="card-background card-bg-pink">
+                        <div class="card-gradient"></div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3 class="card-title">สีประจำวัน</h3>
+                            <p class="card-description">เจาะลึกความหมายสีนำโชค<br>เพื่อเสริมดวงในแต่ละวัน</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 03 - Right -->
+                <div class="blog-card" data-card="03">
+                    <div class="card-background card-bg-rose">
+                        <div class="card-gradient"></div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3 class="card-title">ศาสตร์ตัวเลข</h3>
+                            <p class="card-description">เจาะลึกศาสตร์ตัวเลขถอด<br>รหัสดวงชะตาเพื่อความสำเร็จ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Component -->
+    <footer id="footer"></footer>
+
+    <!-- Scripts -->
+    <script src="../js/components/navbar.js"></script>
+    <script src="../js/components/footer.js"></script>
+    <script src="../js/cursor-trail.js"></script>
+    <script>
+        // Initialize components
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load navbar
+            const navbarContainer = document.getElementById('navbar');
+            if (navbarContainer) {
+                navbarContainer.innerHTML = createNavbar();
+            }
+
+            // Load footer
+            const footerContainer = document.getElementById('footer');
+            if (footerContainer) {
+                footerContainer.innerHTML = createFooter();
+            }
+
+            // Initialize cursor trail
+            if (typeof initCursorTrail === 'function') {
+                initCursorTrail();
+            }
+        });
+    </script>
+</body>
+</html>

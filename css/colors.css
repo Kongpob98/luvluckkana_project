@@ -1,0 +1,576 @@
+/* ==========================================
+   COLORS PAGE STYLES
+   สไตล์สำหรับหน้าสีนำโชค - Fixed Position Scroll
+   ========================================== */
+
+/* HTML and Body setup for scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Body Background - Always Black */
+body.colors-page {
+    background-color: #000000 !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100vh;
+}
+
+/* Create scrollable height (9 sections x 100vh) */
+body.colors-page::after {
+    content: '';
+    display: block;
+    height: 900vh;
+    width: 1px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    opacity: 0;
+}
+
+/* Navbar adjustments for colors page */
+#navbar-placeholder {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;;
+    z-index: 10000;
+    pointer-events: none;
+}
+
+#navbar-placeholder * {
+    pointer-events: auto;
+}
+
+.colors-page .navbar-container {
+    position: fixed;
+    z-index: 10000;
+}
+
+/* Main Container - Fixed with top padding for navbar */
+.colors-container {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    padding-top: 0;
+}
+
+/* Intro Section - Fixed Positioning */
+.intro-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 160px 80px 80px;
+    opacity: 0;
+    transition: opacity 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.intro-section.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.intro-section.hidden {
+    opacity: 0;
+}
+
+.intro-content {
+    max-width: 800px;
+    pointer-events: auto;
+}
+
+.intro-title {
+    font-family: 'Noto Sans Thai', 'General Sans', sans-serif;
+    font-size: 72px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 24px;
+    line-height: 1.1;
+    letter-spacing: -2px;
+}
+
+.intro-subtitle {
+    font-family: 'Noto Sans Thai', 'General Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'General Sans', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: fadeInBounce 2s ease infinite;
+    transition: opacity 0.5s ease;
+    opacity: 1;
+}
+
+.scroll-arrow {
+    width: 24px;
+    height: 24px;
+    border-right: 2px solid rgba(255, 255, 255, 0.6);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+    transform: rotate(45deg);
+}
+
+@keyframes fadeInBounce {
+    0%, 100% {
+        opacity: 0.4;
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(10px);
+    }
+}
+
+/* Color Sections - Fixed and Stacked */
+.color-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 160px 80px 80px;
+    opacity: 0;
+    transition: opacity 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.color-section.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.color-section.hidden {
+    opacity: 0;
+}
+
+.color-content {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Color Header (Title + Subtitle on top) */
+.color-header {
+    text-align: left;
+    width: 100%;
+}
+
+/* Color Body (Visual + Text side by side) */
+.color-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+/* Text Content */
+.color-text-wrapper {
+    color: white;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-height: 360px;
+    overflow-y: auto;
+}
+
+/* Custom scrollbar for text wrapper */
+.color-text-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.color-text-wrapper::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.color-text-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.color-text-wrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.color-title {
+    font-family: 'Noto Sans Thai', 'General Sans', sans-serif;
+    font-size: 64px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+}
+
+.color-subtitle {
+    font-family: 'Noto Sans Thai', 'General Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 24px;
+    opacity: 0.9;
+}
+
+.color-description {
+    font-family: 'Noto Sans Thai', 'General Sans', sans-serif;
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 24px;
+    opacity: 0.85;
+    flex-shrink: 0;
+}
+
+.color-description p {
+    margin-bottom: 16px;
+}
+
+.color-description p:last-child {
+    margin-bottom: 0;
+}
+
+.color-benefits {
+    font-family: 'Noto Sans Thai', 'General Sans', sans-serif;
+}
+
+.color-benefits h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    opacity: 0.95;
+}
+
+.color-benefits ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 24px;
+}
+
+.color-benefits li {
+    font-size: 16px;
+    padding: 6px 0;
+    padding-left: 20px;
+    position: relative;
+    opacity: 0.85;
+}
+
+.color-benefits li::before {
+    content: '●';
+    position: absolute;
+    left: 0;
+    opacity: 0.6;
+}
+
+.color-note {
+    font-size: 16px;
+    font-style: italic;
+    opacity: 0.7;
+    margin-top: 16px;
+}
+
+/* Visual Elements */
+.color-visual {
+    position: relative;
+    width: 100%;
+    height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+
+.color-gradient {
+    width: 100%;
+    height: 100%;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(80px);
+    -webkit-backdrop-filter: blur(80px);
+}
+
+/* Gradient Styles for Each Color - Figma Style with Blur */
+.red-gradient {
+    background: linear-gradient(180deg, #dc2626 0%, #450a0a 100%);
+}
+
+.yellow-gradient {
+    background: linear-gradient(180deg, #fbbf24 0%, #713f12 100%);
+}
+
+.green-gradient {
+    background: linear-gradient(180deg, #22c55e 0%, #052e16 100%);
+}
+
+.blue-gradient {
+    background: linear-gradient(180deg, #3b82f6 0%, #1e3a8a 100%);
+}
+
+.purple-gradient {
+    background: linear-gradient(180deg, #a855f7 0%, #3b0764 100%);
+}
+
+.white-gradient {
+    background: linear-gradient(180deg, #f3f4f6 0%, #9ca3af 100%);
+    box-shadow: 0 40px 80px -20px rgba(255, 255, 255, 0.3);
+}
+
+.black-gradient {
+    background: linear-gradient(180deg, #374151 0%, #000000 100%);
+}
+
+.pink-gradient {
+    background: linear-gradient(180deg, #f472b6 0%, #831843 100%);
+}
+
+/* Scroll Progress - Fixed at top */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: linear-gradient(90deg, 
+        #000000 0%,
+        #dc2626 11.11%, 
+        #eab308 22.22%, 
+        #16a34a 33.33%, 
+        #2563eb 44.44%, 
+        #9333ea 55.55%, 
+        #f5f5f5 66.66%, 
+        #18181b 77.77%, 
+        #ec4899 100%
+    );
+    z-index: 9999;
+    transition: width 0.1s ease;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+/* Background Color States - All Black */
+body.colors-page,
+body.bg-intro,
+body.bg-red,
+body.bg-yellow,
+body.bg-green,
+body.bg-blue,
+body.bg-purple,
+body.bg-white,
+body.bg-black,
+body.bg-pink {
+    background-color: #000000 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .intro-section {
+        padding: 100px 40px 60px;
+    }
+
+    .intro-title {
+        font-size: 72px;
+    }
+
+    .intro-subtitle {
+        font-size: 28px;
+    }
+
+    .color-section {
+        padding: 100px 40px 60px;
+    }
+
+    .color-body {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .color-title {
+        font-size: 72px;
+    }
+
+    .color-body {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .color-title {
+        font-size: 72px;
+    }
+
+    .color-subtitle {
+        font-size: 28px;
+    }
+
+    .color-description {
+        font-size: 18px;
+    }
+
+    .color-visual {
+        height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .intro-section {
+        padding: 100px 24px 40px;
+    }
+
+    .intro-title {
+        font-size: 56px;
+    }
+
+    .intro-subtitle {
+        font-size: 24px;
+    }
+
+    .color-section {
+        padding: 100px 24px 40px;
+    }
+
+    .color-body {
+        gap: 32px;
+    }
+
+    .color-title {
+        font-size: 56px;
+    }
+
+    .color-subtitle {
+        font-size: 24px;
+    }
+
+    .color-description {
+        font-size: 16px;
+    }
+
+    .color-benefits h3 {
+        font-size: 20px;
+    }
+
+    .color-benefits li {
+        font-size: 16px;
+    }
+
+    .color-visual {
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .intro-section {
+        padding: 80px 20px 40px;
+    }
+
+    .intro-title {
+        font-size: 42px;
+    }
+
+    .intro-subtitle {
+        font-size: 20px;
+    }
+
+    .color-section {
+        padding: 80px 20px 40px;
+    }
+
+    .color-title {
+        font-size: 42px;
+    }
+
+    .color-subtitle {
+        font-size: 20px;
+    }
+
+    .color-description {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .color-visual {
+        height: 250px;
+    }
+
+    .color-gradient {
+        border-radius: 24px;
+    }
+}
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Hide scrollbar but keep functionality */
+body::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+
+
+/* Enhanced glow effect for gradient boxes - Figma style */
+.color-gradient::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 34px;
+    background: inherit;
+    filter: blur(60px);
+    opacity: 0.6;
+    z-index: -1;
+}
+
+/* Additional ambient light effect */
+.color-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 34px;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+    pointer-events: none;
+}

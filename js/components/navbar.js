@@ -8,7 +8,7 @@
                     <a href="index.html" class="nav-link active">
                         Home
                     </a>
-                    <a href="chatbot.html" class="nav-link">
+                    <a href="blog.html" class="nav-link">
                         Get a Reading
                     </a>
                 </div>
@@ -162,7 +162,7 @@
 
     // Insert navbar into page
     document.addEventListener('DOMContentLoaded', function() {
-        const navbarElement = document.getElementById('navbar');
+        const navbarElement = document.getElementById('navbar') || document.getElementById('navbar-placeholder');
         if (navbarElement) {
             navbarElement.innerHTML = navbarStyles + navbarHTML;
             
