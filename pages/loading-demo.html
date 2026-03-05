@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Loading Demo - Luckkana Star</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/loading.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=General+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'General Sans', sans-serif;
+            padding: 40px;
+        }
+        
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .demo-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .demo-description {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+        
+        .demo-button {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        .demo-button:active {
+            transform: translateY(0);
+        }
+        
+        .code-section {
+            margin-top: 40px;
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .code-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #8b5cf6;
+        }
+        
+        pre {
+            background: #0a0a0a;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        code {
+            color: #a78bfa;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1 class="demo-title">Loading Screen Demo</h1>
+        <p class="demo-description">
+            หน้านี้แสดงตัวอย่างการใช้งาน Loading Screen Component โดยใช้วีดีโอ animation loadd.mp4
+            <br><br>
+            <strong>✨ คุณสมบัติใหม่:</strong> Loading Screen จะแสดงอัตโนมัติเมื่อเปิดเว็บไซต์ และเมื่อคลิกลิงก์เพื่อเปลี่ยนหน้า (Page Navigation)
+        </p>
+        
+        <div>
+            <button class="demo-button" onclick="window.loadingScreen.show()">
+                แสดง Loading Screen
+            </button>
+            <button class="demo-button" onclick="window.loadingScreen.hide()">
+                ซ่อน Loading Screen
+            </button>
+            <button class="demo-button" onclick="simulateLoading()">
+                จำลองการโหลดข้อมูล (3 วินาที)
+            </button>
+        </div>
+        
+        <div style="margin-top: 20px; padding: 20px; background: #1a1a1a; border-radius: 8px;">
+            <h3 style="margin-bottom: 15px; color: #8b5cf6;">ทดสอบ Page Navigation</h3>
+            <p style="margin-bottom: 15px; opacity: 0.8;">คลิกลิงก์เหล่านี้เพื่อดู Loading Screen ที่แสดงเมื่อเปลี่ยนหน้า:</p>
+            <a href="index.html" class="demo-button" style="display: inline-block; text-decoration: none;">
+                ไปหน้า Home
+            </a>
+            <a href="12zodiac.html" class="demo-button" style="display: inline-block; text-decoration: none;">
+                ไปหน้า 12 Zodiac
+            </a>
+            <a href="chatbot.html" class="demo-button" style="display: inline-block; text-decoration: none;">
+                ไปหน้า Chatbot
+            </a>
+            <p style="margin-top: 15px; font-size: 14px; opacity: 0.6;">
+                💡 Loading จะแสดงอัตโนมัติเมื่อคลิกลิงก์ภายในเว็บไซต์
+            </p>
+        </div>
+        
+        <div class="code-section">
+            <h2 class="code-title">วิธีการใช้งาน</h2>
+            
+            <h3 style="margin-top: 20px; margin-bottom: 10px;">1. เพิ่ม CSS และ JS ในหน้า HTML</h3>
+            <pre><code>&lt;link rel="stylesheet" href="../css/loading.css"&gt;
+&lt;script src="../js/components/loading.js"&gt;&lt;/script&gt;</code></pre>
+            
+            <h3 style="margin-top: 20px; margin-bottom: 10px;">2. Loading จะแสดงอัตโนมัติเมื่อโหลดหน้า</h3>
+            <p style="margin-bottom: 10px;">Component จะแสดงอัตโนมัติและซ่อนเมื่อหน้าโหลดเสร็จ</p>
+            
+            <h3 style="margin-top: 20px; margin-bottom: 10px;">3. ควบคุมด้วย JavaScript (Optional)</h3>
+            <pre><code>// แสดง loading
+window.loadingScreen.show();
+
+// ซ่อน loading
+window.loadingScreen.hide();
+
+// สร้าง loading ใหม่ด้วย options
+const customLoading = LoadingScreen.init({
+    videoSrc: '../assets/images/loadd.mp4',
+    minDisplayTime: 2000, // แสดงอย่างน้อย 2 วินาที
+    showProgress: true, // แสดงข้อความ "กำลังโหลด"
+    autoHide: true // ซ่อนอัตโนมัติเมื่อหน้าโหลดเสร็จ
+});</code></pre>
+            
+            <h3 style="margin-top: 20px; margin-bottom: 10px;">4. ใช้กับการโหลดข้อมูล</h3>
+            <pre><code>// แสดง loading ก่อนโหลดข้อมูล
+window.loadingScreen.show();
+
+// โหลดข้อมูล
+fetch('/api/data')
+    .then(response => response.json())
+    .then(data => {
+        // ทำอะไรกับข้อมูล
+        console.log(data);
+    })
+    .finally(() => {
+        // ซ่อน loading เมื่อเสร็จ
+        window.loadingScreen.hide();
+    });</code></pre>
+        </div>
+        
+        <div class="code-section">
+            <h2 class="code-title">Options Configuration</h2>
+            <pre><code>{
+    videoSrc: '../assets/images/loadd.mp4',  // ที่อยู่วีดีโอ
+    minDisplayTime: 1500,                     // เวลาแสดงขั้นต่ำ (ms)
+    showProgress: true,                       // แสดงข้อความ "กำลังโหลด"
+    autoHide: true                            // ซ่อนอัตโนมัติเมื่อโหลดเสร็จ
+}</code></pre>
+        </div>
+    </div>
+    
+    <!-- Loading Component -->
+    <script src="../js/components/loading.js"></script>
+    
+    <script>
+        // ตัวอย่างการจำลองการโหลดข้อมูล
+        function simulateLoading() {
+            window.loadingScreen.show();
+            
+            setTimeout(() => {
+                window.loadingScreen.hide();
+                alert('โหลดเสร็จแล้ว!');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

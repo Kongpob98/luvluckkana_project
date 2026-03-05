@@ -2,9 +2,10 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>12 Zodiac Signs - Luckkana Star</title>
     <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/loading.css">
     <link rel="stylesheet" href="../css/zodiac.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +24,12 @@
         <!-- Hero Section -->
         <section class="zodiac-hero-section">
             <div class="zodiac-hero-bg-wrapper">
-                <img src="../assets/images/12zodiac-hero-bg.jpg" alt="" class="zodiac-hero-bg">
+                <video id="zodiac-hero-video-1" autoplay muted loop playsinline preload="auto" class="zodiac-hero-bg zodiac-hero-video-primary">
+                    <source src="../assets/images/12zobg1.mp4" type="video/mp4">
+                </video>
+                <video id="zodiac-hero-video-2" muted loop playsinline preload="auto" class="zodiac-hero-bg zodiac-hero-video-secondary">
+                    <source src="../assets/images/12zobg1.mp4" type="video/mp4">
+                </video>
             </div>
             <div class="zodiac-hero-text-wrapper">
                 <img src="../assets/images/12zodiac-hero-text.png" alt="12 Zodiac Signs" class="zodiac-hero-text">
@@ -178,6 +184,7 @@
     </main>
 
     <!-- Scripts -->
+    <script src="../js/components/loading.js"></script>
     <script src="../js/cursor-trail.js"></script>
     <script src="../js/components/navbar.js"></script>
     <script src="../js/components/footer.js"></script>
@@ -185,6 +192,67 @@
     <script src="../js/zodiac-history-parallax.js"></script>
     <!-- <script src="../js/zodiac-section3-effects.js"></script> -->
     <script src="../js/animations.js"></script>
+    <script>
+        // Ultra-smooth video loop with double buffering and crossfade
+        document.addEventListener('DOMContentLoaded', function() {
+            const video1 = document.getElementById('zodiac-hero-video-1');
+            const video2 = document.getElementById('zodiac-hero-video-2');
+            
+            if (video1 && video2) {
+                let currentVideo = video1;
+                let nextVideo = video2;
+                const fadeDuration = 0.5; // 0.5 seconds crossfade
+                const loopPoint = 0.8; // Start crossfade at 80% of video duration
+                
+                // Start first video
+                video1.play().catch(err => console.log('Video autoplay prevented:', err));
+                
+                // Monitor playback and trigger seamless loop with crossfade
+                function checkLoop() {
+                    if (currentVideo.currentTime >= currentVideo.duration * loopPoint && 
+                        nextVideo.paused) {
+                        // Start next video and begin crossfade
+                        nextVideo.currentTime = 0;
+                        nextVideo.play();
+                        
+                        // Crossfade animation
+                        currentVideo.style.opacity = '1';
+                        nextVideo.style.opacity = '0';
+                        nextVideo.style.transition = `opacity ${fadeDuration}s ease-in-out`;
+                        
+                        setTimeout(() => {
+                            nextVideo.style.opacity = '1';
+                            currentVideo.style.opacity = '0';
+                        }, 50);
+                        
+                        // Swap videos after fade completes
+                        setTimeout(() => {
+                            currentVideo.pause();
+                            currentVideo.currentTime = 0;
+                            
+                            // Swap references
+                            const temp = currentVideo;
+                            currentVideo = nextVideo;
+                            nextVideo = temp;
+                        }, fadeDuration * 1000);
+                    }
+                    
+                    requestAnimationFrame(checkLoop);
+                }
+                
+                checkLoop();
+                
+                // Also add backup simple loop for each video
+                [video1, video2].forEach(video => {
+                    video.addEventListener('timeupdate', function() {
+                        if (this.currentTime >= this.duration - 0.05) {
+                            this.currentTime = 0;
+                        }
+                    });
+                });
+            }
+        });
+    </script>
     <script src="../js/main.js"></script>
 </body>
 </html>

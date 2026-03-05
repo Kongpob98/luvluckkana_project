@@ -48,6 +48,29 @@
     border-bottom-right-radius: 71px;
 }
 
+/* Smooth video loop with double buffering */
+.zodiac-hero-video-primary,
+.zodiac-hero-video-secondary {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-bottom-left-radius: 71px;
+    border-bottom-right-radius: 71px;
+    object-fit: cover;
+}
+
+.zodiac-hero-video-primary {
+    z-index: 2;
+    opacity: 1;
+}
+
+.zodiac-hero-video-secondary {
+    z-index: 1;
+    opacity: 0;
+}
+
 .zodiac-hero-text-wrapper {
     position: absolute;
     top: 50%;
@@ -59,6 +82,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: zodiacHeroFadeIn 1.5s ease-out 0.2s both;
+}
+
+@keyframes zodiacHeroFadeIn {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, calc(-50% + 50px)) scale(0.85);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
 }
 
 .zodiac-hero-text {
@@ -91,7 +126,9 @@
         height: 480px;
     }
     
-    .zodiac-hero-bg {
+    .zodiac-hero-bg,
+    .zodiac-hero-video-primary,
+    .zodiac-hero-video-secondary {
         border-bottom-left-radius: 50px;
         border-bottom-right-radius: 50px;
     }
@@ -99,8 +136,8 @@
 
 @media (max-width: 768px) {
     .zodiac-hero-section {
-        height: 500px;
-        margin-bottom: 55px;
+        height: 70vh;
+        margin-bottom: 40px;
     }
     
     .zodiac-hero-text-wrapper {
@@ -108,7 +145,9 @@
         height: 360px;
     }
     
-    .zodiac-hero-bg {
+    .zodiac-hero-bg,
+    .zodiac-hero-video-primary,
+    .zodiac-hero-video-secondary {
         border-bottom-left-radius: 35px;
         border-bottom-right-radius: 35px;
     }
@@ -116,37 +155,80 @@
 
 @media (max-width: 480px) {
     .zodiac-hero-section {
-        height: 420px;
-        margin-bottom: 50px;
+        height: 100vh;
+        margin-bottom: 0;
     }
     
     .zodiac-hero-text-wrapper {
-        width: 90%;
+        width: 85%;
         height: auto;
-        max-width: 340px;
+        max-width: 320px;
+        /* Animation will handle the transform */
     }
     
-    .zodiac-hero-bg {
-        border-bottom-left-radius: 30px;
-        border-bottom-right-radius: 30px;
+    .zodiac-hero-bg,
+    .zodiac-hero-video-primary,
+    .zodiac-hero-video-secondary {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        object-fit: cover;
+        object-position: center;
     }
 }
 
 @media (max-width: 375px) {
     .zodiac-hero-section {
-        height: 360px;
-        margin-bottom: 40px;
+        height: 100vh;
+        margin-bottom: 0;
     }
     
     .zodiac-hero-text-wrapper {
-        width: 92%;
+        width: 80%;
         height: auto;
-        max-width: 300px;
+        max-width: 280px;
+        /* Animation will handle the transform */
     }
     
-    .zodiac-hero-bg {
-        border-bottom-left-radius: 25px;
-        border-bottom-right-radius: 25px;
+    .zodiac-hero-bg,
+    .zodiac-hero-video-primary,
+    .zodiac-hero-video-secondary {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
+/* Mobile landscape mode */
+@media (max-width: 896px) and (max-height: 414px) and (orientation: landscape) {
+    .zodiac-hero-section {
+        height: 100vh;
+        margin-bottom: 0;
+    }
+    
+    .zodiac-hero-text-wrapper {
+        width: 60%;
+        max-width: 400px;
+        height: auto;
+    }
+    
+    .zodiac-hero-bg,
+    .zodiac-hero-video-primary,
+    .zodiac-hero-video-secondary {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+
+/* iPhone with notch - safe area */
+@supports (padding: max(0px)) {
+    @media (max-width: 480px) {
+        .zodiac-hero-section {
+            height: 100vh;
+            /* Account for notch and home indicator */
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
     }
 }
 
