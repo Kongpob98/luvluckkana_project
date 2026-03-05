@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Syamsi - Luckkana Star</title>
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/loading.css">
@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=General+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="simsy-page-body">
     <!-- Navbar Component -->
     <nav id="navbar"></nav>
 
@@ -25,7 +25,19 @@
         <!-- Section 1: Hero Section with Syamsi Title -->
         <section class="simsy-hero-section">
             <!-- Background Frame Layer -->
-            <div class="simsy-frame-bg"></div>
+            <div class="simsy-frame-bg">
+                <video 
+                    autoplay 
+                    muted 
+                    loop 
+                    playsinline 
+                    preload="auto"
+                    class="simsy-bg-video"
+                    webkit-playsinline="true"
+                    x-webkit-airplay="deny">
+                    <source src="../assets/images/simsy/symsibg1.mp4" type="video/mp4">
+                </video>
+            </div>
 
             <!-- Syamsi Title -->
             <div class="simsy-hero-content">
@@ -71,6 +83,7 @@
     <script src="../js/components/navbar.js"></script>
     <script src="../js/components/footer.js"></script>
     <script src="../js/cursor-trail.js"></script>
+    <script src="../js/simsy-parallax.js"></script>
     <script src="../js/main.js"></script>
     <script>
         // Navigate to result page when clicking "start you wish" button
