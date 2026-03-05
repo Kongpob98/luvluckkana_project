@@ -1,101 +1,222 @@
-// Zodiac History Section - Parallax & Scroll Animation
+// Zodiac History Section - Sticky Scroll Experience
 (function() {
-    const historySection = document.querySelector('.zodiac-history-section');
-    const historyContent = document.querySelector('.zodiac-history-content');
-    const cubeStrips = document.querySelector('.zodiac-cube-strips');
-    const ellipseGlow = document.querySelector('.zodiac-ellipse-glow');
+    'use strict';
 
-    if (!historySection || !historyContent) return;
-
-    // Scroll Animation Observer
-    const observerOptions = {
-        threshold: 0.2,
-        rootMargin: '0px 0px -100px 0px'
+    // Configuration
+    const CONFIG = {
+        totalSections: 5, // intro + 4 content sections
     };
 
-    const scrollObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                historyContent.classList.add('animate-in');
+    // State
+    let currentHistoryIndex = 0;
+    let allHistorySections = [];
+    let historyWrapper = null;
+    let historyBg = null;
+    let isScrolling = false;
+
+    /**
+     * Initialize the history sticky scroll experience
+     */
+    function init() {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setup);
+        } else {
+            setup();
+        }
+    }
+
+    /**
+     * Setup all functionality
+     */
+    function setup() {
+        // Get wrapper
+        historyWrapper = document.querySelector('.zodiac-history-wrapper');
+        if (!historyWrapper) {
+            console.warn('History wrapper not found');
+            return;
+        }
+
+        // Get background element
+        historyBg = document.querySelector('.zodiac-history-bg');
+
+        // Get all history sections
+        const introSection = document.querySelector('.history-intro-section');
+        const contentSections = Array.from(document.querySelectorAll('.history-content-section'));
+        allHistorySections = [introSection, ...contentSections].filter(s => s !== null);
+
+        if (allHistorySections.length === 0) {
+            console.warn('No history sections found');
+            return;
+        }
+
+        // Setup scroll listener
+        setupScrollListener();
+        setupKeyboardNavigation();
+
+        // Set initial state - check if already in view
+        const wrapperTop = historyWrapper.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (wrapperTop < windowHeight * 0.5) {
+            // Already in view, show first section
+            showHistorySection(0, true);
+            if (historyBg) {
+                historyBg.classList.add('visible');
             }
-        });
-    }, observerOptions);
+        } else {
+            // Not in view yet, hide all
+            hideAllHistorySections();
+        }
+        
+        console.log('History sticky scroll initialized with', allHistorySections.length, 'sections');
+    }
 
-    scrollObserver.observe(historyContent);
+    /**
+     * Setup scroll listener
+     */
+    function setupScrollListener() {
+        let ticking = false;
+        const scrollHint = document.querySelector('.scroll-hint');
 
-    // Parallax Effect on Scroll
-    let ticking = false;
+        window.addEventListener('scroll', () => {
+            // Hide scroll hint after first scroll
+            if (scrollHint) {
+                const wrapperTop = historyWrapper.getBoundingClientRect().top;
+                const scrollIntoWrapper = wrapperTop < window.innerHeight / 2;
+                
+                if (scrollIntoWrapper) {
+                    scrollHint.style.opacity = '0';
+                    scrollHint.style.pointerEvents = 'none';
+                } else {
+                    scrollHint.style.opacity = '1';
+                    scrollHint.style.pointerEvents = 'auto';
+                }
+            }
 
-    function updateParallax() {
-        const scrolled = window.pageYOffset;
-        const sectionTop = historySection.offsetTop;
-        const sectionHeight = historySection.offsetHeight;
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    handleHistoryScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+    }
+
+    /**
+     * Handle scroll events for history section
+     */
+    function handleHistoryScroll() {
+        if (!historyWrapper) return;
+
+        const wrapperTop = historyWrapper.getBoundingClientRect().top;
+        const wrapperHeight = historyWrapper.offsetHeight;
         const windowHeight = window.innerHeight;
 
-        // Only apply parallax when section is in view
-        if (scrolled + windowHeight > sectionTop && scrolled < sectionTop + sectionHeight) {
-            const offset = scrolled - sectionTop + windowHeight;
-            const progress = offset / (sectionHeight + windowHeight);
-
-            // Parallax for cube strips (slower movement)
-            if (cubeStrips) {
-                const cubeMove = -(offset * 0.15);
-                cubeStrips.style.transform = `translate3d(0, ${cubeMove}px, 0)`;
+        // Check if we're in the history wrapper area
+        // Start showing when wrapper is near the viewport, not just when at top
+        const isInWrapper = wrapperTop < windowHeight * 0.5 && wrapperTop > -wrapperHeight + windowHeight * 0.5;
+        
+        if (isInWrapper) {
+            // Show background
+            if (historyBg) {
+                historyBg.classList.add('visible');
             }
-
-            // Parallax for ellipse glow (different speed + rotation)
-            if (ellipseGlow) {
-                const ellipseMove = -(offset * 0.25);
-                const rotation = -10.37 + (progress * 15); // Rotate based on scroll
-                ellipseGlow.style.transform = `translate3d(0, ${ellipseMove}px, 0) rotate(${rotation}deg)`;
-            }
-
-            // Parallax for content (subtle)
-            if (historyContent) {
-                const contentMove = -(offset * 0.05);
-                historyContent.style.transform = `translate3d(0, ${contentMove}px, 0)`;
-            }
-        }
-
-        ticking = false;
-    }
-
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                updateParallax();
-            });
-            ticking = true;
-        }
-    });
-
-    // Initial call
-    updateParallax();
-
-    // Mouse parallax effect (optional - subtle movement on mouse move)
-    if (window.innerWidth > 768) {
-        historySection.addEventListener('mousemove', (e) => {
-            const rect = historySection.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
             
-            const moveX = (x - centerX) / centerX * 20;
-            const moveY = (y - centerY) / centerY * 20;
+            // Calculate which section should be active based on scroll position within wrapper
+            const scrolledIntoWrapper = Math.max(0, -wrapperTop + windowHeight * 0.5);
+            const sectionIndex = Math.floor(scrolledIntoWrapper / windowHeight);
+            const clampedIndex = Math.max(0, Math.min(sectionIndex, CONFIG.totalSections - 1));
 
-            if (ellipseGlow) {
-                ellipseGlow.style.transform = `
-                    translate3d(${moveX}px, ${moveY}px, 0)
-                    rotate(-10.37deg)
-                `;
+            // Update if section changed
+            if (clampedIndex !== currentHistoryIndex) {
+                showHistorySection(clampedIndex);
             }
-        });
+            // Make sure we show current section if none is showing
+            else if (!allHistorySections[clampedIndex]?.classList.contains('active')) {
+                showHistorySection(clampedIndex, true);
+            }
+        } else {
+            // Hide background
+            if (historyBg) {
+                historyBg.classList.remove('visible');
+            }
+            
+            // Hide all sections when outside wrapper
+            hideAllHistorySections();
+        }
+    }
 
-        historySection.addEventListener('mouseleave', () => {
-            if (ellipseGlow) {
-                ellipseGlow.style.transform = 'translate3d(0, 0, 0) rotate(-10.37deg)';
+    /**
+     * Show specific history section
+     */
+    function showHistorySection(index, forceUpdate = false) {
+        if (!forceUpdate && index === currentHistoryIndex) {
+            return;
+        }
+
+        const previousIndex = currentHistoryIndex;
+        currentHistoryIndex = index;
+
+        // Update sections visibility
+        allHistorySections.forEach((section, i) => {
+            if (i === index) {
+                section.classList.add('active');
+                section.classList.remove('hidden');
+            } else if (i === previousIndex) {
+                section.classList.add('hidden');
+                section.classList.remove('active');
+            } else {
+                section.classList.remove('active', 'hidden');
             }
         });
     }
+
+    /**
+     * Hide all history sections (when outside wrapper)
+     */
+    function hideAllHistorySections() {
+        allHistorySections.forEach((section) => {
+            section.classList.remove('active');
+            section.classList.add('hidden');
+        });
+    }
+
+    /**
+     * Keyboard navigation for history section
+     */
+    function setupKeyboardNavigation() {
+        document.addEventListener('keydown', (e) => {
+            if (!historyWrapper) return;
+
+            // Only handle keys when in history wrapper view
+            const wrapperTop = historyWrapper.getBoundingClientRect().top;
+            const wrapperHeight = historyWrapper.offsetHeight;
+            const windowHeight = window.innerHeight;
+
+            if (wrapperTop <= 0 && wrapperTop > -wrapperHeight + windowHeight) {
+                const wrapperScrollTop = historyWrapper.offsetTop;
+
+                if (e.key === 'ArrowDown' && currentHistoryIndex < CONFIG.totalSections - 1) {
+                    e.preventDefault();
+                    const nextIndex = currentHistoryIndex + 1;
+                    window.scrollTo({
+                        top: wrapperScrollTop + (nextIndex * windowHeight),
+                        behavior: 'smooth'
+                    });
+                } else if (e.key === 'ArrowUp' && currentHistoryIndex > 0) {
+                    e.preventDefault();
+                    const prevIndex = currentHistoryIndex - 1;
+                    window.scrollTo({
+                        top: wrapperScrollTop + (prevIndex * windowHeight),
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    }
+
+    // Initialize
+    init();
+
 })();

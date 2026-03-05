@@ -30,36 +30,125 @@
             </div>
         </section>
 
-        <!-- Section 2: History/About -->
-        <section class="zodiac-history-section">
-            <!-- Left Side: Visual Decoration -->
-            <div class="zodiac-history-visual">
-                <!-- Cube Strips Background -->
-                <div class="zodiac-cube-strips">
-                    <img src="../assets/images/zodiac-cube-strips.png" alt="" class="zodiac-cube-img">
-                </div>
-                <!-- Ellipse Glow Effect -->
-                <div class="zodiac-ellipse-glow">
-                    <div class="zodiac-ellipse-img"></div>
+        <!-- Section 2: History/About - Sticky Scroll Container -->
+        <div class="zodiac-history-wrapper">
+            <!-- Background Decorations (Always visible) -->
+            <div class="zodiac-history-bg">
+                <!-- Floating Stars Decoration -->
+                <div class="zodiac-floating-stars">
+                    <div class="star star-1"></div>
+                    <div class="star star-2"></div>
+                    <div class="star star-3"></div>
+                    <div class="star star-4"></div>
+                    <div class="star star-5"></div>
                 </div>
             </div>
 
-            <!-- Right Side: Content Text -->
-            <div class="zodiac-history-content">
-                <p>
-                    จุดเริ่มต้นของราศีเกิดจากความพยายามของมนุษย์โบราณ โดยเฉพาะชาว บาบิโลน ในแถบเมโสโปเตเมีย ที่ต้องการสร้างระบบพิกัดบนท้องฟ้าเพื่อใช้เป็น "ปฏิทินกสิกรรม" สำหรับการอยู่รอด พวกเขาทำการสังเกตแถบทางเดินแคบๆ บนท้องฟ้าที่ดวงอาทิตย์ ดวงจันทร์ และดาวเคราะห์เคลื่อนที่ผ่านซ้ำๆ ในแต่ละปี ซึ่งเรียกในเชิงดาราศาสตร์ว่า เส้นสุริยวิถี (Ecliptic)
-                </p>
-                <p>
-                    เพื่อให้ง่ายต่อการนับรอบเวลาและการเพาะปลูก พวกเขาจึงแบ่งถนนสายนี้ออกเป็น 12 ส่วนเท่าๆ กัน โดยอิงจากจำนวนครั้งที่ดวงจันทร์เต็มดวงในหนึ่งรอบปีสุริยคติ การตั้งชื่อในระยะแรกจึงยึดโยงกับ ปรากฏการณ์ทางธรรมชาติหรือวิถีชีวิต ที่เกิดขึ้นจริงบนโลกในช่วงที่ดวงอาทิตย์เคลื่อนเข้าสู่เขตดาวนั้นๆ ทำให้กลุ่มดาวบนฟ้ากลายเป็นเครื่องหมายบอกฤดูกาลที่แม่นยำ
-                </p>
-                <p>
-                    ต่อมาเมื่อความรู้เหล่านี้ถูกส่งต่อไปยังชาว กรีก ระบบราศีจึงถูกยกระดับด้วย หลักการทางเรขาคณิต โดยการแบ่งวงกลมท้องฟ้า 360 องศา ออกเป็นช่องละ 30 องศาอย่างเป็นระบบ แม้ว่าในความเป็นจริงกลุ่มดาวแต่ละกลุ่มจะมีขนาดพื้นที่ไม่เท่ากันเลยก็ตาม นอกจากนี้ชาวกรีกยังได้นำ ตำนานเทพปกรณัม เข้ามาสวมทับชื่อเรียกเดิม เพื่อให้ง่ายต่อการจดจำและถ่ายทอดความรู้ จนกลายเป็นสัญลักษณ์สากลที่ใช้สืบเนื่องมาจนถึงปัจจุบัน
-                </p>
-                <p>
-                    เพื่อให้เนื้อหาดู "ว้าว" และมีมิติมากกว่าแค่ชื่อและวันที่ ผมจะเติม "ความลับเชิงประวัติศาสตร์และดาราศาสตร์" ที่คนส่วนใหญ่ไม่เคยรู้ลงไปในแต่ละราศีครับ โดยจะเชื่อมโยงจากจุดที่คุณเขียนไว้ คือจาก "ปฏิทินกสิกรรม" สู่ "ตำนานที่ซ่อนรหัสลับ" ของมนุษยชาติ
-                </p>
-            </div>
-        </section>
+            <!-- Intro Section -->
+            <section class="history-intro-section" data-history-index="0">
+                <div class="history-intro-content">
+                    <div class="history-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h2 class="history-main-title">ประวัติความเป็นมา</h2>
+                    <p class="history-main-subtitle">จากอารยธรรมโบราณสู่โลกสมัยใหม่</p>
+                    <div class="title-divider"></div>
+                </div>
+                <div class="scroll-hint">
+                    <span>เลื่อนเพื่ออ่านต่อ</span>
+                    <div class="scroll-arrow-down"></div>
+                </div>
+            </section>
+
+            <!-- History Section 1: อารยธรรมบาบิโลน -->
+            <section class="history-content-section" data-history-index="1">
+                <div class="history-content-wrapper">
+                    <div class="history-section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-landmark"></i>
+                        </div>
+                        <h3 class="section-title">อารยธรรมบาบิโลน</h3>
+                        <div class="section-number">01</div>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            จุดเริ่มต้นของราศีเกิดจากความพยายามของมนุษย์โบราณ โดยเฉพาะชาว <span class="highlight">บาบิโลน</span> ในแถบเมโสโปเตเมีย ที่ต้องการสร้างระบบพิกัดบนท้องฟ้าเพื่อใช้เป็น <span class="highlight">"ปฏิทินกสิกรรม"</span> สำหรับการอยู่รอด
+                        </p>
+                        <p>
+                            พวกเขาทำการสังเกตแถบทางเดินแคบๆ บนท้องฟ้าที่ดวงอาทิตย์ ดวงจันทร์ และดาวเคราะห์เคลื่อนที่ผ่านซ้ำๆ ในแต่ละปี ซึ่งเรียกในเชิงดาราศาสตร์ว่า <span class="highlight">เส้นสุริยวิถี (Ecliptic)</span>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- History Section 2: การแบ่ง 12 ราศี -->
+            <section class="history-content-section" data-history-index="2">
+                <div class="history-content-wrapper">
+                    <div class="history-section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <h3 class="section-title">การแบ่ง 12 ราศี</h3>
+                        <div class="section-number">02</div>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            เพื่อให้ง่ายต่อการนับรอบเวลาและการเพาะปลูก พวกเขาจึงแบ่งถนนสายนี้ออกเป็น <span class="highlight">12 ส่วนเท่าๆ กัน</span> โดยอิงจากจำนวนครั้งที่ดวงจันทร์เต็มดวงในหนึ่งรอบปีสุริยคติ
+                        </p>
+                        <p>
+                            การตั้งชื่อในระยะแรกจึงยึดโยงกับ <span class="highlight">ปรากฏการณ์ทางธรรมชาติหรือวิถีชีวิต</span> ที่เกิดขึ้นจริงบนโลกในช่วงที่ดวงอาทิตย์เคลื่อนเข้าสู่เขตดาวนั้นๆ ทำให้กลุ่มดาวบนฟ้ากลายเป็นเครื่องหมายบอกฤดูกาลที่แม่นยำ
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- History Section 3: ศาสตร์แห่งกรีก -->
+            <section class="history-content-section" data-history-index="3">
+                <div class="history-content-wrapper">
+                    <div class="history-section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-compass"></i>
+                        </div>
+                        <h3 class="section-title">ศาสตร์แห่งกรีก</h3>
+                        <div class="section-number">03</div>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            ต่อมาเมื่อความรู้เหล่านี้ถูกส่งต่อไปยังชาว <span class="highlight">กรีก</span> ระบบราศีจึงถูกยกระดับด้วย <span class="highlight">หลักการทางเรขาคณิต</span> โดยการแบ่งวงกลมท้องฟ้า 360 องศา ออกเป็นช่องละ 30 องศาอย่างเป็นระบบ
+                        </p>
+                        <p>
+                            แม้ว่าในความเป็นจริงกลุ่มดาวแต่ละกลุ่มจะมีขนาดพื้นที่ไม่เท่ากันเลยก็ตาม นอกจากนี้ชาวกรีกยังได้นำ <span class="highlight">ตำนานเทพปกรณัม</span> เข้ามาสวมทับชื่อเรียกเดิม เพื่อให้ง่ายต่อการจดจำและถ่ายทอดความรู้ จนกลายเป็นสัญลักษณ์สากลที่ใช้สืบเนื่องมาจนถึงปัจจุบัน
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- History Section 4: ความลับแห่งดวงดาว -->
+            <section class="history-content-section" data-history-index="4">
+                <div class="history-content-wrapper">
+                    <div class="history-section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3 class="section-title">ความลับแห่งดวงดาว</h3>
+                        <div class="section-number">04</div>
+                    </div>
+                    <div class="section-content">
+                        <p>
+                            เพื่อให้เนื้อหาดู "ว้าว" และมีมิติมากกว่าแค่ชื่อและวันที่ เราจะเติม <span class="highlight">"ความลับเชิงประวัติศาสตร์และดาราศาสตร์"</span> ที่คนส่วนใหญ่ไม่เคยรู้ลงไปในแต่ละราศี
+                        </p>
+                        <p>
+                            โดยจะเชื่อมโยงจากจุดที่คุณเขียนไว้ คือจาก <span class="highlight">"ปฏิทินกสิกรรม"</span> สู่ <span class="highlight">"ตำนานที่ซ่อนรหัสลับ"</span> ของมนุษยชาติ
+                        </p>
+                    </div>
+                    <div class="section-footer">
+                        <div class="decoration-line"></div>
+                        <div class="decoration-symbol">✦</div>
+                        <div class="decoration-line"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
         <!-- Section 3: Zodiac Header + Cards - From Figma (Node: 237-139) -->
         <section class="zodiac-header-section">

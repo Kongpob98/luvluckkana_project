@@ -1,0 +1,642 @@
+/* ===================================
+   Numerology Page - Design System
+   Based on Figma Design: Node 224:139
+   =================================== */
+
+/* Design Tokens from Figma */
+:root {
+    --numerology-primary: #724ffc;
+    --numerology-dark: #000000;
+    --numerology-text: #ffffff;
+    --numerology-text-secondary: rgba(255, 255, 255, 0.8);
+    --numerology-border: rgba(255, 255, 255, 0.15);
+    --numerology-glass-bg: rgba(20, 20, 30, 0.7);
+    --numerology-shadow: rgba(114, 79, 252, 0.3);
+    
+    /* Typography */
+    --font-primary: 'General Sans', sans-serif;
+    --font-size-hero: 32px;
+    --font-size-title: 48px;
+    --font-size-card: 24px;
+    
+    /* Spacing */
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 32px;
+    --spacing-xl: 48px;
+    --spacing-2xl: 64px;
+}
+
+/* Ensure full viewport */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+/* Page Body */
+.numerology-page {
+    background-color: var(--numerology-dark);
+    overflow-x: hidden;
+    font-family: var(--font-primary);
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+/* ===================================
+   Hero Section - From Figma Design
+   =================================== */
+.numerology-hero {
+    position: relative;
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+    padding: var(--spacing-2xl) 0 var(--spacing-2xl) 0;
+    margin: 0;
+    left: 0;
+    right: 0;
+}
+
+/* Hero Background */
+.numerology-hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse 70% 80% at 50% 40%,
+        #7B5FFF 0%,
+        #5F3FFF 25%,
+        #3F1FBF 50%,
+        #1F0F5F 75%,
+        #000000 100%
+    );
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Gradient Stripes Container */
+.gradient-stripes {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.gradient-stripes .stripe {
+    position: absolute;
+    top: 0;
+    width: 7.14285%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.gradient-stripes .stripe::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1400%;
+    height: 100%;
+    background-image: url('../assets/images/numerology/rectangle.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    opacity: 0.6;
+}
+
+.gradient-stripes .stripe:nth-child(1) { left: 0%; }
+.gradient-stripes .stripe:nth-child(1)::before { left: 0%; }
+
+.gradient-stripes .stripe:nth-child(2) { left: 7.14285%; }
+.gradient-stripes .stripe:nth-child(2)::before { left: -100%; }
+
+.gradient-stripes .stripe:nth-child(3) { left: 14.2857%; }
+.gradient-stripes .stripe:nth-child(3)::before { left: -200%; }
+
+.gradient-stripes .stripe:nth-child(4) { left: 21.4286%; }
+.gradient-stripes .stripe:nth-child(4)::before { left: -300%; }
+
+.gradient-stripes .stripe:nth-child(5) { left: 28.5714%; }
+.gradient-stripes .stripe:nth-child(5)::before { left: -400%; }
+
+.gradient-stripes .stripe:nth-child(6) { left: 35.7143%; }
+.gradient-stripes .stripe:nth-child(6)::before { left: -500%; }
+
+.gradient-stripes .stripe:nth-child(7) { left: 42.8571%; }
+.gradient-stripes .stripe:nth-child(7)::before { left: -600%; }
+
+.gradient-stripes .stripe:nth-child(8) { left: 50%; }
+.gradient-stripes .stripe:nth-child(8)::before { left: -700%; }
+
+.gradient-stripes .stripe:nth-child(9) { left: 57.1429%; }
+.gradient-stripes .stripe:nth-child(9)::before { left: -800%; }
+
+.gradient-stripes .stripe:nth-child(10) { left: 64.2857%; }
+.gradient-stripes .stripe:nth-child(10)::before { left: -900%; }
+
+.gradient-stripes .stripe:nth-child(11) { left: 71.4286%; }
+.gradient-stripes .stripe:nth-child(11)::before { left: -1000%; }
+
+.gradient-stripes .stripe:nth-child(12) { left: 78.5714%; }
+.gradient-stripes .stripe:nth-child(12)::before { left: -1100%; }
+
+.gradient-stripes .stripe:nth-child(13) { left: 85.7143%; }
+.gradient-stripes .stripe:nth-child(13)::before { left: -1200%; }
+
+.gradient-stripes .stripe:nth-child(14) { left: 92.8571%; }
+.gradient-stripes .stripe:nth-child(14)::before { left: -1300%; }
+
+/* Spotlight Overlay */
+.spotlight-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 2;
+    pointer-events: none;
+    transition: background 0.05s linear;
+    will-change: background;
+}
+
+/* Frame Decoration */
+.hero-frame-decoration {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%) rotate(89.73deg);
+    width: 800px;
+    height: auto;
+    opacity: 0.3;
+    z-index: 4;
+}
+
+.hero-frame-decoration img {
+    width: 100%;
+    height: auto;
+}
+
+/* Hero Content */
+.numerology-hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 1298px;
+    width: 100%;
+    text-align: center;
+    animation: fadeInUp 1s ease-out;
+    padding: 0 var(--spacing-md);
+}
+
+.hero-title {
+    font-family: var(--font-primary);
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 700;
+    color: var(--numerology-text);
+    margin: 0 0 var(--spacing-xl) 0;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-shadow: 0 0 40px var(--numerology-shadow),
+                 0 0 20px var(--numerology-shadow);
+    animation: glow 3s ease-in-out infinite alternate;
+}
+
+/* Hero Introduction Content */
+.numerology-hero-content .intro-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--spacing-xl) var(--spacing-lg);
+    animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+.numerology-hero-content .intro-quote {
+    font-family: var(--font-primary);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--numerology-text);
+    margin: 0 0 var(--spacing-md) 0;
+    text-align: center;
+    font-style: italic;
+}
+
+.numerology-hero-content .intro-subtitle {
+    font-family: var(--font-primary);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--numerology-text-secondary);
+    margin: 0;
+    text-align: center;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 20px var(--numerology-shadow),
+                     0 0 30px var(--numerology-shadow);
+    }
+    to {
+        text-shadow: 0 0 40px var(--numerology-shadow),
+                     0 0 60px var(--numerology-shadow);
+    }
+}
+
+/* ===================================
+   Numbers Section with Intro
+   =================================== */
+.numerology-numbers {
+    position: relative;
+    width: 100vw;
+    padding: var(--spacing-2xl) var(--spacing-md);
+    background: var(--numerology-dark);
+    overflow: hidden;
+    margin: 0;
+    left: 0;
+    right: 0;
+}
+
+/* Introduction Content - Moved to Hero Section */
+/* .numerology-intro styles removed as content now in .numerology-hero-content */
+
+/* Numbers Header */
+.numbers-header {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+    animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+.section-title {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-title);
+    font-weight: 700;
+    color: var(--numerology-text);
+    margin: 0 0 var(--spacing-sm) 0;
+    background: linear-gradient(135deg, var(--numerology-primary), #9370db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.section-subtitle {
+    font-family: var(--font-primary);
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--numerology-text-secondary);
+    margin: 0;
+}
+
+/* Carousel Wrapper */
+.numbers-carousel-wrapper {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+}
+
+.numbers-carousel {
+    display: flex;
+    gap: 30px;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Carousel Navigation */
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background: var(--numerology-glass-bg);
+    border: 1px solid var(--numerology-border);
+    border-radius: 50%;
+    backdrop-filter: blur(10px);
+    color: var(--numerology-text);
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-nav:hover:not(:disabled) {
+    background: var(--numerology-primary);
+    border-color: var(--numerology-primary);
+    box-shadow: 0 0 20px var(--numerology-shadow);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.carousel-nav.prev {
+    left: 0;
+}
+
+.carousel-nav.next {
+    right: 0;
+}
+
+/* Number Cards */
+.number-card {
+    flex: 0 0 350px;
+    width: 350px;
+    height: 450px;
+    perspective: 1000px;
+    scroll-snap-align: start;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.number-card:hover .card-inner {
+    transform: rotateY(10deg) scale(1.05);
+}
+
+.card-front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background: linear-gradient(
+        135deg,
+        rgba(114, 79, 252, 0.15) 0%,
+        rgba(20, 20, 30, 0.9) 100%
+    );
+    border: 1px solid var(--numerology-border);
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    padding: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5),
+                0 0 30px var(--numerology-shadow);
+    transition: all 0.3s ease;
+}
+
+.card-front:hover {
+    border-color: var(--numerology-primary);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6),
+                0 0 50px var(--numerology-shadow);
+}
+
+.number-display {
+    font-family: var(--font-primary);
+    font-size: 120px;
+    font-weight: 800;
+    color: var(--numerology-text);
+    line-height: 1;
+    margin-bottom: var(--spacing-md);
+    text-shadow: 0 0 30px var(--numerology-shadow);
+    background: linear-gradient(135deg, var(--numerology-primary), #9370db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.number-name {
+    font-family: var(--font-primary);
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--numerology-text);
+    margin: var(--spacing-md) 0;
+    text-align: center;
+}
+
+.number-tagline {
+    font-family: var(--font-primary);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--numerology-text-secondary);
+    margin: 0;
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===================================
+   Responsive Design
+   =================================== */
+
+@media (max-width: 1440px) {
+    .hero-frame-decoration {
+        width: 700px;
+    }
+    
+    .number-card {
+        flex: 0 0 320px;
+        width: 320px;
+        height: 420px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .numerology-hero {
+        min-height: 80vh;
+        padding: var(--spacing-xl) var(--spacing-md);
+    }
+    
+    .numerology-hero-content .intro-quote,
+    .numerology-hero-content .intro-subtitle {
+        font-size: 20px;
+    }
+    
+    .hero-frame-decoration {
+        width: 600px;
+        opacity: 0.2;
+    }
+    
+    .numbers-carousel-wrapper {
+        padding: 0 50px;
+    }
+    
+    .number-card {
+        flex: 0 0 280px;
+        width: 280px;
+        height: 380px;
+    }
+    
+    .number-display {
+        font-size: 100px;
+    }
+    
+    .number-name {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --spacing-2xl: 48px;
+        --spacing-xl: 32px;
+    }
+    
+    .numerology-hero {
+        min-height: 70vh;
+        padding: var(--spacing-lg) var(--spacing-sm);
+    }
+    
+    .numerology-hero-content .intro-quote {
+        font-size: 18px;
+    }
+    
+    .numerology-hero-content .intro-subtitle {
+        font-size: 18px;
+    }
+    
+    .hero-frame-decoration {
+        width: 400px;
+        opacity: 0.15;
+    }
+    
+    .section-title {
+        font-size: 36px;
+    }
+    
+    .numbers-carousel-wrapper {
+        padding: 0 40px;
+    }
+    
+    .number-card {
+        flex: 0 0 240px;
+        width: 240px;
+        height: 340px;
+    }
+    
+    .card-front {
+        padding: var(--spacing-md);
+        border-radius: 20px;
+    }
+    
+    .number-display {
+        font-size: 80px;
+    }
+    
+    .number-name {
+        font-size: 24px;
+    }
+    
+    .number-tagline {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .numerology-hero {
+        min-height: 60vh;
+        padding: var(--spacing-md) var(--spacing-sm);
+    }
+    
+    .numerology-hero-content .intro-quote {
+        font-size: 16px;
+    }
+    
+    .numerology-hero-content .intro-subtitle {
+        font-size: 16px;
+    }
+    
+    .hero-frame-decoration {
+        display: none;
+    }
+    
+    .section-title {
+        font-size: 28px;
+    }
+    
+    .section-subtitle {
+        font-size: 16px;
+    }
+    
+    .numbers-carousel-wrapper {
+        padding: 0 35px;
+    }
+    
+    .carousel-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .number-card {
+        flex: 0 0 220px;
+        width: 220px;
+        height: 320px;
+    }
+    
+    .card-front {
+        padding: var(--spacing-sm);
+        border-radius: 16px;
+    }
+    
+    .number-display {
+        font-size: 70px;
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .number-name {
+        font-size: 22px;
+        margin: var(--spacing-sm) 0;
+    }
+    
+    .number-tagline {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 375px) {
+    .numerology-hero {
+        min-height: 55vh;
+    }
+    
+    .numerology-hero-content .intro-quote,
+    .numerology-hero-content .intro-subtitle {
+        font-size: 14px;
+    }
+    
+    .section-title {
+        font-size: 24px;
+    }
+    
+    .numbers-carousel-wrapper {
+        padding: 0 30px;
+    }
+    
+    .number-card {
+        flex: 0 0 200px;
+        width: 200px;
+        height: 300px;
+    }
+    
+    .number-display {
+        font-size: 60px;
+    }
+    
+    .number-name {
+        font-size: 20px;
+    }
+}
