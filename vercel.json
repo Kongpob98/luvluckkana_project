@@ -6,6 +6,7 @@
   },
   "rewrites": [
     { "source": "/", "destination": "/pages/index.html" },
+    { "source": "/index.html", "destination": "/pages/index.html" },
     { "source": "/12zodiac.html", "destination": "/pages/12zodiac.html" },
     { "source": "/chinese-zodiac.html", "destination": "/pages/chinese-zodiac.html" },
     { "source": "/chatbot.html", "destination": "/pages/chatbot.html" },
