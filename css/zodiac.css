@@ -1164,25 +1164,137 @@
     }
 }
 
-/* Zodiac Cards - Horizontal Scroll in Section 3 */
-.zodiac-cards-wrapper {
+/* Zodiac Cards - 3D Carousel Style (Like Chinese Zodiac) */
+/* Carousel Container */
+.carousel-3d-container {
     position: relative;
+    z-index: 10;
     width: 100%;
-    padding: 40px 0 60px 0;
+    max-width: 1400px;
+    height: 600px;
+    flex-shrink: 0;
+    margin: 0 auto 100px auto;
 }
 
-.zodiac-cards-scroll {
+/* Navigation Buttons */
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
     display: flex;
-    gap: 30px;
-    overflow-x: auto;
-    overflow-y: visible;
-    padding: 40px 40px 80px 40px;
-    scroll-behavior: smooth;
-    scroll-snap-type: x proximity;
-    -webkit-overflow-scrolling: touch;
-    /* Custom scrollbar */
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.2);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.carousel-nav:hover {
+    background: rgba(138, 43, 226, 0.3);
+    border-color: rgba(138, 43, 226, 0.5);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
+}
+
+.carousel-nav-prev {
+    left: 40px;
+}
+
+.carousel-nav-next {
+    right: 40px;
+}
+
+/* Carousel Indicators (Dots) */
+.carousel-indicators {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 25px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.carousel-indicator-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.carousel-indicator-dot:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+}
+
+.carousel-indicator-dot.active {
+    width: 30px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.9), rgba(220, 38, 255, 0.9));
+    border-color: rgba(220, 38, 255, 0.8);
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+}
+
+.carousel-indicator-dot.active::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(220, 38, 255, 0.3));
+    filter: blur(8px);
+    z-index: -1;
+    animation: pulse-indicator 2s ease-in-out infinite;
+}
+
+@keyframes pulse-indicator {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+/* Carousel Wrapper */
+.carousel-3d-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: 2000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-3d-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
 }
 
 .zodiac-cards-scroll::-webkit-scrollbar {
@@ -1211,51 +1323,173 @@
     box-shadow: 0 0 10px rgba(220, 38, 255, 0.5);
 }
 
-/* Zodiac Card - Transparent Style with Popup Effect */
+/* Zodiac Card - Chinese Zodiac Glass Morphism Style with 3D Transform */
 .zodiac-card-item {
-    position: relative;
-    flex: 0 0 280px;
-    width: 280px;
-    height: 400px;
-    background: transparent;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    padding: 20px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 380px;
+    height: 500px;
+    background: linear-gradient(135deg, 
+        rgba(255, 105, 180, 0.6) 0%, 
+        rgba(138, 43, 226, 0.6) 50%, 
+        rgba(0, 191, 255, 0.6) 100%);\n    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    overflow: visible;
+    justify-content: flex-start;
+    overflow: hidden;
     cursor: pointer;
     opacity: 1;
-    box-shadow: none;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(138, 43, 226, 0.3),
+                inset 0 0 50px rgba(255, 255, 255, 0.1);
     z-index: 1;
-    scroll-snap-align: start;
+    transform-origin: center;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                z-index 0s;
+}
+
+/* Card positioning states */
+.zodiac-card-item.active {
+    transform: translate(-50%, -50%) translateZ(0) scale(1);
+    opacity: 1;
+    z-index: 50;
+    pointer-events: auto;
+}
+
+.zodiac-card-item.left-1 {
+    transform: translate(-50%, -50%) translateX(-420px) translateZ(-200px) rotateY(35deg) scale(0.75);
+    opacity: 0.7;
+    z-index: 40;
+    pointer-events: auto;
+}
+
+.zodiac-card-item.left-2 {
+    transform: translate(-50%, -50%) translateX(-720px) translateZ(-400px) rotateY(45deg) scale(0.55);
+    opacity: 0.4;
+    z-index: 30;
+    pointer-events: none;
+}
+
+.zodiac-card-item.right-1 {
+    transform: translate(-50%, -50%) translateX(420px) translateZ(-200px) rotateY(-35deg) scale(0.75);
+    opacity: 0.7;
+    z-index: 40;
+    pointer-events: auto;
+}
+
+.zodiac-card-item.right-2 {
+    transform: translate(-50%, -50%) translateX(720px) translateZ(-400px) rotateY(-45deg) scale(0.55);
+    opacity: 0.4;
+    z-index: 30;
+    pointer-events: none;
+}
+
+.zodiac-card-item.hidden {
+    transform: translate(-50%, -50%) translateZ(-600px) scale(0.3);
+    opacity: 0;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Hover effect only for active card */
+.zodiac-card-item.active:hover {
+    transform: translate(-50%, -50%) translateZ(5px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6),
+                0 0 50px rgba(138, 43, 226, 0.5),
+                inset 0 0 50px rgba(255, 255, 255, 0.15);
+}
+
+/* Color variants for each zodiac - Glass Morphism Style */
+.zodiac-card-item[data-zodiac-id="1"] {
+    background: linear-gradient(135deg, rgba(255, 0, 128, 0.7) 0%, rgba(255, 105, 180, 0.7) 50%, rgba(138, 43, 226, 0.7) 100%);
+}
+
+.zodiac-card-item[data-zodiac-id="2"] {
+    background: linear-gradient(135deg, rgba(255, 179, 186, 0.7) 0%, rgba(255, 223, 186, 0.7) 100%);
+}
+
+.zodiac-card-item[data-zodiac-id="3"] {
+    background: linear-gradient(135deg, rgba(34, 193, 195, 0.7) 0%, rgba(45, 253, 211, 0.7) 100%);
+}
+
+.zodiac-card-item[data-zodiac-id="4"] {
+    background: linear-gradient(135deg, rgba(167, 112, 239, 0.7) 0%, rgba(207, 159, 255, 0.7) 100%);
+}
+
+.zodiac-card-item[data-zodiac-id="5"] {
+    background: linear-gradient(135deg, rgba(255, 140, 0, 0.7) 0%, rgba(255, 200, 124, 0.7) 100%);
+}
+
+.zodiac-card-item[data-zodiac-id="6"] {
+    background: linear-gradient(135deg, rgba(252, 203, 144, 0.7) 0%, rgba(213, 126, 235, 0.7) 100%);
+}
+
+.zodiac-card-item[data-zodiac-id="7"] {
+    background: linear-gradient(135deg, rgba(255, 192, 203, 0.7) 0%, rgba(255, 182, 193, 0.7) 100%);
+}
+
+.zodiac-card-item[data-zodiac-id="8"] {
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.7) 0%, rgba(152, 125, 255, 0.7) 100%);
+}
+
+.zodiac-card-item[data-zodiac-id="9"] {
+    background: linear-gradient(135deg, rgba(255, 128, 8, 0.7) 0%, rgba(255, 200, 55, 0.7) 100%);
+}
+
+.zodiac-card-item[data-zodiac-id="10"] {
+    background: linear-gradient(135deg, rgba(0, 150, 255, 0.7) 0%, rgba(100, 200, 255, 0.7) 100%);
+}
+
+.zodiac-card-item[data-zodiac-id="11"] {
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.7) 0%, rgba(255, 154, 158, 0.7) 100%);
+}
+
+.zodiac-card-item[data-zodiac-id="12"] {
+    background: linear-gradient(135deg, rgba(255, 0, 255, 0.7) 0%, rgba(200, 0, 255, 0.7) 100%);
 }
 
 /* Stagger animation delay - DISABLED */
 
 /* Card Image Container */
 .zodiac-card-image {
+    flex: 1;
     width: 100%;
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 15px;
-    overflow: hidden;
-    background: transparent;
-    border: none;
-    box-shadow: none;
+    padding: 40px;
+    background: linear-gradient(180deg, 
+        rgba(255, 255, 255, 0.1) 0%, 
+        rgba(0, 0, 0, 0.3) 100%);
+    overflow: visible;
+    z-index: 2;
 }
 
 .zodiac-card-image img {
     width: 100%;
     height: 100%;
+    max-width: 280px;
+    max-height: 280px;
     object-fit: contain;
-    filter: none;
+    object-position: center;
+    filter: drop-shadow(0 10px 30px rgba(138, 43, 226, 0.4));
+    transition: transform 0.3s ease-out, filter 0.3s ease;
+    will-change: transform;
+}
+
+.zodiac-card-item:hover .zodiac-card-image img {
+    transform: scale(1.05) translateY(-5px);
+    filter: drop-shadow(0 15px 40px rgba(138, 43, 226, 0.6));
 }
 
 /* Placeholder for empty image */
@@ -1265,36 +1499,39 @@
 
 /* Card Info Section */
 .zodiac-card-info {
-    display: none;
+    width: 100%;
+    padding: 24px;
+    text-align: center;
+    background: linear-gradient(180deg, 
+        rgba(0, 0, 0, 0.3) 0%, 
+        rgba(0, 0, 0, 0.6) 100%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 /* Card Title - English Name */
 .zodiac-card-name {
     font-family: 'General Sans', sans-serif;
-    font-size: 24px;
-    font-weight: 600;
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(220, 180, 255, 1) 50%,
-        rgba(255, 255, 255, 1) 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin: 0 0 6px 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
     line-height: 1.2;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 /* Card Thai Name */
 .zodiac-card-thai-name {
     font-family: 'General Sans', sans-serif;
     font-size: 18px;
-    font-weight: 400;
-    color: rgba(220, 180, 255, 0.9);
-    text-shadow: 0 0 10px rgba(147, 51, 234, 0.3);
-    margin: 0 0 4px 0;
+    font-weight: 500;
+    color: #b5b5b5;
+    margin: 0;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
 }
 
 /* Card Date Range */
@@ -1302,69 +1539,129 @@
     font-family: 'General Sans', sans-serif;
     font-size: 14px;
     font-weight: 400;
-    color: rgba(180, 150, 220, 0.8);
+    color: rgba(255, 255, 255, 0.7);
     margin: 0;
 }
 
 /* Responsive Design for Horizontal Scroll Cards */
+/* Responsive Design for 3D Carousel */
 @media (max-width: 1440px) {
     .zodiac-cards-wrapper {
-        padding: 35px 0 55px 0;
+        padding: 70px 0 110px 0;
     }
 
-    .zodiac-cards-scroll {
-        gap: 28px;
-        padding: 40px 35px 75px 35px;
+    .carousel-3d-container {
+        height: 550px;
     }
 
     .zodiac-card-item {
-        flex: 0 0 260px;
-        width: 260px;
-        height: 380px;
+        width: 340px;
+        height: 450px;
+    }
+    
+    .zodiac-card-item.left-1 {
+        transform: translate(-50%, -50%) translateX(-380px) translateZ(-180px) rotateY(35deg) scale(0.75);
+    }
+    
+    .zodiac-card-item.right-1 {
+        transform: translate(-50%, -50%) translateX(380px) translateZ(-180px) rotateY(-35deg) scale(0.75);
     }
 }
 
 @media (max-width: 1024px) {
     .zodiac-cards-wrapper {
-        padding: 30px 0 50px 0;
+        padding: 60px 0 100px 0;
     }
 
-    .zodiac-cards-scroll {
-        gap: 25px;
-        padding: 40px 30px 70px 30px;
+    .carousel-3d-container {
+        height: 500px;
     }
 
     .zodiac-card-item {
-        flex: 0 0 240px;
-        width: 240px;
-        height: 350px;
+        width: 320px;
+        height: 420px;
     }
 
-    .zodiac-card-image-placeholder {
-        font-size: 52px;
+    .zodiac-card-name {
+        font-size: 26px;
+    }
+    
+    .zodiac-card-thai-name {
+        font-size: 17px;
+    }
+    
+    .zodiac-card-dates {
+        font-size: 13px;
+    }
+    
+    .zodiac-card-item.left-1 {
+        transform: translate(-50%, -50%) translateX(-350px) translateZ(-150px) rotateY(35deg) scale(0.7);
+    }
+    
+    .zodiac-card-item.right-1 {
+        transform: translate(-50%, -50%) translateX(350px) translateZ(-150px) rotateY(-35deg) scale(0.7);
+    }
+    
+    .carousel-nav {
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+    }
+    
+    .carousel-nav-prev {
+        left: 30px;
+    }
+    
+    .carousel-nav-next {
+        right: 30px;
+    }
+    
+    .carousel-indicators {
+        bottom: -50px;
+        gap: 10px;
+        padding: 12px 20px;
+    }
+    
+    .carousel-indicator-dot {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .carousel-indicator-dot.active {
+        width: 24px;
     }
 }
 
 @media (max-width: 768px) {
     .zodiac-cards-wrapper {
-        padding: 25px 0 45px 0;
+        padding: 50px 0 90px 0;
     }
 
-    .zodiac-cards-scroll {
-        gap: 20px;
-        padding: 30px 20px 60px 20px;
+    .carousel-3d-container {
+        height: 450px;
     }
 
     .zodiac-card-item {
-        flex: 0 0 200px;
-        width: 200px;
-        height: 320px;
-        padding: 16px;
-        border-radius: 18px;
+        width: 280px;
+        height: 380px;
+        border-radius: 20px;
+    }
+
+    .zodiac-card-image {
+        padding: 30px;
+    }
+    
+    .zodiac-card-image img {
+        max-width: 220px;
+        max-height: 220px;
+    }
+
+    .zodiac-card-info {
+        padding: 20px;
     }
 
     .zodiac-card-name {
-        font-size: 20px;
+        font-size: 24px;
     }
 
     .zodiac-card-thai-name {
@@ -1372,46 +1669,134 @@
     }
 
     .zodiac-card-dates {
-        font-size: 13px;
+        font-size: 12px;
     }
-
-    .zodiac-card-image-placeholder {
-        font-size: 48px;
+    
+    /* Show only 3 cards on tablet */
+    .zodiac-card-item.left-1 {
+        transform: translate(-50%, -50%) translateX(-250px) translateZ(-100px) rotateY(40deg) scale(0.65);
+        opacity: 0.6;
+    }
+    
+    .zodiac-card-item.right-1 {
+        transform: translate(-50%, -50%) translateX(250px) translateZ(-100px) rotateY(-40deg) scale(0.65);
+        opacity: 0.6;
+    }
+    
+    .zodiac-card-item.left-2,
+    .zodiac-card-item.right-2 {
+        opacity: 0;
+        pointer-events: none;
+    }
+    
+    .carousel-nav {
+        width: 45px;
+        height: 45px;
+        font-size: 16px;
+    }
+    
+    .carousel-nav-prev {
+        left: 20px;
+    }
+    
+    .carousel-nav-next {
+        right: 20px;
+    }
+    
+    .carousel-indicators {
+        bottom: -45px;
+        gap: 8px;
+        padding: 10px 18px;
+    }
+    
+    .carousel-indicator-dot {
+        width: 7px;
+        height: 7px;
+    }
+    
+    .carousel-indicator-dot.active {
+        width: 20px;
     }
 }
 
 @media (max-width: 480px) {
     .zodiac-cards-wrapper {
-        padding: 20px 0 40px 0;
+        padding: 40px 0 80px 0;
     }
 
-    .zodiac-cards-scroll {
-        gap: 16px;
-        padding: 25px 16px 50px 16px;
+    .carousel-3d-container {
+        height: 400px;
     }
 
     .zodiac-card-item {
-        flex: 0 0 180px;
-        width: 180px;
-        height: 280px;
-        padding: 12px;
-        border-radius: 16px;
+        width: 240px;
+        height: 340px;
+        border-radius: 18px;
+    }
+
+    .zodiac-card-image {
+        padding: 25px;
+    }
+    
+    .zodiac-card-image img {
+        max-width: 180px;
+        max-height: 180px;
+    }
+
+    .zodiac-card-info {
+        padding: 18px;
     }
 
     .zodiac-card-name {
-        font-size: 18px;
+        font-size: 22px;
     }
 
     .zodiac-card-thai-name {
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .zodiac-card-dates {
-        font-size: 12px;
+        font-size: 11px;
     }
-
-    .zodiac-card-image-placeholder {
-        font-size: 40px;
+    
+    .zodiac-card-item.left-1 {
+        transform: translate(-50%, -50%) translateX(-180px) translateZ(-80px) rotateY(50deg) scale(0.6);
+        opacity: 0.4;
+    }
+    
+    .zodiac-card-item.right-1 {
+        transform: translate(-50%, -50%) translateX(180px) translateZ(-80px) rotateY(-50deg) scale(0.6);
+        opacity: 0.4;
+    }
+    
+    .carousel-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
+    
+    .carousel-nav-prev {
+        left: 10px;
+    }
+    
+    .carousel-nav-next {
+        right: 10px;
+    }
+    
+    .carousel-indicators {
+        bottom: -40px;
+        gap: 6px;
+        padding: 8px 15px;
+        border-radius: 30px;
+    }
+    
+    .carousel-indicator-dot {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .carousel-indicator-dot.active {
+        width: 18px;
     }
 }
 
@@ -1420,21 +1805,27 @@
         padding: 15px 0 35px 0;
     }
 
-    .zodiac-cards-scroll {
-        gap: 14px;
-        padding: 20px 12px 45px 12px;
+    .carousel-3d-container {
+        height: 350px;
     }
 
     .zodiac-card-item {
-        flex: 0 0 160px;
-        width: 160px;
-        height: 250px;
-        padding: 10px;
+        width: 200px;
+        height: 300px;
         border-radius: 14px;
+    }
+    
+    .zodiac-card-image {
+        padding: 20px;
+    }
+    
+    .zodiac-card-image img {
+        max-width: 150px;
+        max-height: 150px;
     }
 
     .zodiac-card-name {
-        font-size: 16px;
+        font-size: 20px;
     }
 
     .zodiac-card-thai-name {
@@ -1444,9 +1835,34 @@
     .zodiac-card-dates {
         font-size: 11px;
     }
+    
+    .zodiac-card-item.left-1 {
+        transform: translate(-50%, -50%) translateX(-150px) translateZ(-60px) rotateY(55deg) scale(0.55);
+        opacity: 0.3;
+    }
+    
+    .zodiac-card-item.right-1 {
+        transform: translate(-50%, -50%) translateX(150px) translateZ(-60px) rotateY(-55deg) scale(0.55);
+        opacity: 0.3;
+    }
 
     .zodiac-card-image-placeholder {
         font-size: 36px;
+    }
+    
+    .carousel-indicators {
+        bottom: -35px;
+        gap: 5px;
+        padding: 6px 12px;
+    }
+    
+    .carousel-indicator-dot {
+        width: 5px;
+        height: 5px;
+    }
+    
+    .carousel-indicator-dot.active {
+        width: 15px;
     }
 }
 
