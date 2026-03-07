@@ -6,6 +6,14 @@
     }
   },
   "rewrites": [
-    { "source": "/", "destination": "/pages/index.html" }
+    { "source": "/", "destination": "/pages/index.html" },
+    { "source": "/12zodiac.html", "destination": "/pages/12zodiac.html" },
+    { "source": "/chinese-zodiac.html", "destination": "/pages/chinese-zodiac.html" },
+    { "source": "/chatbot.html", "destination": "/pages/chatbot.html" },
+    { "source": "/simsy.html", "destination": "/pages/simsy.html" },
+    { "source": "/simsy-result.html", "destination": "/pages/simsy-result.html" },
+    { "source": "/numerology.html", "destination": "/pages/numerology.html" },
+    { "source": "/blog.html", "destination": "/pages/blog.html" },
+    { "source": "/colors.html", "destination": "/pages/colors.html" }
   ]
 }
