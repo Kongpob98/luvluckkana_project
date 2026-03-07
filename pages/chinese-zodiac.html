@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Chinese Zodiac - Luckkana Star</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/chinese-zodiac.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts - General Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=General+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Discover your Chinese Zodiac sign and unlock ancient wisdom with AI-powered readings">
+    <meta name="keywords" content="chinese zodiac, astrology, fortune telling, horoscope">
+</head>
+<body class="chinese-zodiac-page">
+    
+    <!-- Navbar Component -->
+    <nav id="navbar"></nav>
+    
+    <!-- Cursor Trail -->
+    <div class="cursor-trail-container"></div>
+    
+    <!-- Main Container -->
+    <main class="chinese-zodiac-container">
+        
+        <!-- Hero Section -->
+        <section class="chinese-hero-section">
+            
+            <!-- Video Background -->
+            <div class="chinese-hero-bg">
+                <video 
+                    autoplay 
+                    muted 
+                    loop 
+                    playsinline 
+                    preload="auto"
+                    class="chinese-hero-video"
+                    webkit-playsinline="true"
+                    x-webkit-airplay="deny">
+                    <source src="../assets/images/chinese-zodiac/Chnbg1.mp4" type="video/mp4">
+                </video>
+            </div>
+            
+            <!-- Hero Content -->
+            <div class="chinese-hero-content">
+                <!-- Main Title -->
+                <h1 class="chinese-hero-title">
+                    <span class="chinese-hero-title-line1">Chinese</span>
+                    <span class="chinese-hero-title-line2">zodiac</span>
+                </h1>
+            </div>
+            
+        </section>
+        
+        <!-- Section 2: History/About with Parallax -->
+        <section class="chinese-history-section">
+            
+            <!-- Background Gradient -->
+            <div class="chinese-history-bg">
+                <div class="chinese-history-gradient"></div>
+            </div>
+            
+            <!-- Decorative Shape with Parallax -->
+            <div class="chinese-shape-decorative" data-parallax-speed="0.5">
+                <img src="../assets/images/chinese-zodiac/shape-decorative.svg" alt="" aria-hidden="true">
+            </div>
+            
+            <!-- Content Text -->
+            <div class="chinese-history-content">
+                <div class="chinese-history-text">
+                    <p>12 นักษัตร มีรากฐานมาจากกลุ่มดาวฤกษ์ 12 กลุ่มที่มนุษย์ในอดีตจินตนาการเป็นรูปสัตว์ตามระยะการโคจรของดวงอาทิตย์ในรอบ 1 ปี โดยมีจุดกำเนิดและศูนย์กลางการเผยแพร่มาจากอารยธรรมกรีก ตุรกี และจีน หลักฐานสำคัญระบุว่าความรู้นี้ถูกถ่ายทอดจากมหาวิทยาลัยนาลันทาในอินเดียผ่าน สมณะอี้จิง พระภิกษุชาวจีนที่นำวิชาดาราศาสตร์กลับไปเผยแพร่ในจีนช่วงพุทธศตวรรษที่ 12 จนกลายเป็นปฏิทินหลวงและแพร่หลายสู่ภูมิภาคอาเซียน</p>
+                    <p>ในอาเซียน กลุ่มประเทศที่นับถือพระพุทธศาสนาได้รับอิทธิพลนักษัตรมาจากจีนเป็นหลัก เพื่อใช้ในการนับรอบเวลาและทำนายโชคชะตา โดยปรากฏหลักฐานการใช้งานมาอย่างยาวนาน</p>
+                    <p>เช่น ในศิลาจารึกสุโขทัยของไทยที่มีอายุมากกว่า 700 ปี สะท้อนถึงสายสัมพันธ์ทางวัฒนธรรมและร่องรอยการติดต่อสื่อสารของผู้คนในภูมิภาคนี้ที่มีมาแต่โบราณ</p>
+                </div>
+            </div>
+            
+        </section>
+        
+        <!-- Section 3: 12 Zodiac Cards Carousel -->
+        <section class="chinese-cards-section">
+            
+            <!-- Background Effects -->
+            <div class="cards-bg-effects">
+                <div class="cards-stars"></div>
+            </div>
+            
+            <!-- Section Title -->
+            <div class="cards-section-header">
+                <h2 class="cards-section-title">Discover Your Zodiac</h2>
+                <p class="cards-section-subtitle">Select your Chinese zodiac animal</p>
+            </div>
+            
+            <!-- 3D Carousel Container -->
+            <div class="carousel-3d-container">
+                
+                <!-- Nav Buttons -->
+                <button class="carousel-nav carousel-nav-prev" aria-label="Previous">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-nav carousel-nav-next" aria-label="Next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                
+                <!-- Cards Wrapper -->
+                <div class="carousel-3d-wrapper">
+                    <div class="carousel-3d-track">
+                        
+                        <!-- Card 1: Rat -->
+                        <div class="zodiac-card" data-zodiac="rat">
+                            <div class="zodiac-card-flipper">
+                                <!-- Front -->
+                                <div class="zodiac-card-inner zodiac-card-front">
+                                    <div class="zodiac-card-image">
+                                        <img src="../assets/images/chinese-zodiac/Rat.png" alt="Rat">
+                                    </div>
+                                    <div class="zodiac-card-content">
+                                        <h3 class="zodiac-card-name">Rat</h3>
+                                        <p class="zodiac-card-name-th">ปีชวด</p>
+                                        <span class="zodiac-card-years">2020, 2008, 1996</span>
+                                    </div>
+                                </div>
+                                <!-- Back -->
+                                <div class="zodiac-card-inner zodiac-card-back">
+                                    <div class="zodiac-card-back-content">
+                                        <h3 class="zodiac-back-title">ปีชวด</h3>
+                                        <div class="zodiac-back-info">
+                                            <p><strong>ลักษณะนิสัย:</strong> ฉลาด มีไหวพริบ มีเสน่ห์ เจ้าชู้</p>
+                                            <p><strong>จุดเด่น:</strong> หลักแหลม ปรับตัวเก่ง ช่างสังเกต</p>
+                                            <p><strong>จุดด้อย:</strong> ระแวดระวัง ชอบคิดมาก</p>
+                                            <p><strong>อาชีพที่เหมาะสม:</strong> นักธุรกิจ นักเขียน ผู้บริหาร</p>
+                                        </div>
+                                        <button class="flip-back-btn">กลับ</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 2: Ox -->
+                        <div class="zodiac-card" data-zodiac="ox">
+                            <div class="zodiac-card-inner">
+                                <div class="zodiac-card-image">
+                                    <img src="../assets/images/chinese-zodiac/Ox.png" alt="Ox">
+                                </div>
+                                <div class="zodiac-card-content">
+                                    <h3 class="zodiac-card-name">Ox</h3>
+                                    <p class="zodiac-card-name-th">ปีฉลู</p>
+                                    <span class="zodiac-card-years">2021, 2009, 1997</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 3: Tiger -->
+                        <div class="zodiac-card" data-zodiac="tiger">
+                            <div class="zodiac-card-inner">
+                                <div class="zodiac-card-image">
+                                    <img src="../assets/images/chinese-zodiac/Tiger.png" alt="Tiger">
+                                </div>
+                                <div class="zodiac-card-content">
+                                    <h3 class="zodiac-card-name">Tiger</h3>
+                                    <p class="zodiac-card-name-th">ปีขาล</p>
+                                    <span class="zodiac-card-years">2022, 2010, 1998</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 4: Rabbit -->
+                        <div class="zodiac-card" data-zodiac="rabbit">
+                            <div class="zodiac-card-inner">
+                                <div class="zodiac-card-image">
+                                    <img src="../assets/images/chinese-zodiac/Rabbit.png" alt="Rabbit">
+                                </div>
+                                <div class="zodiac-card-content">
+                                    <h3 class="zodiac-card-name">Rabbit</h3>
+                                    <p class="zodiac-card-name-th">ปีเถาะ</p>
+                                    <span class="zodiac-card-years">2023, 2011, 1999</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 5: Dragon -->
+                        <div class="zodiac-card" data-zodiac="dragon">
+                            <div class="zodiac-card-inner">
+                                <div class="zodiac-card-image">
+                                    <img src="../assets/images/chinese-zodiac/Dragon.png" alt="Dragon">
+                                </div>
+                                <div class="zodiac-card-content">
+                                    <h3 class="zodiac-card-name">Dragon</h3>
+                                    <p class="zodiac-card-name-th">ปีมะโรง</p>
+                                    <span class="zodiac-card-years">2024, 2012, 2000</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 6: Snake -->
+                        <div class="zodiac-card" data-zodiac="snake">
+                            <div class="zodiac-card-inner">
+                                <div class="zodiac-card-image">
+                                    <img src="../assets/images/chinese-zodiac/Snake.png" alt="Snake">
+                                </div>
+                                <div class="zodiac-card-content">
+                                    <h3 class="zodiac-card-name">Snake</h3>
+                                    <p class="zodiac-card-name-th">ปีมะเส็ง</p>
+                                    <span class="zodiac-card-years">2025, 2013, 2001</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 7: Horse -->
+                        <div class="zodiac-card" data-zodiac="horse">
+                            <div class="zodiac-card-inner">
+                                <div class="zodiac-card-image">
+                                    <img src="../assets/images/chinese-zodiac/Horse.png" alt="Horse">
+                                </div>
+                                <div class="zodiac-card-content">
+                                    <h3 class="zodiac-card-name">Horse</h3>
+                                    <p class="zodiac-card-name-th">ปีมะเมีย</p>
+                                    <span class="zodiac-card-years">2026, 2014, 2002</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 8: Goat -->
+                        <div class="zodiac-card" data-zodiac="goat">
+                            <div class="zodiac-card-inner">
+                                <div class="zodiac-card-image">
+                                    <img src="../assets/images/chinese-zodiac/Goat.png" alt="Goat">
+                                </div>
+                                <div class="zodiac-card-content">
+                                    <h3 class="zodiac-card-name">Goat</h3>
+                                    <p class="zodiac-card-name-th">ปีมะแม</p>
+                                    <span class="zodiac-card-years">2027, 2015, 2003</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 9: Monkey -->
+                        <div class="zodiac-card" data-zodiac="monkey">
+                            <div class="zodiac-card-inner">
+                                <div class="zodiac-card-image">
+                                    <img src="../assets/images/chinese-zodiac/Monkey.png" alt="Monkey">
+                                </div>
+                                <div class="zodiac-card-content">
+                                    <h3 class="zodiac-card-name">Monkey</h3>
+                                    <p class="zodiac-card-name-th">ปีวอก</p>
+                                    <span class="zodiac-card-years">2028, 2016, 2004</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 10: Rooster -->
+                        <div class="zodiac-card" data-zodiac="rooster">
+                            <div class="zodiac-card-inner">
+                                <div class="zodiac-card-image">
+                                    <img src="../assets/images/chinese-zodiac/Rooster.png" alt="Rooster">
+                                </div>
+                                <div class="zodiac-card-content">
+                                    <h3 class="zodiac-card-name">Rooster</h3>
+                                    <p class="zodiac-card-name-th">ปีระกา</p>
+                                    <span class="zodiac-card-years">2029, 2017, 2005</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 11: Dog -->
+                        <div class="zodiac-card" data-zodiac="dog">
+                            <div class="zodiac-card-inner">
+                                <div class="zodiac-card-image">
+                                    <img src="../assets/images/chinese-zodiac/Dog.png" alt="Dog">
+                                </div>
+                                <div class="zodiac-card-content">
+                                    <h3 class="zodiac-card-name">Dog</h3>
+                                    <p class="zodiac-card-name-th">ปีจอ</p>
+                                    <span class="zodiac-card-years">2030, 2018, 2006</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 12: Pig -->
+                        <div class="zodiac-card" data-zodiac="pig">
+                            <div class="zodiac-card-inner">
+                                <div class="zodiac-card-image">
+                                    <img src="../assets/images/chinese-zodiac/Pig.png" alt="Pig">
+                                </div>
+                                <div class="zodiac-card-content">
+                                    <h3 class="zodiac-card-name">Pig</h3>
+                                    <p class="zodiac-card-name-th">ปีกุน</p>
+                                    <span class="zodiac-card-years">2031, 2019, 2007</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <!-- Progress Dots -->
+                <div class="carousel-dots">
+                    <span class="carousel-dot active" data-index="0"></span>
+                    <span class="carousel-dot" data-index="1"></span>
+                    <span class="carousel-dot" data-index="2"></span>
+                    <span class="carousel-dot" data-index="3"></span>
+                    <span class="carousel-dot" data-index="4"></span>
+                    <span class="carousel-dot" data-index="5"></span>
+                    <span class="carousel-dot" data-index="6"></span>
+                    <span class="carousel-dot" data-index="7"></span>
+                    <span class="carousel-dot" data-index="8"></span>
+                    <span class="carousel-dot" data-index="9"></span>
+                    <span class="carousel-dot" data-index="10"></span>
+                    <span class="carousel-dot" data-index="11"></span>
+                </div>
+                
+            </div>
+            
+        </section>
+        
+    </main>
+    
+    <!-- Scripts -->
+    <!-- Navbar Component -->
+    <script src="../js/components/navbar.js"></script>
+    
+    <!-- Cursor Trail Effect -->
+    <script src="../js/cursor-trail.js"></script>
+    
+    <!-- Zodiac Flip Cards -->
+    <script src="../js/components/zodiac-flip-cards.js"></script>
+    
+    <!-- Page Initialization -->
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize components
+            console.log('Chinese Zodiac page loaded');
+            
+            // Elements
+            const parallaxElements = document.querySelectorAll('[data-parallax-speed]');
+            const historySection = document.querySelector('.chinese-history-section');
+            const heroSection = document.querySelector('.chinese-hero-section');
+            
+            // Parallax Effect for both Shape and Section
+            function handleParallax() {
+                const scrolled = window.pageYOffset;
+                const heroHeight = heroSection ? heroSection.offsetHeight : 0;
+                const viewportHeight = window.innerHeight;
+                
+                // Parallax for decorative shape
+                parallaxElements.forEach(function(element) {
+                    const speed = parseFloat(element.getAttribute('data-parallax-speed')) || 0.5;
+                    const yPos = -(scrolled * speed);
+                    element.style.transform = `translateY(${yPos}px) rotate(8.38deg)`;
+                });
+                
+                // Parallax for history section
+                if (historySection) {
+                    const sectionTop = historySection.offsetTop;
+                    const distanceFromTop = sectionTop - scrolled - viewportHeight;
+                    
+                    // Start parallax when section is about to enter viewport
+                    if (distanceFromTop < 200 && distanceFromTop > -heroHeight) {
+                        // Calculate parallax amount (0 to 1)
+                        const parallaxAmount = Math.max(0, Math.min(1, (200 - distanceFromTop) / 400));
+                        const yOffset = (1 - parallaxAmount) * 100;
+                        
+                        historySection.style.transform = `translateY(${yOffset}px)`;
+                        historySection.style.opacity = parallaxAmount;
+                    } else if (distanceFromTop >= 200) {
+                        // Before entering viewport
+                        historySection.style.transform = 'translateY(100px)';
+                        historySection.style.opacity = '0';
+                    } else {
+                        // Fully visible
+                        historySection.style.transform = 'translateY(0)';
+                        historySection.style.opacity = '1';
+                    }
+                }
+            }
+            
+            // Throttle scroll event for better performance
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        handleParallax();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            
+            // Initial call
+            handleParallax();
+            
+            // Intersection Observer for text animation trigger
+            const observerOptions = {
+                threshold: 0.2,
+                rootMargin: '0px 0px -100px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe history section
+            if (historySection) {
+                observer.observe(historySection);
+            }
+            
+            // ========================================
+            // 3D Carousel Functionality
+            // ========================================
+            
+            const carousel3D = {
+                track: document.querySelector('.carousel-3d-track'),
+                cards: document.querySelectorAll('.zodiac-card'),
+                prevBtn: document.querySelector('.carousel-nav-prev'),
+                nextBtn: document.querySelector('.carousel-nav-next'),
+                dots: document.querySelectorAll('.carousel-dot'),
+                cardsSection: document.querySelector('.chinese-cards-section'),
+                currentIndex: 0,
+                totalCards: 12,
+                isAnimating: false,
+                scrollTimeout: null,
+                lastScrollTime: 0,
+                
+                init: function() {
+                    if (!this.track || this.cards.length === 0) return;
+                    
+                    // Set initial positions
+                    this.updateCarousel();
+                    
+                    // Event listeners for navigation buttons
+                    this.prevBtn.addEventListener('click', () => this.prev());
+                    this.nextBtn.addEventListener('click', () => this.next());
+                    
+                    // Event listeners for dots
+                    this.dots.forEach((dot, index) => {
+                        dot.addEventListener('click', () => this.goTo(index));
+                    });
+                    
+                    // Keyboard navigation
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'ArrowLeft') this.prev();
+                        if (e.key === 'ArrowRight') this.next();
+                    });
+                    
+                    // Touch/Swipe support
+                    let touchStartX = 0;
+                    let touchEndX = 0;
+                    
+                    this.track.addEventListener('touchstart', (e) => {
+                        touchStartX = e.changedTouches[0].screenX;
+                    });
+                    
+                    this.track.addEventListener('touchend', (e) => {
+                        touchEndX = e.changedTouches[0].screenX;
+                        this.handleSwipe();
+                    });
+                    
+                    const handleSwipe = () => {
+                        if (touchEndX < touchStartX - 50) this.next();
+                        if (touchEndX > touchStartX + 50) this.prev();
+                    };
+                    this.handleSwipe = handleSwipe;
+                    
+                    // Scroll-based navigation
+                    this.initScrollNavigation();
+                    
+                    // Auto-play (optional)
+                    // this.startAutoPlay();
+                },
+                
+                initScrollNavigation: function() {
+                    // Add scroll listener when user is in carousel section
+                    let isInCarouselSection = false;
+                    let scrollAccumulator = 0;
+                    const scrollThreshold = 100; // Amount of scroll needed to trigger
+                    
+                    // Check if carousel section is in viewport
+                    const checkCarouselInView = () => {
+                        if (!this.cardsSection) return false;
+                        
+                        const rect = this.cardsSection.getBoundingClientRect();
+                        const windowHeight = window.innerHeight;
+                        
+                        // Section is centered in view (more strict condition)
+                        const sectionCenter = rect.top + rect.height / 2;
+                        const isInCenter = sectionCenter > windowHeight * 0.2 && sectionCenter < windowHeight * 0.8;
+                        
+                        isInCarouselSection = isInCenter;
+                        return isInCarouselSection;
+                    };
+                    
+                    // Handle wheel/scroll events
+                    const handleWheel = (e) => {
+                        if (!checkCarouselInView()) {
+                            scrollAccumulator = 0;
+                            return;
+                        }
+                        
+                        if (this.isAnimating) {
+                            e.preventDefault();
+                            return;
+                        }
+                        
+                        const delta = e.deltaY || e.deltaX;
+                        
+                        // Only engage if scroll is intentional (not too small)
+                        if (Math.abs(delta) < 5) return;
+                        
+                        // Accumulate scroll delta
+                        scrollAccumulator += delta;
+                        
+                        // Check if we should navigate or let normal scroll happen
+                        const shouldNavigate = Math.abs(scrollAccumulator) > scrollThreshold;
+                        
+                        // Check if at boundaries
+                        const isAtStart = this.currentIndex === 0 && scrollAccumulator < 0;
+                        const isAtEnd = this.currentIndex === this.totalCards - 1 && scrollAccumulator > 0;
+                        
+                        // Allow normal scroll at boundaries
+                        if (isAtStart || isAtEnd) {
+                            scrollAccumulator = 0;
+                            return;
+                        }
+                        
+                        // Navigate if threshold is met
+                        if (shouldNavigate) {
+                            e.preventDefault();
+                            
+                            if (scrollAccumulator > 0) {
+                                this.next();
+                            } else {
+                                this.prev();
+                            }
+                            
+                            scrollAccumulator = 0;
+                        }
+                    };
+                    
+                    // Reset accumulator on timeout
+                    let resetTimeout;
+                    const handleWheelWithReset = (e) => {
+                        handleWheel(e);
+                        
+                        clearTimeout(resetTimeout);
+                        resetTimeout = setTimeout(() => {
+                            scrollAccumulator = 0;
+                        }, 200);
+                    };
+                    
+                    // Add wheel event listener
+                    this.cardsSection.addEventListener('wheel', handleWheelWithReset, { passive: false });
+                    
+                    // Check scroll position on regular scroll
+                    window.addEventListener('scroll', () => {
+                        checkCarouselInView();
+                    });
+                },
+                
+                updateCarousel: function() {
+                    this.cards.forEach((card, index) => {
+                        const position = index - this.currentIndex;
+                        
+                        // Remove all position classes
+                        card.classList.remove('active', 'left-1', 'left-2', 'right-1', 'right-2', 'hidden');
+                        
+                        // Apply positioning
+                        if (position === 0) {
+                            card.classList.add('active');
+                        } else if (position === -1 || position === this.totalCards - 1) {
+                            card.classList.add('left-1');
+                        } else if (position === -2 || position === this.totalCards - 2) {
+                            card.classList.add('left-2');
+                        } else if (position === 1 || position === -(this.totalCards - 1)) {
+                            card.classList.add('right-1');
+                        } else if (position === 2 || position === -(this.totalCards - 2)) {
+                            card.classList.add('right-2');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                    
+                    // Update dots
+                    this.dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === this.currentIndex);
+                    });
+                },
+                
+                next: function() {
+                    if (this.isAnimating) return;
+                    this.isAnimating = true;
+                    
+                    this.currentIndex = (this.currentIndex + 1) % this.totalCards;
+                    this.updateCarousel();
+                    
+                    setTimeout(() => {
+                        this.isAnimating = false;
+                    }, 600);
+                },
+                
+                prev: function() {
+                    if (this.isAnimating) return;
+                    this.isAnimating = true;
+                    
+                    this.currentIndex = (this.currentIndex - 1 + this.totalCards) % this.totalCards;
+                    this.updateCarousel();
+                    
+                    setTimeout(() => {
+                        this.isAnimating = false;
+                    }, 600);
+                },
+                
+                goTo: function(index) {
+                    if (this.isAnimating || index === this.currentIndex) return;
+                    this.isAnimating = true;
+                    
+                    this.currentIndex = index;
+                    this.updateCarousel();
+                    
+                    setTimeout(() => {
+                        this.isAnimating = false;
+                    }, 600);
+                },
+                
+                startAutoPlay: function() {
+                    setInterval(() => {
+                        this.next();
+                    }, 4000);
+                }
+            };
+            
+            // Initialize carousel
+            carousel3D.init();
+        });
+    </script>
+    
+</body>
+</html>
