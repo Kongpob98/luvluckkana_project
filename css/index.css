@@ -1439,13 +1439,26 @@ body {
 .detail-section {
     position: relative;
     width: 100%;
-    min-height: 100vh;
+    min-height: 120vh;
     background: #000000;
-    padding: 100px 72.5px;
+    padding: 120px 72.5px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Black Fade Overlay at Top */
+.detail-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.8) 30%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
 }
 
 /* Background Overlay */
@@ -1540,36 +1553,105 @@ body {
     margin-bottom: 0;
 }
 
-/* CTA Button */
+/* CTA Button - Glassmorphism Style */
 .detail-cta-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 12px 24px;
-    font-family: 'General Sans', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
+    padding: 16px 40px;
+    font-family: 'Kanit', 'General Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
     color: white;
     text-decoration: none;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    
+    /* Glassmorphism Effect */
     background: linear-gradient(
-        17.42deg,
-        rgb(255, 122, 251) 0%,
-        rgb(124, 43, 254) 100%
+        135deg,
+        rgba(155, 89, 182, 0.25) 0%,
+        rgba(233, 30, 99, 0.25) 50%,
+        rgba(124, 43, 254, 0.25) 100%
     );
-    border-radius: 200px;
-    border: none;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    
+    /* Border with gradient */
+    border: 2px solid transparent;
+    border-radius: 50px;
+    background-clip: padding-box;
+    position: relative;
+    overflow: hidden;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     width: fit-content;
+    box-shadow: 
+        0 8px 32px rgba(155, 89, 182, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Gradient border effect */
+.detail-cta-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    padding: 2px;
+    background: linear-gradient(
+        135deg,
+        rgba(155, 89, 182, 0.8) 0%,
+        rgba(233, 30, 99, 0.8) 50%,
+        rgba(255, 122, 251, 0.8) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1;
+}
+
+/* Shine effect on hover */
+.detail-cta-button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 70%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
 }
 
 .detail-cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255, 122, 251, 0.4);
+    transform: translateY(-4px) scale(1.05);
+    background: linear-gradient(
+        135deg,
+        rgba(155, 89, 182, 0.4) 0%,
+        rgba(233, 30, 99, 0.4) 50%,
+        rgba(124, 43, 254, 0.4) 100%
+    );
+    box-shadow: 
+        0 12px 40px rgba(155, 89, 182, 0.5),
+        0 0 60px rgba(233, 30, 99, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.detail-cta-button:hover::after {
+    transform: translateX(100%);
 }
 
 .detail-cta-button:active {
-    transform: translateY(0);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+        0 6px 20px rgba(155, 89, 182, 0.4),
+        inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Right Column - Visual */
@@ -1656,13 +1738,13 @@ body {
     }
     
     .detail-cta-button {
-        font-size: 14px;
-        padding: 10px 20px;
+        font-size: 16px;
+        padding: 14px 32px;
     }
 }
 
 /* ==========================================
-   Menu Section
+   Menu Section - Glassmorphism with Black Background
    ========================================== */
 
 .menu-section {
@@ -1676,218 +1758,7 @@ body {
     overflow: hidden;
 }
 
-/* Animated Evening Sky Background */
-.menu-section::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -10%;
-    right: -10%;
-    bottom: -50%;
-    background: radial-gradient(
-        ellipse at center,
-        rgba(30, 60, 114, 0.4) 0%,
-        rgba(42, 82, 152, 0.35) 15%,
-        rgba(58, 123, 213, 0.3) 30%,
-        rgba(72, 149, 239, 0.25) 45%,
-        rgba(30, 60, 100, 0.15) 60%,
-        rgba(20, 30, 60, 0.08) 75%,
-        rgba(0, 0, 0, 0) 100%
-    );
-    opacity: 0;
-    transform: scale(0.8) translateY(100px);
-    transition: all 3s cubic-bezier(0.19, 1, 0.22, 1);
-    pointer-events: none;
-    z-index: 0;
-    filter: blur(60px);
-}
 
-.menu-section.visible::before {
-    opacity: 1;
-    transform: scale(1.2) translateY(0);
-    background: radial-gradient(
-        ellipse at center,
-        rgba(255, 120, 50, 0.5) 0%,
-        rgba(255, 94, 77, 0.4) 15%,
-        rgba(255, 133, 82, 0.35) 30%,
-        rgba(230, 126, 128, 0.25) 45%,
-        rgba(180, 100, 150, 0.18) 60%,
-        rgba(100, 60, 100, 0.1) 75%,
-        rgba(0, 0, 0, 0) 100%
-    );
-}
-
-/* Animated Gradient Overlay */
-.menu-section::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(42, 82, 152, 0.15) 0%,
-        rgba(72, 149, 239, 0.12) 50%,
-        rgba(58, 123, 213, 0.1) 100%
-    );
-    opacity: 0;
-    transform: rotate(0deg) scale(1);
-    transition: all 3.5s cubic-bezier(0.19, 1, 0.22, 1);
-    pointer-events: none;
-    z-index: 0;
-    animation: skyRotate 20s ease-in-out infinite;
-    animation-play-state: paused;
-}
-
-.menu-section.visible::after {
-    opacity: 0.7;
-    transform: rotate(180deg) scale(1.1);
-    background: linear-gradient(
-        135deg,
-        rgba(255, 120, 50, 0.2) 0%,
-        rgba(255, 94, 77, 0.15) 50%,
-        rgba(230, 126, 128, 0.18) 100%
-    );
-    animation-play-state: running;
-}
-
-/* Sky Rotation Animation */
-@keyframes skyRotate {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-/* Floating Stars Layer */
-.menu-section .menu-stars {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px),
-        radial-gradient(circle, rgba(255, 255, 255, 0.6) 1.5px, transparent 1.5px),
-        radial-gradient(circle, rgba(255, 255, 255, 0.9) 1px, transparent 1px),
-        radial-gradient(circle, rgba(255, 255, 255, 0.7) 2px, transparent 2px);
-    background-size: 
-        250px 250px,
-        350px 350px,
-        200px 200px,
-        300px 300px;
-    background-position: 
-        0 0,
-        40px 60px,
-        130px 270px,
-        70px 100px;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 3s cubic-bezier(0.19, 1, 0.22, 1) 0.8s;
-    pointer-events: none;
-    z-index: 1;
-    animation: floatingStars 40s ease-in-out infinite;
-    animation-play-state: paused;
-}
-
-.menu-section.visible .menu-stars {
-    opacity: 0.6;
-    transform: translateY(0);
-    animation-play-state: running;
-}
-
-@keyframes floatingStars {
-    0% {
-        transform: translateY(0) translateX(0);
-    }
-    25% {
-        transform: translateY(-10px) translateX(5px);
-    }
-    50% {
-        transform: translateY(-20px) translateX(10px);
-    }
-    75% {
-        transform: translateY(-10px) translateX(5px);
-    }
-    100% {
-        transform: translateY(0) translateX(0);
-    }
-}
-
-/* Animated Clouds */
-.menu-section .menu-clouds {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transform: translateX(-100px);
-    transition: all 3.5s cubic-bezier(0.19, 1, 0.22, 1) 1.2s;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.menu-section.visible .menu-clouds {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.menu-section .menu-clouds::before,
-.menu-section .menu-clouds::after {
-    content: '';
-    position: absolute;
-    background: radial-gradient(
-        ellipse at center,
-        rgba(255, 255, 255, 0.1) 0%,
-        rgba(200, 150, 200, 0.08) 50%,
-        transparent 100%
-    );
-    border-radius: 50%;
-    filter: blur(40px);
-    animation: floatClouds 18s ease-in-out infinite;
-}
-
-.menu-section .menu-clouds::before {
-    width: 400px;
-    height: 200px;
-    top: 20%;
-    left: 10%;
-    animation-delay: 0s;
-}
-
-.menu-section .menu-clouds::after {
-    width: 350px;
-    height: 180px;
-    top: 60%;
-    right: 15%;
-    animation-delay: 4s;
-}
-
-@keyframes floatClouds {
-    0%, 100% {
-        transform: translateY(0) translateX(0);
-        opacity: 0.2;
-    }
-    25% {
-        transform: translateY(-15px) translateX(10px);
-        opacity: 0.4;
-    }
-    50% {
-        transform: translateY(-30px) translateX(20px);
-        opacity: 0.6;
-    }
-    75% {
-        transform: translateY(-15px) translateX(10px);
-        opacity: 0.4;
-    }
-}
 
 .menu-container {
     max-width: 1188px;
@@ -1899,13 +1770,14 @@ body {
     z-index: 1;
 }
 
-/* Left Card - 12 Zodiac Signs */
+/* Left Card - 12 Zodiac Signs - Glassmorphism */
 .menu-card-left {
     flex: 0 0 387px;
     height: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 41px;
     display: flex;
     align-items: center;
@@ -1913,7 +1785,10 @@ body {
     overflow: hidden;
     position: relative;
     animation: menuFloatLeft 6s ease-in-out infinite;
-    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .menu-card-left a {
@@ -1939,13 +1814,14 @@ body {
     gap: 16px;
 }
 
-/* Ascendant Card */
+/* Ascendant Card - Glassmorphism */
 .menu-card-ascendant {
     width: 100%;
     height: 182px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 41px;
     display: flex;
     align-items: center;
@@ -1953,7 +1829,10 @@ body {
     overflow: hidden;
     position: relative;
     animation: menuFloatTop 5s ease-in-out infinite;
-    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .menu-card-ascendant img {
@@ -1968,13 +1847,14 @@ body {
     height: 337px;
 }
 
-/* Chinese Zodiac Card */
+/* Chinese Zodiac Card - Glassmorphism */
 .menu-card-chinese {
     flex: 0 0 517px;
     height: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 41px;
     display: flex;
     align-items: center;
@@ -1982,7 +1862,10 @@ body {
     overflow: hidden;
     position: relative;
     animation: menuFloatChinese 7s ease-in-out infinite;
-    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .menu-card-chinese img {
@@ -1990,13 +1873,14 @@ body {
     height: auto;
 }
 
-/* Syamsi Card */
+/* Syamsi Card - Glassmorphism */
 .menu-card-syamsi {
     flex: 0 0 260px;
     height: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 41px;
     display: flex;
     align-items: center;
@@ -2004,7 +1888,10 @@ body {
     overflow: hidden;
     position: relative;
     animation: menuFloatSyamsi 5.5s ease-in-out infinite;
-    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .menu-card-syamsi a {
@@ -2022,39 +1909,43 @@ body {
     object-fit: contain;
 }
 
-/* Menu Card Scroll Animations */
+/* Menu Card Scroll Animations - Like Detail Section */
 .menu-card {
     opacity: 0;
     transform: translateY(60px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
 }
 
-.menu-card.visible {
+.menu-card.animate-in {
     opacity: 1;
     transform: translateY(0);
 }
 
 .menu-card:hover {
-    transform: scale(1.05) translateY(-5px);
-    box-shadow: 0 12px 40px rgba(255, 255, 255, 0.2);
-    filter: brightness(1.1);
+    box-shadow: 
+        0 20px 70px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    filter: brightness(1.25);
+    border-color: rgba(255, 255, 255, 0.25);
+    transition: filter 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-/* Stagger animation delays */
-.menu-card[data-delay="0"].visible {
+/* Stagger fade-in delays */
+.menu-card[data-delay="0"] {
     transition-delay: 0s;
 }
 
-.menu-card[data-delay="150"].visible {
+.menu-card[data-delay="150"] {
     transition-delay: 0.15s;
 }
 
-.menu-card[data-delay="300"].visible {
+.menu-card[data-delay="300"] {
     transition-delay: 0.3s;
 }
 
-.menu-card[data-delay="450"].visible {
+.menu-card[data-delay="450"] {
     transition-delay: 0.45s;
 }
 

@@ -1,0 +1,203 @@
+/* ========================================
+   BIRTHDAY FORTUNE PAGE STYLES
+   Based on Figma Design (node-id: 238-137)
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000000;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* ========================================
+   HERO SECTION STYLES
+   ======================================== */
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    overflow: hidden;
+    background: url('../assets/images/birthday-fortune/bgbirth.png') center center / cover no-repeat;
+}
+
+/* Hero Content */
+.hero-content {
+    position: absolute;
+    top: 251px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 777px;
+    max-width: 90%;
+    height: 207px;
+    z-index: 2;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: contentFadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 1.3s;
+}
+
+@keyframes contentFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.hero-title {
+    font-size: 55px;
+    line-height: 1.2;
+    font-weight: 300;
+    margin: 0;
+}
+
+.letter-s {
+    font-family: 'Carattere', cursive;
+    font-size: 55px;
+    font-weight: 400;
+}
+
+.text-bold {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
+
+.text-gradient {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    background: linear-gradient(to right, #c80d70, #f5a3f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-light {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 1440px) {
+    .background-blobs {
+        width: 1400px;
+        height: 900px;
+        left: -80px;
+    }
+    
+    .hero-content {
+        top: 200px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .background-blobs {
+        width: 1200px;
+        height: 800px;
+        left: -60px;
+    }
+    
+    .hero-content {
+        top: 180px;
+        width: 90%;
+    }
+}
+
+@media (max-width: 968px) {
+    .background-blobs {
+        width: 1000px;
+        height: 700px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .hero-content {
+        top: 150px;
+        width: 85%;
+        height: auto;
+    }
+    
+    .hero-title {
+        font-size: 42px;
+    }
+    
+    .letter-s {
+        font-size: 42px;
+    }
+}
+
+@media (max-width: 768px) {
+    .background-blobs {
+        width: 800px;
+        height: 600px;
+    }
+    
+    .hero-content {
+        top: 120px;
+        width: 90%;
+    }
+    
+    .hero-title {
+        font-size: 32px;
+    }
+    
+    .letter-s {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 480px) {
+    .background-blobs {
+        width: 600px;
+        height: 500px;
+    }
+    
+    .hero-content {
+        top: 100px;
+        width: 90%;
+    }
+    
+    .hero-title {
+        font-size: 24px;
+        line-height: 1.4;
+    }
+    
+    .letter-s {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 375px) {
+    .background-blobs {
+        width: 500px;
+        height: 450px;
+    }
+    
+    .hero-content {
+        top: 90px;
+    }
+    
+    .hero-title {
+        font-size: 20px;
+    }
+    
+    .letter-s {
+        font-size: 20px;
+    }
+}

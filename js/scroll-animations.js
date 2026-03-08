@@ -1,11 +1,10 @@
-// Scroll-triggered animations for About section and Menu section
+// Scroll-triggered animations for About section and Menu section with Parallax (Like Detail Section)
 class ScrollAnimations {
     constructor() {
         this.aboutSection = document.querySelector('.about-section');
         this.menuSection = document.querySelector('.menu-section');
         this.menuCards = document.querySelectorAll('.menu-card');
         this.isAboutAnimated = false;
-        this.menuCardsAnimated = new Set();
         
         this.init();
     }
@@ -19,9 +18,6 @@ class ScrollAnimations {
             if (this.menuSection) {
                 this.checkMenuSection();
             }
-            if (this.menuCards.length > 0) {
-                this.checkMenuCards();
-            }
         });
 
         // Initial check
@@ -31,8 +27,13 @@ class ScrollAnimations {
         if (this.menuSection) {
             this.checkMenuSection();
         }
-        if (this.menuCards.length > 0) {
-            this.checkMenuCards();
+
+        // Use IntersectionObserver for menu cards (same as Detail Section)
+        this.initMenuObserver();
+
+        // Add parallax effect for menu cards
+        if (this.menuSection && this.menuCards.length > 0) {
+            this.initMenuParallax();
         }
     }
 
@@ -63,21 +64,61 @@ class ScrollAnimations {
         }
     }
 
-    checkMenuCards() {
-        const windowHeight = window.innerHeight;
-        
-        this.menuCards.forEach((card) => {
-            const rect = card.getBoundingClientRect();
-            
-            // Show when card enters viewport (80% visible)
-            if (rect.top < windowHeight * 0.8 && rect.bottom > 0) {
-                card.classList.add('visible');
-                this.menuCardsAnimated.add(card);
-            }
-            // Hide when card leaves viewport completely
-            else if (rect.bottom < 0 || rect.top > windowHeight) {
-                card.classList.remove('visible');
-                this.menuCardsAnimated.delete(card);
+    initMenuObserver() {
+        // Same observer options as Detail Section
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.dataset.delay || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('animate-in');
+                    }, delay);
+                } else {
+                    // Remove class when scrolling away to allow re-animation
+                    entry.target.classList.remove('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all menu cards
+        this.menuCards.forEach(card => {
+            observer.observe(card);
+        });
+    }
+
+    initMenuParallax() {
+        let ticking = false;
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+                    const sectionTop = this.menuSection.offsetTop;
+                    const sectionHeight = this.menuSection.offsetHeight;
+                    const windowHeight = window.innerHeight;
+
+                    // Only apply parallax when section is in view (same as Detail Section)
+                    if (scrolled + windowHeight > sectionTop && scrolled < sectionTop + sectionHeight) {
+                        const offset = scrolled - sectionTop + windowHeight;
+
+                        // Apply parallax to each card with different speeds (layered effect)
+                        this.menuCards.forEach((card, index) => {
+                            // Different speeds for each card - similar to Detail Section
+                            const speed = 0.08 + (index * 0.03);
+                            const cardMove = -(offset * speed);
+                            card.style.transform = `translateY(${cardMove}px)`;
+                        });
+                    }
+
+                    ticking = false;
+                });
+
+                ticking = true;
             }
         });
     }
