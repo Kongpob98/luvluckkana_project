@@ -38,11 +38,20 @@ class LoadingScreen {
         if (this.options.autoShow) {
             document.body.classList.add('loading-active');
         } else {
-            // Hide loading screen initially
+            // Hide loading screen initially and ensure it doesn't block clicks
             if (this.loadingScreen) {
                 this.loadingScreen.classList.add('hidden');
+                this.loadingScreen.style.pointerEvents = 'none';
             }
         }
+        
+        // Force hide loading after 3 seconds if still showing (safety net)
+        setTimeout(() => {
+            if (this.loadingScreen && !this.loadingScreen.classList.contains('hidden')) {
+                console.log('Force hiding loading screen');
+                this.hide();
+            }
+        }, 3000);
     }
     
     createLoadingHTML() {

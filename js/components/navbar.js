@@ -14,17 +14,17 @@
                 <nav class="nav-menu-wrapper">
                     <!-- Left Menu -->
                     <div class="nav-menu nav-left">
-                        <a href="/" class="nav-link" data-page="index">
+                        <a href="index.html" class="nav-link" data-page="index">
                             Home
                         </a>
-                        <a href="/blog.html" class="nav-link" data-page="blog">
+                        <a href="blog.html" class="nav-link" data-page="blog">
                             Get a Reading
                         </a>
                     </div>
                     
                     <!-- Right Menu -->
                     <div class="nav-menu nav-right">
-                        <a href="/chatbot.html" class="nav-link" data-page="chatbot">
+                        <a href="chatbot.html" class="nav-link" data-page="chatbot">
                             The Oracle
                         </a>
                         <a href="#articles" class="nav-link" data-page="articles">
@@ -43,12 +43,13 @@
                 top: 18px;
                 left: 50%;
                 transform: translateX(-50%) translateY(-100px);
-                z-index: 1000;
+                z-index: 10000; /* เพิ่มจาก 1000 เป็น 10000 เพื่อให้สูงกว่า loading screen */
                 width: 800px;
                 max-width: 90%;
                 opacity: 0;
                 animation: navbarSlideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
                 animation-delay: 0.3s;
+                pointer-events: auto; /* ให้คลิกได้แน่นอน */
             }
 
             @keyframes navbarSlideDown {

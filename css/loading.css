@@ -14,16 +14,18 @@
     transform: scale(1) translateY(0);
     transition: opacity 1.2s cubic-bezier(0.4, 0.0, 0.2, 1), 
                 transform 1.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    pointer-events: auto; /* เพิ่มเพื่อบล็อกการคลิกเมื่อแสดง */
 }
 
 .loading-screen.fade-out {
     opacity: 0;
     transform: scale(1.1) translateY(-20px);
-    pointer-events: none;
+    pointer-events: none; /* ปล่อยให้คลิกผ่านไปได้เมื่อ fade out */
 }
 
 .loading-screen.hidden {
     display: none;
+    pointer-events: none; /* ไม่บล็อกการคลิกเมื่อซ่อน */
 }
 
 /* Loading Video Container */
