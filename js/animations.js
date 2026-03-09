@@ -7,11 +7,36 @@ class AnimationController {
     }
 
     init() {
+        this.setupHeroParallax();
         this.setupParallax();
         this.setupScrollEffects();
     }
 
-    // Enhanced Parallax effect for all elements
+    // ─── Smooth Hero Parallax (Section 1) ─────────────────────────────────────
+    setupHeroParallax() {
+        this.heroVideoWrapper = document.querySelector('.hero-video-wrapper');
+
+        window.addEventListener('scroll', () => {
+            if (this.heroVideoWrapper) {
+                this.heroVideoWrapper.style.transform =
+                    `translateY(${window.scrollY * -0.2}px)`;
+            }
+            // Fade out hero content as user scrolls away from section 1
+            const heroContent = document.querySelector('.hero-content');
+            if (heroContent) {
+                const homeSection = document.getElementById('home');
+                const sectionHeight = homeSection ? homeSection.offsetHeight : window.innerHeight;
+                const fadeStart = sectionHeight * 0.25;
+                const fadeEnd   = sectionHeight * 0.65;
+                const scrollY   = window.scrollY;
+                const opacity   = scrollY <= fadeStart ? 1
+                    : scrollY >= fadeEnd   ? 0
+                    : 1 - (scrollY - fadeStart) / (fadeEnd - fadeStart);
+                heroContent.style.opacity = opacity;
+            }
+        }, { passive: true });
+    }
+
     setupParallax() {
         const hands = document.querySelectorAll('.hand');
         const circles = document.querySelectorAll('.circle-bg');
@@ -76,13 +101,6 @@ class AnimationController {
             elements.logo.style.transform = `translate(calc(-50% + ${moveX}px), ${moveY}px)`;
         }
 
-        // Parallax for CTA button
-        if (elements.ctaButton) {
-            const moveX = deltaX * 15;
-            const moveY = deltaY * 15;
-            elements.ctaButton.style.transform = `translate(calc(-50% + ${moveX}px), ${moveY}px)`;
-        }
-
         // Parallax for circles - subtle effect
         elements.circles.forEach((circle, index) => {
             const depth = (index + 1) * 3;
@@ -133,13 +151,13 @@ class AnimationController {
         });
 
         // Logo moves faster with scroll
-        if (elements.logo) {
+        if (elements.logo && window.innerWidth > 768) {
             const moveY = scrollY * 0.5;
             elements.logo.style.transform = `translate(-50%, ${moveY}px)`;
         }
 
         // CTA button parallax
-        if (elements.ctaButton) {
+        if (elements.ctaButton && window.innerWidth > 768) {
             const moveY = scrollY * 0.4;
             elements.ctaButton.style.transform = `translate(-50%, ${moveY}px)`;
         }

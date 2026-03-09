@@ -41,6 +41,9 @@
         populateYearDropdown();
         populateMonthDropdown();
         attachEventListeners();
+
+        // Always start at top of page
+        window.scrollTo({ top: 0, behavior: 'instant' });
     }
 
     // Render Circular Calendar
@@ -76,11 +79,11 @@
             dateSliderContainer.appendChild(dateItem);
         }
         
-        // Scroll selected item to center
+        // Scroll selected item to center (inline only, don't affect page scroll)
         const selected = dateSliderContainer.querySelector('.date-item.selected');
         if (selected) {
             setTimeout(() => {
-                selected.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                dateSliderContainer.scrollLeft = selected.offsetLeft - dateSliderContainer.offsetWidth / 2 + selected.offsetWidth / 2;
             }, 100);
         }
     }
