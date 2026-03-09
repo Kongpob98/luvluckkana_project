@@ -721,11 +721,8 @@ body {
     width: 439px;
     height: 174px;
     margin: 54px auto 0;
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.15) 0%, 
-        rgba(255, 255, 255, 0.05) 50%,
-        rgba(136, 0, 255, 0.1) 100%);
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1.5px solid rgba(255, 255, 255, 0.55);
     border-radius: 225px;
     cursor: pointer;
     padding: 0;
@@ -733,65 +730,45 @@ body {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    backdrop-filter: blur(20px);
-    box-shadow: 
-        0 8px 32px rgba(255, 0, 212, 0.2),
-        0 0 80px rgba(136, 0, 255, 0.15),
-        inset 0 2px 10px rgba(255, 255, 255, 0.2),
-        inset 0 -2px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(28px) saturate(160%);
+    -webkit-backdrop-filter: blur(28px) saturate(160%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+        0 8px 32px rgba(0, 0, 0, 0.25);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 5;
 }
 
 .fortune-submit-btn:hover {
     transform: translateY(-2px) scale(1.02);
-    border-color: rgba(255, 255, 255, 1);
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.25) 0%, 
-        rgba(255, 255, 255, 0.1) 50%,
-        rgba(136, 0, 255, 0.2) 100%);
-    box-shadow: 
-        0 12px 48px rgba(255, 0, 212, 0.4),
-        0 0 120px rgba(136, 0, 255, 0.3),
-        inset 0 2px 15px rgba(255, 255, 255, 0.3),
-        inset 0 -2px 15px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.85);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.15),
+        0 16px 48px rgba(0, 0, 0, 0.3);
 }
 
 .fortune-submit-btn:active {
     transform: translateY(0) scale(0.98);
-    box-shadow: 
-        0 4px 20px rgba(255, 0, 212, 0.3),
-        0 0 60px rgba(136, 0, 255, 0.2),
-        inset 0 2px 10px rgba(255, 255, 255, 0.15),
-        inset 0 -2px 10px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow:
+        inset 0 2px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-/* Liquid Glass Background */
+/* Liquid Glass Background — pure glass specular highlight, no color */
 .liquid-glass-bg {
     position: absolute;
     inset: 0;
-    backdrop-filter: blur(30px);
-    background: radial-gradient(circle at 30% 30%, 
-        rgba(255, 255, 255, 0.25) 0%, 
-        rgba(255, 0, 212, 0.15) 40%,
-        rgba(136, 0, 255, 0.1) 70%,
-        rgba(255, 255, 255, 0) 100%);
-    mix-blend-mode: overlay;
+    background: radial-gradient(ellipse at 35% 25%,
+        rgba(255, 255, 255, 0.22) 0%,
+        rgba(255, 255, 255, 0.04) 55%,
+        transparent 100%);
     border-radius: 225px;
     pointer-events: none;
-    opacity: 0.8;
-    animation: liquidPulse 4s ease-in-out infinite;
-}
-
-@keyframes liquidPulse {
-    0%, 100% {
-        opacity: 0.8;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.05);
-    }
+    opacity: 1;
 }
 
 /* Glass Lenses */
@@ -837,21 +814,20 @@ body {
 .btn-text {
     position: relative;
     font-family: 'Helvetica', 'Roboto', sans-serif;
-    font-size: 64px;
+    font-size: 36px;
     line-height: 1;
     color: #ffffff;
     text-align: center;
     white-space: nowrap;
     z-index: 2;
-    text-shadow: 
-        0 2px 10px rgba(255, 0, 212, 0.5),
-        0 0 20px rgba(136, 0, 255, 0.3),
+    text-shadow:
+        0 1px 12px rgba(255, 255, 255, 0.4),
         0 4px 20px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(180deg, #ffffff 0%, #ffe4fb 100%);
+    background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.75) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.35));
 }
 
 .btn-stars {
@@ -893,44 +869,41 @@ body {
     }
 }
 
-/* Shimmering shine effect overlay */
+/* Subtle shimmer sweep — white only, no color */
 .fortune-submit-btn::before {
     content: '';
     position: absolute;
     top: 0;
     left: -100%;
-    width: 100%;
+    width: 60%;
     height: 100%;
-    background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(255, 255, 255, 0.3) 50%, 
+    background: linear-gradient(105deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.18) 50%,
         transparent 100%);
     border-radius: inherit;
     pointer-events: none;
     z-index: 1;
-    animation: shine 3s ease-in-out infinite;
+    animation: shine 4s ease-in-out infinite;
 }
 
 @keyframes shine {
-    0% {
-        left: -100%;
-    }
-    50%, 100% {
-        left: 200%;
-    }
+    0%       { left: -100%; }
+    50%, 100% { left: 200%; }
 }
 
-/* Enhanced inner glow */
+/* Bottom-edge frosted depth */
 .fortune-submit-btn::after {
     content: '';
     position: absolute;
     inset: 2px;
     border-radius: inherit;
     pointer-events: none;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(255, 255, 255, 0.1) 0%,
-        transparent 60%);
-    opacity: 0.6;
+    background: linear-gradient(180deg,
+        rgba(255,255,255,0.06) 0%,
+        transparent 60%,
+        rgba(0,0,0,0.08) 100%);
+    opacity: 1;
 }
 
 /* ========================================
@@ -1091,4 +1064,800 @@ body {
         transform: scale(0.35);
         transform-origin: center top;
     }
+}
+
+/* ========================================
+   FORTUNE RESULT SECTION (Section 3)
+   Based on Figma Design (node-id: 238-373)
+   Frame: 1440×1024, Black background
+   ======================================== */
+
+.fortune-result-section {
+    position: relative;
+    width: 100%;
+    min-height: 1024px;
+    background: #000000;
+    overflow: hidden;
+    display: block;
+}
+
+/* Waiting state: dimmed until AI returns data */
+.fortune-result-section.waiting .result-glass-card,
+.fortune-result-section.waiting .result-card-label,
+.fortune-result-section.waiting .result-user-name,
+.fortune-result-section.waiting .direction-name-text,
+.fortune-result-section.waiting .direction-compass-ring {
+    opacity: 0.22;
+}
+
+/* Reveals the waiting-hint overlay */
+.result-waiting-hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+}
+
+.fortune-result-section.waiting .result-waiting-hint {
+    opacity: 1;
+}
+
+.fortune-result-section:not(.waiting) .result-waiting-hint {
+    opacity: 0;
+}
+
+.waiting-hint-icon {
+    font-size: 56px;
+    display: block;
+    margin-bottom: 16px;
+    animation: hintFloat 3s ease-in-out infinite;
+}
+
+@keyframes hintFloat {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-10px); }
+}
+
+.waiting-hint-text {
+    font-family: 'General Sans', 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.42);
+    letter-spacing: 0.06em;
+    line-height: 1.7;
+}
+
+/* Smooth reveal of cards when data arrives */
+.fortune-result-section:not(.waiting) .result-glass-card,
+.fortune-result-section:not(.waiting) .result-card-label,
+.fortune-result-section:not(.waiting) .result-user-name,
+.fortune-result-section:not(.waiting) .direction-name-text,
+.fortune-result-section:not(.waiting) .direction-compass-ring {
+    opacity: 1;
+    transition: opacity 0.9s ease;
+}
+
+/* Subtle decorative glow at top */
+.result-section-glow {
+    position: absolute;
+    top: -250px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(200, 13, 112, 0.07) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Main container — 1440×1024 matching Figma frame */
+.result-container {
+    position: relative;
+    width: 1440px;
+    height: 1024px;
+    margin: 0 auto;
+}
+
+/* ----------------------------------------
+   Result Header: User name announcement
+   (occupies the empty top area in frame)
+   ---------------------------------------- */
+.result-header {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 2;
+    white-space: nowrap;
+}
+
+.result-for-text {
+    font-family: 'General Sans', 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.result-user-name {
+    font-family: 'Roboto', sans-serif;
+    font-size: 52px;
+    font-weight: 300;
+    margin: 10px 0 0;
+    background: linear-gradient(to right, #ffffff, #ff00d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ----------------------------------------
+   Card Labels
+   Figma: สีมงคล left=236 top=244  (font 40px)
+          ทิศมงคล left=927 top=244  (font 40px)
+   ---------------------------------------- */
+.result-card-label {
+    position: absolute;
+    top: 244px;
+    font-family: 'Helvetica', 'Roboto', sans-serif;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: normal;
+    color: #ffffff;
+    margin: 0;
+}
+
+.label-colors    { left: 236px; }
+.label-direction { left: 927px; }
+
+/* ----------------------------------------
+   Glass Card Base
+   Figma card style: rgba(51,51,51,0.22) bg,
+   white border 1px, radius 41px, inset shadow
+   ---------------------------------------- */
+.result-glass-card {
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 41px;
+    background: linear-gradient(135deg,
+        rgba(51, 51, 51, 0.28) 0%,
+        rgba(20, 20, 20, 0.22) 100%);
+    box-shadow:
+        inset 1px  2px 4px rgba(0, 0, 0, 0.25),
+        inset -2px -2px 4px rgba(0, 0, 0, 0.25),
+        0 8px 32px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* ----------------------------------------
+   Lucky Colors Card
+   Figma: left=80, top=397, w=494, h=345
+   ---------------------------------------- */
+.lucky-colors-card {
+    left: 80px;
+    top: 397px;
+    width: 494px;
+    height: 345px;
+}
+
+/* Row of 3 circles — Figma each circle: 112×112px */
+.color-circles-row {
+    position: absolute;
+    /* vertically centered in upper part: top=74 in 345px card */
+    top: 74px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    align-items: flex-start;
+}
+
+.color-circle-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 112px;
+}
+
+/* The color ball — background & glow set via JS */
+.color-circle-ball {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    background: #2a2a2a;
+    transition: background-color 0.9s ease, box-shadow 0.9s ease;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+/* Glass specular reflection on every ball */
+.color-circle-ball::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    width: 36%;
+    height: 33%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.45) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.color-circle-name {
+    font-family: 'General Sans', 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #ffffff;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 1.3;
+}
+
+.color-circle-meaning {
+    font-family: 'General Sans', 'Roboto', sans-serif;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.52);
+    text-align: center;
+    white-space: nowrap;
+    line-height: 1.3;
+}
+
+/* ----------------------------------------
+   Lucky Direction Card
+   Figma: left=675, top=360, w=686, h=420
+   ---------------------------------------- */
+.lucky-direction-card {
+    left: 675px;
+    top: 360px;
+    width: 686px;
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.direction-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    padding: 36px 48px;
+}
+
+/* ── Compass ring ── */
+.direction-compass-ring {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    flex-shrink: 0;
+}
+
+.compass-outer-ring {
+    position: absolute;
+    inset: 0;
+    border: 1.5px solid rgba(255, 255, 255, 0.22);
+    border-radius: 50%;
+}
+
+.compass-inner-ring {
+    position: absolute;
+    inset: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+/* Cardinal direction labels */
+.compass-point {
+    position: absolute;
+    font-family: 'General Sans', 'Roboto', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.38);
+    transform: translate(-50%, -50%);
+    letter-spacing: 0.04em;
+}
+
+.compass-point.north { top: 7px;               left: 50%; }
+.compass-point.east  { top: 50%;               left: calc(100% - 7px); }
+.compass-point.south { top: calc(100% - 7px);  left: 50%; }
+.compass-point.west  { top: 50%;               left: 7px; }
+
+/* Needle wrapper — rotated by JS for direction */
+.compass-needle-wrap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 1.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+/* North tip (pink — lucky direction) */
+.compass-needle-north {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    width: 3px;
+    height: 52px;
+    margin-left: -1.5px;
+    background: linear-gradient(to bottom, rgba(255, 0, 200, 1), rgba(255, 0, 200, 0.15));
+    border-radius: 3px 3px 0 0;
+    transform-origin: bottom center;
+}
+
+/* South counterweight (white — muted) */
+.compass-needle-south {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 3px;
+    height: 38px;
+    margin-left: -1.5px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.25), transparent);
+    border-radius: 0 0 3px 3px;
+    transform-origin: top center;
+}
+
+.compass-center-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background: #ff00d4;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 12px rgba(255, 0, 212, 0.7);
+    z-index: 2;
+}
+
+/* Direction name (large) */
+.direction-name-text {
+    font-family: 'Helvetica', 'Roboto', sans-serif;
+    font-size: 50px;
+    font-weight: 300;
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+    line-height: 1.1;
+}
+
+/* Direction meaning (body text) */
+.direction-meaning-text {
+    font-family: 'General Sans', 'Roboto', sans-serif;
+    font-size: 17px;
+    color: rgba(255, 255, 255, 0.62);
+    text-align: center;
+    line-height: 1.75;
+    max-width: 520px;
+    margin: 0;
+}
+
+/* ----------------------------------------
+   Responsive scaling (mirrors fortune-container)
+   ---------------------------------------- */
+@media (max-width: 1440px) {
+    .result-container {
+        transform-origin: center top;
+    }
+}
+
+@media (max-width: 1024px) {
+    .result-container {
+        transform: scale(0.7);
+        transform-origin: center top;
+    }
+    .fortune-result-section { min-height: 720px; }
+}
+
+@media (max-width: 768px) {
+    .result-container {
+        transform: scale(0.52);
+        transform-origin: center top;
+    }
+    .fortune-result-section { min-height: 540px; }
+}
+
+@media (max-width: 480px) {
+    .result-container {
+        transform: scale(0.35);
+        transform-origin: center top;
+    }
+    .fortune-result-section { min-height: 380px; }
+}
+
+/* ========================================
+   FORTUNE WEEKLY SECTION (Section 4)
+   Based on Figma Design (node-id: 238-393)
+   Frame: 1440×1024, "week colors"
+   ======================================== */
+
+.fortune-weekly-section {
+    position: relative;
+    width: 100%;
+    min-height: 1024px;
+    background: #000000;
+    overflow: hidden;
+    display: block;
+}
+
+/* Decorative top glow */
+.weekly-section-glow {
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(192, 4, 255, 0.06) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Waiting hint: same pattern as section 3 */
+.weekly-waiting-hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+    z-index: 10;
+}
+
+.fortune-weekly-section.waiting .weekly-waiting-hint { opacity: 1; }
+.fortune-weekly-section:not(.waiting) .weekly-waiting-hint { opacity: 0; }
+
+.fortune-weekly-section.waiting .weekly-outer-card {
+    opacity: 0.18;
+    pointer-events: none;
+}
+.fortune-weekly-section:not(.waiting) .weekly-outer-card {
+    opacity: 1;
+    transition: opacity 0.9s ease;
+}
+
+/* ----------------------------------------
+   Main container 1440px matching Figma
+   ---------------------------------------- */
+.weekly-container {
+    position: relative;
+    width: 1440px;
+    height: 1024px;
+    margin: 0 auto;
+}
+
+/* ----------------------------------------
+   Outer Glass Card
+   Figma: left=76, top=165, w=1276, h=694
+   radius=41px, glass morphism like other cards
+   ---------------------------------------- */
+.weekly-outer-card {
+    position: absolute;
+    left: 76px;
+    top: 165px;
+    width: 1276px;
+    height: 694px;
+    border: 1px solid rgba(255, 255, 255, 0.30);
+    border-radius: 41px;
+    background: linear-gradient(135deg,
+        rgba(51, 51, 51, 0.28) 0%,
+        rgba(20, 20, 20, 0.22) 100%);
+    box-shadow:
+        inset 1px  2px 4px rgba(0, 0, 0, 0.25),
+        inset -2px -2px 4px rgba(0, 0, 0, 0.25),
+        0 16px 64px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    overflow: hidden;
+}
+
+/* ----------------------------------------
+   Tab Bar
+   Figma: left=136-76=60 inside card, top=197-165=32
+   w=1167, h=55, bg=#ffd9f8, radius=15px
+   ---------------------------------------- */
+.weekly-tab-bar {
+    position: absolute;
+    left: 60px;
+    top: 32px;
+    width: 1167px;
+    height: 55px;
+    background: #ffd9f8;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    gap: 0;
+}
+
+/* Tab buttons */
+.weekly-tab {
+    flex: 1;
+    height: 48px;
+    border: none;
+    background: transparent;
+    border-radius: 14px;
+    font-family: 'General Sans', 'Helvetica', 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: #7a7a7a;
+    cursor: pointer;
+    transition: color 0.25s ease, background 0.25s ease,
+                box-shadow 0.25s ease;
+    white-space: nowrap;
+    padding: 0 12px;
+}
+
+/* Active tab pill (Figma: w=377, h=48, bg=rgba(255,255,255,0.95), shadow) */
+.weekly-tab.active {
+    background: rgba(255, 255, 255, 0.95);
+    color: #c80d70;
+    font-weight: 600;
+    box-shadow: 0px 4px 10.8px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* ----------------------------------------
+   Tab content areas (all 3 tabs share same space)
+   Figma cards start at top=307-165=142 from card top
+   ---------------------------------------- */
+.weekly-tab-content {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 107px; /* 32+55+20 = below tab bar */
+    width: 100%;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.weekly-tab-content.active {
+    display: block;
+}
+
+/* ----------------------------------------
+   Tab 1: 4 Fortune Cards Grid
+   Figma: 4 cards at left=114,412,710,1009 (relative to frame)
+   Inside card: left=114-76=38, 412-76=336, 710-76=634, 1009-76=933
+   w≈281-282px, h=470px, top=307-165=142
+   ---------------------------------------- */
+.fortune-cards-grid {
+    position: absolute;
+    left: 38px;
+    top: 35px;   /* 142-107 */
+    right: 38px;
+    display: flex;
+    gap: 16px;
+    height: 470px;
+}
+
+.fortune-card {
+    flex: 1;
+    border-radius: 35px;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+
+.fortune-card::-webkit-scrollbar { width: 4px; }
+.fortune-card::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+}
+
+/* Figma gradients per card */
+.card-love   { background: linear-gradient(180deg, #ff001a 0%, #990003 100%); }
+.card-money  { background: linear-gradient(180deg, #ff8a04 0%, #ffea00 100%); }
+.card-career { background: linear-gradient(180deg, #0410ff 0%, #0a0099 100%); }
+.card-health { background: linear-gradient(180deg, #c004ff 0%, #830f81 100%); }
+
+/* Card title (Figma: font 40px DB Helvethaica / white) */
+.fortune-card-title {
+    font-family: 'General Sans', 'Helvetica', 'Roboto', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 18px;
+    line-height: 1.2;
+    flex-shrink: 0;
+}
+
+/* Card bullet points */
+.fortune-card-points {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.fortune-card-points li {
+    font-family: 'General Sans', 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.92);
+    line-height: 1.65;
+    padding-left: 18px;
+    position: relative;
+}
+
+.fortune-card-points li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+}
+
+/* ----------------------------------------
+   Tab 2: Weekly Warning
+   ---------------------------------------- */
+.warning-content {
+    padding: 40px 80px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.2) transparent;
+}
+
+.warning-icon-row {
+    font-size: 48px;
+    line-height: 1;
+}
+
+.warning-section-title {
+    font-family: 'General Sans', 'Helvetica', 'Roboto', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+}
+
+.warning-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+.warning-list li {
+    font-family: 'General Sans', 'Roboto', sans-serif;
+    font-size: 17px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.7;
+    padding: 16px 24px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    position: relative;
+    padding-left: 48px;
+}
+
+.warning-list li::before {
+    content: '⚠';
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    opacity: 0.6;
+}
+
+/* ----------------------------------------
+   Tab 3: Lucky Calendar 7-day grid
+   ---------------------------------------- */
+.lucky-calendar-content {
+    padding: 32px 60px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.2) transparent;
+}
+
+.calendar-section-title {
+    font-family: 'General Sans', 'Helvetica', 'Roboto', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.calendar-days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+    flex: 1;
+}
+
+.cal-day-card {
+    border-radius: 20px;
+    padding: 18px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.cal-day-card:hover { transform: translateY(-3px); }
+
+.cal-day-name {
+    font-family: 'General Sans', 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.cal-color-pill {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-family: 'General Sans', 'Roboto', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.cal-action {
+    font-family: 'General Sans', 'Roboto', sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    opacity: 0.88;
+    margin: 0;
+}
+
+/* ----------------------------------------
+   Responsive scaling (same as section 3)
+   ---------------------------------------- */
+@media (max-width: 1024px) {
+    .weekly-container {
+        transform: scale(0.7);
+        transform-origin: center top;
+    }
+    .fortune-weekly-section { min-height: 720px; }
+}
+
+@media (max-width: 768px) {
+    .weekly-container {
+        transform: scale(0.52);
+        transform-origin: center top;
+    }
+    .fortune-weekly-section { min-height: 540px; }
+}
+
+@media (max-width: 480px) {
+    .weekly-container {
+        transform: scale(0.35);
+        transform-origin: center top;
+    }
+    .fortune-weekly-section { min-height: 380px; }
 }

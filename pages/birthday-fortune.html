@@ -194,6 +194,158 @@
         </div>
     </section>
 
+    <!-- Fortune Result Section (Section 3: Colors & Direction) -->
+    <section class="fortune-result-section waiting" id="fortuneResultSection">
+        <!-- Decorative glow -->
+        <div class="result-section-glow"></div>
+
+        <!-- Waiting overlay: shown before AI returns -->
+        <div class="result-waiting-hint">
+            <span class="waiting-hint-icon">✨</span>
+            <p class="waiting-hint-text">กรอกข้อมูลเกิดและกดปุ่ม “คำนวณดวงชะตา”<br>ดาวจะเผยสีส์และทิศมงคลเฉพาะคุณ</p>
+        </div>
+
+        <div class="result-container">
+            <!-- Result Header: User Name -->
+            <div class="result-header">
+                <p class="result-for-text">ผลดวงชะตาของ</p>
+                <h2 class="result-user-name" id="resultUserName">—</h2>
+            </div>
+
+            <!-- Card Labels (positions from Figma: left=236/927, top=244) -->
+            <h3 class="result-card-label label-colors">สีมงคลของคุณ</h3>
+            <h3 class="result-card-label label-direction">ทิศมงคลของคุณ</h3>
+
+            <!-- Left: Lucky Colors Card (Figma: left=80, top=397, w=494, h=345) -->
+            <div class="lucky-colors-card result-glass-card">
+                <div class="color-circles-row">
+                    <!-- Circle 1 -->
+                    <div class="color-circle-item">
+                        <div class="color-circle-ball" id="colorBall1"></div>
+                        <span class="color-circle-name" id="colorName1">—</span>
+                        <span class="color-circle-meaning" id="colorMeaning1">—</span>
+                    </div>
+                    <!-- Circle 2 -->
+                    <div class="color-circle-item">
+                        <div class="color-circle-ball" id="colorBall2"></div>
+                        <span class="color-circle-name" id="colorName2">—</span>
+                        <span class="color-circle-meaning" id="colorMeaning2">—</span>
+                    </div>
+                    <!-- Circle 3 -->
+                    <div class="color-circle-item">
+                        <div class="color-circle-ball" id="colorBall3"></div>
+                        <span class="color-circle-name" id="colorName3">—</span>
+                        <span class="color-circle-meaning" id="colorMeaning3">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Lucky Direction Card (Figma: left=675, top=360, w=686, h=420) -->
+            <div class="lucky-direction-card result-glass-card">
+                <div class="direction-content">
+                    <!-- Compass -->
+                    <div class="direction-compass-ring">
+                        <div class="compass-outer-ring"></div>
+                        <div class="compass-inner-ring"></div>
+                        <span class="compass-point north">N</span>
+                        <span class="compass-point east">E</span>
+                        <span class="compass-point south">S</span>
+                        <span class="compass-point west">W</span>
+                        <div class="compass-needle-wrap" id="compassNeedle">
+                            <div class="compass-needle-north"></div>
+                            <div class="compass-needle-south"></div>
+                        </div>
+                        <div class="compass-center-dot"></div>
+                    </div>
+                    <!-- Direction Text -->
+                    <p class="direction-name-text" id="directionName">—</p>
+                    <p class="direction-meaning-text" id="directionMeaning">—</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fortune Weekly Section (Section 4: Week Colors) -->
+    <!-- Figma node-id: 238:393 "week colors" 1440×1024 -->
+    <section class="fortune-weekly-section waiting" id="fortuneWeeklySection">
+        <div class="weekly-section-glow"></div>
+
+        <!-- Waiting overlay -->
+        <div class="weekly-waiting-hint">
+            <span class="waiting-hint-icon">🔮</span>
+            <p class="waiting-hint-text">ดวงชะตารายสัปดาห์จะปรากฏหลังการคำนวณ<br>กรอกข้อมูลเกิดและกดปุ่ม “คำนวณดวงชะตา”</p>
+        </div>
+
+        <div class="weekly-container">
+            <!-- Outer Glass Card (Figma: left=76, top=165, w=1276, h=694, radius=41px) -->
+            <div class="weekly-outer-card">
+
+                <!-- Tab Bar (Figma: #ffd9f8 pink bar, w=1167, h=55, radius=15px) -->
+                <div class="weekly-tab-bar">
+                    <!-- Active pill (Figma: w=377, h=48, radius=14px, bg=white) -->
+                    <button class="weekly-tab active" id="weekTab1" data-target="weekContent1">ดวงชะตารายสัปดาห์</button>
+                    <button class="weekly-tab" id="weekTab2" data-target="weekContent2">ข้อควรระวังประจำสัปดาห์</button>
+                    <button class="weekly-tab" id="weekTab3" data-target="weekContent3">ปฏิทินสีมงคล</button>
+                </div>
+
+                <!-- Tab 1: 4 Fortune Cards (Figma: 4 gradient cards, radius=35px) -->
+                <div class="weekly-tab-content active" id="weekContent1">
+                    <div class="fortune-cards-grid">
+                        <!-- Love Card (Figma: left=114, w=281, gradient #ff001a→#990003) -->
+                        <div class="fortune-card card-love">
+                            <h4 class="fortune-card-title" id="loveTitleCard">ด้านความรัก</h4>
+                            <ul class="fortune-card-points" id="lovePoints">
+                                <li>—</li>
+                            </ul>
+                        </div>
+                        <!-- Money Card (Figma: left=412, w=282, gradient #ff8a04→#ffea00) -->
+                        <div class="fortune-card card-money">
+                            <h4 class="fortune-card-title" id="moneyTitleCard">ด้านการเงิน</h4>
+                            <ul class="fortune-card-points" id="moneyPoints">
+                                <li>—</li>
+                            </ul>
+                        </div>
+                        <!-- Career Card (Figma: left=710, w=282, gradient #0410ff→#0a0099) -->
+                        <div class="fortune-card card-career">
+                            <h4 class="fortune-card-title" id="careerTitleCard">ด้านการงาน</h4>
+                            <ul class="fortune-card-points" id="careerPoints">
+                                <li>—</li>
+                            </ul>
+                        </div>
+                        <!-- Health Card (Figma: left=1009, w=281, gradient #c004ff→#830f81) -->
+                        <div class="fortune-card card-health">
+                            <h4 class="fortune-card-title" id="healthTitleCard">ด้านสุขภาพ</h4>
+                            <ul class="fortune-card-points" id="healthPoints">
+                                <li>—</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Weekly Warning -->
+                <div class="weekly-tab-content" id="weekContent2">
+                    <div class="warning-content">
+                        <div class="warning-icon-row">⚠️</div>
+                        <h3 class="warning-section-title">ข้อควรระวังประจำสัปดาห์</h3>
+                        <ul class="warning-list" id="weeklyWarningList">
+                            <li>—</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Lucky Calendar (7 days) -->
+                <div class="weekly-tab-content" id="weekContent3">
+                    <div class="lucky-calendar-content">
+                        <h3 class="calendar-section-title">ปฏิทินสีมงคลประจำสัปดาห์</h3>
+                        <div class="calendar-days-grid" id="luckyCalendarGrid"></div>
+                    </div>
+                </div>
+
+            </div><!-- end weekly-outer-card -->
+        </div><!-- end weekly-container -->
+    </section>
+
+    <script src="../js/config.js"></script>
     <script src="../js/components/navbar.js"></script>
     <script src="../js/components/birthday-fortune-form.js"></script>
 </body>
