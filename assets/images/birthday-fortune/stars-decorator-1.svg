@@ -1,0 +1,32 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Stars 1" filter="url(#filter0_ii_0_195)">
+<path id="Vector" d="M12.0023 33.9998V41.9998" stroke="var(--stroke-0, white)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M8.00117 37.9996H16.0012" stroke="var(--stroke-0, white)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M34.0031 5.99972V13.9997" stroke="var(--stroke-0, white)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_4" d="M30.0023 9.99977H38.0023" stroke="var(--stroke-0, white)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_5" d="M13.0031 9.99977C13.0031 13.8658 16.1371 16.9998 20.0031 16.9998" stroke="var(--stroke-0, white)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_6" d="M20.0031 16.9997C16.1371 16.9997 13.0031 20.1337 13.0031 23.9997" stroke="var(--stroke-0, white)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_7" d="M13.0023 23.9997C13.0023 20.1337 9.86834 16.9997 6.00234 16.9997" stroke="var(--stroke-0, white)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_8" d="M6.00234 16.9998C9.86834 16.9998 13.0023 13.8658 13.0023 9.99977" stroke="var(--stroke-0, white)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_9" d="M23.2219 31.5557C28.4079 31.5557 32.6119 27.3517 32.6119 22.1657" stroke="var(--stroke-0, white)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_10" d="M32.6105 22.1657C32.6105 27.3517 36.8145 31.5557 42.0005 31.5557" stroke="var(--stroke-0, white)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_11" d="M42.0005 31.5557C36.8145 31.5557 32.6105 35.7597 32.6105 40.9457" stroke="var(--stroke-0, white)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_12" d="M32.613 40.9457C32.613 35.7597 28.409 31.5557 23.223 31.5557" stroke="var(--stroke-0, white)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<filter id="filter0_ii_0_195" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.894076 0 0 0 0 0.886558 0 0 0 0 0.881546 0 0 0 1 0"/>
+<feBlend mode="normal" in2="shape" result="effect1_innerShadow_0_195"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="-2"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.4 0"/>
+<feBlend mode="normal" in2="effect1_innerShadow_0_195" result="effect2_innerShadow_0_195"/>
+</filter>
+</defs>
+</svg>

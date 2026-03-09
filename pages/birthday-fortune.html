@@ -33,6 +33,168 @@
         </div>
     </section>
 
+    <!-- Birthday Fortune Form Section -->
+    <section class="fortune-form-section">
+        <div class="fortune-container">
+            <!-- Left Side: Interactive Calendar -->
+            <div class="calendar-container">
+                <!-- Year/Month Selector -->
+                <div class="date-selector">
+                    <button class="selector-tab active" id="monthlyTab" data-type="monthly">Monthly</button>
+                    <button class="selector-tab" id="yearTab" data-type="year">Year</button>
+                    <div class="star-decorator-top">
+                        <img src="../assets/images/birthday-fortune/star-decorator.svg" alt="">
+                    </div>
+                    
+                    <!-- Dropdowns Container -->
+                    <div class="dropdowns-container">
+                        <!-- Year Dropdown -->
+                        <div class="year-dropdown" id="yearDropdown">
+                            <div class="dropdown-scroll">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- Month Dropdown -->
+                        <div class="month-dropdown" id="monthDropdown">
+                            <div class="dropdown-scroll">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Year Display -->
+                <div class="year-display" id="yearDisplay">
+                    <span class="year-text" id="yearText">2026</span>
+                </div>
+
+                <!-- Month Display -->
+                <div class="month-display" id="monthDisplay">
+                    <span class="month-text" id="monthText">march</span>
+                </div>
+
+                <!-- Day Display -->
+                <div class="day-display" id="dayDisplay">09</div>
+
+                <!-- Circular Calendar -->
+                <div class="circular-calendar">
+                    <!-- Weekday Labels -->
+                    <div class="weekday-labels">
+                        <button class="weekday" data-day="1" style="--angle: 0deg;">Mon</button>
+                        <button class="weekday" data-day="2" style="--angle: 51.43deg;">Tue</button>
+                        <button class="weekday" data-day="3" style="--angle: 102.86deg;">Wed</button>
+                        <button class="weekday" data-day="4" style="--angle: 154.29deg;">Thu</button>
+                        <button class="weekday" data-day="5" style="--angle: 205.71deg;">Fri</button>
+                        <button class="weekday" data-day="6" style="--angle: 257.14deg;">Sat</button>
+                        <button class="weekday" data-day="0" style="--angle: 308.57deg;">Sun</button>
+                    </div>
+
+                    <!-- Date Slider -->
+                    <div class="date-slider-container">
+                        <div class="date-slider" id="dateSlider">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Birth Time Section -->
+<div class="birth-time-section">
+                    <label class="birth-time-label">เวลาเกิด (โดยประมาณ)</label>
+                    <div class="birth-time-selector">
+                        <button class="birth-time-display" id="birthTimeDisplay">
+                            <span id="birthTimeText">00:00 - 00:59</span>
+                        </button>
+                        
+                        <!-- Birth Time Dropdown -->
+                        <div class="birth-time-dropdown-container">
+                            <div class="birth-time-dropdown" id="birthTimeDropdown">
+                                <div class="dropdown-scroll">
+                                    <div class="dropdown-item active" data-value="00:00-00:59">00:00 - 00:59</div>
+                                    <div class="dropdown-item" data-value="01:00-01:59">01:00 - 01:59</div>
+                                    <div class="dropdown-item" data-value="02:00-02:59">02:00 - 02:59</div>
+                                    <div class="dropdown-item" data-value="03:00-03:59">03:00 - 03:59</div>
+                                    <div class="dropdown-item" data-value="04:00-04:59">04:00 - 04:59</div>
+                                    <div class="dropdown-item" data-value="05:00-05:59">05:00 - 05:59</div>
+                                    <div class="dropdown-item" data-value="06:00-06:59">06:00 - 06:59</div>
+                                    <div class="dropdown-item" data-value="07:00-07:59">07:00 - 07:59</div>
+                                    <div class="dropdown-item" data-value="08:00-08:59">08:00 - 08:59</div>
+                                    <div class="dropdown-item" data-value="09:00-09:59">09:00 - 09:59</div>
+                                    <div class="dropdown-item" data-value="10:00-10:59">10:00 - 10:59</div>
+                                    <div class="dropdown-item" data-value="11:00-11:59">11:00 - 11:59</div>
+                                    <div class="dropdown-item" data-value="12:00-12:59">12:00 - 12:59</div>
+                                    <div class="dropdown-item" data-value="13:00-13:59">13:00 - 13:59</div>
+                                    <div class="dropdown-item" data-value="14:00-14:59">14:00 - 14:59</div>
+                                    <div class="dropdown-item" data-value="15:00-15:59">15:00 - 15:59</div>
+                                    <div class="dropdown-item" data-value="16:00-16:59">16:00 - 16:59</div>
+                                    <div class="dropdown-item" data-value="17:00-17:59">17:00 - 17:59</div>
+                                    <div class="dropdown-item" data-value="18:00-18:59">18:00 - 18:59</div>
+                                    <div class="dropdown-item" data-value="19:00-19:59">19:00 - 19:59</div>
+                                    <div class="dropdown-item" data-value="20:00-20:59">20:00 - 20:59</div>
+                                    <div class="dropdown-item" data-value="21:00-21:59">21:00 - 21:59</div>
+                                    <div class="dropdown-item" data-value="22:00-22:59">22:00 - 22:59</div>
+                                    <div class="dropdown-item" data-value="23:00-23:59">23:00 - 23:59</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Name Input & Submit Button -->
+            <div class="form-container">
+                <!-- Name Inputs -->
+                <div class="name-input-container">
+                    <!-- First Name -->
+                    <div class="first-name-group">
+                        <label class="name-label">ชื่อจริง</label>
+                        <div class="name-input-wrapper">
+                            <input 
+                                type="text" 
+                                id="firstNameInput" 
+                                class="name-input"
+                                placeholder="กรอกชื่อจริง"
+                                required
+                            >
+                        </div>
+                    </div>
+                    
+                    <!-- Last Name -->
+                    <div class="last-name-group">
+                        <label class="name-label">นามสกุล</label>
+                        <div class="name-input-wrapper">
+                            <input 
+                                type="text" 
+                                id="lastNameInput" 
+                                class="name-input"
+                                placeholder="กรอกนามสกุล"
+                                required
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button with Liquid Glass Effect -->
+                <button class="fortune-submit-btn" id="fortuneSubmitBtn">
+                    <div class="liquid-glass-bg"></div>
+                    <div class="glass-lenses">
+                        <div class="lens lens-0"></div>
+                        <div class="lens lens-1"></div>
+                        <div class="lens lens-2"></div>
+                        <div class="lens lens-3"></div>
+                        <div class="lens lens-4"></div>
+                    </div>
+                    <span class="btn-text">✨ คำนวณดวงชะตา</span>
+                    <div class="btn-stars">
+                        <img src="../assets/images/birthday-fortune/stars-decorator-1.svg" alt="">
+                    </div>
+                </button>
+            </div>
+        </div>
+    </section>
+
     <script src="../js/components/navbar.js"></script>
+    <script src="../js/components/birthday-fortune-form.js"></script>
 </body>
 </html>

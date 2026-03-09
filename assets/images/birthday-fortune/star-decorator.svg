@@ -1,0 +1,9 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path id="Star 1" d="M33.5 0L42.5488 24.4512L67 33.5L42.5488 42.5488L33.5 67L24.4512 42.5488L0 33.5L24.4512 24.4512L33.5 0Z" fill="url(#paint0_linear_0_193)"/>
+<defs>
+<linearGradient id="paint0_linear_0_193" x1="33.5" y1="0" x2="33.5" y2="67" gradientUnits="userSpaceOnUse">
+<stop stop-color="#B715AC"/>
+<stop offset="1" stop-color="#51094C"/>
+</linearGradient>
+</defs>
+</svg>

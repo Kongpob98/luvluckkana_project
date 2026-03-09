@@ -91,6 +91,849 @@ body {
 }
 
 /* ========================================
+   FORTUNE FORM SECTION STYLES
+   Based on Figma Design (node-id: 238-172)
+   ======================================== */
+
+.fortune-form-section {
+    position: relative;
+    width: 100%;
+    min-height: 1024px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0;
+    background: #000000;
+    overflow: visible;
+}
+
+.fortune-container {
+    position: relative;
+    width: 1440px;
+    height: 1024px;
+    margin: 0 auto;
+}
+
+/* ========================================
+   CALENDAR CONTAINER - LEFT SIDE
+   ======================================== */
+
+.calendar-container {
+    position: absolute;
+    left: 0;
+    top: 256px;
+    width: 1431px;
+    height: 797px;
+    overflow: visible;
+}
+
+/* Calendar Border Box - Glass Morphism Card */
+.calendar-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 8.6%;
+    width: 518px;
+    height: 573px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 41px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 
+        0 8px 32px 0 rgba(0, 0, 0, 0.37),
+        inset 0 1px 2px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 2px 0 rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Date Selector (Monthly/Year Tabs) - Glass Morphism */
+.date-selector {
+    position: absolute;
+    top: 43px;
+    left: calc(8.6% + 70px);
+    display: flex;
+    gap: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 14px;
+    padding: 0;
+    box-shadow: 
+        0 4px 16px 0 rgba(0, 0, 0, 0.25),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.1);
+    z-index: 5;
+    height: 58px;
+    width: 378px;
+    overflow: visible;
+}
+
+.star-decorator-top {
+    position: absolute;
+    left: calc(100% + 20px);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 67px;
+    height: 67px;
+}
+
+.star-decorator-top img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.selector-tab {
+    flex: 1;
+    padding: 16px 0;
+    font-family: 'Helvetica', 'Roboto', sans-serif;
+    font-size: 24px;
+    line-height: normal;
+    color: #7a7a7a;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 14px;
+    text-align: center;
+}
+
+.selector-tab.active {
+    color: transparent;
+    background-image: linear-gradient(to right, #ff00ee, #f5a3f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    box-shadow: 0px 4px 12px rgba(255, 0, 238, 0.3);
+}
+
+.selector-tab.active::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(211, 188, 216, 0.3) 0%, rgba(211, 188, 216, 0.2) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 14px;
+    z-index: -1;
+    border: 1px solid rgba(255, 0, 238, 0.2);
+}
+
+/* Year Display */
+.year-display {
+    position: absolute;
+    top: 125px;
+    left: calc(8.6% + 20px);
+    display: flex;
+    align-items: center;
+    font-family: 'Helvetica', 'Roboto', sans-serif;
+    font-size: 24px;
+    line-height: normal;
+    color: #ffffff;
+    z-index: 4;
+}
+
+.year-text {
+    min-width: 60px;
+    text-align: center;
+}
+
+/* Month Display */
+.month-display {
+    position: absolute;
+    top: 155px;
+    left: calc(8.6% + 20px);
+    display: flex;
+    align-items: center;
+    font-family: 'Helvetica', 'Roboto', sans-serif;
+    font-size: 64px;
+    line-height: normal;
+    color: #ffffff;
+    text-transform: lowercase;
+    z-index: 4;
+}
+
+.year-display, .month-display {
+    position: relative;
+}
+
+.year-text, .month-text {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.year-text:hover, .month-text:hover {
+    color: #ff00ee;
+    text-shadow: 0 0 15px rgba(255, 0, 238, 0.5);
+}
+
+/* Dropdowns Container */
+.dropdowns-container {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    width: 100%;
+    height: 0;
+}
+
+/* Dropdowns */
+.year-dropdown, .month-dropdown {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    background: linear-gradient(135deg, rgba(20, 20, 40, 0.85) 0%, rgba(10, 10, 30, 0.9) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    min-width: 120px;
+    pointer-events: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    will-change: opacity, transform;
+    contain: layout;
+}
+
+.year-dropdown.show, .month-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.month-dropdown {
+    min-width: 180px;
+}
+
+.dropdown-scroll {
+    max-height: 280px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 0, 238, 0.3) rgba(255, 255, 255, 0.05);
+    contain: paint;
+    will-change: scroll-position;
+}
+
+.dropdown-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dropdown-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.dropdown-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 0, 238, 0.3);
+    border-radius: 3px;
+}
+
+.dropdown-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 0, 238, 0.5);
+}
+
+.dropdown-item {
+    padding: 12px 20px;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    font-size: 16px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.dropdown-item:hover {
+    background: linear-gradient(135deg, rgba(255, 0, 238, 0.15) 0%, rgba(255, 0, 238, 0.08) 100%);
+    color: #ff00ee;
+    transform: scale(1.02);
+}
+
+.dropdown-item.active {
+    background: linear-gradient(135deg, rgba(255, 0, 238, 0.25) 0%, rgba(255, 0, 238, 0.15) 100%);
+    color: #ff00ee;
+    font-weight: bold;
+}
+
+.month-text {
+    min-width: 200px;
+    text-align: left;
+}
+
+/* Day Display */
+.day-display {
+    position: absolute;
+    top: 162px;
+    left: calc(8.6% + 518px - 111px);
+    font-family: 'Helvetica', 'Roboto', sans-serif;
+    font-size: 70px;
+    line-height: normal;
+    color: #ffffff;
+    text-align: right;
+    z-index: 4;
+}
+
+/* Circular Calendar */
+.circular-calendar {
+    position: absolute;
+    top: 285px;
+    left: 8.6%;
+    width: 518px;
+    height: 512px;
+}
+
+/* Weekday Labels */
+.weekday-labels {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    z-index: 3;
+}
+
+.weekday {
+    position: relative;
+    font-family: 'Helvetica', 'Roboto', sans-serif;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Curved arrangement - center higher, sides lower */
+.weekday:nth-child(1) { transform: translateY(0px); }
+.weekday:nth-child(2) { transform: translateY(-8px); }
+.weekday:nth-child(3) { transform: translateY(-14px); }
+.weekday:nth-child(4) { transform: translateY(-18px); }
+.weekday:nth-child(5) { transform: translateY(-14px); }
+.weekday:nth-child(6) { transform: translateY(-8px); }
+.weekday:nth-child(7) { transform: translateY(0px); }
+
+.weekday:hover {
+    color: #ff00ee;
+}
+
+.weekday.active {
+    color: #ff00ee;
+    font-weight: bold;
+}
+
+/* Date Slider - Glass Morphism */
+.date-slider-container {
+    position: absolute;
+    top: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 500px;
+    height: 80px;
+    overflow-x: auto;
+    overflow-y: visible;
+    z-index: 3;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    
+    /* Glass morphism effect */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+    padding: 15px 20px;
+    box-shadow: 
+        0 4px 20px 0 rgba(0, 0, 0, 0.2),
+        inset 0 1px 2px 0 rgba(255, 255, 255, 0.08);
+}
+
+.date-slider-container::-webkit-scrollbar {
+    display: none;
+}
+
+.date-slider {
+    display: flex;
+    gap: 15px;
+    padding: 0;
+    position: relative;
+    height: 100%;
+    align-items: center;
+    /* Create curved path effect */
+    padding-bottom: 5px;
+}
+
+.date-item {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Helvetica', 'Roboto', sans-serif;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: color 0.3s ease, background 0.3s ease;
+    position: relative;
+}
+
+.date-item:hover {
+    color: #ff00ee;
+    background: linear-gradient(135deg, rgba(255, 0, 238, 0.15) 0%, rgba(255, 0, 238, 0.08) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.date-item.selected {
+    color: #ff00ee;
+    font-weight: bold;
+    background: linear-gradient(135deg, rgba(255, 0, 238, 0.25) 0%, rgba(255, 0, 238, 0.15) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 0, 238, 0.5);
+    box-shadow: 0 4px 12px rgba(255, 0, 238, 0.3);
+}
+
+/* Birth Time Section */
+.birth-time-section {
+    position: absolute;
+    top: 468px;
+    left: 14.19%;
+    width: 375px;
+    height: 75px;
+    z-index: 5;
+    overflow: visible;
+}
+
+.birth-time-label {
+    position: absolute;
+    top: -60px;
+    left: 0;
+    width: 100%;
+    height: 75px;
+    font-family: 'Helvetica', 'Roboto', sans-serif;
+    font-size: 24px;
+    line-height: normal;
+    color: #ffffff;
+    text-align: center;
+}
+
+.birth-time-selector {
+    position: relative;
+    width: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 25px;
+    box-shadow: 
+        0 4px 16px 0 rgba(0, 0, 0, 0.25),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.1);
+    overflow: visible;
+}
+
+.birth-time-display {
+    width: 100%;
+    height: 75px;
+    padding: 20px;
+    font-family: 'Helvetica', 'Roboto', sans-serif;
+    font-size: 32px;
+    line-height: normal;
+    color: #ffffff;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.birth-time-display:hover {
+    color: #ff00ee;
+    text-shadow: 0 0 15px rgba(255, 0, 238, 0.5);
+}
+
+.birth-time-dropdown-container {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    pointer-events: none;
+    width: 100%;
+    height: 0;
+}
+
+.birth-time-dropdown {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    background: linear-gradient(135deg, rgba(20, 20, 40, 0.85) 0%, rgba(10, 10, 30, 0.9) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    min-width: 200px;
+    max-width: 300px;
+    pointer-events: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    will-change: opacity, transform;
+    contain: layout;
+}
+
+.birth-time-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ========================================
+   FORM CONTAINER - RIGHT SIDE
+   ======================================== */
+
+.form-container {
+    position: absolute;
+    left: 767px;
+    top: 246px;
+    width: 609px;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Name Input Container */
+.name-input-container {
+    position: relative;
+    width: 100%;
+    height: 286px; /* Increased height for 2 fields */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 15;
+}
+
+/* First Name Group */
+.first-name-group {
+    position: relative;
+    width: 100%;
+    height: 133px;
+    z-index: 16;
+}
+
+/* Last Name Group */
+.last-name-group {
+    position: relative;
+    width: 100%;
+    height: 133px;
+    z-index: 16;
+}
+
+.name-label {
+    position: absolute;
+    top: 0;
+    left: 44px;
+    font-family: 'Helvetica', 'Roboto', sans-serif;
+    font-size: 40px;
+    line-height: normal;
+    background: linear-gradient(to right, #ffffff, #ff00d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    white-space: pre-wrap;
+    z-index: 17;
+}
+
+.name-input-wrapper {
+    position: absolute;
+    top: 52px;
+    left: 0;
+    width: 100%;
+    height: 81px;
+    background: rgba(38, 38, 38, 0.6);
+    border-radius: 34px;
+    box-shadow: 0px 8px 40px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(75px);
+    overflow: hidden;
+    z-index: 18;
+}
+
+.name-input-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    border-radius: 34px;
+}
+
+.name-input {
+    width: 100%;
+    height: 100%;
+    padding: 0 32px;
+    font-family: 'Helvetica', 'Roboto', sans-serif;
+    font-size: 28px;
+    line-height: normal;
+    color: #ffffff;
+    background: transparent;
+    border: none;
+    outline: none;
+    position: relative;
+    z-index: 20;
+}
+
+.name-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Fortune Submit Button with Liquid Glass Effect */
+.fortune-submit-btn {
+    position: relative;
+    width: 439px;
+    height: 174px;
+    margin: 54px auto 0;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.15) 0%, 
+        rgba(255, 255, 255, 0.05) 50%,
+        rgba(136, 0, 255, 0.1) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 225px;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+    box-shadow: 
+        0 8px 32px rgba(255, 0, 212, 0.2),
+        0 0 80px rgba(136, 0, 255, 0.15),
+        inset 0 2px 10px rgba(255, 255, 255, 0.2),
+        inset 0 -2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 5;
+}
+
+.fortune-submit-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    border-color: rgba(255, 255, 255, 1);
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.25) 0%, 
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(136, 0, 255, 0.2) 100%);
+    box-shadow: 
+        0 12px 48px rgba(255, 0, 212, 0.4),
+        0 0 120px rgba(136, 0, 255, 0.3),
+        inset 0 2px 15px rgba(255, 255, 255, 0.3),
+        inset 0 -2px 15px rgba(0, 0, 0, 0.15);
+}
+
+.fortune-submit-btn:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 
+        0 4px 20px rgba(255, 0, 212, 0.3),
+        0 0 60px rgba(136, 0, 255, 0.2),
+        inset 0 2px 10px rgba(255, 255, 255, 0.15),
+        inset 0 -2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Liquid Glass Background */
+.liquid-glass-bg {
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(30px);
+    background: radial-gradient(circle at 30% 30%, 
+        rgba(255, 255, 255, 0.25) 0%, 
+        rgba(255, 0, 212, 0.15) 40%,
+        rgba(136, 0, 255, 0.1) 70%,
+        rgba(255, 255, 255, 0) 100%);
+    mix-blend-mode: overlay;
+    border-radius: 225px;
+    pointer-events: none;
+    opacity: 0.8;
+    animation: liquidPulse 4s ease-in-out infinite;
+}
+
+@keyframes liquidPulse {
+    0%, 100% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+/* Glass Lenses */
+.glass-lenses {
+    position: absolute;
+    inset: -2px -2.5px -2px -3px;
+    filter: blur(4px);
+    pointer-events: none;
+}
+
+.lens {
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(50px);
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 1000px;
+}
+
+.lens.lens-0 {
+    backdrop-filter: blur(50px);
+}
+
+.lens.lens-1 {
+    inset: 3px 2.07px;
+    backdrop-filter: blur(25px);
+}
+
+.lens.lens-2 {
+    inset: 9px 6.2px;
+    backdrop-filter: blur(12.5px);
+}
+
+.lens.lens-3 {
+    inset: 19px 13.09px;
+    backdrop-filter: blur(5px);
+}
+
+.lens.lens-4 {
+    inset: 39px 26.86px;
+    backdrop-filter: blur(1px);
+}
+
+.btn-text {
+    position: relative;
+    font-family: 'Helvetica', 'Roboto', sans-serif;
+    font-size: 64px;
+    line-height: 1;
+    color: #ffffff;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 2;
+    text-shadow: 
+        0 2px 10px rgba(255, 0, 212, 0.5),
+        0 0 20px rgba(136, 0, 255, 0.3),
+        0 4px 20px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(180deg, #ffffff 0%, #ffe4fb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+.btn-stars {
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    width: 48px;
+    height: 48px;
+    transform: translateY(-50%);
+    z-index: 3;
+    pointer-events: none;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+}
+
+.btn-stars img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    animation: starsRotate 3s linear infinite, starsPulse 2s ease-in-out infinite;
+}
+
+@keyframes starsRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes starsPulse {
+    0%, 100% {
+        opacity: 1;
+        filter: brightness(1);
+    }
+    50% {
+        opacity: 0.7;
+        filter: brightness(1.5);
+    }
+}
+
+/* Shimmering shine effect overlay */
+.fortune-submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.3) 50%, 
+        transparent 100%);
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 1;
+    animation: shine 3s ease-in-out infinite;
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+    50%, 100% {
+        left: 200%;
+    }
+}
+
+/* Enhanced inner glow */
+.fortune-submit-btn::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 50%, 
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 60%);
+    opacity: 0.6;
+}
+
+/* ========================================
    RESPONSIVE DESIGN
    ======================================== */
 
@@ -199,5 +1042,53 @@ body {
     
     .letter-s {
         font-size: 20px;
+    }
+}
+
+/* Fortune Form Section Responsive */
+@media (max-width: 1440px) {
+    .fortune-container {
+        transform: scale(0.9);
+        transform-origin: center top;
+    }
+}
+
+@media (max-width: 1200px) {
+    .fortune-container {
+        transform: scale(0.75);
+        transform-origin: center top;
+    }
+}
+
+@media (max-width: 768px) {
+    .fortune-form-section {
+        min-height: 800px;
+    }
+
+    .fortune-container {
+        transform: scale(0.55);
+        transform-origin: center top;
+    }
+}
+
+@media (max-width: 480px) {
+    .fortune-form-section {
+        min-height: 600px;
+    }
+
+    .fortune-container {
+        transform: scale(0.4);
+        transform-origin: center top;
+    }
+}
+
+@media (max-width: 375px) {
+    .fortune-form-section {
+        min-height: 500px;
+    }
+
+    .fortune-container {
+        transform: scale(0.35);
+        transform-origin: center top;
     }
 }
