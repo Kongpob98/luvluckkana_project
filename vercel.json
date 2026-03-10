@@ -15,6 +15,7 @@
     { "source": "/simsy-result.html", "destination": "/pages/simsy-result.html" },
     { "source": "/numerology.html", "destination": "/pages/numerology.html" },
     { "source": "/blog.html", "destination": "/pages/blog.html" },
-    { "source": "/colors.html", "destination": "/pages/colors.html" }
+    { "source": "/colors.html", "destination": "/pages/colors.html" },
+    { "source": "/about.html", "destination": "/pages/about.html" }
   ]
 }

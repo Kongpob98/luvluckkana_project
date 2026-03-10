@@ -14,20 +14,20 @@
                 <nav class="nav-menu-wrapper">
                     <!-- Left Menu -->
                     <div class="nav-menu nav-left">
-                        <a href="index.html" class="nav-link" data-page="index">
+                        <a href="/index.html" class="nav-link" data-page="index">
                             Home
                         </a>
-                        <a href="blog.html" class="nav-link" data-page="blog">
+                        <a href="/blog.html" class="nav-link" data-page="blog">
                             Get a Reading
                         </a>
                     </div>
                     
                     <!-- Right Menu -->
                     <div class="nav-menu nav-right">
-                        <a href="chatbot.html" class="nav-link" data-page="chatbot">
+                        <a href="/chatbot.html" class="nav-link" data-page="chatbot">
                             The Oracle
                         </a>
-                        <a href="about.html" class="nav-link" data-page="about">
+                        <a href="/about.html" class="nav-link" data-page="about">
                             Articles
                         </a>
                     </div>
