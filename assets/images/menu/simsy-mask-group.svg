@@ -1,0 +1,19 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 469.052 1148.94" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Mask group">
+<g id="Ellipse 141" filter="url(#filter0_f_0_418)">
+<path d="M288.652 574.469C288.652 792.108 264.419 968.538 234.526 968.538C204.633 968.538 180.4 792.108 180.4 574.469C180.4 356.831 204.633 180.4 234.526 180.4C264.419 180.4 288.652 356.831 288.652 574.469Z" fill="var(--fill-0, #925DFF)"/>
+<path d="M234.526 179.9C238.524 179.9 242.303 182.844 245.849 188.128C249.41 193.433 252.826 201.226 256.07 211.213C262.559 231.196 268.396 260.086 273.295 295.753C283.093 367.094 289.152 465.635 289.152 574.469C289.152 683.304 283.093 781.845 273.295 853.186C268.396 888.853 262.559 917.743 256.07 937.725C252.827 947.713 249.41 955.506 245.849 960.811C242.303 966.094 238.524 969.039 234.526 969.039C230.527 969.039 226.749 966.094 223.203 960.811C219.642 955.506 216.225 947.713 212.982 937.725C206.493 917.743 200.656 888.853 195.757 853.186C185.959 781.845 179.9 683.304 179.9 574.469C179.9 465.635 185.959 367.094 195.757 295.753C200.656 260.086 206.493 231.196 212.982 211.213C216.225 201.226 219.642 193.433 223.203 188.128C226.749 182.844 230.527 179.9 234.526 179.9Z" stroke="url(#paint0_radial_0_418)"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_f_0_418" x="0" y="0" width="469.052" height="1148.94" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="89.7" result="effect1_foregroundBlur_0_418"/>
+</filter>
+<radialGradient id="paint0_radial_0_418" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(234.526 574.469) rotate(90) scale(394.069 54.1261)">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#999999"/>
+</radialGradient>
+</defs>
+</svg>

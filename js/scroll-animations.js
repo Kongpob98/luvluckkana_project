@@ -30,11 +30,6 @@ class ScrollAnimations {
 
         // Use IntersectionObserver for menu cards (same as Detail Section)
         this.initMenuObserver();
-
-        // Add parallax effect for menu cards
-        if (this.menuSection && this.menuCards.length > 0) {
-            this.initMenuParallax();
-        }
     }
 
     checkAboutSection() {
@@ -78,9 +73,8 @@ class ScrollAnimations {
                     setTimeout(() => {
                         entry.target.classList.add('animate-in');
                     }, delay);
-                } else {
-                    // Remove class when scrolling away to allow re-animation
-                    entry.target.classList.remove('animate-in');
+                    // unobserve after reveal — prevent snap-back on scroll
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
@@ -88,38 +82,6 @@ class ScrollAnimations {
         // Observe all menu cards
         this.menuCards.forEach(card => {
             observer.observe(card);
-        });
-    }
-
-    initMenuParallax() {
-        let ticking = false;
-
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    const scrolled = window.pageYOffset;
-                    const sectionTop = this.menuSection.offsetTop;
-                    const sectionHeight = this.menuSection.offsetHeight;
-                    const windowHeight = window.innerHeight;
-
-                    // Only apply parallax when section is in view (same as Detail Section)
-                    if (scrolled + windowHeight > sectionTop && scrolled < sectionTop + sectionHeight) {
-                        const offset = scrolled - sectionTop + windowHeight;
-
-                        // Apply parallax to each card with different speeds (layered effect)
-                        this.menuCards.forEach((card, index) => {
-                            // Different speeds for each card - similar to Detail Section
-                            const speed = 0.08 + (index * 0.03);
-                            const cardMove = -(offset * speed);
-                            card.style.transform = `translateY(${cardMove}px)`;
-                        });
-                    }
-
-                    ticking = false;
-                });
-
-                ticking = true;
-            }
         });
     }
 }

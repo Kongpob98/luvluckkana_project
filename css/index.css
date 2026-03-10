@@ -1676,300 +1676,738 @@ body {
     .detail-description { font-size: 14px; }
 }
 
-/* ==========================================
-   Menu Section - Glassmorphism with Black Background
-   ========================================== */
+/* ════════════════════════════════════════════════════════════════
+   MENU SECTION  (Figma: Desktop-31, node 382:118885)
+   Canvas: 1440 × ~1120 px
+   Design tokens:
+     card bg: #000  |  border: rgba(255,255,255,0.45)  |  radius: 27px
+     column gap: 34px  |  row gap: 39px
+     Left card:  w=421px  h=1001px  (spans both right rows + gap)
+     Top-right:  12ราศี w=369fr  |  12นักษัตร w=364fr  |  h=480px
+     Bottom-right: w=100%  h=481px
+   ════════════════════════════════════════════════════════════════ */
 
 .menu-section {
-    background: #000000;
-    min-height: 100vh;
+    background: #000;
+    height: 150vh;
+    padding: 0 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 100px 20px;
     position: relative;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
-
-
-.menu-container {
-    max-width: 1188px;
+/* Outer grid: left-tall | right-column */
+.menu-grid {
+    display: flex;
+    gap: 34px;
+    max-width: 1225px;
     width: 100%;
-    height: 535px;
-    display: flex;
-    gap: 10px;
-    position: relative;
-    z-index: 1;
+    height: calc(100vh - 34px);
+    min-height: 600px;
+    will-change: transform;
 }
 
-/* Left Card - 12 Zodiac Signs - Glassmorphism */
-.menu-card-left {
-    flex: 0 0 387px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 41px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    animation: menuFloatLeft 6s ease-in-out infinite;
-    box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+.menu-card--simsy {
+    will-change: transform;
 }
-
-.menu-card-left a {
-    display: block;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.menu-card-left img {
-    width: 448px;
-    height: 359px;
-    object-fit: cover;
-}
-
-/* Right Group */
 .menu-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    will-change: transform;
 }
 
-/* Ascendant Card - Glassmorphism */
-.menu-card-ascendant {
-    width: 100%;
-    height: 182px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 41px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    animation: menuFloatTop 5s ease-in-out infinite;
-    box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.menu-card-ascendant img {
-    width: 771px;
-    height: auto;
-}
-
-/* Bottom Row */
-.menu-bottom-row {
-    display: flex;
-    gap: 14px;
-    height: 337px;
-}
-
-/* Chinese Zodiac Card - Glassmorphism */
-.menu-card-chinese {
-    flex: 0 0 517px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 41px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    animation: menuFloatChinese 7s ease-in-out infinite;
-    box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.menu-card-chinese img {
-    width: 382px;
-    height: auto;
-}
-
-/* Syamsi Card - Glassmorphism */
-.menu-card-syamsi {
-    flex: 0 0 260px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 41px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    animation: menuFloatSyamsi 5.5s ease-in-out infinite;
-    box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.menu-card-syamsi a {
-    display: block;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.menu-card-syamsi img {
-    width: 202px;
-    height: 80px;
-    object-fit: contain;
-}
-
-/* Menu Card Scroll Animations - Like Detail Section */
+/* ─── BASE CARD STYLES ─── */
 .menu-card {
+    position: relative;
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 27px;
+    overflow: hidden;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    /* scroll-reveal initial state */
     opacity: 0;
     transform: translateY(60px);
-    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
-                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                filter 0.35s ease,
+                border-color 0.35s ease;
 }
-
 .menu-card.animate-in {
     opacity: 1;
     transform: translateY(0);
 }
-
 .menu-card:hover {
-    box-shadow: 
-        0 20px 70px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    filter: brightness(1.25);
-    border-color: rgba(255, 255, 255, 0.25);
-    transition: filter 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    filter: brightness(1.18);
+    border-color: rgba(255, 255, 255, 0.7);
 }
 
-/* Stagger fade-in delays */
-.menu-card[data-delay="0"] {
-    transition-delay: 0s;
+/* Card full-bleed background SVG/image */
+.menu-card__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    z-index: 0;
 }
 
-.menu-card[data-delay="150"] {
-    transition-delay: 0.15s;
+/* Card footer row: title left + optional button right */
+.menu-card__footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 22px 26px 26px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+    z-index: 20;
+}
+.menu-card__title {
+    font-family: 'Sarabun', 'DB Helvethaica X', 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    white-space: nowrap;
 }
 
-.menu-card[data-delay="300"] {
-    transition-delay: 0.3s;
+
+/* ════════════════════════════════════════════
+   LEFT CARD — เซียมซี  (w=421px, spans full h)
+   Figma node 381:118712 + overlays
+   ════════════════════════════════════════════ */
+.menu-card--simsy {
+    flex: 0 0 clamp(240px, 29.2vw, 421px);
+    height: 100%;
+    overflow: hidden;
+}
+.menu-card--simsy .menu-card__title {
+    font-size: clamp(22px, 4vw, 56px);
 }
 
-.menu-card[data-delay="450"] {
-    transition-delay: 0.45s;
+/* Purple ambient glow — card-simsy-mask.svg (Figma MaskGroup) */
+.simsy-glow {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.9;
 }
 
-/* Menu Card Floating Animations */
-@keyframes menuFloatLeft {
-    0%, 100% {
-        transform: translateY(0);
+/* Sticks container */
+.simsy-sticks {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    translate: -50% 0;
+    width: 110%;
+    height: 84%;
+    z-index: 2;
+    pointer-events: none;
+    overflow: visible;
+}
+
+/* Individual stick — 3 copies as divs at Figma rotations */
+.simsy-stick {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 66%;
+    height: 100%;
+    transform-origin: center bottom;
+    display: block;
+}
+.simsy-stick--back   { translate: -50% 0; rotate: -16deg; opacity: 0.8; }
+.simsy-stick--center { translate: -50% 0; rotate:   0deg; z-index: 1; }
+.simsy-stick--front  { translate: -50% 0; rotate:  19deg; opacity: 0.8; }
+
+/* Stick body image fills wrapper */
+.simsy-stick__body {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+    display: block;
+}
+
+/* Crystal-tip star — dark 4-pointed star inside diamond tip (Figma imgStar5) */
+.simsy-stick__star {
+    position: absolute;
+    width: 18%;
+    height: auto;
+    top: 4%;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Sparkle stars (Figma canvas px → % of card 421×1080)
+   Star 84px: left=248px(59%), top=333px(31%) | Star1 44px: left=37px(9%), top=629px(58%) | Star2 22px: left=292px(69%), top=799px(74%) */
+.simsy-star {
+    position: absolute;
+    pointer-events: none;
+    z-index: 3;
+}
+.simsy-star--lg { width: clamp(48px, 5.5vw, 72px); top: 31%;  right: 21%;  }
+.simsy-star--md { width: clamp(28px, 3vw,  40px); top: 58%;  left:  9%;  }
+.simsy-star--sm { width: clamp(14px, 1.5vw, 20px); bottom: 26%; right: 25%; }
+
+/* Arrow button (Ellipse circle + arrow icon, Figma: bottom-right) */
+.menu-card__arrow-btn {
+    position: relative;
+    width: clamp(52px, 5.5vw, 72px);
+    height: clamp(52px, 5.5vw, 72px);
+    flex-shrink: 0;
+}
+.arrow-btn__circle {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.arrow-btn__icon {
+    position: absolute;
+    inset: 22%;
+    width: 56%;
+    height: 56%;
+    object-fit: contain;
+}
+
+
+/* ════════════════════════════════════════════
+   RIGHT COLUMN
+   ════════════════════════════════════════════ */
+.menu-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 39px;
+    height: 100%;
+    min-height: 0;
+}
+
+/* TOP ROW: 12 ราศี + 12 นักษัตร */
+.menu-top-row {
+    display: flex;
+    gap: 34px;
+    flex: 480;
+    min-height: 0;
+}
+
+/* ─── 12 ราศี ─── (Figma flex: 369) */
+.menu-card--zodiac {
+    flex: 369;
+    height: 100%;
+}
+.menu-card--zodiac .menu-card__title {
+    font-size: clamp(16px, 3vw, 42px);
+}
+
+/* 4-pointed gradient star (zodiac-shape.svg)
+   Figma: card 369×480 → star at left=17%, top=28%, width=55%, center at 44.5% horiz */
+.zodiac-star {
+    position: absolute;
+    width: 55%;
+    height: auto;
+    top: 28%;
+    left: 44.5%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* ─── 12 นักษัตร ─── (Figma flex: 364) */
+.menu-card--chinese {
+    flex: 364;
+    height: 100%;
+}
+.menu-card--chinese .menu-card__title {
+    font-size: clamp(16px, 3vw, 42px);
+}
+
+/* Chinese zodiac overlay art — positions from Figma canvas (card 364×480px) */
+.chinese-art {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Vector arc / ring (node 381:118697): left=80/364=22%, top=62/480=13%, w=221/364=61% */
+.chinese-vector {
+    position: absolute;
+    width: 61%;
+    height: auto;
+    left: 22%;
+    top: 13%;
+}
+
+/* Animal silhouette shapes */
+.chinese-sub {
+    position: absolute;
+    height: auto;
+}
+/* Subtract2 = big body shape, rotate +15.66° (left=13/364≈4%, top=240/480=50%, w=141/364≈39%) */
+.chinese-sub--c {
+    width: 39%;
+    left: 4%;
+    top: 50%;
+    rotate: 15.66deg;
+}
+/* Subtract1 = medium shape, rotate -24.44° (left=203/364≈56%, top=314/480≈65%, w=84/364≈23%) */
+.chinese-sub--b {
+    width: 23%;
+    left: 56%;
+    top: 65%;
+    rotate: -24.44deg;
+}
+/* Subtract = small shape, rotate -51° (left=253/364≈70%, top=206/480≈43%, w=95/364≈26%) */
+.chinese-sub--a {
+    width: 26%;
+    left: 70%;
+    top: 43%;
+    rotate: -51deg;
+}
+
+
+/* ─── ดูดวงเฉพาะบุคคล (BOTTOM WIDE CARD) ─── */
+/* Figma Group3, node 381:118695, h=481px, w=full right */
+.menu-card--birthday {
+    flex: 481;
+    height: auto;
+    min-height: 0;
+}
+.menu-card--birthday .menu-card__title {
+    font-size: clamp(14px, 2.2vw, 32px);
+    white-space: normal;
+    line-height: 1.2;
+    max-width: 70%;
+}
+
+/* Birthday/fortune card artwork layer */
+.birthday-art {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Crystal ball (Group4, Figma: center 50% horiz, image top at ~5% of card)
+   Group4 bounding: left=36%, top=18%, w=28.3%, h=51%
+   + 24.7% top overflow, 17.25% side overflow → actual rendered: w=38%, left=31%, top=5%
+   z-index: auto so hands (in DOM after crystal) appear on top */
+.birthday-crystal {
+    position: absolute;
+    width: auto;
+    height: 80%;
+    max-width: 55%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    z-index: 1;
+}
+
+/* Hands (hand-left.png / hand-right.png)
+   Figma: Component1 (both hands) starts at card_top=-186px (above card),
+   hands appear from ~18% down the card, spanning ~50% wide each from the sides */
+.birthday-hand {
+    position: absolute;
+    height: 82%;
+    width: auto;
+    bottom: 0;
+    z-index: 2;
+}
+.birthday-hand--left {
+    left: -5%;
+    transform: none;
+}
+.birthday-hand--right {
+    right: -5%;
+    transform: none;
+}
+
+
+/* ════════════════════════════════════════════
+   RESPONSIVE — Menu Section
+   Breakpoints: 1260 / 1024 / 768 / 600 / 480 / 360
+   ════════════════════════════════════════════ */
+
+/* ── Compact desktop (1025–1260px) ── */
+@media (max-width: 1260px) {
+    .menu-grid        { gap: 20px; }
+    .menu-card--simsy { flex: 0 0 30%; }
+    .menu-top-row     { gap: 20px; }
+    .menu-right       { gap: 20px; }
+}
+
+/* ── Tablet landscape (769–1024px) ── */
+@media (max-width: 1024px) {
+    .menu-section {
+        height: 140vh;
+        padding: 0 16px;
     }
-    50% {
-        transform: translateY(-15px);
+    .menu-grid {
+        gap: 16px;
+        height: calc(88vh - 32px);
+    }
+    .menu-card--simsy { flex: 0 0 33%; }
+    .menu-top-row     { gap: 16px; }
+    .menu-right       { gap: 16px; }
+    .menu-card--simsy .menu-card__title { font-size: clamp(18px, 3vw, 36px); }
+    .menu-card__arrow-btn {
+        width: clamp(42px, 4.5vw, 58px);
+        height: clamp(42px, 4.5vw, 58px);
     }
 }
 
-@keyframes menuFloatTop {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-12px);
-    }
-}
-
-@keyframes menuFloatChinese {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
-@keyframes menuFloatSyamsi {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-18px);
-    }
-}
-
-/* Responsive */
-@media (max-width: 1200px) {
-    .menu-container {
-        flex-direction: column;
-        height: auto;
-        gap: 20px;
-    }
-
-    .menu-card-left {
-        flex: none;
-        width: 100%;
-        height: 400px;
-    }
-
-    .menu-right {
-        width: 100%;
-    }
-
-    .menu-bottom-row {
-        flex-direction: column;
-        height: auto;
-        gap: 20px;
-    }
-
-    .menu-card-chinese,
-    .menu-card-syamsi {
-        flex: none;
-        width: 100%;
-        height: 300px;
-    }
-}
-
+/* ── Tablet portrait (≤768px) — vertical stack, NO parallax ── */
 @media (max-width: 768px) {
-    .menu-section   { padding: 60px 16px; }
-    .menu-container { gap: 14px; }
-
-    .menu-card-left { height: 300px; border-radius: 28px; }
-    .menu-card-ascendant { height: 260px; border-radius: 28px; }
-    .menu-card-chinese,
-    .menu-card-syamsi   { height: 220px; border-radius: 28px; }
-
-    .menu-card img  { border-radius: 24px; }
+    .menu-section {
+        height: auto;
+        padding: 72px 16px 96px;
+        align-items: center;
+    }
+    .menu-grid {
+        flex-direction: column;
+        gap: 16px;
+        height: auto;
+        min-height: unset;
+        will-change: auto;  /* disable parallax on tablet */
+    }
+    /* Reset inline parallax transforms */
+    .menu-grid,
+    .menu-card--simsy,
+    .menu-right,
+    .simsy-star {
+        transform: none !important;
+        will-change: auto;
+    }
+    .menu-card--simsy {
+        flex: none;
+        width: 100%;
+        height: 52vw;
+        max-height: 400px;
+        min-height: 260px;
+    }
+    .menu-right {
+        height: auto;
+        gap: 16px;
+    }
+    .menu-top-row {
+        flex-direction: row;
+        flex: none;
+        height: 40vw;
+        max-height: 300px;
+        min-height: 170px;
+        gap: 16px;
+    }
+    .menu-card--zodiac,
+    .menu-card--chinese {
+        flex: 1;
+        height: 100%;
+    }
+    .menu-card--birthday {
+        flex: none;
+        height: 36vw;
+        max-height: 260px;
+        min-height: 150px;
+    }
+    .menu-card__footer { padding: 18px 20px 20px; }
+    .menu-card__arrow-btn {
+        width: clamp(38px, 5vw, 52px);
+        height: clamp(38px, 5vw, 52px);
+    }
+    .birthday-crystal { height: 75%; }
+    .birthday-hand    { height: 78%; }
 }
 
+/* ── Large phone (≤600px) ── */
+@media (max-width: 600px) {
+    .menu-section {
+        padding: 56px 12px 72px;
+    }
+    .menu-grid  { gap: 12px; }
+    .menu-right { gap: 12px; }
+    .menu-top-row {
+        flex-direction: row;  /* keep zodiac + chinese side-by-side */
+        height: 46vw;
+        min-height: 160px;
+        max-height: 260px;
+        gap: 12px;
+    }
+    .menu-card--simsy {
+        height: 65vw;
+        max-height: 360px;
+        min-height: 240px;
+    }
+    .menu-card--zodiac,
+    .menu-card--chinese { flex: 1; height: 100%; }
+    .menu-card--birthday {
+        height: 42vw;
+        min-height: 150px;
+        max-height: 230px;
+    }
+    .menu-card__footer { padding: 14px 16px 16px; }
+    .menu-card__arrow-btn {
+        width: 38px;
+        height: 38px;
+    }
+    .birthday-crystal { height: 70%; }
+    .birthday-hand    { height: 72%; }
+}
+
+/* ── Small phone (≤480px) ── */
 @media (max-width: 480px) {
-    .menu-section   { padding: 50px 12px; }
-    .menu-card-left { height: 240px; }
-    .menu-card-ascendant { height: 200px; }
-    .menu-card-chinese,
-    .menu-card-syamsi   { height: 180px; }
-    .menu-bottom-row { gap: 14px; }
+    .menu-section  { padding: 48px 10px 64px; }
+    .menu-grid     { gap: 10px; }
+    .menu-right    { gap: 10px; }
+    .menu-top-row  {
+        height: 50vw;
+        min-height: 150px;
+        gap: 10px;
+    }
+    .menu-card--simsy {
+        height: 72vw;
+        min-height: 220px;
+        max-height: 300px;
+    }
+    .menu-card--birthday {
+        height: 46vw;
+        min-height: 140px;
+    }
+    .menu-card { border-radius: 18px; }
+    .menu-card__footer { padding: 12px 14px 14px; }
+    .menu-card__arrow-btn { width: 34px; height: 34px; }
+    .simsy-sticks { height: 78%; }
+    .simsy-star--lg { width: clamp(36px, 8vw, 52px); }
+    .simsy-star--md { width: clamp(22px, 5vw, 32px); }
+    .simsy-star--sm { width: clamp(10px, 3vw, 18px); }
+}
+
+/* ── Very small phone (≤360px) ── */
+@media (max-width: 360px) {
+    .menu-section  { padding: 40px 8px 56px; }
+    .menu-grid     { gap: 8px; }
+    .menu-right    { gap: 8px; }
+    .menu-top-row  { height: 52vw; gap: 8px; min-height: 140px; }
+    .menu-card--simsy {
+        height: 78vw;
+        min-height: 200px;
+    }
+    .menu-card--birthday {
+        height: 48vw;
+        min-height: 130px;
+    }
+    .menu-card { border-radius: 14px; }
+    .menu-card__footer { padding: 10px 12px 12px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SOCIAL PROOF SECTION  (Figma: Desktop-32, node 382:119103)
+   Canvas ref: 1440 × 1080 px
+   Colors: #b794ff (title), #591adb (glow/grad), #1c0057 (grad end)
+   ═══════════════════════════════════════════════════════════════ */
+
+.sp-section {
+    position: relative;
+    min-height: 100vh;
+    background: #000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Full-bleed background video */
+.sp-bg {
+    position: absolute;
+    inset: -20% 0;      /* 20% taller top & bottom — room for parallax travel */
+    width: 100%;
+    height: 140%;
+    object-fit: cover;
+    object-position: center bottom;
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+}
+
+/* Top gradient: black fading to transparent (Figma Rectangle, h=604/1080=56%) */
+.sp-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 56%;
+    background: linear-gradient(to bottom, #000 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ─── STAT BLOCKS (85% / 70%) ─── */
+.sp-stat {
+    position: absolute;
+    top: 17%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    will-change: transform;
+}
+.sp-stat--left  { left: 9.3%; }
+.sp-stat--right { right: 9.3%; }   /* mirror left — stays on right edge at all sizes */
+
+/* Percentage number — gradient white → purple → deep purple (Figma 85%) */
+.sp-percent {
+    font-family: 'General Sans', 'Sarabun', sans-serif;
+    font-size: clamp(28px, 5vw, 72px);
+    font-weight: 400;
+    line-height: 1;
+    background: linear-gradient(to bottom, #fff 0%, #591adb 89%, #1c0057 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Vertical line + glowing dot below number */
+.sp-vline-wrap {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: clamp(160px, 32.7vh, 353px);
+}
+.sp-vline {
+    flex: 1;
+    width: 1px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.75) 0%, rgba(89, 26, 219, 0.3) 100%);
+}
+.sp-glow-dot {
+    margin-top: -2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #7c4eff;
+    box-shadow:
+        0 0 6px 3px #591adb,
+        0 0 18px 8px rgba(89, 26, 219, 0.55),
+        0 0 40px 14px rgba(89, 26, 219, 0.2);
+}
+
+/* ─── CENTER TEXT CONTENT ─── */
+.sp-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    width: 80%;
+    max-width: 1124px;
+    padding-top: 60vh;
+}
+
+/* "Social Proof" title — #b794ff, DB Helvethaica X 65 Med equiv */
+.sp-title {
+    font-family: 'General Sans', 'Sarabun', sans-serif;
+    font-size: clamp(24px, 5vw, 72px);
+    font-weight: 600;
+    color: #b794ff;
+    line-height: 1;
+    margin: 0 0 clamp(16px, 2.5vh, 32px);
+}
+
+/* Body paragraph */
+.sp-body p {
+    font-family: 'Sarabun', sans-serif;
+    font-size: clamp(12px, 1.5vw, 22px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.53;
+    margin: 0;
+}
+
+/* Highlighted closing line — larger, semi-bold */
+.sp-highlight {
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 600;
+    font-size: clamp(14px, 2vw, 30px) !important;
+    margin-top: clamp(12px, 2vh, 24px) !important;
+    color: #fff;
+}
+
+/* ─── RESPONSIVE — Social Proof Section ─── */
+
+/* ── Compact desktop (≤1260px) ── */
+@media (max-width: 1260px) {
+    .sp-stat--left  { left: 5%; }
+    .sp-stat--right { right: 5%; left: auto; }
+    .sp-content     { width: 72%; }
+}
+
+/* ── Tablet landscape (≤1024px) ── */
+@media (max-width: 1024px) {
+    .sp-stat--left  { left: 3%; top: 14%; }
+    .sp-stat--right { right: 3%; left: auto; top: 14%; }
+    .sp-content     { width: 68%; padding-top: 44vh; }
+    .sp-vline-wrap  { height: clamp(130px, 24vh, 250px); }
+}
+
+/* ── Tablet portrait (≤768px) — no parallax ── */
+@media (max-width: 768px) {
+    /* Freeze inline parallax transforms */
+    .sp-stat,
+    .sp-bg,
+    .sp-content     { transform: none !important; will-change: auto; }
+
+    /* Stats sit right above the text — ~25% from top, vline shorter */
+    .sp-stat--left  { left: 3%; top: 25%; }
+    .sp-stat--right { right: 3%; left: auto; top: 25%; }
+    .sp-content     { padding-top: 50vh; width: 76%; }
+    .sp-vline-wrap  { height: clamp(80px, 16vh, 160px); }
+}
+
+/* ── Large phone (≤600px) ── */
+@media (max-width: 600px) {
+    .sp-stat--left  { left: 2%; top: 23%; }
+    .sp-stat--right { right: 2%; left: auto; top: 23%; }
+    .sp-content     { padding-top: 46vh; width: 86%; }
+    .sp-vline-wrap  { height: clamp(60px, 14vh, 120px); }
+    .sp-glow-dot    { width: 6px; height: 6px; }
+}
+
+/* ── Small phone (≤480px) ── */
+@media (max-width: 480px) {
+    .sp-section     { min-height: 100svh; }
+    .sp-stat--left  { left: 2%; top: 20%; }
+    .sp-stat--right { right: 2%; left: auto; top: 20%; }
+    .sp-percent     { font-size: clamp(22px, 7vw, 36px); }
+    .sp-content     { padding-top: 42vh; width: 84%; }
+    .sp-vline-wrap  { height: clamp(50px, 12vh, 100px); }
+    .sp-glow-dot    {
+        width: 5px; height: 5px;
+        box-shadow: 0 0 5px 2px #591adb,
+                    0 0 12px 5px rgba(89,26,219,0.4);
+    }
+    .sp-title       { font-size: clamp(20px, 7vw, 32px); }
+    .sp-body p      { font-size: clamp(13px, 4vw, 16px); line-height: 1.6; }
+    .sp-highlight   { font-size: clamp(13px, 4.5vw, 18px) !important; }
+}
+
+/* ── Very small phone (≤360px) ── */
+@media (max-width: 360px) {
+    .sp-stat--left  { left: 1%; top: 18%; }
+    .sp-stat--right { right: 1%; left: auto; top: 18%; }
+    .sp-percent     { font-size: clamp(20px, 8vw, 30px); }
+    .sp-content     { padding-top: 40vh; width: 90%; }
+    .sp-vline-wrap  { height: clamp(40px, 10vh, 80px); }
+    .sp-glow-dot    { width: 4px; height: 4px; }
 }
 
 /* ===================================

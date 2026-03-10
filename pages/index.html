@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=General+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=General+Sans:wght@400;600&family=Sarabun:wght@500;600;700&display=swap" rel="stylesheet">
     <script defer src="/_vercel/insights/script.js"></script>
     <!-- Force scroll to top — prevents Chrome from restoring a previous scroll position -->
     <script>
@@ -169,43 +169,127 @@
 
     </section>
 
-    <!-- Menu Section -->
+    <!-- Menu Section (Figma: Desktop-31, node 382:118885) -->
     <section id="menu" class="menu-section">
-        <div class="menu-container">
-            <!-- Left Card: 12 Zodiac Signs -->
-            <div class="menu-card menu-card-left scroll-animate" data-delay="0">
-                <a href="12zodiac.html">
-                    <img src="../assets/images/12zo.png" alt="12 Zodiac Signs">
-                </a>
-            </div>
+        <div class="menu-grid">
 
-            <!-- Right Group -->
+            <!-- LEFT: เซียมซี — tall card spanning full height -->
+            <a href="simsy.html" class="menu-card menu-card--simsy scroll-animate" data-delay="0" aria-label="เซียมซี">
+                <!-- Purple ambient glow from Figma card-simsy-mask -->
+                <img src="../assets/images/menu/card-simsy-mask.svg" alt="" class="simsy-glow" aria-hidden="true">
+                <!-- เซียมซี sticks (3 layers at Figma rotations: -15.78°, 0°, +18.89°) -->
+                <div class="simsy-sticks" aria-hidden="true">
+                    <div class="simsy-stick simsy-stick--back">
+                        <img src="../assets/images/menu/simsy-stick-figma.svg" alt="" class="simsy-stick__body">
+                    </div>
+                    <div class="simsy-stick simsy-stick--center">
+                        <img src="../assets/images/menu/simsy-stick-figma.svg" alt="" class="simsy-stick__body">
+                    </div>
+                    <div class="simsy-stick simsy-stick--front">
+                        <img src="../assets/images/menu/simsy-stick-figma.svg" alt="" class="simsy-stick__body">
+                    </div>
+                </div>
+                <!-- Sparkle stars (Star 90px / Star1 48px / Star2 24px from Figma) -->
+                <img src="../assets/images/menu/star-large.svg"  alt="" class="simsy-star simsy-star--lg" aria-hidden="true">
+                <img src="../assets/images/menu/star-medium.svg" alt="" class="simsy-star simsy-star--md" aria-hidden="true">
+                <img src="../assets/images/menu/star-small.svg"  alt="" class="simsy-star simsy-star--sm" aria-hidden="true">
+                <!-- Footer: title + arrow button -->
+                <div class="menu-card__footer">
+                    <span class="menu-card__title">เซียมซี</span>
+                    <span class="menu-card__arrow-btn" aria-hidden="true">
+                        <img src="../assets/images/menu/btn-circle.svg" alt="" class="arrow-btn__circle">
+                        <img src="../assets/images/menu/btn-arrow.svg"  alt="" class="arrow-btn__icon">
+                    </span>
+                </div>
+            </a>
+
+            <!-- RIGHT COLUMN: top-row (12ราศี + 12นักษัตร) + bottom card (ดูดวง) -->
             <div class="menu-right">
-                <!-- Top Card: Ascendant -->
-                <div class="menu-card menu-card-ascendant scroll-animate" data-delay="150">
-                    <a href="birthday-fortune.html">
-                        <img src="../assets/images/ascendant.png" alt="Ascendant">
+
+                <!-- TOP ROW: 12 ราศี | 12 นักษัตร -->
+                <div class="menu-top-row">
+
+                    <!-- 12 ราศี (Group2, node 381:118709, w=369px) -->
+                    <a href="12zodiac.html" class="menu-card menu-card--zodiac scroll-animate" data-delay="150" aria-label="12 ราศี">
+                        <img src="../assets/images/menu/card-zodiac-bg.svg" alt="" class="menu-card__bg" aria-hidden="true">
+                        <img src="../assets/images/menu/zodiac-shape.svg"   alt="" class="zodiac-star"   aria-hidden="true">
+                        <div class="menu-card__footer">
+                            <span class="menu-card__title">12 ราศี</span>
+                        </div>
                     </a>
-                </div>
 
-                <!-- Bottom Row -->
-                <div class="menu-bottom-row">
-                    <!-- Chinese Zodiac -->
-                    <div class="menu-card menu-card-chinese scroll-animate" data-delay="300">
-                        <a href="chinese-zodiac.html">
-                            <img src="../assets/images/chinese-zodiac.png" alt="Chinese Zodiac">
-                        </a>
-                    </div>
+                    <!-- 12 นักษัตร (Group1, node 381:118710, w=364px) -->
+                    <a href="chinese-zodiac.html" class="menu-card menu-card--chinese scroll-animate" data-delay="300" aria-label="12 นักษัตร">
+                        <img src="../assets/images/menu/card-chinese.svg" alt="" class="menu-card__bg" aria-hidden="true">
+                        <div class="chinese-art" aria-hidden="true">
+                            <img src="../assets/images/menu/vector-chinese.svg" alt="" class="chinese-vector">
+                            <img src="../assets/images/menu/subtract-c.svg"     alt="" class="chinese-sub chinese-sub--c">
+                            <img src="../assets/images/menu/subtract-b.svg"     alt="" class="chinese-sub chinese-sub--b">
+                            <img src="../assets/images/menu/subtract-a.svg"     alt="" class="chinese-sub chinese-sub--a">
+                        </div>
+                        <div class="menu-card__footer">
+                            <span class="menu-card__title">12 นักษัตร</span>
+                        </div>
+                    </a>
 
-                    <!-- Syamsi -->
-                    <div class="menu-card menu-card-syamsi scroll-animate" data-delay="450">
-                        <a href="simsy.html">
-                            <img src="../assets/images/syamsi.png" alt="Syamsi">
-                        </a>
+                </div><!-- /.menu-top-row -->
+
+                <!-- BOTTOM: ดูดวงเฉพาะบุคคลตามวันเวลาเกิด (Group3, node 381:118695, w=770px) -->
+                <a href="birthday-fortune.html" class="menu-card menu-card--birthday scroll-animate" data-delay="450" aria-label="ดูดวงเฉพาะบุคคลตามวันเวลาเกิด">
+                    <img src="../assets/images/menu/card-birthday.svg" alt="" class="menu-card__bg" aria-hidden="true">
+                    <div class="birthday-art" aria-hidden="true">
+                        <img src="../assets/images/menu/group4-deco.svg"    alt="" class="birthday-crystal">
+                        <img src="../assets/images/hand-left.png"           alt="" class="birthday-hand birthday-hand--left">
+                        <img src="../assets/images/hand-right.png"          alt="" class="birthday-hand birthday-hand--right">
                     </div>
-                </div>
+                    <div class="menu-card__footer">
+                        <span class="menu-card__title">ดูดวงเฉพาะบุคคลตามวันเวลาเกิด</span>
+                    </div>
+                </a>
+
+            </div><!-- /.menu-right -->
+
+        </div><!-- /.menu-grid -->
+    </section>
+
+    <!-- Social Proof Section (Figma: Desktop-32, node 382:119103) -->
+    <section id="social-proof" class="sp-section">
+
+        <!-- Background video -->
+        <video class="sp-bg" autoplay muted loop playsinline aria-hidden="true">
+            <source src="../assets/images/social-proof/bgs5.mov" type="video/mp4">
+        </video>
+
+        <!-- Top black gradient overlay -->
+        <div class="sp-overlay" aria-hidden="true"></div>
+
+        <!-- 85% stat — left -->
+        <div class="sp-stat sp-stat--left">
+            <div class="sp-percent">85%</div>
+            <div class="sp-vline-wrap" aria-hidden="true">
+                <div class="sp-vline"></div>
+                <div class="sp-glow-dot"></div>
             </div>
         </div>
+
+        <!-- 70% stat — right -->
+        <div class="sp-stat sp-stat--right">
+            <div class="sp-percent">70%</div>
+            <div class="sp-vline-wrap" aria-hidden="true">
+                <div class="sp-vline"></div>
+                <div class="sp-glow-dot"></div>
+            </div>
+        </div>
+
+        <!-- Center content -->
+        <div class="sp-content">
+            <h2 class="sp-title">Social Proof</h2>
+            <div class="sp-body">
+                <p>ทำไมใครๆ ก็มู? จากผลสำรวจพบว่า คนไทยกว่า 85% มีความเชื่อเรื่องโชคลางและสิ่งศักดิ์สิทธิ์เป็นที่พึ่งทางใจ โดยเฉพาะในกลุ่ม Gen Z และ Millennials ที่กว่า 70% เลือกใช้ 'วอลเปเปอร์สายมู' หรือ 'เบอร์มงคล' เพื่อเสริมความมั่นใจในการทำงาน...</p>
+                <p class="sp-highlight">เพราะในโลกที่เหนื่อยล้า พลังงานที่ดีคือแต้มต่อที่ทุกคนต้องมี</p>
+            </div>
+        </div>
+
     </section>
 
     <!-- Scripts -->
@@ -231,9 +315,8 @@
                     setTimeout(() => {
                         entry.target.classList.add('animate-in');
                     }, delay);
-                } else {
-                    // Remove class when scrolling away to allow re-animation
-                    entry.target.classList.remove('animate-in');
+                    // unobserve after first reveal — no snap-back on scroll away
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
@@ -315,6 +398,132 @@
                     });
                     ticking = true;
                 }
+            });
+        }
+
+        // ─── Social Proof Parallax ───
+        const spSection = document.querySelector('.sp-section');
+        const spBg      = document.querySelector('.sp-bg');
+        const spStats   = document.querySelectorAll('.sp-stat');
+        const spContent = document.querySelector('.sp-content');
+
+        // Reset SP parallax transforms on resize when crossing to mobile
+        function resetSpParallax() {
+            if (spBg)      spBg.style.transform      = '';
+            if (spContent) spContent.style.transform = '';
+            spStats.forEach(s => s.style.transform = '');
+        }
+
+        if (spSection) {
+            let spTicking = false;
+
+            window.addEventListener('scroll', () => {
+                // Disable parallax on tablet/phone
+                if (window.innerWidth <= 768) return;
+
+                if (!spTicking) {
+                    window.requestAnimationFrame(() => {
+                        const scrolled      = window.pageYOffset;
+                        const sectionTop    = spSection.offsetTop;
+                        const sectionHeight = spSection.offsetHeight;
+                        const windowHeight  = window.innerHeight;
+
+                        // delta: 0 when section center aligns with viewport center
+                        const sectionCenter = sectionTop + sectionHeight / 2;
+                        const viewCenter    = scrolled + windowHeight / 2;
+                        const delta         = viewCenter - sectionCenter;
+
+                        // Video — moves at 30% of scroll speed (slow background)
+                        if (spBg) {
+                            spBg.style.transform = `translateY(${delta * 0.3}px)`;
+                        }
+
+                        // Stats — left drifts up, right drifts down (opposite parallax)
+                        spStats.forEach((stat, i) => {
+                            const rate = i === 0 ? -0.12 : 0.12;
+                            stat.style.transform = `translateY(${delta * rate}px)`;
+                        });
+
+                        // Content — subtle float upward
+                        if (spContent) {
+                            spContent.style.transform = `translateY(${delta * -0.08}px)`;
+                        }
+
+                        spTicking = false;
+                    });
+                    spTicking = true;
+                }
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth <= 768) resetSpParallax();
+            });
+        }
+
+        // ─── Menu Section Parallax ───
+        const menuSection  = document.querySelector('.menu-section');
+        const menuGrid     = document.querySelector('.menu-grid');
+        const menuSimsy    = document.querySelector('.menu-card--simsy');
+        const menuRight    = document.querySelector('.menu-right');
+        const menuStars    = document.querySelectorAll('.simsy-star');
+
+        // Helper: reset all menu parallax transforms
+        function resetMenuParallax() {
+            [menuGrid, menuSimsy, menuRight].forEach(el => {
+                if (el) el.style.transform = '';
+            });
+            menuStars.forEach(s => s.style.transform = '');
+        }
+
+        if (menuSection) {
+            let menuTicking = false;
+
+            window.addEventListener('scroll', () => {
+                // Skip parallax on tablet/phone — CSS already resets transforms
+                if (window.innerWidth <= 768) return;
+
+                if (!menuTicking) {
+                    window.requestAnimationFrame(() => {
+                        const scrolled      = window.pageYOffset;
+                        const sectionTop    = menuSection.offsetTop;
+                        const sectionHeight = menuSection.offsetHeight;
+                        const windowHeight  = window.innerHeight;
+
+                        // delta: 0 when section center aligns with viewport center
+                        const sectionCenter = sectionTop + sectionHeight / 2;
+                        const viewCenter    = scrolled + windowHeight / 2;
+                        const delta         = viewCenter - sectionCenter;
+
+                        // Whole grid lifts slightly as you scroll down
+                        if (menuGrid) {
+                            menuGrid.style.transform = `translateY(${delta * 0.06}px)`;
+                        }
+
+                        // Left card (เซียมซี) drifts up more than right
+                        if (menuSimsy) {
+                            menuSimsy.style.transform = `translateY(${delta * -0.10}px)`;
+                        }
+
+                        // Right column drifts up less — creates separation
+                        if (menuRight) {
+                            menuRight.style.transform = `translateY(${delta * -0.05}px)`;
+                        }
+
+                        // Sparkle stars drift independently (faster, floaty)
+                        menuStars.forEach((star, i) => {
+                            const rate = [-0.18, -0.22, -0.14][i] ?? -0.16;
+                            star.style.transform = `translateY(${delta * rate}px)`;
+                        });
+
+                        menuTicking = false;
+                    });
+                    menuTicking = true;
+                }
+            });
+
+            // On resize: clear transforms when crossing to mobile, restore when back to desktop
+            window.addEventListener('resize', () => {
+                if (window.innerWidth <= 768) resetMenuParallax();
             });
         }
 
