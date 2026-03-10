@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
             name: 'Aries', 
             thaiName: 'ราศีเมษ', 
             dates: 'Mar 21 - Apr 19',
-            image: '../assets/images/zodiac-1.png',
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/zodiac-1.png',
             isCenter: false
         },
         { 
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
             name: 'Taurus', 
             thaiName: 'ราศีพฤษภ', 
             dates: 'Apr 20 - May 20',
-            image: '../assets/images/zodiac-2.png',
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/zodiac-2.png',
             isCenter: false
         },
         { 
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
             name: 'Gemini', 
             thaiName: 'ราศีเมถุน', 
             dates: 'May 21 - Jun 20',
-            image: '../assets/images/zodiac-3.png',
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/zodiac-3.png',
             isCenter: false
         },
         { 
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
             name: 'Cancer', 
             thaiName: 'ราศีกรกฎ', 
             dates: 'Jun 21 - Jul 22',
-            image: '../assets/images/zodiac-4.png',
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/zodiac-4.png',
             isCenter: true
         },
         { 
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
             name: 'Leo', 
             thaiName: 'ราศีสิงห์', 
             dates: 'Jul 23 - Aug 22',
-            image: '../assets/images/zodiac-5.png',
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/zodiac-5.png',
             isCenter: false
         },
         { 
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
             name: 'Virgo', 
             thaiName: 'ราศีกันย์', 
             dates: 'Aug 23 - Sep 22',
-            image: '../assets/images/zodiac-6.png',
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/zodiac-6.png',
             isCenter: false
         },
         { 
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
             name: 'Libra', 
             thaiName: 'ราศีตุลย์', 
             dates: 'Sep 23 - Oct 22',
-            image: '../assets/images/zodiac-7.png',
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/zodiac-7.png',
             isCenter: false
         },
         { 
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
             name: 'Scorpio', 
             thaiName: 'ราศีพิจิก', 
             dates: 'Oct 23 - Nov 21',
-            image: '../assets/images/zodiac-8.png',
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/zodiac-8.png',
             isCenter: false
         },
         { 
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
             name: 'Sagittarius', 
             thaiName: 'ราศีธนู', 
             dates: 'Nov 22 - Dec 21',
-            image: '../assets/images/zodiac-9.png',
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/zodiac-9.png',
             isCenter: false
         },
         { 
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
             name: 'Capricorn', 
             thaiName: 'ราศีมกร', 
             dates: 'Dec 22 - Jan 19',
-            image: '../assets/images/zodiac-10.png',
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/zodiac-10.png',
             isCenter: false
         },
         { 
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
             name: 'Aquarius', 
             thaiName: 'ราศีกุมภ์', 
             dates: 'Jan 20 - Feb 18',
-            image: '../assets/images/zodiac-11.png',
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/zodiac-11.png',
             isCenter: false
         },
         { 
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
             name: 'Pisces', 
             thaiName: 'ราศีมีน', 
             dates: 'Feb 19 - Mar 20',
-            image: '../assets/images/zodiac-12.png',
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/zodiac-12.png',
             isCenter: false
         }
     ];

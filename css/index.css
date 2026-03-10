@@ -1466,7 +1466,7 @@ body {
     top: -20%;
     width: 100%;
     height: 140%;
-    background: url('../assets/images/bgs2.png') center center / cover no-repeat;
+    background: url('https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/bgs2.png') center center / cover no-repeat;
     pointer-events: none;
     z-index: 0;
     will-change: transform;

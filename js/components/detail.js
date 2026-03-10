@@ -9,12 +9,12 @@
                 <div class="detail-left">
                     <!-- Luckkana Logo -->
                     <div class="detail-logo">
-                        <img src="assets/images/luckkana-logo.png" alt="Luckkana Star">
+                        <img src="https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/luckkana-logo.png" alt="Luckkana Star">
                     </div>
                     
                     <!-- iPhone Mockup -->
                     <div class="detail-phone">
-                        <img src="assets/images/Phoneig.png" alt="iPhone Mockup">
+                        <img src="https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/Phoneig.png" alt="iPhone Mockup">
                     </div>
                 </div>
                 
@@ -50,7 +50,7 @@
                         </div>
                         
                         <div class="detail-divider">
-                            <img src="assets/images/line-divider.svg" alt="">
+                            <img src="https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/line-divider.svg" alt="">
                         </div>
                     </div>
                     

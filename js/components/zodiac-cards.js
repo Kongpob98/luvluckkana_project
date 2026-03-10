@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             thaiName: 'ราศีเมษ', 
             dates: 'Mar 21 - Apr 19',
             symbol: '♈',
-            image: '../assets/images/Aries.png'
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/Aries.png'
         },
         { 
             id: 2, 
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
             thaiName: 'ราศีพฤษภ', 
             dates: 'Apr 20 - May 20',
             symbol: '♉',
-            image: '../assets/images/Taurus.png'
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/Taurus.png'
         },
         { 
             id: 3, 
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
             thaiName: 'ราศีเมถุน', 
             dates: 'May 21 - Jun 20',
             symbol: '♊',
-            image: '../assets/images/Gemini.png'
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/Gemini.png'
         },
         { 
             id: 4, 
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
             thaiName: 'ราศีกรกฎ', 
             dates: 'Jun 21 - Jul 22',
             symbol: '♋',
-            image: '../assets/images/Cancer.png'
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/Cancer.png'
         },
         { 
             id: 5, 
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
             thaiName: 'ราศีสิงห์', 
             dates: 'Jul 23 - Aug 22',
             symbol: '♌',
-            image: '../assets/images/Leo.png'
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/Leo.png'
         },
         { 
             id: 6, 
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
             thaiName: 'ราศีกันย์', 
             dates: 'Aug 23 - Sep 22',
             symbol: '♍',
-            image: '../assets/images/Vigro.png'
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/Vigro.png'
         },
         { 
             id: 7, 
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
             thaiName: 'ราศีตุลย์', 
             dates: 'Sep 23 - Oct 22',
             symbol: '♎',
-            image: '../assets/images/Libra.png'
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/Libra.png'
         },
         { 
             id: 8, 
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
             thaiName: 'ราศีพิจิก', 
             dates: 'Oct 23 - Nov 21',
             symbol: '♏',
-            image: '../assets/images/Scorpio.png'
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/Scorpio.png'
         },
         { 
             id: 9, 
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
             thaiName: 'ราศีธนู', 
             dates: 'Nov 22 - Dec 21',
             symbol: '♐',
-            image: '../assets/images/Sagittarius.png'
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/Sagittarius.png'
         },
         { 
             id: 10, 
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
             thaiName: 'ราศีมกร', 
             dates: 'Dec 22 - Jan 19',
             symbol: '♑',
-            image: '../assets/images/Capricorn.png'
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/Capricorn.png'
         },
         { 
             id: 11, 
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
             thaiName: 'ราศีกุมภ์', 
             dates: 'Jan 20 - Feb 18',
             symbol: '♒',
-            image: '../assets/images/Aquarius.png'
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/Aquarius.png'
         },
         { 
             id: 12, 
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
             thaiName: 'ราศีมีน', 
             dates: 'Feb 19 - Mar 20',
             symbol: '♓',
-            image: '../assets/images/Pisces.png'
+            image: 'https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/Pisces.png'
         }
     ];
 

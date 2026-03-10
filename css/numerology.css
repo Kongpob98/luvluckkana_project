@@ -105,7 +105,7 @@ html, body {
     top: 0;
     width: 1400%;
     height: 100%;
-    background-image: url('../assets/images/numerology/rectangle.png');
+    background-image: url('https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/numerology/rectangle.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     opacity: 0.6;
