@@ -6,7 +6,7 @@
 class LoadingScreen {
     constructor(options = {}) {
         this.options = {
-            videoSrc: options.videoSrc || '../assets/images/loadd.mp4',
+            videoSrc: options.videoSrc || 'https://res.cloudinary.com/dpezsckqq/video/upload/luckkana/loadd.mp4',
             minDisplayTime: options.minDisplayTime || 1500, // Minimum time to show loading (ms)
             showProgress: options.showProgress !== false, // Show loading text
             autoHide: options.autoHide !== false, // Auto hide when page loads

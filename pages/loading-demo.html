@@ -143,7 +143,7 @@ window.loadingScreen.hide();
 
 // สร้าง loading ใหม่ด้วย options
 const customLoading = LoadingScreen.init({
-    videoSrc: '../assets/images/loadd.mp4',
+    videoSrc: 'https://res.cloudinary.com/dpezsckqq/video/upload/luckkana/loadd.mp4',
     minDisplayTime: 2000, // แสดงอย่างน้อย 2 วินาที
     showProgress: true, // แสดงข้อความ "กำลังโหลด"
     autoHide: true // ซ่อนอัตโนมัติเมื่อหน้าโหลดเสร็จ
@@ -169,7 +169,7 @@ fetch('/api/data')
         <div class="code-section">
             <h2 class="code-title">Options Configuration</h2>
             <pre><code>{
-    videoSrc: '../assets/images/loadd.mp4',  // ที่อยู่วีดีโอ
+    videoSrc: 'https://res.cloudinary.com/dpezsckqq/video/upload/luckkana/loadd.mp4',  // ที่อยู่วีดีโอ
     minDisplayTime: 1500,                     // เวลาแสดงขั้นต่ำ (ms)
     showProgress: true,                       // แสดงข้อความ "กำลังโหลด"
     autoHide: true                            // ซ่อนอัตโนมัติเมื่อโหลดเสร็จ
