@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ผู้จัดทำ | Luckkana Star</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/loading.css">
+    <link rel="stylesheet" href="../css/about.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=General+Sans:wght@400;600;700&family=Poppins:wght@400;500;600;700&family=Preahvihear&display=swap" rel="stylesheet">
+    <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+    <!-- Navbar Component -->
+    <nav id="navbar"></nav>
+
+    <!-- Cursor Trail -->
+    <div class="cursor-trail-container"></div>
+
+    <!-- ============================================================
+         About Page
+         Figma: node-id 236:137  "ผู้จัดทำ"  1440×1057
+         ============================================================ -->
+    <main class="about-page">
+
+        <!-- ── Hero / Header Section ────────────────────────────────
+             Figma nodes:
+               361:118187  Rectangle 1042  (radial gradient background)
+               236:172     Rectangle 1019  (glow blob #1c0e3a blur 91.4px)
+               360:118159  Rectangle 1028  (badge pill — rgba(0,0,0,0.06) r:50px)
+               360:118162  MEET OUR TEAM   (Poppins SemiBold 36px gradient)
+        ──────────────────────────────────────────────────────────── -->
+        <section class="about-hero" data-node-id="236:137">
+
+            <!-- Radial gradient bg (from Figma SVG gradient stops) -->
+            <div class="about-hero-bg" data-node-id="361:118187" data-ap-parallax="0.12"></div>
+
+            <!-- Glow blob bottom-right  (Figma 236:172) -->
+            <div class="about-hero-glow" data-node-id="236:172" data-ap-parallax="-0.2"></div>
+
+            <!-- Centre content -->
+            <div class="about-hero-content ap-reveal ap-slide-up">
+
+                <!-- MEET OUR TEAM badge  (Figma 360:118159 + 360:118162) -->
+                <div class="meet-team-badge" data-node-id="360:118159">
+                    <div class="badge-pill"></div>
+                    <span class="badge-text" data-node-id="360:118162">MEET OUR TEAM</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── Team Section ─────────────────────────────────────
+             Figma: node-id 236:225  "ผู้จัดทำ"  1440×1117
+             Elements positioned as exact % of Figma frame
+        ──────────────────────────────────────────────────── -->
+        <section class="about-team" data-node-id="236:225">
+
+            <!-- Glow blob (236:226): #1c0e3a blur:91.4px 491×491 left:500 top:327 -->
+            <div class="team-glow" data-node-id="236:226" data-ap-parallax="-0.15"></div>
+
+            <!-- Teamwork title
+                 360:118168  pill: 404×84  rgba(217,217,217,0.2)  r:40px
+                 360:118169  text: Poppins Regular 64px  gradient -77deg #debfff→#c41adb
+            -->
+            <div class="team-title-wrap ap-reveal ap-slide-left">
+                <div class="team-title-pill" data-node-id="360:118168"></div>
+                <h2 class="team-title" data-node-id="360:118169">Teamwork</h2>
+            </div>
+
+            <!-- Main photo 1 -->
+            <div class="team-photo team-photo--1 ap-reveal ap-slide-left" data-node-id="361:118220" data-ap-delay="100">
+                <img src="../assets/images/about/kong1.png" alt="Team member" loading="lazy">
+                <div class="photo-inner-glow"></div>
+            </div>
+
+            <!-- Main photo 2 -->
+            <div class="team-photo team-photo--2 ap-reveal ap-slide-right" data-node-id="361:118205" data-ap-delay="200">
+                <img src="../assets/images/about/winnie1.png" alt="Team member" loading="lazy">
+                <div class="photo-inner-glow"></div>
+            </div>
+
+            <!-- Floating avatars -->
+            <div class="team-avatar team-avatar--1 ap-reveal" data-node-id="361:118216" data-ap-delay="300">
+                <img src="../assets/images/about/kong1.png" alt="" loading="lazy">
+            </div>
+            <div class="team-avatar team-avatar--2 ap-reveal" data-node-id="361:118201" data-ap-delay="450">
+                <img src="../assets/images/about/winnie1.png" alt="" loading="lazy">
+            </div>
+            <div class="team-avatar team-avatar--3 ap-reveal" data-node-id="361:118212" data-ap-delay="550">
+                <img src="../assets/images/about/kong1.png" alt="" loading="lazy">
+            </div>
+            <div class="team-avatar team-avatar--4 ap-reveal" data-node-id="361:118197" data-ap-delay="650">
+                <img src="../assets/images/about/winnie1.png" alt="" loading="lazy">
+            </div>
+
+            <!-- Name card 1 -->
+            <div class="team-name-card team-name-card--1 ap-reveal ap-slide-up" data-node-id="361:118234" data-ap-delay="350">
+                <div class="name-pill"></div>
+                <p class="name-text name-text--lg" data-node-id="361:118231">KONGPOB KLINPENG</p>
+            </div>
+
+            <!-- Name card 2 -->
+            <div class="team-name-card team-name-card--2 ap-reveal ap-slide-up" data-node-id="361:118240" data-ap-delay="500">
+                <div class="name-pill"></div>
+                <p class="name-text name-text--sm" data-node-id="361:118237">VIYATRON THANACHOKSOMMUTE</p>
+            </div>
+
+        </section>
+
+        <!-- ── Skills / Tech Section ────────────────────────────────
+             Figma: node-id 239:388  "ผู้จัดทำ"  1440×1117
+             Group 361:118731  left:190 top:105 width:1129 height:951.135
+
+             Layer hierarchy:
+               361:118608  Headline text  (Preahvihear 24/17px, white)
+               361:118582  Skill icons group  471.783×132.453px
+               361:118652  Vector line 1  (vline26)
+               361:118648  Vector line 2  (vline27)
+               361:118640  Vector line 3  (vline29)  -scaleY flip
+               361:118644  Vector line 4  (vline30)  -scaleY flip
+               361:118532  Ellipse bg (ellipse7)  683.707×416.279px
+               361:118490  Orbital group (Group2)  1129×430.155px
+        ──────────────────────────────────────────────────────────── -->
+        <section class="about-skills" data-node-id="239:388">
+
+            <!-- Group1 container: left:190/1440 top:105/1117 width:1129/1440 -->
+            <div class="skills-g1" data-node-id="361:118731">
+
+                <!-- 1. Headline (361:118608)
+                     inset: 0 12.18% 91.38% 13.74% in Group1
+                     font: Preahvihear  line1=24px  line2=17px  letter-spacing:0.48px -->
+                <div class="skills-headline ap-reveal ap-slide-up" data-node-id="361:118608">
+                    <p class="skills-hl-main">I'm currently looking to join a cross-functional team</p>
+                    <p class="skills-hl-sub">that values improving people's lives through accessible design</p>
+                </div>
+
+                <!-- 2. Skill icons (Group 361:118582)  471.783×132.453px
+                     inset: 12.86% 29.72% 73.21% 28.49% in Group1
+                     Row 1: 7 circles  (inset top:0 bottom:58.1%)
+                     Row 2: 4 circles  (inset top:58.1% bottom:0) -->
+                <div class="skills-icons" data-node-id="361:118582">
+                    <!-- Row 1 — 7 circles, each containing bg + skill icon -->
+                    <div class="sic" style="inset:0 88.24% 58.1% 0">
+                        <img class="sic-bg"   src="../assets/images/about/s3/ellipse6.svg" alt="">
+                        <img class="sic-icon" src="../assets/images/about/s3/skill-r1.png" alt="Figma">
+                    </div>
+                    <div class="sic" style="inset:0 73.53% 58.1% 14.71%">
+                        <img class="sic-bg"   src="../assets/images/about/s3/ellipse6.svg" alt="">
+                        <img class="sic-icon" src="../assets/images/about/s3/skill-img17.png" alt="">
+                    </div>
+                    <div class="sic" style="inset:0 58.82% 58.1% 29.41%">
+                        <img class="sic-bg"   src="../assets/images/about/s3/ellipse6.svg" alt="">
+                        <img class="sic-icon" src="../assets/images/about/s3/skill-r3.png" alt="">
+                    </div>
+                    <div class="sic" style="inset:0 43.32% 58.1% 44.92%">
+                        <img class="sic-bg"   src="../assets/images/about/s3/ellipse6.svg" alt="">
+                        <img class="sic-icon" src="../assets/images/about/s3/skill-img14.png" alt="">
+                    </div>
+                    <div class="sic" style="inset:0 29.41% 58.1% 58.82%">
+                        <img class="sic-bg"   src="../assets/images/about/s3/ellipse6.svg" alt="">
+                        <img class="sic-icon" src="../assets/images/about/s3/skill-img13.png" alt="">
+                    </div>
+                    <div class="sic" style="inset:0 14.71% 58.1% 73.53%">
+                        <img class="sic-bg"   src="../assets/images/about/s3/ellipse6.svg" alt="">
+                        <img class="sic-icon" src="../assets/images/about/s3/skill-r6.png" alt="">
+                    </div>
+                    <div class="sic" style="inset:0 0 58.1% 88.24%">
+                        <img class="sic-bg"   src="../assets/images/about/s3/ellipse6.svg" alt="">
+                        <img class="sic-icon" src="../assets/images/about/s3/skill-r7.png" alt="">
+                    </div>
+                    <!-- Row 2 — 4 circles -->
+                    <div class="sic" style="inset:58.1% 64.71% 0 23.53%">
+                        <img class="sic-bg"   src="../assets/images/about/s3/ellipse6.svg" alt="">
+                        <img class="sic-icon" src="../assets/images/about/s3/skill-img18.png" alt="">
+                    </div>
+                    <div class="sic" style="inset:58.1% 50.8% 0 37.43%">
+                        <img class="sic-bg"   src="../assets/images/about/s3/ellipse6.svg" alt="">
+                        <img class="sic-icon" src="../assets/images/about/s3/skill-img15.png" alt="">
+                    </div>
+                    <div class="sic" style="inset:58.1% 36.1% 0 52.14%">
+                        <img class="sic-bg"   src="../assets/images/about/s3/ellipse6.svg" alt="">
+                        <img class="sic-icon" src="../assets/images/about/s3/skill-r11.png" alt="">
+                    </div>
+                    <div class="sic" style="inset:58.1% 20.32% 0 67.91%">
+                        <img class="sic-bg"   src="../assets/images/about/s3/ellipse6.svg" alt="">
+                        <img class="sic-icon" src="../assets/images/about/s3/skill-img16.png" alt="">
+                    </div>
+                </div>
+
+                <!-- 3. Connecting lines (vectors from icons → orb)
+                     Vector  (361:118652): vline26  inset:26.46% 41.62% 37.73% 50.5%
+                     Vector1 (361:118648): vline27  inset:26.26% 47.37% 35.08% 48.77%
+                     Vector2 (361:118640): vline29  inset:25.46% 51.83% 33.42% 40.78%  scaleY(-1)rotate(180deg)
+                     Vector3 (361:118644): vline30  inset:25.86% 51.4% 32.63% 46.26%   scaleY(-1)rotate(180deg) -->
+                <div class="skills-line" style="inset:26.46% 41.62% 37.73% 50.5%"  data-node-id="361:118652">
+                    <img src="../assets/images/about/s3/vline26.svg" alt="">
+                </div>
+                <div class="skills-line" style="inset:26.26% 47.37% 35.08% 48.77%" data-node-id="361:118648">
+                    <img src="../assets/images/about/s3/vline27.svg" alt="">
+                </div>
+                <div class="skills-line skills-line--flip" style="inset:25.46% 51.83% 33.42% 40.78%" data-node-id="361:118640">
+                    <img src="../assets/images/about/s3/vline29.svg" alt="">
+                </div>
+                <div class="skills-line skills-line--flip" style="inset:25.86% 51.4% 32.63% 46.26%"  data-node-id="361:118644">
+                    <img src="../assets/images/about/s3/vline30.svg" alt="">
+                </div>
+
+                <!-- 4. Orbital ellipse background (361:118532) ellipse7  683.707×416.279px
+                     inset: 56.23% 19.22% 0 20.22% in Group1 -->
+                <div class="skills-ellipse-bg" data-node-id="361:118532" style="inset:56.23% 19.22% 0 20.22%">
+                    <img src="../assets/images/about/s3/ellipse7.svg" alt="">
+                </div>
+
+                <!-- 5. Orbital Group (Group2 361:118490)  1129×430.155px
+                     inset: 51.06% 0 3.71% 0 in Group1
+                     Contains: orbital rings, central orb, LUCKKANA symbol, scattered mini-icons -->
+                <div class="skills-orbital" data-node-id="361:118490" style="inset:51.06% 0 3.71% 0">
+
+                    <!-- Central orb glow — FIRST in DOM (farthest back, behind rings) -->
+                    <div class="orb-abs" style="inset:18.48% 40.78% 28.74% 39.11%" data-node-id="361:118452">
+                        <img src="../assets/images/about/s3/ellipse20.svg" alt="">
+                    </div>
+
+                    <!-- LUCKKANA symbol — behind rings per Figma layer order -->
+                    <div class="orb-abs" style="inset:31.91% 46.54% 41.7% 44.96%" data-node-id="361:118453">
+                        <div class="orb-symbol-inner">
+                            <img src="../assets/images/about/s3/group1897.svg" alt="Luckkana">
+                        </div>
+                    </div>
+
+                    <!-- Orbital rings — ellipse21/22/23 (on top of orb per Figma) -->
+                    <div class="orb-abs" style="inset:21.11% 1.56% 0 0" data-node-id="361:118457">
+                        <img src="../assets/images/about/s3/ellipse21.svg" alt="">
+                    </div>
+                    <div class="orb-abs" style="inset:21.11% 7.6% 0 7.04%" data-node-id="361:118458">
+                        <img src="../assets/images/about/s3/ellipse22.svg" alt="">
+                    </div>
+                    <div class="orb-abs" style="inset:21.11% 10.28% 0 12.07%" data-node-id="361:118459">
+                        <img src="../assets/images/about/s3/ellipse23.svg" alt="">
+                    </div>
+
+                    <!-- Top tech icons row — group1907 -->
+                    <div class="orb-abs" style="inset:0 33.18% 19.35% 32.63%" data-node-id="361:118460">
+                        <img src="../assets/images/about/s3/group1907.svg" alt="Tech icons">
+                    </div>
+
+                    <!-- Scattered mini-icons around orbital rings -->
+                    <div class="orb-abs" style="inset:44.08% 4.68% 49.8% 93.07%"   data-node-id="361:118464"><img src="../assets/images/about/s3/group-icon.svg"  alt=""></div>
+                    <div class="orb-abs" style="inset:35.19% 12.4% 60.37% 86.15%"  data-node-id="361:118467"><img src="../assets/images/about/s3/vector-1.svg"    alt=""></div>
+                    <div class="orb-abs" style="inset:59.47% 0 34.03% 98.21%"      data-node-id="361:118468"><img src="../assets/images/about/s3/vector-2.svg"    alt=""></div>
+                    <div class="orb-abs" style="inset:85.12% 13.18% 9.24% 85.59%"  data-node-id="361:118470"><img src="../assets/images/about/s3/group1-icon.svg" alt=""></div>
+                    <div class="orb-abs" style="inset:65.28% 6.19% 30.19% 92.29%"  data-node-id="361:118472"><img src="../assets/images/about/s3/group1900.svg"   alt=""></div>
+                    <div class="orb-abs" style="inset:37.3% 18.51% 59.33% 79.22%"  data-node-id="361:118475"><img src="../assets/images/about/s3/group1901.svg"   alt=""></div>
+                    <div class="orb-abs" style="inset:56.39% 85.03% 38.48% 13.41%" data-node-id="361:118480"><img src="../assets/images/about/s3/vector-3.svg"    alt=""></div>
+                    <div class="orb-abs" style="inset:76.53% 95.42% 17.5% 3.13%"   data-node-id="361:118481"><img src="../assets/images/about/s3/group1905.svg"   alt=""></div>
+                    <div class="orb-abs" style="inset:29.03% 77.77% 66.65% 20.89%" data-node-id="361:118484"><img src="../assets/images/about/s3/group1902.svg"   alt=""></div>
+                    <div class="orb-abs" style="inset:39.98% 89.43% 55.64% 9.16%"  data-node-id="361:118486"><img src="../assets/images/about/s3/group1903.svg"   alt=""></div>
+                    <div class="orb-abs" style="inset:79.31% 83.27% 15.22% 14.3%"  data-node-id="361:118488"><img src="../assets/images/about/s3/group1904.svg"   alt=""></div>
+
+                </div><!-- .skills-orbital -->
+
+            </div><!-- .skills-g1 -->
+
+        </section><!-- .about-skills -->
+
+        <!-- ── Skills Competencies Section ──────────────────────────────
+             Figma: node-id 236:336  "ผู้จัดทำ"  1440×1051
+             3 cards: Technical / Creative / Functional
+             Positions: cards at y:444  each 400×428
+        ──────────────────────────────────────────────────── -->
+        <section class="about-s4" data-node-id="236:336">
+
+            <!-- Background glow blobs
+                 Rectangle7 (361:118953): #591adb  left:177 top:329 1087×1952 blur:91.4px
+                 Rectangle3 (361:118947): #fff     left:319 top:444  743×1670 blur:91.4px -->
+            <div class="s4-glow-purple" data-node-id="361:118953"></div>
+            <div class="s4-glow-white"  data-node-id="361:118947"></div>
+
+            <!-- Title “Skills Competencies”
+                 361:118887  x:232 y:105 w:975 h:245
+                 Poppins Medium 96px  gradient #ac83ff → #e9b4e4 -->
+            <h2 class="s4-title ap-reveal ap-slide-up" data-node-id="361:118808">Skills Competencies</h2>
+
+            <!-- Subtitle Thai text
+                 361:118891  x:217 y:278 w:1006 h:130
+                 36px  centered  white -->
+            <p class="s4-subtitle ap-reveal ap-slide-up" data-node-id="361:118809" data-ap-delay="150">
+                ทักษะและความสามารถที่ดิฉันเชี่ยวชาญ ถูกบ่มเพาะจากการลงมือปฏิบัติจริง<br>
+                เพื่อสร้างสรรค์ผลงานที่มีคุณภาพและสามารถแก้ไขปัญหาได้อย่างตรงจุด ประกอบด้วย
+            </p>
+
+            <!-- 3 Skill Cards
+                 All 400×428  border-radius:32px  y:444
+                 Card1: x:106  Card2: x:520  Card3: x:934
+                 Gap between cards: 14px -->
+            <div class="s4-cards">
+
+                <!-- Card 1: Technical
+                     361:118906  x:106 y:444
+                     bg: radial-gradient center at (0,42) = 0% left, 10% top
+                     Text: left=26px top=19px  (361:118903)
+                     Image: 323×206 r:30px  left=37px top=187px (361:118900) -->
+                <div class="s4-card s4-card--1 ap-reveal ap-slide-up" data-node-id="361:118906">
+                    <div class="s4-card-text s4-card-text--1" data-node-id="361:118903">
+                        <h3 class="s4-card-title">Technical</h3>
+                        <p class="s4-card-sub">Astrology Algorithm &amp; Data Logic</p>
+                        <p class="s4-card-sub">การคำนวณเชิงตรรกะและอัลกอริทึม</p>
+                    </div>
+                    <div class="s4-card-img s4-card-img--1" data-node-id="361:118900">
+                        <img src="../assets/images/about/s4/img-technical.png" alt="Technical illustration" loading="lazy">
+                    </div>
+                </div>
+
+                <!-- Card 2: Creative
+                     361:118921  x:520 y:444
+                     bg: radial-gradient center at (200,69) = 50% left, 17% top
+                     Image: 334×234 r:35px  left=34px top=41px (361:118915)
+                     Text: left=22px top=292px  (361:118918) -->
+                <div class="s4-card s4-card--2 ap-reveal ap-slide-up" data-node-id="361:118921" data-ap-delay="150">
+                    <div class="s4-card-img s4-card-img--2" data-node-id="361:118915">
+                        <img src="../assets/images/about/s4/img-creative.png" alt="Creative illustration" loading="lazy">
+                    </div>
+                    <div class="s4-card-text s4-card-text--2" data-node-id="361:118918">
+                        <h3 class="s4-card-title">Creative</h3>
+                        <p class="s4-card-sub">Interpretative Storytelling การตีความและการเล่าเรื่อง</p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Functional
+                     361:118939  x:934 y:444
+                     bg: linear-gradient(213.25deg) exact from Figma
+                     Text: right-aligned  top=19px right=24px (361:118933)
+                     Image: 353×234 r:30px  left=21px top=165px (361:118936)
+                     Image inner: left:-6.61% w:120.3% top:8.55% -->
+                <div class="s4-card s4-card--3 ap-reveal ap-slide-up" data-node-id="361:118939" data-ap-delay="300">
+                    <div class="s4-card-text s4-card-text--3" data-node-id="361:118933">
+                        <h3 class="s4-card-title">Functional</h3>
+                        <p class="s4-card-sub">Digital Product Design / UX</p>
+                        <p class="s4-card-sub">การออกแบบผลิตภัณฑ์ดิจิทัล</p>
+                    </div>
+                    <div class="s4-card-img s4-card-img--3" data-node-id="361:118936">
+                        <img src="../assets/images/about/s4/img-functional.png" alt="Functional illustration" loading="lazy">
+                    </div>
+                </div>
+
+            </div><!-- .s4-cards -->
+
+        </section><!-- .about-s4 -->
+
+        <!-- ================================================
+             SECTION 5 — Contact
+             Figma: node-id 288:234943  「ผู้จัดทำ」  1440×1051
+             Left:  CONTACT badge (x:76 y:85)
+                    2 Instagram rows (x:59 y:725 / y:867)
+             Right: Contact form card (x:733 y:309 w:656 h:690)
+             Form sends to: Kongpob.klin@kmutt.ac.th
+             ================================================ -->
+        <section class="about-s5" data-node-id="288:234943">
+
+            <!-- Background glow blobs — centres sit 42 px inside section top
+                 Purple 361:118966: x:176 y:-706 1087×1497  #591adb blur:91.4px
+                 White  361:118963: x:318 y:-591  743×1186  #fff    blur:91.4px -->
+            <div class="s5-glow-purple"></div>
+            <div class="s5-glow-white"></div>
+
+            <!-- ── CONTACT badge ───────────────────────────────────────
+                 Pill bg   361:118986 : x:76 y:85 316×84 rounded:40px  rgba(217,217,217,0.2)
+                 Circle bg 361:118989 : x:76 y:85  84×84 rounded:500px rgba(217,217,217,0.2)
+                 iPhone    361:118976 : x:90.5 y:100 55×55  (3 SVG layers)
+                 Text      361:118983 : x:166 y:100  Poppins SemiBold 40px white
+                 ───────────────────────────────────────────────────── -->
+            <div class="s5-badge ap-reveal ap-slide-left" data-node-id="361:118986">
+                <div class="s5-badge-circle" data-node-id="361:118989">
+                    <!-- iPhone icon: 3 absolutely-layered SVG pieces from Figma -->
+                    <div class="s5-phone-icon" data-node-id="361:118976">
+                        <img class="s5-phone-piece s5-phone-p1" src="../assets/images/about/s5/phone-v1.svg" alt="">
+                    </div>
+                </div>
+                <span class="s5-badge-text" data-node-id="361:118983">CONTACT</span>
+            </div>
+
+            <!-- ── Instagram row 1 (@Kongp_pob) ───────────────────────
+                 Row bg   361:119045 : x:59 y:725 600×132 rgba(175,175,175,0.2) rounded:18px
+                 Icon box 361:119033 : (within row) 97×100 rgba(217,217,217,0.2) rounded:13px
+                 IG icon  361:119028 : 65×65 (ig-icon.svg)
+                 Handle   361:119036 : General Sans 20px white
+                 Arrow    361:119042 : Ellipse 59×59 + Arrow 24×24
+                 ───────────────────────────────────────────────────── -->
+            <a class="s5-social-row s5-social-row--1 ap-reveal ap-slide-left"
+               href="https://instagram.com/Kongp_pob"
+               target="_blank" rel="noopener noreferrer"
+               data-node-id="361:119045" data-ap-delay="100">
+                <div class="s5-social-icon-box" data-node-id="361:119033">
+                    <img class="s5-ig-icon" src="../assets/images/about/s5/ig-icon.svg" alt="Instagram icon">
+                </div>
+                <span class="s5-social-handle" data-node-id="361:119036">@Kongp_pob</span>
+                <div class="s5-arrow-btn" data-node-id="361:119042">
+                    <img class="s5-arrow-circle" src="../assets/images/about/s5/arrow-circle.svg" alt="">
+                    <img class="s5-arrow-icon"  src="../assets/images/about/s5/arrow-up-right.svg" alt="">
+                </div>
+            </a>
+
+            <!-- ── Instagram row 2 (@winnietheplu) ────────────────────
+                 Row bg   361:119065 : x:59 y:867  (142px below row 1)
+                 ───────────────────────────────────────────────────── -->
+            <a class="s5-social-row s5-social-row--2 ap-reveal ap-slide-left"
+               href="https://instagram.com/winnietheplu"
+               target="_blank" rel="noopener noreferrer"
+               data-node-id="361:119065" data-ap-delay="200">
+                <div class="s5-social-icon-box" data-node-id="361:119062">
+                    <img class="s5-ig-icon" src="../assets/images/about/s5/ig-icon.svg" alt="Instagram icon">
+                </div>
+                <span class="s5-social-handle" data-node-id="361:119054">@winnietheplu</span>
+                <div class="s5-arrow-btn" data-node-id="361:119051">
+                    <img class="s5-arrow-circle" src="../assets/images/about/s5/arrow-circle.svg" alt="">
+                    <img class="s5-arrow-icon"  src="../assets/images/about/s5/arrow-up-right.svg" alt="">
+                </div>
+            </a>
+
+            <!-- ── Contact Form ────────────────────────────────────────
+                 Card     361:119116 : x:733 y:309 656×690  rgba(0,0,0,0.2) rounded:40px
+                 Name     361:119095 : within card left:27 top:28  600×84   rgba(0,0,0,0.2)
+                 Email    361:119098 : within card left:28 top:116 600×84
+                 Message  361:119101 : within card left:28 top:204 600×354  rgba(0,0,0,0.2)
+                 Submit   361:119113 : within card left:28 top:567 600×98   bg:white
+                 Handles text: General Sans 20px  |  Submit: Poppins SemiBold 20px black
+                 Send to: Kongpob.klin@kmutt.ac.th
+                 ───────────────────────────────────────────────────── -->
+            <form class="s5-form ap-reveal ap-slide-right" id="s5ContactForm"
+                  data-node-id="361:119116"
+                  novalidate
+                  onsubmit="s5SubmitForm(event)">
+                <!-- name   y:337 in frame → top:28 within card  h:84 -->
+                <input class="s5-input s5-input--name"
+                       type="text" name="name" placeholder="name"
+                       data-node-id="361:119095">
+                <!-- email  y:425 in frame → top:116 within card h:84 -->
+                <input class="s5-input s5-input--email"
+                       type="email" name="email" placeholder="email"
+                       data-node-id="361:119098">
+                <!-- message y:513 in frame → top:204 within card h:354 -->
+                <textarea class="s5-textarea"
+                          name="message" placeholder="message"
+                          data-node-id="361:119101"></textarea>
+                <!-- submit  y:876 in frame → top:567 within card h:98 bg:white -->
+                <button class="s5-submit" type="submit"
+                        data-node-id="361:119113">submit</button>
+            </form>
+
+        </section><!-- .about-s5 -->
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/components/navbar.js"></script>
+    <script src="../js/components/footer.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/about-parallax.js"></script>
+
+    <!-- Section 5 — Contact Form Handler
+         Builds a mailto: link so the form works on any static host.
+         Replace the mailto action with Formspree / EmailJS if needed. -->
+    <script>
+        function s5SubmitForm(e) {
+            e.preventDefault();
+            var form    = document.getElementById('s5ContactForm');
+            var name    = form.querySelector('[name="name"]').value.trim();
+            var email   = form.querySelector('[name="email"]').value.trim();
+            var message = form.querySelector('[name="message"]').value.trim();
+
+            if (!name || !email || !message) {
+                s5ShowToast('กรุณากรอกข้อมูลให้ครบทุกช่อง');
+                return;
+            }
+
+            var subject = encodeURIComponent('Contact from ' + name + ' <' + email + '>');
+            var body    = encodeURIComponent(
+                'From: ' + name + '\n' +
+                'Email: ' + email + '\n\n' +
+                'Message:\n' + message
+            );
+
+            window.location.href =
+                'mailto:Kongpob.klin@kmutt.ac.th?subject=' + subject + '&body=' + body;
+
+            s5ShowToast('เปิด email client แล้ว ✓');
+            form.reset();
+        }
+
+        function s5ShowToast(msg) {
+            var toast = document.querySelector('.s5-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.className = 's5-toast';
+                document.body.appendChild(toast);
+            }
+            toast.textContent = msg;
+            toast.classList.add('s5-toast--show');
+            clearTimeout(toast._tid);
+            toast._tid = setTimeout(function () {
+                toast.classList.remove('s5-toast--show');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>

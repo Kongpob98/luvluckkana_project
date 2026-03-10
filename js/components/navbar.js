@@ -27,7 +27,7 @@
                         <a href="chatbot.html" class="nav-link" data-page="chatbot">
                             The Oracle
                         </a>
-                        <a href="#articles" class="nav-link" data-page="articles">
+                        <a href="about.html" class="nav-link" data-page="about">
                             Articles
                         </a>
                     </div>
@@ -338,7 +338,8 @@
                 'simsy-result': 'blog',
                 'chatbot': 'chatbot',
                 '12zodiac': 'index',
-                'colors': 'index'
+                'colors': 'index',
+                'about': 'about'
             };
             
             const mappedPage = pageMapping[currentPath] || currentPath;

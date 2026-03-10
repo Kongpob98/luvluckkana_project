@@ -1,0 +1,1686 @@
+/* ========================================
+   About / ผู้จัดทำ Page Styles
+   From Figma: node-id 236:137
+   ======================================== */
+
+/* ────────────────────────────────────────
+   PARALLAX & SCROLL-REVEAL SYSTEM
+   ──────────────────────────────────────── */
+
+/* Float keyframe for avatars */
+@keyframes aboutFloat {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(var(--float-dist, 10px)); }
+}
+
+/* Reveal base state — hidden */
+.ap-reveal {
+    opacity: 0;
+    transition:
+        opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ap-slide-up    { transform: translateY(28px); }
+.ap-slide-left  { transform: translateX(-30px); }
+.ap-slide-right { transform: translateX(30px); }
+
+/* Revealed state */
+.ap-reveal.ap-visible {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* Exit state — fades in place, no slide back (prevents bounce) */
+.ap-reveal.ap-exiting {
+    opacity: 0;
+    transform: translate(0, 0);
+}
+
+/* Card reveal + hover transitions
+   opacity/transform: handled by reveal system (1.2s ease)
+   box-shadow/border: hover glow (0.3s) */
+.s4-card {
+    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s ease,
+                border-color 0.3s ease;
+    will-change: transform, opacity;
+}
+.s4-card:hover {
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow:
+        0 24px 60px rgba(89, 26, 219, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Glow blobs: allow parallax transform */
+.about-hero-bg,
+.about-hero-glow,
+.s4-glow-purple, .s4-glow-white,
+.s5-glow-purple, .s5-glow-white {
+    will-change: transform;
+    transition: transform 0.1s linear;
+}
+
+/* Avatars: will-change for float animation */
+.team-avatar {
+    will-change: transform;
+}
+
+/* Section transitions look smooth */
+.about-hero-content { will-change: opacity, transform; }
+
+
+:root {
+    /* Gradient stops from Figma SVG radialGradient */
+    --about-glow-color: #1c0e3a;
+
+    /* Badge */
+    --badge-bg: rgba(0, 0, 0, 0.06);
+    --badge-radius: 50px;
+    --badge-width: 333px;
+    --badge-height: 86px;
+
+    /* Typography */
+    --font-poppins: 'Poppins', sans-serif;
+    --font-sans: 'General Sans', sans-serif;
+}
+
+/* ========================================
+   Base
+   ======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: #000;
+    color: #fff;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* ========================================
+   About Page Layout
+   ======================================== */
+.about-page {
+    position: relative;
+    min-height: 100vh;
+}
+
+/* ========================================
+   Hero Section  (Figma frame 236:137 — 1440×1057)
+   Radial gradient recreated from Figma SVG gradient stops
+   ======================================== */
+.about-hero {
+    position: relative;
+    width: 100%;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Background — radial gradient from Figma stops */
+.about-hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse 70% 70% at 88% -5%,
+        #ffffff   0%,
+        #ddb1ee  10.8%,
+        #cc8ae6  16.2%,
+        #bb63de  21.6%,
+        #823fc3  30.8%,
+        #652db5  35.4%,
+        #491ba8  40.0%,
+        #37147e  47.6%,
+        #240d54  55.1%,
+        #1b0a3f  58.9%,
+        #12072a  62.7%,
+        #090315  66.4%,
+        #05020a  68.3%,
+        #000000  70.2%
+    );
+    z-index: 0;
+}
+
+/* Glow blob — Figma: 236:172  x:1119 y:1057  491×491  blur:91.4px  color:#1c0e3a */
+.about-hero-glow {
+    position: absolute;
+    right: calc(1440px - 1119px - 491px);   /* 330px from right in 1440 frame */
+    bottom: -200px;
+    width: 491px;
+    height: 491px;
+    border-radius: 245.5px;
+    background: #1c0e3a;
+    filter: blur(91.4px);
+    z-index: 0;
+    right: 0;
+}
+
+/* ========================================
+   Hero Content
+   ======================================== */
+.about-hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    text-align: center;
+}
+
+/* ========================================
+   MEET OUR TEAM Badge
+   Figma: pill 333×86  + gradient text 36px Poppins SemiBold
+   Gradient: bg-gradient-to-l from-[#ffb4d8] to-[#7b3cff]
+   = left:#7b3cff  →  right:#ffb4d8
+   ======================================== */
+.meet-team-badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--badge-width);
+    height: var(--badge-height);
+}
+
+.badge-pill {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: var(--badge-radius);
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(6px);
+}
+
+.badge-text {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-poppins);
+    font-weight: 600;          /* SemiBold */
+    font-size: 36px;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.04em;
+    background: linear-gradient(to right, #7b3cff, #ffb4d8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    white-space: nowrap;
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+/* ========================================
+   SECTION 2 — Team  (Figma 236:225  1440×1117)
+
+   Positioning system:
+     All % values derived from Figma coordinates:
+       left%  = figma_x / 1440 * 100
+       top%   = figma_y / 1117 * 100
+       width% = figma_w / 1440 * 100
+   ======================================== */
+
+.about-team {
+    position: relative;
+    width: 100%;
+    /* Maintain 1440:1117 aspect ratio for pixel-perfect desktop */
+    aspect-ratio: 1440 / 1117;
+    background: #000;
+    overflow: hidden;
+}
+
+/* Gradient bleed from hero section (Figma: Rectangle5 at top:-1012px, same gradient)
+   Visible portion of the hero radial gradient in section 2 top-right */
+.about-team::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse 70% 55% at 120% -40%,
+        #ddb1ee  0%,
+        #bb63de  8%,
+        #823fc3  18%,
+        #491ba8  28%,
+        #240d54  42%,
+        #12072a  54%,
+        transparent 65%
+    );
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Glow blob (236:226)
+   left:500  top:327  491×491  blur:91.4px  #1c0e3a */
+.team-glow {
+    position: absolute;
+    left: 34.72%;     /* 500/1440 */
+    top: 29.27%;      /* 327/1117 */
+    width: 34.1%;     /* 491/1440 */
+    aspect-ratio: 1;
+    border-radius: 245.5px;
+    background: #1c0e3a;
+    filter: blur(91.4px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── Title wrap ──────────────────────── */
+.team-title-wrap {
+    position: absolute;
+    left: 3.75%;      /* 54/1440 */
+    top: 12%;         /* 134/1117 */
+    z-index: 2;
+}
+
+/* 360:118168  pill: 404×84  rgba(217,217,217,0.2)  r:40px */
+.team-title-pill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 28.06vw;   /* scales with viewport like Figma % → 404/1440*100vw */
+    max-width: 404px;
+    height: 84px;
+    background: rgba(217, 217, 217, 0.2);
+    border-radius: 40px;
+}
+
+/* 360:118169  Poppins Regular 64px
+   gradient: linear-gradient(-77.33deg, #debfff 2.5%, #c41adb 99%) */
+.team-title {
+    position: relative;
+    font-family: var(--font-poppins);
+    font-weight: 400;
+    font-size: clamp(28px, 4.44vw, 64px);   /* 64/1440*100vw */
+    font-style: normal;
+    line-height: 1.2;
+    background: linear-gradient(-77.33deg, #debfff 2.5%, #c41adb 99%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    white-space: nowrap;
+    padding: 0 20px;
+    z-index: 1;
+}
+
+/* ── Main photos ─────────────────────── */
+.team-photo {
+    position: absolute;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.team-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+}
+
+/* ขยับรูป kong1.png ลงมาเพื่อให้เห็นหัวครบ */
+.team-photo--1 img {
+    object-position: center 15%;
+}
+
+/* Inset purple glow overlay */
+.photo-inner-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+/* Rectangle 1058 (361:118220)
+   left:511  top:134  567×531
+   border-radius TL TR BR = 235.5px  BL = 0 */
+.team-photo--1 {
+    left: 35.49%;     /* 511/1440 */
+    top: 12%;         /* 134/1117 */
+    width: 39.38%;    /* 567/1440 */
+    aspect-ratio: 567 / 531;
+    border-radius: 235.5px 235.5px 235.5px 0;
+    box-shadow: inset 0 4px 50.9px 0 #591adb;
+}
+
+/* Rectangle 1021 (361:118205)
+   left:841  top:482  474×458
+   border-radius TL TR BL = 235.5px  BR = 0 */
+.team-photo--2 {
+    left: 58.4%;      /* 841/1440 */
+    top: 43.15%;      /* 482/1117 */
+    width: 32.92%;    /* 474/1440 */
+    aspect-ratio: 474 / 458;
+    border-radius: 235.5px 235.5px 0 235.5px;
+    box-shadow: inset 0 4px 69px 0 #591adb;
+    z-index: 2;
+}
+
+/* ── Floating avatars ────────────────── */
+.team-avatar {
+    position: absolute;
+    border-radius: 50%;
+    overflow: hidden;
+    z-index: 3;
+}
+
+.team-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Ellipse 35 (361:118216)  157×157  left:1118  top:229 */
+.team-avatar--1 {
+    left: 77.64%;     /* 1118/1440 */
+    top: 20.5%;       /* 229/1117 */
+    width: 10.9%;     /* 157/1440 */
+    aspect-ratio: 1;
+}
+
+/* Ellipse 36 (361:118201)  157×157  left:718  top:609 */
+.team-avatar--2 {
+    left: 49.86%;     /* 718/1440 */
+    top: 54.52%;      /* 609/1117 */
+    width: 10.9%;
+    aspect-ratio: 1;
+}
+
+/* Ellipse 38 (361:118212)  100×100  left:1275  top:386 */
+.team-avatar--3 {
+    left: 88.54%;     /* 1275/1440 */
+    top: 34.56%;      /* 386/1117 */
+    width: 6.94%;     /* 100/1440 */
+    aspect-ratio: 1;
+}
+
+/* Ellipse 37 (361:118197)  124×124  left:563  top:804 */
+.team-avatar--4 {
+    left: 39.1%;      /* 563/1440 */
+    top: 71.98%;      /* 804/1117 */
+    width: 8.61%;     /* 124/1440 */
+    aspect-ratio: 1;
+}
+
+/* ── Name cards ──────────────────────── */
+.team-name-card {
+    position: absolute;
+    z-index: 4;
+    width: fit-content;
+    height: auto;
+}
+
+/* Shared pill style: rgba(0,0,0,0.2)  r:40px */
+.name-pill {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 40px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.name-text {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-sans);
+    font-style: normal;
+    color: #fff;
+    line-height: normal;
+    padding: 20px 36px;
+    white-space: nowrap;
+    display: block;
+    height: auto;
+}
+
+/* Name card 1 (361:118234)
+   pill: 586×168  left:72  top:441
+   text (361:118231): 36px  left offset = 123-72 = 51px padding */
+.team-name-card--1 {
+    left: 5%;         /* 72/1440 */
+    top: 39.48%;      /* 441/1117 */
+}
+
+.name-text--lg {
+    font-size: clamp(12px, 1.94vw, 28px);
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+/* Name card 2 (361:118240)
+   pill: 586×168  left:590  top:847
+   text (361:118237): 24px */
+.team-name-card--2 {
+    left: 40.97%;     /* 590/1440 */
+    top: 75.83%;      /* 847/1117 */
+}
+
+.name-text--sm {
+    font-size: clamp(12px, 1.94vw, 28px);
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+/* ========================================
+   RESPONSIVE — HERO (S1)
+   ======================================== */
+@media (max-width: 768px) {
+    .about-hero-bg {
+        background: radial-gradient(
+            ellipse 90% 55% at 95% -8%,
+            #ffffff   0%,
+            #ddb1ee  10.8%,
+            #cc8ae6  16.2%,
+            #bb63de  21.6%,
+            #823fc3  30.8%,
+            #652db5  35.4%,
+            #491ba8  40.0%,
+            #37147e  47.6%,
+            #240d54  55.1%,
+            #000000  70.2%
+        );
+    }
+    .meet-team-badge { width: clamp(200px, 70vw, 300px); height: 72px; }
+    .badge-text      { font-size: clamp(20px, 6vw, 28px); }
+    .about-hero-glow { width: 260px; height: 260px; right: -40px; bottom: -80px; }
+}
+
+@media (max-width: 480px) {
+    .meet-team-badge { height: 60px; }
+    .badge-text      { font-size: clamp(16px, 5.5vw, 22px); }
+}
+
+/* ========================================
+   RESPONSIVE — TEAM (S2)
+   ======================================== */
+
+/* ── Tablet (768px – 1024px): proportional scale, keep absolute layout ── */
+@media (max-width: 1024px) {
+    .team-title-pill {
+        height: clamp(56px, 7.5vw, 84px);
+    }
+    .team-title {
+        font-size: clamp(28px, 5.5vw, 64px);
+    }
+}
+
+/* ── Mobile (<= 768px): switch to stacked flex ── */
+@media (max-width: 768px) {
+    .about-team {
+        aspect-ratio: unset;
+        min-height: unset;
+        padding: 60px 24px 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .team-glow,
+    .team-title-pill,
+    .photo-inner-glow {
+        display: none;
+    }
+
+    .team-title-wrap,
+    .team-photo,
+    .team-avatar,
+    .team-name-card {
+        position: static;
+        width: auto;
+        height: auto;
+        aspect-ratio: unset;
+    }
+
+    .team-title-wrap {
+        width: 100%;
+        margin-bottom: 28px;
+        text-align: center;
+    }
+
+    .team-title {
+        font-size: clamp(32px, 8vw, 52px);
+        padding: 0;
+        white-space: normal;
+    }
+
+    /* Photos side by side on tablet-ish, stacked on small mobile */
+    .team-photo--1,
+    .team-photo--2 {
+        width: 72%;
+        margin: 0 auto 20px;
+    }
+
+    .team-photo--1 {
+        aspect-ratio: 567 / 531;
+        border-radius: 100px 100px 100px 0;
+    }
+
+    .team-photo--2 {
+        aspect-ratio: 474 / 458;
+        border-radius: 100px 100px 0 100px;
+        margin-bottom: 28px;
+    }
+
+    .team-avatar { display: none; }
+
+    .team-name-card {
+        width: 100%;
+        margin-bottom: 12px;
+    }
+
+    .name-pill { border-radius: 24px; }
+
+    .name-text {
+        white-space: normal;
+        text-align: center;
+        padding: 16px 24px;
+        word-break: break-word;
+    }
+
+    .name-text--lg,
+    .name-text--sm { font-size: clamp(13px, 4vw, 18px); }
+}
+
+@media (max-width: 480px) {
+    .team-photo--1,
+    .team-photo--2 { width: 88%; }
+}
+
+/* ========================================
+   SECTION 3 — Skills / Tech Visualization
+   Figma: node-id 239:388  "ผู้จัดทำ"  1440×1117
+
+   Positioning math (all % derived from Figma px):
+     Group1  left:190 top:105 width:1129 height:951.135 (in 1440×1117 frame)
+     → left = 190/1440 = 13.19%
+     → top  = 105/1117 = 9.4%
+     → width = 1129/1440 = 78.4%
+     → bottom = (1117-105-951.135)/1117 = 5.45%
+
+   All child % values are relative to Group1 (1129×951.135)
+   ======================================== */
+
+.about-skills {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1440 / 1117;
+    background: #000;
+    overflow: hidden;
+}
+
+/* ── Group1 container ──────────────────── */
+.skills-g1 {
+    position: absolute;
+    left: 13.19%;   /* 190/1440 */
+    top: 9.4%;      /* 105/1117 */
+    width: 78.4%;   /* 1129/1440 */
+    bottom: 5.45%;  /* (1117-105-951.135)/1117 */
+}
+
+/* ── Headline text (361:118608) ──────────
+   inset: 0 12.18% 91.38% 13.74% in Group1
+   Font: Preahvihear  line1=24px  line2=17px
+   letter-spacing: 0.48px  line-height: 31px */
+.skills-headline {
+    position: absolute;
+    inset: 0 12.18% 91.38% 13.74%;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0;
+}
+
+.skills-hl-main {
+    font-family: 'Preahvihear', 'General Sans', sans-serif;
+    font-size: clamp(11px, 1.67vw, 24px);   /* 24px / 1440px */
+    font-weight: 400;
+    font-style: normal;
+    color: #fff;
+    line-height: 31px;
+    letter-spacing: 0.48px;
+    white-space: nowrap;
+}
+
+.skills-hl-sub {
+    font-family: 'Preahvihear', 'General Sans', sans-serif;
+    font-size: clamp(8px, 1.18vw, 17px);    /* 17px / 1440px */
+    font-weight: 400;
+    font-style: normal;
+    color: #fff;
+    line-height: 31px;
+    letter-spacing: 0.48px;
+    white-space: nowrap;
+}
+
+/* ── Skill icons group (361:118582) ─────
+   471.783×132.453px
+   inset: 12.86% 29.72% 73.21% 28.49% in Group1 */
+.skills-icons {
+    position: absolute;
+    inset: 12.86% 29.72% 73.21% 28.49%;
+    z-index: 3;
+}
+
+/* Circle backgrounds (Ellipse6 — dark circle containing skill icon) */
+.sic {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* SVG circle background — fills the entire div */
+.sic-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* Skill icon centered inside the circle — 62% of circle size */
+.sic-icon {
+    position: relative;
+    z-index: 1;
+    width: 62%;
+    height: 62%;
+    object-fit: contain;
+    display: block;
+}
+
+/* ── Connecting lines (Vectors) ──────────
+   All children of .skills-g1 positioned by inline inset
+   z-index: 2 ensures lines appear above orbital & ellipse-bg */
+.skills-line {
+    position: absolute;
+    overflow: visible;
+    z-index: 2;
+}
+
+.skills-line img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+/* Vector2 (361:118640) and Vector3 (361:118644) have -scaleY(1) rotate(180°) */
+.skills-line--flip img {
+    transform: scaleY(-1) rotate(180deg);
+}
+
+/* ── Orbital ellipse background (361:118532) ─
+   ellipse7  683.707×416.279px
+   inset: 56.23% 19.22% 0 20.22% in Group1 */
+.skills-ellipse-bg {
+    position: absolute;
+    z-index: 1;
+}
+
+.skills-ellipse-bg img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* ── Orbital Group (Group2, 361:118490) ──
+   1129×430.155px
+   inset: 51.06% 0 3.71% 0 in Group1 */
+.skills-orbital {
+    position: absolute;
+    z-index: 1;
+}
+
+/* Absolutely positioned wrapper divs within .skills-orbital */
+.orb-abs {
+    position: absolute;
+}
+
+.orb-abs img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: contain;
+}
+
+/* LUCKKANA symbol: inner div with negative inset extending beyond wrapper */
+.orb-symbol-inner {
+    position: absolute;
+    inset: -11.45% -14.58% -13.21% -14.58%;
+}
+
+.orb-symbol-inner img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* ========================================
+   RESPONSIVE — SKILLS (S3)
+   ======================================== */
+@media (max-width: 900px) {
+    .about-skills {
+        aspect-ratio: unset;
+        padding: 60px 0 40px;
+        overflow: visible;
+    }
+
+    .skills-g1 {
+        position: static;
+        width: 100%;
+        height: auto;
+        padding: 0 20px 0;
+    }
+
+    /* Headline — unset absolute inset, centre as block */
+    .skills-headline {
+        position: static;
+        inset: unset;
+        margin-bottom: 28px;
+        text-align: center;
+    }
+    .skills-hl-main {
+        font-size: clamp(12px, 3.5vw, 18px);
+        white-space: normal;
+        line-height: 1.5;
+    }
+    .skills-hl-sub {
+        font-size: clamp(10px, 2.8vw, 14px);
+        white-space: normal;
+        line-height: 1.5;
+    }
+
+    /* Skill icons — flex wrap grid, override inline inset with !important */
+    .skills-icons {
+        position: static;
+        inset: unset;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 32px;
+        padding: 0 8px;
+    }
+
+    /* Override inline style="inset:..." on each .sic */
+    .skills-icons .sic {
+        position: relative !important;
+        inset: unset !important;
+        width: 60px;
+        height: 60px;
+        flex-shrink: 0;
+    }
+
+    /* Hide connecting lines and ellipse bg — don't make sense without layout */
+    .skills-line,
+    .skills-ellipse-bg { display: none; }
+
+    /* Orbital — full width, keep aspect ratio */
+    .skills-orbital {
+        position: static;
+        inset: unset;
+        width: 100%;
+        aspect-ratio: 1129 / 430;
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .skills-icons .sic { width: 48px; height: 48px; }
+    .skills-hl-main    { font-size: 13px; }
+    .skills-hl-sub     { font-size: 11px; }
+}
+
+/* ========================================
+   SECTION 4 — Skills Competencies
+   Figma: node-id 236:336  "ผู้จัดทำ"  1440×1051
+
+   Key coordinates:
+     Title:    x:232  y:105   w:975  h:245
+     Subtitle: x:217  y:278   w:1006 h:130
+     Cards y:  444    height: 428
+     Card1: x:106  Card2: x:520  Card3: x:934  (width:400 each, gap:14px)
+     Purple glow: left:177 top:329 1087×1952 #591adb blur:91.4px
+     White glow:  left:319 top:444  743×1670 #fff    blur:91.4px
+   ======================================== */
+
+.about-s4 {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1440 / 1051;
+    background: #000;
+    overflow: hidden;
+}
+
+/* ── Background glow blobs ─────────────── */
+
+/* Rectangle7 (361:118953) — deep purple blob */
+.s4-glow-purple {
+    position: absolute;
+    left: 12.29%;          /* 177/1440 */
+    top: 31.3%;            /* 329/1051 */
+    width: 75.49%;         /* 1087/1440 */
+    aspect-ratio: 1087 / 1952;
+    background: #591adb;
+    border-radius: 543.5px;
+    filter: blur(91.4px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Rectangle3 (361:118947) — white core glow */
+.s4-glow-white {
+    position: absolute;
+    left: 22.15%;          /* 319/1440 */
+    top: 42.24%;           /* 444/1051 */
+    width: 51.6%;          /* 743/1440 */
+    aspect-ratio: 743 / 1670;
+    background: #fff;
+    border-radius: 543.5px;
+    filter: blur(91.4px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ── Title "Skills Competencies" ────────
+   361:118808  x:232 y:105  w:975 h:245
+   Poppins Medium 96px  gradient #ac83ff → #e9b4e4 */
+.s4-title {
+    position: absolute;
+    left: 16.11%;          /* 232/1440 */
+    right: 16.18%;         /* (1440-232-975)/1440 */
+    top: 9.99%;            /* 105/1051 */
+    font-family: 'Poppins', 'General Sans', sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: clamp(28px, 4.5vw, 64px);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-align: center;
+    background: linear-gradient(to right, #ac83ff, #e9b4e4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+    z-index: 2;
+}
+
+/* ── Subtitle Thai text ─────────────────
+   361:118809  x:217 y:278  w:1006 h:130
+   General Sans  36px  center  white */
+.s4-subtitle {
+    position: absolute;
+    left: 15.07%;          /* 217/1440 */
+    right: 15.07%;         /* (1440-217-1006)/1440 */
+    top: 26.45%;           /* 278/1051 */
+    font-family: 'General Sans', sans-serif;
+    font-size: clamp(12px, 1.6vw, 24px);
+    font-weight: 400;
+    color: #fff;
+    text-align: center;
+    line-height: 1.55;
+    margin: 0;
+    z-index: 2;
+}
+
+/* ── Cards container ────────────────────
+   3 cards × 400px + 2 gaps × 14px = 1228px
+   left = 106/1440 = 7.36%
+   right = (1440-934-400)/1440 = 7.36% */
+.s4-cards {
+    position: absolute;
+    left: 7.36%;           /* 106/1440 */
+    right: 7.36%;          /* 106/1440 from right */
+    top: 42.24%;           /* 444/1051 */
+    display: flex;
+    gap: 14px;             /* exact Figma gap between cards */
+    z-index: 2;
+}
+
+/* ── Base card ──────────────────────────
+   400×428 each  border-radius:32px */
+.s4-card {
+    position: relative;
+    flex: 1;
+    aspect-ratio: 400 / 428;
+    border-radius: 32px;
+    overflow: hidden;
+    /* ── Glassmorphism base ── */
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow:
+        0 8px 40px rgba(0, 0, 0, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.28),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ── Card Backgrounds ───────────────────
+   Derived from Figma SVG radial/linear gradient matrices */
+
+/* Card 1 (Technical) — radial from top-left corner (0%, 10%)
+   matrix: center at x=0 y=42 → 0% left 10% top of 400×428 */
+.s4-card--1 {
+    background: radial-gradient(
+        ellipse at 0% 10%,
+        rgba(18,  9, 46, 0.72)  0%,
+        rgba(18,  9, 46, 0.60) 30%,
+        rgba(40, 23, 83, 0.50) 46%,
+        rgba(62, 33,119, 0.38) 61%,
+        rgba(96, 55,169, 0.25) 75%,
+        rgba(156,123,212,0.14) 86%,
+        rgba(205,185,234,0.06) 93%,
+        rgba(255,255,255,0.03) 100%
+    );
+}
+
+/* Card 2 (Creative) — radial from top-center (50%, 17%)
+   matrix: center at x=200 y=69 → 50% left 17% top of 400×428 */
+.s4-card--2 {
+    background: radial-gradient(
+        ellipse at 50% 17%,
+        rgba(18,  9, 46, 0.72)  0%,
+        rgba(18,  9, 46, 0.60) 41%,
+        rgba(40, 23, 83, 0.48) 57%,
+        rgba(62, 33,119, 0.36) 72%,
+        rgba(96, 55,169, 0.26) 75%,
+        rgba(126,89,191,0.18) 81%,
+        rgba(156,123,212,0.12) 86%,
+        rgba(181,156,223,0.07) 89%,
+        rgba(205,185,234,0.04) 93%,
+        rgba(255,255,255,0.02) 100%
+    );
+}
+
+/* Card 3 (Functional) — exact linear-gradient from Figma
+   213.25° diagonal, dark navy → purple → lavender */
+.s4-card--3 {
+    background: linear-gradient(
+        213.25deg,
+        rgba(18,  9, 46, 0.72)  4.18%,
+        rgba(18,  9, 46, 0.60) 50.3%,
+        rgba(62, 33,119, 0.38) 85.64%,
+        rgba(96, 55,169, 0.25) 89.08%,
+        rgba(156,123,212,0.14) 100.44%,
+        rgba(255,255,255,0.03) 116.66%
+    );
+}
+
+/* ── Card Text blocks ───────────────────
+   All absolute within card (400×428 base) */
+.s4-card-text {
+    position: absolute;
+    z-index: 2;
+}
+
+/* Card 1 text: top-left
+   Figma: within-card left=26/400=6.5% top=19/428=4.44% */
+.s4-card-text--1 {
+    left: 6.5%;
+    top: 4.44%;
+}
+
+/* Card 2 text: bottom-left
+   Figma: within-card left=22/400=5.5% top=292/428=68.22% */
+.s4-card-text--2 {
+    left: 5.5%;
+    top: 68.22%;
+}
+
+/* Card 3 text: top-right aligned
+   Figma: text-right, right=(1440-920-390-934+934)/400 ≈ 6% */
+.s4-card-text--3 {
+    right: 6%;
+    top: 4.44%;
+    text-align: right;
+}
+
+/* Card title — General Sans 64px white */
+.s4-card-title {
+    font-family: 'General Sans', sans-serif;
+    font-size: clamp(18px, 2.9vw, 42px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1;
+    margin: 0 0 6px;
+    white-space: nowrap;
+}
+
+/* Card subtitle — General Sans 24px */
+.s4-card-sub {
+    font-family: 'General Sans', sans-serif;
+    font-size: clamp(9px, 1.05vw, 15px);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* ── Card Images ────────────────────────
+   All absolute within card (400×428 base) */
+.s4-card-img {
+    position: absolute;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.s4-card-img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Card 1 image — Rectangle1065 (Technical/server 3D)
+   Figma: left=37/400=9.25% top=187/428=43.69% w=323/400=80.75%
+   aspect-ratio 323/206  border-radius: 30px */
+.s4-card-img--1 {
+    left: 9.25%;
+    top: 43.69%;
+    width: 80.75%;
+    aspect-ratio: 323 / 206;
+    border-radius: 30px;
+}
+
+/* Card 2 image — Rectangle1043 (Creative/hex 3D)
+   Figma: left=34/400=8.5% top=41/428=9.58% w=334/400=83.5%
+   aspect-ratio 334/234  border-radius: 35px */
+.s4-card-img--2 {
+    left: 8.5%;
+    top: 9.58%;
+    width: 83.5%;
+    aspect-ratio: 334 / 234;
+    border-radius: 35px;
+}
+
+/* Card 3 image — Rectangle1044 (Functional/web tools 3D)
+   Figma: left=21/400=5.25% top=165/428=38.55% w=353/400=88.25%
+   aspect-ratio 353/234  border-radius: 30px
+   Image within: left=-6.61% w=120.3% top=8.55% (slight overflow) */
+.s4-card-img--3 {
+    left: 5.25%;
+    top: 38.55%;
+    width: 88.25%;
+    aspect-ratio: 353 / 234;
+    border-radius: 30px;
+}
+
+.s4-card-img--3 img {
+    position: absolute;
+    left: -6.61%;
+    width: 120.3%;
+    top: 8.55%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ========================================
+   RESPONSIVE — SKILLS COMPETENCIES (S4)
+   ======================================== */
+@media (max-width: 900px) {
+    .about-s4 {
+        aspect-ratio: unset;
+        padding: 60px 20px 80px;
+    }
+
+    .s4-glow-purple,
+    .s4-glow-white { display: none; }
+
+    .s4-title,
+    .s4-subtitle {
+        position: static;
+        width: 100%;
+        display: block;
+        text-align: center;
+        left: unset; right: unset; top: unset;
+    }
+
+    .s4-title {
+        font-size: clamp(28px, 7vw, 56px);
+        margin-bottom: 12px;
+    }
+
+    .s4-subtitle {
+        font-size: clamp(13px, 3.5vw, 18px);
+        margin-bottom: 36px;
+    }
+
+    .s4-cards {
+        position: static;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .s4-card {
+        aspect-ratio: unset;
+        min-height: 300px;
+    }
+
+    .s4-card-title { font-size: clamp(20px, 5vw, 30px); }
+    .s4-card-sub   { font-size: clamp(11px, 2.5vw, 14px); }
+}
+
+@media (max-width: 480px) {
+    .about-s4 { padding: 48px 16px 64px; }
+    .s4-card  { min-height: 260px; }
+    .s4-card-title { font-size: 20px; }
+}
+
+/* ========================================
+   SECTION 5 — Contact
+   Figma: node-id 288:234943  「ผู้จัดทำ」  1440×1051
+
+   Key Figma coordinates (all within 1440×1051 frame):
+     Purple glow : x:176  y:−706  1087×1497  #591adb blur:91.4px
+     White glow  : x:318  y:−591   743×1186  #fff    blur:91.4px
+     CONTACT badge pill : x:76  y:85   316×84
+     CONTACT badge circle: x:76  y:85    84×84
+     Instagram row 1     : x:59  y:725  600×132
+     Instagram row 2     : x:59  y:867  600×132
+     Form card           : x:733 y:309  656×690
+       Name input          : x:760 y:337  600×84
+       Email input         : x:761 y:425  600×84
+       Message textarea    : x:761 y:513  600×354
+       Submit button       : x:761 y:876  600×98  bg:white
+   ======================================== */
+
+/* ── Section container ─────────────────── */
+.about-s5 {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1440 / 1051;
+    background: #000;
+    overflow: hidden;
+}
+
+/* ── Glow blobs (centres at ~42 px from top inside section) ─ */
+
+/* Purple glow: x:176 y:-706 1087×1497  → left:12.22%  top:-67.17% */
+.s5-glow-purple {
+    position: absolute;
+    left: 12.22%;          /* 176/1440  */
+    top: -67.17%;          /* -706/1051 */
+    width: 75.49%;         /* 1087/1440 */
+    aspect-ratio: 1087 / 1497;
+    background: #591adb;
+    border-radius: 543.5px;
+    filter: blur(91.4px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* White glow: x:318 y:-591 743×1186  → left:22.08%  top:-56.23% */
+.s5-glow-white {
+    position: absolute;
+    left: 22.08%;          /* 318/1440  */
+    top: -56.23%;          /* -591/1051 */
+    width: 51.6%;          /* 743/1440  */
+    aspect-ratio: 743 / 1186;
+    background: #fff;
+    border-radius: 543.5px;
+    filter: blur(91.4px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ── CONTACT badge ─────────────────────────────────────────
+   Pill: x:76 y:85 316×84  → left:5.28% top:8.09% w:21.94% h:7.99%
+   Circle overlay on left: 84×84 (= full badge height, 26.58% of badge w)
+   iPhone icon: x:90.5 y:100 55×55  inset from badge left: 14.5px / top: 15px
+   CONTACT text: Poppins SemiBold 40px  white
+   ───────────────────────────────────────────────────────── */
+.s5-badge {
+    position: absolute;
+    left: 5.28%;           /* 76/1440  */
+    top: 8.09%;            /* 85/1051  */
+    width: 21.94%;         /* 316/1440 */
+    height: 7.99%;         /* 84/1051  */
+    background: rgba(217, 217, 217, 0.2);
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    z-index: 3;
+}
+
+/* Left circle portion of badge */
+.s5-badge-circle {
+    position: relative;
+    flex-shrink: 0;
+    width: 26.58%;         /* 84/316 */
+    aspect-ratio: 1;
+    background: rgba(217, 217, 217, 0.2);
+    border-radius: 50%;
+}
+
+/* iPhone icon container (55×55 within 84×84 circle) */
+.s5-phone-icon {
+    position: absolute;
+    /* centre within circle: (84-55)/2 = 14.5px → 14.5/84 = 17.26% */
+    inset: 17.26%;
+}
+
+/* Each SVG piece absolutely layered */
+.s5-phone-piece {
+    position: absolute;
+    display: block;
+}
+
+/* Piece 1: main iPhone body — inset 8.33% 16.67% (from Figma) */
+.s5-phone-p1 { inset: 8.33% 16.67%; width: calc(100% - 33.34%); height: calc(100% - 16.66%); }
+
+/* Piece 2: home-button strip — top:79.17% right:37.5% bottom:20.83% left:37.5% */
+.s5-phone-p2 { top: 79.17%; right: 37.5%; bottom: 20.83%; left: 37.5%; width: 25%; height: auto; }
+
+/* Piece 3: camera strip — top:9.91% right:30.21% bottom:79.17% left:30.22% */
+.s5-phone-p3 { top: 9.91%; right: 30.21%; bottom: 79.17%; left: 30.22%; width: 39.57%; height: auto; }
+
+/* "CONTACT" text */
+.s5-badge-text {
+    padding-left: 5%;
+    font-family: 'Poppins', 'General Sans', sans-serif;
+    font-weight: 600;
+    font-size: clamp(14px, 2.78vw, 40px);
+    color: #fff;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+/* ── Instagram social rows ─────────────────────────────────
+   Each row: w:600 h:132  rgba(175,175,175,0.2) rounded:18px
+   Left:  4.1%  (59/1440)
+   Row1 top: 68.98%  (725/1051)
+   Row2 top: 82.49%  (867/1051)
+   ───────────────────────────────────────────────────────── */
+.s5-social-row {
+    position: absolute;
+    left: 4.1%;            /* 59/1440  */
+    width: 41.67%;         /* 600/1440 */
+    height: 12.56%;        /* 132/1051 */
+    /* ── Glassmorphism ── */
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.07) 0%,
+        rgba(255, 255, 255, 0.02) 100%
+    );
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    padding: 0 3.17%;      /* ~19px / 600 */
+    gap: 4%;
+    text-decoration: none;
+    z-index: 3;
+    transition: background 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.s5-social-row:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.13) 0%,
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.26);
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.s5-social-row--1 { top: 68.98%; }  /* 725/1051 */
+.s5-social-row--2 { top: 82.49%; }  /* 867/1051 */
+
+/* Icon box (97×100 within 600×132) — 16.17% wide  75.76% tall */
+.s5-social-icon-box {
+    flex-shrink: 0;
+    width: 16.17%;         /* 97/600  */
+    aspect-ratio: 97 / 100;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.20);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Instagram icon (65×65 inside 97×100 box) */
+.s5-ig-icon {
+    width: 67%;            /* 65/97 */
+    height: 67%;
+    object-fit: contain;
+}
+
+/* Handle text — General Sans / Inter 20px white */
+.s5-social-handle {
+    flex: 1;
+    font-family: 'General Sans', sans-serif;
+    font-size: clamp(10px, 1.39vw, 20px);
+    font-weight: 400;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Arrow button (59×59 circle, ~9.83% of row width) */
+.s5-arrow-btn {
+    flex-shrink: 0;
+    position: relative;
+    width: 9.83%;          /* 59/600 */
+    aspect-ratio: 1;
+}
+
+.s5-arrow-circle {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Arrow up-right icon (24×24 centred inside 59×59) — 40.68% of btn */
+.s5-arrow-icon {
+    position: absolute;
+    width: 40.68%;         /* 24/59  */
+    height: 40.68%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+}
+
+/* ── Contact Form card ─────────────────────────────────────
+   Card: x:733 y:309 656×690 → left:50.9% top:29.4% w:45.56% h:65.65%
+   bg: rgba(0,0,0,0.2)   border-radius: 40px   shadow
+   ───────────────────────────────────────────────────────── */
+.s5-form {
+    position: absolute;
+    left: 50.9%;           /* 733/1440 */
+    top: 29.4%;            /* 309/1051 */
+    width: 45.56%;         /* 656/1440 */
+    aspect-ratio: 656 / 690;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 40px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    z-index: 3;
+    /* Internal layout — all children are absolute within this card */
+}
+
+/* ── Form inputs (absolute within 656×690 card) ────────────
+   Insets for all:  left:27px = 4.12%  right:29px → width:91.46%
+   Name    top:28  h:84  → 4.06%  / 12.17%
+   Email   top:116 h:84  → 16.81% / 12.17%
+   Message top:204 h:354 → 29.57% / 51.3%
+   Submit  top:567 h:98  → 82.17% / 14.2%
+   ───────────────────────────────────────────────────────── */
+.s5-input,
+.s5-textarea {
+    position: absolute;
+    left: 4.12%;           /* 27/656   */
+    width: 91.46%;         /* 600/656  */
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #fff;
+    font-family: 'Poppins', 'General Sans', sans-serif;
+    font-size: clamp(10px, 1.39vw, 20px);
+    font-weight: 400;
+    padding: 0 4%;
+    outline: none;
+    resize: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.s5-input:focus,
+.s5-textarea:focus {
+    border-color: rgba(172, 131, 255, 0.5);
+}
+
+.s5-input::placeholder,
+.s5-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+/* Name input: top:28/690=4.06%  height:84/690=12.17% */
+.s5-input--name {
+    top: 4.06%;
+    height: 12.17%;
+}
+
+/* Email input: top:116/690=16.81%  height:12.17% */
+.s5-input--email {
+    top: 16.81%;
+    height: 12.17%;
+}
+
+/* Message textarea: top:204/690=29.57%  height:354/690=51.3% */
+.s5-textarea {
+    top: 29.57%;
+    height: 51.3%;
+    padding-top: 3%;
+}
+
+/* Submit button: top:567/690=82.17%  height:98/690=14.2% */
+.s5-submit {
+    position: absolute;
+    left: 4.12%;           /* 27/656  */
+    top: 82.17%;           /* 567/690 */
+    width: 91.46%;         /* 600/656 */
+    height: 14.2%;         /* 98/690  */
+    /* ── Glassmorphism ── */
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.10) 0%,
+        rgba(255, 255, 255, 0.03) 100%
+    );
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+    border-radius: 32px;
+    font-family: 'Poppins', 'General Sans', sans-serif;
+    font-size: clamp(10px, 1.39vw, 20px);
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s, border-color 0.3s, transform 0.15s;
+}
+
+.s5-submit:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.18) 0%,
+        rgba(172, 131, 255, 0.10) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.32);
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+}
+.s5-submit:active { transform: scale(0.98); }
+
+/* ── Toast notification (form submit feedback) ──────────── */
+.s5-toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: rgba(172, 131, 255, 0.95);
+    color: #fff;
+    font-family: 'General Sans', sans-serif;
+    font-size: 16px;
+    padding: 12px 28px;
+    border-radius: 40px;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.35s, transform 0.35s;
+}
+
+.s5-toast.s5-toast--show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ========================================
+   RESPONSIVE — CONTACT (S5)
+   ======================================== */
+@media (max-width: 900px) {
+    .about-s5 {
+        aspect-ratio: unset;
+        padding: 60px 20px 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .s5-glow-purple,
+    .s5-glow-white { display: none; }
+
+    /* Badge */
+    .s5-badge {
+        position: static;
+        display: inline-flex;
+        width: auto;
+        height: auto;
+        padding: 8px 20px 8px 6px;
+        margin-bottom: 32px;
+        border-radius: 40px;
+    }
+    .s5-badge-circle {
+        width: 52px;
+        aspect-ratio: 1;
+        margin-right: 12px;
+        flex-shrink: 0;
+    }
+    .s5-badge-text { font-size: clamp(18px, 5vw, 28px); }
+
+    /* Instagram rows */
+    .s5-social-row {
+        position: static;
+        width: 100%;
+        height: auto;
+        padding: 16px 20px;
+        margin-bottom: 12px;
+        border-radius: 20px;
+    }
+    .s5-social-row--1,
+    .s5-social-row--2 { top: unset; }
+    .s5-social-icon-box {
+        width: 52px;
+        height: 52px;
+        flex-shrink: 0;
+        border-radius: 14px;
+    }
+    .s5-social-handle { font-size: clamp(13px, 3.5vw, 18px); }
+    .s5-arrow-btn     { width: 40px; height: 40px; }
+
+    /* Form card */
+    .s5-form {
+        position: static;
+        width: 100%;
+        aspect-ratio: unset;
+        height: auto;
+        padding: 28px 20px;
+        margin-top: 32px;
+        border-radius: 28px;
+        box-sizing: border-box;
+    }
+    .s5-input,
+    .s5-textarea,
+    .s5-submit {
+        position: static;
+        display: block;
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        margin-bottom: 12px;
+    }
+    .s5-input      { height: 52px; padding: 0 16px; }
+    .s5-textarea   { height: 160px; padding: 14px 16px; }
+    .s5-submit     { height: 56px; margin-top: 4px; margin-bottom: 0; font-size: 18px; }
+}
+
+@media (max-width: 480px) {
+    .about-s5       { padding: 48px 16px 64px; }
+    .s5-badge-text  { font-size: 18px; }
+    .s5-form        { padding: 20px 16px; border-radius: 20px; }
+    .s5-input       { height: 48px; }
+    .s5-textarea    { height: 140px; }
+    .s5-submit      { height: 52px; font-size: 16px; }
+    .s5-social-handle { font-size: 13px; }
+}
+
+/* ========================================
+   RESPONSIVE — SMALL PHONES (≤ 375px)
+   ======================================== */
+@media (max-width: 375px) {
+    /* Hero */
+    .badge-text { font-size: 15px; }
+    .meet-team-badge { height: 52px; }
+
+    /* Team */
+    .team-title   { font-size: 28px; }
+    .team-photo--1,
+    .team-photo--2 { width: 96%; }
+    .name-text--lg,
+    .name-text--sm { font-size: 12px; padding: 12px 16px; }
+
+    /* Skills */
+    .skills-icons .sic { width: 40px; height: 40px; gap: 8px; }
+    .skills-hl-main { font-size: 11px; }
+    .skills-hl-sub  { font-size: 10px; }
+
+    /* S4 cards */
+    .about-s4    { padding: 40px 12px 56px; }
+    .s4-title    { font-size: 26px; }
+    .s4-subtitle { font-size: 12px; }
+
+    /* S5 contact */
+    .about-s5  { padding: 40px 12px 56px; }
+    .s5-form   { padding: 16px 12px; }
+}
