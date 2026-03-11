@@ -95,7 +95,7 @@
     <script src="../js/cursor-trail.js"></script>
     <script src="../js/main.js"></script>
     <!-- html-to-image for capturing card (supports backdrop-filter, modern CSS) -->
-    <script src="https://unpkg.com/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
             const resultNumber = sessionStorage.getItem('simsyResult') || '1';
@@ -141,16 +141,42 @@
 
                         const simsyCard = document.getElementById('simsyCard');
 
-                        // Wait a frame for any transitions to settle
-                        await new Promise(r => setTimeout(r, 100));
+                        // Pre-convert all img src to data URLs to avoid CORS issues
+                        const imgs = simsyCard.querySelectorAll('img');
+                        const origSrcs = [];
+                        for (const img of imgs) {
+                            origSrcs.push(img.src);
+                            try {
+                                const r = await fetch(img.src);
+                                const b = await r.blob();
+                                const dataUrl = await new Promise(res => {
+                                    const fr = new FileReader();
+                                    fr.onload = e => res(e.target.result);
+                                    fr.readAsDataURL(b);
+                                });
+                                img.src = dataUrl;
+                            } catch(e) { /* keep original src */ }
+                        }
 
-                        const blob = await htmlToImage.toBlob(simsyCard, {
+                        // Apply capture overrides and wait for paint
+                        simsyCard.classList.add('sc-capture');
+                        await new Promise(r => setTimeout(r, 200));
+
+                        const dataUrl = await htmlToImage.toPng(simsyCard, {
                             pixelRatio: 3,
                             backgroundColor: '#000000',
-                            cacheBust: true,
-                            skipFonts: false,
-                            style: { borderRadius: '28px' }
+                            cacheBust: false
                         });
+
+                        // Restore everything
+                        simsyCard.classList.remove('sc-capture');
+                        imgs.forEach((img, i) => { img.src = origSrcs[i]; });
+
+                        // dataUrl → Blob
+                        const fetchRes = await fetch(dataUrl);
+                        const blob = await fetchRes.blob();
+
+                        if (!blob || blob.size === 0) throw new Error('blob empty');
 
                         const fileName = `simsy-${numPadded}.png`;
                         const file = new File([blob], fileName, { type: 'image/png' });
@@ -158,22 +184,31 @@
                         spanEl.textContent = originalText;
                         this.disabled = false;
 
-                        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                        // Try native share sheet first (shows Instagram on mobile)
+                        let shared = false;
+                        if (navigator.share) {
                             try {
                                 await navigator.share({
                                     title: 'ผลลัพธ์เซียมซี - Luckkana Star',
                                     text: `เซียมซีใบที่ ${numPadded} — ${slipData ? slipData.level : ''}`,
                                     files: [file]
                                 });
+                                shared = true;
                             } catch (err) {
-                                if (err.name !== 'AbortError') fallbackDownload(blob, fileName);
+                                if (err.name === 'AbortError') return; // user cancelled
+                                // share failed, fall through to download
                             }
-                        } else {
+                        }
+
+                        if (!shared) {
+                            // Download then show Instagram popup
                             fallbackDownload(blob, fileName);
                         }
                     } catch (error) {
-                        console.error('Error capturing card:', error);
-                        alert('เกิดข้อผิดพลาดในการสร้างภาพ กรุณาลองอีกครั้ง');
+                        const simsyCard = document.getElementById('simsyCard');
+                        simsyCard.classList.remove('sc-capture');
+                        console.error('Capture error:', error);
+                        alert('เกิดข้อผิดพลาด: ' + (error.message || error));
                         spanEl.textContent = originalText;
                         this.disabled = false;
                     }
@@ -190,8 +225,53 @@
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
                 setTimeout(() => {
-                    alert('ภาพถูกดาวน์โหลดแล้ว! นำไปอัปโหลด Instagram Story ได้เลย');
-                }, 300);
+                    showInstagramPopup();
+                }, 500);
+            }
+
+            function showInstagramPopup() {
+                const overlay = document.createElement('div');
+                overlay.style.cssText = `
+                    position: fixed; inset: 0; z-index: 9999;
+                    background: rgba(0,0,0,0.75); backdrop-filter: blur(8px);
+                    display: flex; align-items: center; justify-content: center;
+                    padding: 24px; animation: fadeIn 0.25s ease;
+                `;
+                overlay.innerHTML = `
+                    <div style="
+                        background: linear-gradient(145deg, rgba(30,10,80,0.98), rgba(10,5,30,0.98));
+                        border: 1px solid rgba(160,110,255,0.35);
+                        border-radius: 24px; padding: 32px 28px; max-width: 320px; width: 100%;
+                        text-align: center; color: #fff; font-family: 'Sarabun', sans-serif;
+                    ">
+                        <div style="font-size: 42px; margin-bottom: 12px">📸</div>
+                        <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px">บันทึกภาพแล้ว!</div>
+                        <div style="font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 24px; line-height: 1.6">
+                            รูปเซียมซีถูกดาวน์โหลดไปยังอุปกรณ์แล้ว<br>
+                            เปิด Instagram เพื่อโพสต์ได้เลย
+                        </div>
+                        <a href="instagram://" target="_blank" style="
+                            display: block; width: 100%; padding: 14px;
+                            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+                            border: none; border-radius: 100px; color: #fff;
+                            font-size: 15px; font-weight: 700; text-decoration: none;
+                            margin-bottom: 12px; cursor: pointer;
+                            box-shadow: 0 4px 20px rgba(253,29,29,0.3);
+                        ">เปิด Instagram</a>
+                        <button onclick="this.closest('[data-overlay]').remove()" style="
+                            width: 100%; padding: 12px;
+                            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+                            border-radius: 100px; color: rgba(255,255,255,0.7);
+                            font-size: 14px; cursor: pointer;
+                        ">ปิด</button>
+                    </div>
+                `;
+                overlay.setAttribute('data-overlay', '');
+                overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+                // Fix close button selector
+                const closeBtn = overlay.querySelector('button');
+                closeBtn.onclick = () => overlay.remove();
+                document.body.appendChild(overlay);
             }
         });
     </script>
