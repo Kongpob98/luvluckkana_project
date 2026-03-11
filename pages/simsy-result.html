@@ -85,47 +85,65 @@
         </div>
     </main>
 
-    <!-- Footer Component -->
-    <footer id="footer"></footer>
-
     <!-- Scripts -->
     <script src="../js/components/loading.js"></script>
     <script src="../js/components/navbar.js"></script>
-    <script src="../js/components/footer.js"></script>
     <script src="../js/cursor-trail.js"></script>
     <script src="../js/main.js"></script>
     <!-- html-to-image for capturing card (supports backdrop-filter, modern CSS) -->
     <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
-            const resultNumber = sessionStorage.getItem('simsyResult') || '1';
-            const numPadded = String(resultNumber).padStart(2, '0');
+            let resultNumber = sessionStorage.getItem('simsyResult') || '1';
 
-            // Load slip data from JSON
-            let slipData = null;
+            // Load all slips once
+            let allSlips = {};
             try {
                 const res = await fetch('../data/simsy_slips.json');
-                const allSlips = await res.json();
-                slipData = allSlips[String(resultNumber)];
+                allSlips = await res.json();
             } catch (e) {
                 console.warn('Could not load simsy_slips.json:', e);
             }
 
-            // Populate card
-            document.getElementById('slipNumber').textContent = numPadded;
-
-            if (slipData) {
-                document.getElementById('slipLevel').textContent = slipData.level || 'ดีเลิศ';
-                document.getElementById('slipPoem').textContent = slipData.poem || '';
-                document.getElementById('slipMeaning').textContent = slipData.meaning || '';
+            // Populate card from a slip number
+            function renderSlip(num) {
+                const numPadded = String(num).padStart(2, '0');
+                const slipData = allSlips[String(num)];
+                document.getElementById('slipNumber').textContent = numPadded;
+                if (slipData) {
+                    document.getElementById('slipLevel').textContent = slipData.level || 'ดีเลิศ';
+                    document.getElementById('slipPoem').textContent = slipData.poem || '';
+                    document.getElementById('slipMeaning').textContent = slipData.meaning || '';
+                }
             }
 
-            // Restart button
+            renderSlip(resultNumber);
+
+            // Restart button — draw a new random slip without leaving the page
             const restartButton = document.querySelector('.restart-button');
             if (restartButton) {
                 restartButton.addEventListener('click', function() {
-                    sessionStorage.removeItem('simsyResult');
-                    window.location.href = 'simsy.html';
+                    const totalSlips = Object.keys(allSlips).length || 60;
+                    let newNum;
+                    do {
+                        newNum = Math.floor(Math.random() * totalSlips) + 1;
+                    } while (String(newNum) === String(resultNumber) && totalSlips > 1);
+                    resultNumber = String(newNum);
+                    sessionStorage.setItem('simsyResult', resultNumber);
+
+                    // Animate card out → update → animate in
+                    const card = document.getElementById('simsyCard');
+                    card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        renderSlip(resultNumber);
+                        card.style.opacity = '1';
+                        card.style.transform = 'scale(1)';
+                        setTimeout(() => {
+                            card.style.transition = '';
+                        }, 350);
+                    }, 320);
                 });
             }
 
@@ -178,7 +196,9 @@
 
                         if (!blob || blob.size === 0) throw new Error('blob empty');
 
-                        const fileName = `simsy-${numPadded}.png`;
+                        const currentNum = document.getElementById('slipNumber').textContent || resultNumber;
+                        const currentLevel = document.getElementById('slipLevel').textContent || '';
+                        const fileName = `simsy-${currentNum}.png`;
                         const file = new File([blob], fileName, { type: 'image/png' });
 
                         spanEl.textContent = originalText;
@@ -190,7 +210,7 @@
                             try {
                                 await navigator.share({
                                     title: 'ผลลัพธ์เซียมซี - Luckkana Star',
-                                    text: `เซียมซีใบที่ ${numPadded} — ${slipData ? slipData.level : ''}`,
+                                    text: `เซียมซีใบที่ ${currentNum} — ${currentLevel}`,
                                     files: [file]
                                 });
                                 shared = true;
