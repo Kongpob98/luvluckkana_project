@@ -51,6 +51,10 @@
     --radius-card: 22px;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 body {
     font-family: var(--font-primary);
     background-color: var(--color-primary);

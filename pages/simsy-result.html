@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>ผลลัพฑ์ Syamsi - Luckkana Star</title>
     <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/loading.css">
     <link rel="stylesheet" href="../css/simsy-result.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,44 +22,49 @@
 
     <!-- Main Content -->
     <main class="simsy-result-container">
-        <!-- Left Card: Result Number -->
+        <!-- Left Card: Simsy Slip -->
         <div class="result-card">
-            <!-- Card Frame with decorative elements from Figma -->
-            <div class="card-frame">
-                <!-- Background Layer (Vector41) -->
-                <img src="https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/simsy-result/card-background.svg" alt="Card Background" class="card-bg-layer">
-                
-                <!-- Main Outline (Vector40) -->
-                <img src="https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/simsy-result/card-main-outline.svg" alt="Card Outline" class="card-outline-layer">
-                
-                <!-- Result Number Section (Top) -->
-                <div class="result-number-section">
-                    <!-- Result Number -->
-                    <div class="result-number">10</div>
-                </div>
-                
-                <!-- Decorative Elements Top -->
-                <div class="card-decor-top">
-                    <!-- decor-1 and decor-2 removed -->
-                </div>
-                
-                <!-- Decorative Elements Bottom -->
-                <div class="card-decor-bottom">
-                    <!-- decor-4 and decor-5 removed -->
-                </div>
-                
-                <!-- Glow effect in the center -->
-                <div class="card-glow-container">
-                    <img src="https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/simsy-result/card-glow.svg" alt="Glow" class="card-glow">
+            <div class="simsy-card" id="simsyCard">
+                <!-- Background decorative shapes (Figma: Exclude/MaskGroup) -->
+                <div class="sc-bg" aria-hidden="true">
+                    <img class="sc-shape sc-shape-top" src="../assets/images/simsy-result/shape-top.svg" alt="">
+                    <img class="sc-shape sc-shape-mid" src="../assets/images/simsy-result/shape-mid.svg" alt="">
+                    <img class="sc-shape sc-shape-bottom" src="../assets/images/simsy-result/shape-bottom.svg" alt="">
+                    <div class="sc-blur-center"></div>
                 </div>
 
-                <!-- Star Outline (Vector4) -->
-                <img src="https://res.cloudinary.com/dpezsckqq/image/upload/luckkana/simsy-result/star-outline.svg" alt="Star" class="star-bg-shape">
+                <!-- Logo top (Figma: Artboard 1 5) -->
+                <div class="sc-logo-wrap">
+                    <img src="../assets/images/simsy-result/logo-bg.png" alt="Luckkana Star" class="sc-logo">
+                </div>
+
+                <!-- Fortune Level Badge (Figma: Rectangle + ดีเลิศ) -->
+                <div class="sc-badge">
+                    <span class="sc-badge-text" id="slipLevel">ดีเลิศ</span>
+                </div>
+
+                <!-- Slip Number Label + Number (Figma: Component1 + Component5) -->
+                <p class="sc-sub-label">เซียมซีใบที่</p>
+                <div class="sc-number" id="slipNumber">01</div>
+
+                <!-- Poem Text (Figma: Component4) -->
+                <p class="sc-poem" id="slipPoem">มังกรปรากฏกายพ่นวารี สุริศรีส่องสว่างกระจ่างใส จะทำการสิ่งใดสมหทัย ลาภผลมีมาไวไม่ขาดสาย อุปสรรคขวากหนามมลายสิ้น ความถวิลสมหวังดั่งมุ่งหมาย</p>
+
+                <!-- Meaning Section (Figma: Rectangle2 + Component + Component3) -->
+                <div class="sc-meaning-section">
+                    <div class="sc-meaning-header">
+                        <span class="sc-meaning-pill">ความหมาย</span>
+                    </div>
+                    <div class="sc-meaning-box">
+                        <p class="sc-meaning-text" id="slipMeaning">เป็นใบที่ยอดเยี่ยมที่สุด เปรียบเหมือนมังกรพ่นน้ำให้ความชุ่มชื่น การงานรุ่งเรืองเหมือนฟ้าเปิด อุปสรรคที่เคยมีจะหายไปสิ้น ใครถามหาโชคลาภจะได้ลาภก้อนโต</p>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Right Buttons: Share & Restart -->
         <div class="action-buttons">
+            <p class="action-heading">ดำเนินการต่อ</p>
             <!-- Share Button -->
             <button class="glass-button share-button">
                 <svg class="button-icon" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -83,22 +89,38 @@
     <footer id="footer"></footer>
 
     <!-- Scripts -->
+    <script src="../js/components/loading.js"></script>
     <script src="../js/components/navbar.js"></script>
     <script src="../js/components/footer.js"></script>
     <script src="../js/cursor-trail.js"></script>
     <script src="../js/main.js"></script>
-    <!-- html2canvas for capturing card -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- html-to-image for capturing card (supports backdrop-filter, modern CSS) -->
+    <script src="https://unpkg.com/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Display result number from sessionStorage
-            const resultNumber = sessionStorage.getItem('simsyResult') || '10';
-            const resultElement = document.querySelector('.result-number');
-            if (resultElement) {
-                resultElement.textContent = resultNumber;
+        document.addEventListener('DOMContentLoaded', async function() {
+            const resultNumber = sessionStorage.getItem('simsyResult') || '1';
+            const numPadded = String(resultNumber).padStart(2, '0');
+
+            // Load slip data from JSON
+            let slipData = null;
+            try {
+                const res = await fetch('../data/simsy_slips.json');
+                const allSlips = await res.json();
+                slipData = allSlips[String(resultNumber)];
+            } catch (e) {
+                console.warn('Could not load simsy_slips.json:', e);
             }
 
-            // Restart button - go back to simsy.html
+            // Populate card
+            document.getElementById('slipNumber').textContent = numPadded;
+
+            if (slipData) {
+                document.getElementById('slipLevel').textContent = slipData.level || 'ดีเลิศ';
+                document.getElementById('slipPoem').textContent = slipData.poem || '';
+                document.getElementById('slipMeaning').textContent = slipData.meaning || '';
+            }
+
+            // Restart button
             const restartButton = document.querySelector('.restart-button');
             if (restartButton) {
                 restartButton.addEventListener('click', function() {
@@ -107,81 +129,57 @@
                 });
             }
 
-            // Share button - capture card and share to Instagram Story
+            // Share button — capture card and share/download
             const shareButton = document.querySelector('.share-button');
             if (shareButton) {
                 shareButton.addEventListener('click', async function() {
+                    const spanEl = this.querySelector('span');
+                    const originalText = spanEl.textContent;
                     try {
-                        // Show loading state
-                        const originalText = this.querySelector('span').textContent;
-                        this.querySelector('span').textContent = 'กำลังสร้างภาพ...';
+                        spanEl.textContent = 'กำลังสร้างภาพ...';
                         this.disabled = true;
 
-                        const cardElement = document.querySelector('.result-card');
-                        const cardFrame = document.querySelector('.card-frame');
-                        
-                        // Enable capture mode - stops all animations and transforms
-                        cardElement.classList.add('capture-mode');
-                        
-                        // Wait for styles to apply
-                        await new Promise(resolve => setTimeout(resolve, 150));
+                        const simsyCard = document.getElementById('simsyCard');
 
-                        // Capture the card-frame directly (contains all visual elements)
-                        const canvas = await html2canvas(cardFrame, {
-                            backgroundColor: 'transparent',
-                            scale: 3, // Very high quality for Instagram
-                            logging: false,
-                            useCORS: true,
-                            allowTaint: false,
-                            imageTimeout: 0,
-                            removeContainer: true
-                        });
-                        
-                        // Remove capture mode
-                        cardElement.classList.remove('capture-mode');
+                        // Wait a frame for any transitions to settle
+                        await new Promise(r => setTimeout(r, 100));
 
-                        // Convert canvas to blob
-                        const blob = await new Promise(resolve => {
-                            canvas.toBlob(resolve, 'image/png', 1.0);
+                        const blob = await htmlToImage.toBlob(simsyCard, {
+                            pixelRatio: 3,
+                            backgroundColor: '#000000',
+                            cacheBust: true,
+                            skipFonts: false,
+                            style: { borderRadius: '28px' }
                         });
 
-                        // Create file from blob
-                        const fileName = `simsy-result-${resultNumber}.png`;
+                        const fileName = `simsy-${numPadded}.png`;
                         const file = new File([blob], fileName, { type: 'image/png' });
 
-                        // Restore button state
-                        this.querySelector('span').textContent = originalText;
+                        spanEl.textContent = originalText;
                         this.disabled = false;
 
-                        // Try to share using Web Share API (works on mobile)
                         if (navigator.canShare && navigator.canShare({ files: [file] })) {
                             try {
                                 await navigator.share({
-                                    title: 'ผลลัพฑ์ Syamsi - Luckkana Star',
-                                    text: `ผลลัพฑ์ Syamsi ของฉันคือ ${resultNumber}!`,
+                                    title: 'ผลลัพธ์เซียมซี - Luckkana Star',
+                                    text: `เซียมซีใบที่ ${numPadded} — ${slipData ? slipData.level : ''}`,
                                     files: [file]
                                 });
-                                console.log('Shared successfully!');
                             } catch (err) {
-                                if (err.name !== 'AbortError') {
-                                    console.log('Error sharing:', err);
-                                    fallbackDownload(blob, fileName);
-                                }
+                                if (err.name !== 'AbortError') fallbackDownload(blob, fileName);
                             }
                         } else {
-                            // Fallback: download the image
                             fallbackDownload(blob, fileName);
                         }
                     } catch (error) {
                         console.error('Error capturing card:', error);
                         alert('เกิดข้อผิดพลาดในการสร้างภาพ กรุณาลองอีกครั้ง');
-                        this.querySelector('span').textContent = originalText;
+                        spanEl.textContent = originalText;
                         this.disabled = false;
                     }
                 });
             }
 
-            // Fallback download function
             function fallbackDownload(blob, fileName) {
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -191,10 +189,8 @@
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
-                
-                // Show instruction for Instagram
                 setTimeout(() => {
-                    alert('ภาพถูกดาวน์โหลดแล้ว! คุณสามารถอัปโหลดไปยัง Instagram Story ได้');
+                    alert('ภาพถูกดาวน์โหลดแล้ว! นำไปอัปโหลด Instagram Story ได้เลย');
                 }, 300);
             }
         });

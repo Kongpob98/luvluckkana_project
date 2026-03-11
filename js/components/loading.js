@@ -6,11 +6,11 @@
 class LoadingScreen {
     constructor(options = {}) {
         this.options = {
-            videoSrc: options.videoSrc || 'https://res.cloudinary.com/dpezsckqq/video/upload/luckkana/loadd.mp4',
+            videoSrc: options.videoSrc || '../assets/images/Logoload.mp4',
             minDisplayTime: options.minDisplayTime || 1500, // Minimum time to show loading (ms)
             showProgress: options.showProgress !== false, // Show loading text
             autoHide: options.autoHide !== false, // Auto hide when page loads
-            autoShow: options.autoShow !== undefined ? options.autoShow : false, // Don't show on page load by default
+            autoShow: options.autoShow !== undefined ? options.autoShow : true, // Show on page load by default
             interceptLinks: options.interceptLinks !== false, // Intercept internal links for smooth transition
             ...options
         };
@@ -45,13 +45,13 @@ class LoadingScreen {
             }
         }
         
-        // Force hide loading after 3 seconds if still showing (safety net)
+        // Force hide loading after 10 seconds if still showing (safety net)
         setTimeout(() => {
             if (this.loadingScreen && !this.loadingScreen.classList.contains('hidden')) {
                 console.log('Force hiding loading screen');
                 this.hide();
             }
-        }, 3000);
+        }, 10000);
     }
     
     createLoadingHTML() {

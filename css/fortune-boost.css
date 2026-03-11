@@ -1,0 +1,813 @@
+/* =====================================================
+   FORTUNE BOOST PAGE — เสริมดวง
+   Figma: node-id 397:118795 "บทความ2"  1440×1024
+   ===================================================== */
+
+/* ── Page Container ──────────────────────────────── */
+.fb-page {
+    min-height: 100vh;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ── Ambient BG Blobs ──────────────────────────────── */
+.fb-bg-blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+}
+.fb-bg-blob-1 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(89,26,219,0.22) 0%, transparent 70%);
+    top: -80px;
+    left: -100px;
+}
+.fb-bg-blob-2 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(89,26,219,0.15) 0%, transparent 70%);
+    bottom: 100px;
+    right: 300px;
+}
+@media (max-width: 768px) {
+    .fb-bg-blob-1 {
+        width: 320px;
+        height: 320px;
+        left: -80px;
+        top: -60px;
+    }
+    .fb-bg-blob-2 {
+        width: 280px;
+        height: 280px;
+        right: -60px;
+        bottom: 60px;
+    }
+}
+
+/* ── Hero Header ───────────────────────────────────── */
+.fb-hero {
+    text-align: center;
+    padding: 120px 40px 30px;
+    position: relative;
+    z-index: 1;
+}
+.fb-hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 40px;
+    padding: 6px 24px;
+    font-family: 'General Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(210,188,255,0.9);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+.fb-hero-title {
+    font-family: 'General Sans', sans-serif;
+    font-size: clamp(28px, 3vw, 42px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin: 0;
+}
+.fb-hero-title span {
+    color: #d2bcff;
+}
+
+/* ── Main Layout (two columns) ─────────────────────── */
+.fb-layout {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 40px 60px;
+    position: relative;
+    z-index: 1;
+    align-items: center;
+}
+
+/* ── LEFT: Venn Diagram ────────────────────────────── */
+.fb-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+}
+
+.venn-wrapper {
+    position: relative;
+    width: 520px;
+    height: 520px;
+}
+
+/* ── Four Spheres ───────────────────────────────────── */
+.venn-sphere {
+    position: absolute;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: filter 0.35s ease, transform 0.35s ease;
+    z-index: 2;
+}
+
+.sphere-inner {
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.35s ease, filter 0.35s ease, transform 0.35s ease;
+}
+
+/* Top sphere — portrait */
+.sphere-top {
+    width: 200px;
+    height: 246px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.sphere-top .sphere-inner {
+    width: 100%;
+    height: 100%;
+    /* Default: colorless/transparent */
+    background:
+        radial-gradient(ellipse at 50% 38%,
+            rgba(255,255,255,0.00) 0%,
+            rgba(89,26,219,0.02) 52%,
+            rgba(140,80,230,0.14) 68%,
+            rgba(185,145,255,0.30) 74%,
+            rgba(89,26,219,0.08) 87%,
+            rgba(0,0,0,0.00) 100%
+        );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    /* Teardrop — pointed at bottom (toward center) */
+    clip-path: path('M 100 0 C 155 0 200 55 200 110 C 200 185 105 244 100 246 C 95 244 0 185 0 110 C 0 55 45 0 100 0 Z');
+    filter: drop-shadow(0 0 6px rgba(89,26,219,0.12));
+    opacity: 1;
+}
+
+/* Bottom sphere — portrait */
+.sphere-bottom {
+    width: 200px;
+    height: 246px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.sphere-bottom .sphere-inner {
+    width: 100%;
+    height: 100%;
+    /* Default: colorless/transparent */
+    background:
+        radial-gradient(ellipse at 50% 62%,
+            rgba(255,255,255,0.00) 0%,
+            rgba(89,26,219,0.02) 52%,
+            rgba(140,80,230,0.14) 68%,
+            rgba(185,145,255,0.30) 74%,
+            rgba(89,26,219,0.08) 87%,
+            rgba(0,0,0,0.00) 100%
+        );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    /* Teardrop — pointed at top (toward center) */
+    clip-path: path('M 100 246 C 45 246 0 191 0 136 C 0 61 95 2 100 0 C 105 2 200 61 200 136 C 200 191 155 246 100 246 Z');
+    filter: drop-shadow(0 0 6px rgba(89,26,219,0.12));
+    opacity: 1;
+}
+
+/* Left sphere — landscape */
+.sphere-left {
+    width: 246px;
+    height: 200px;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.sphere-left .sphere-inner {
+    width: 100%;
+    height: 100%;
+    /* Default: colorless/transparent */
+    background:
+        radial-gradient(ellipse at 38% 50%,
+            rgba(255,255,255,0.00) 0%,
+            rgba(89,26,219,0.02) 52%,
+            rgba(140,80,230,0.14) 68%,
+            rgba(185,145,255,0.30) 74%,
+            rgba(89,26,219,0.08) 87%,
+            rgba(0,0,0,0.00) 100%
+        );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    /* Teardrop — pointed at right (toward center) */
+    clip-path: path('M 0 100 C 0 45 55 0 110 0 C 185 0 244 95 246 100 C 244 105 185 200 110 200 C 55 200 0 155 0 100 Z');
+    filter: drop-shadow(0 0 6px rgba(89,26,219,0.12));
+    opacity: 1;
+}
+
+/* Right sphere — landscape */
+.sphere-right {
+    width: 246px;
+    height: 200px;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.sphere-right .sphere-inner {
+    width: 100%;
+    height: 100%;
+    /* Default: colorless/transparent */
+    background:
+        radial-gradient(ellipse at 62% 50%,
+            rgba(255,255,255,0.00) 0%,
+            rgba(89,26,219,0.02) 52%,
+            rgba(140,80,230,0.14) 68%,
+            rgba(185,145,255,0.30) 74%,
+            rgba(89,26,219,0.08) 87%,
+            rgba(0,0,0,0.00) 100%
+        );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    /* Teardrop — pointed at left (toward center) */
+    clip-path: path('M 246 100 C 246 155 191 200 136 200 C 61 200 2 105 0 100 C 2 95 61 0 136 0 C 191 0 246 45 246 100 Z');
+    filter: drop-shadow(0 0 6px rgba(89,26,219,0.12));
+    opacity: 1;
+}
+
+/* ── Active: full vivid gradient per sphere direction ─────────────── */
+.venn-sphere.is-active.sphere-top .sphere-inner {
+    background:
+        radial-gradient(ellipse at 50% 38%,
+            rgba(255,255,255,0.04) 0%,
+            rgba(89,26,219,0.05) 38%,
+            rgba(120,60,230,0.30) 56%,
+            rgba(175,120,255,0.72) 68%,
+            rgba(215,185,255,0.92) 73%,
+            rgba(160,100,240,0.52) 83%,
+            rgba(89,26,219,0.18) 92%,
+            rgba(89,26,219,0.04) 100%
+        );
+    filter: drop-shadow(0 0 32px rgba(120,60,240,0.7)) drop-shadow(0 0 12px rgba(200,160,255,0.5));
+}
+.venn-sphere.is-active.sphere-bottom .sphere-inner {
+    background:
+        radial-gradient(ellipse at 50% 62%,
+            rgba(255,255,255,0.04) 0%,
+            rgba(89,26,219,0.05) 38%,
+            rgba(120,60,230,0.30) 56%,
+            rgba(175,120,255,0.72) 68%,
+            rgba(215,185,255,0.92) 73%,
+            rgba(160,100,240,0.52) 83%,
+            rgba(89,26,219,0.18) 92%,
+            rgba(89,26,219,0.04) 100%
+        );
+    filter: drop-shadow(0 0 32px rgba(120,60,240,0.7)) drop-shadow(0 0 12px rgba(200,160,255,0.5));
+}
+.venn-sphere.is-active.sphere-left .sphere-inner {
+    background:
+        radial-gradient(ellipse at 38% 50%,
+            rgba(255,255,255,0.04) 0%,
+            rgba(89,26,219,0.05) 38%,
+            rgba(120,60,230,0.30) 56%,
+            rgba(175,120,255,0.72) 68%,
+            rgba(215,185,255,0.92) 73%,
+            rgba(160,100,240,0.52) 83%,
+            rgba(89,26,219,0.18) 92%,
+            rgba(89,26,219,0.04) 100%
+        );
+    filter: drop-shadow(0 0 32px rgba(120,60,240,0.7)) drop-shadow(0 0 12px rgba(200,160,255,0.5));
+}
+.venn-sphere.is-active.sphere-right .sphere-inner {
+    background:
+        radial-gradient(ellipse at 62% 50%,
+            rgba(255,255,255,0.04) 0%,
+            rgba(89,26,219,0.05) 38%,
+            rgba(120,60,230,0.30) 56%,
+            rgba(175,120,255,0.72) 68%,
+            rgba(215,185,255,0.92) 73%,
+            rgba(160,100,240,0.52) 83%,
+            rgba(89,26,219,0.18) 92%,
+            rgba(89,26,219,0.04) 100%
+        );
+    filter: drop-shadow(0 0 32px rgba(120,60,240,0.7)) drop-shadow(0 0 12px rgba(200,160,255,0.5));
+}
+
+/* Hover on inactive: subtle color preview */
+.venn-sphere:not(.is-active):hover .sphere-inner {
+    background:
+        radial-gradient(ellipse at 50% 50%,
+            rgba(255,255,255,0.02) 0%,
+            rgba(89,26,219,0.04) 45%,
+            rgba(140,80,230,0.22) 63%,
+            rgba(185,145,255,0.48) 73%,
+            rgba(89,26,219,0.14) 87%,
+            rgba(0,0,0,0.00) 100%
+        );
+    filter: drop-shadow(0 0 16px rgba(100,50,220,0.35));
+}
+.venn-sphere.is-active {
+    filter: none;
+}
+
+/* ── Center Union Symbol ────────────────────────────── */
+.venn-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 3;
+}
+.union-img {
+    width: 370px;
+    height: 370px;
+    object-fit: contain;
+    opacity: 1;
+    transform: rotate(-90.24deg);
+    filter: brightness(3) saturate(1.8);
+}
+
+/* ── Sphere Label Text ──────────────────────────────── */
+.sphere-label {
+    position: absolute;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    font-family: 'General Sans', sans-serif;
+    pointer-events: none;
+    padding: 8px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    gap: 2px;
+}
+.sphere-label .line-main {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: rgba(255,255,255,0.92);
+}
+.sphere-label .line-vs {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+}
+.sphere-label .line-sub {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.3;
+}
+.sphere-label .line-tool {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+}
+/* active label colour */
+.venn-sphere.is-active .sphere-label .line-main,
+.venn-sphere.is-active .sphere-label .line-sub {
+    color: #fff;
+}
+.venn-sphere.is-active .sphere-label .line-vs {
+    color: #d2bcff;
+}
+
+/* ── RIGHT: Content Panel ───────────────────────────── */
+.fb-right {
+    display: flex;
+    align-items: stretch;
+    padding: 20px 0 20px 20px;
+    position: relative;
+}
+
+.content-panel {
+    flex: 1;
+    background: rgba(25,5,65,0.55);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid rgba(210,188,255,0.12);
+    border-radius: 28px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 200px);
+    box-shadow: 0 0 60px rgba(89,26,219,0.18),
+                inset 0 1px 0 rgba(255,255,255,0.08);
+    position: relative;
+}
+
+/* Inner glow top edge */
+.content-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(210,188,255,0.35), transparent);
+    pointer-events: none;
+}
+
+/* ── Panel Tab (active topic pill) ──────────────────── */
+.panel-tab-row {
+    padding: 22px 28px 14px;
+    flex-shrink: 0;
+}
+.panel-tab {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border-radius: 41px;
+    padding: 10px 26px;
+    font-family: 'General Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #d2bcff;
+    box-shadow: inset 0 4px 12px rgba(255,255,255,0.25);
+    transition: color 0.3s ease;
+}
+
+/* ── Panel Content (scrollable) ─────────────────────── */
+.panel-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 36px 36px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(89,26,219,0.5) transparent;
+}
+.panel-content::-webkit-scrollbar {
+    width: 4px;
+}
+.panel-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+.panel-content::-webkit-scrollbar-thumb {
+    background: rgba(89,26,219,0.5);
+    border-radius: 2px;
+}
+
+/* ── Topic Content ───────────────────────────────────── */
+.topic-section {
+    display: none;
+    animation: contentFade 0.4s ease forwards;
+}
+.topic-section.is-active {
+    display: block;
+}
+@keyframes contentFade {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.topic-section p {
+    font-family: 'Sarabun', 'General Sans', sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 18px;
+}
+
+.topic-section .topic-keyword {
+    color: #d2bcff;
+    font-weight: 600;
+}
+
+.topic-section .topic-ref {
+    font-size: 13px;
+    color: rgba(210,188,255,0.55);
+}
+
+.topic-section .topic-hr {
+    border: none;
+    border-top: 1px solid rgba(210,188,255,0.15);
+    margin: 24px 0;
+}
+
+.topic-sources {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(210,188,255,0.15);
+}
+.topic-sources h4 {
+    font-family: 'General Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(210,188,255,0.6);
+    margin-bottom: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.topic-sources ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.topic-sources li {
+    font-family: 'General Sans', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+    padding-left: 14px;
+    position: relative;
+    margin-bottom: 6px;
+}
+.topic-sources li::before {
+    content: '●';
+    position: absolute;
+    left: 0;
+    color: rgba(89,26,219,0.7);
+    font-size: 10px;
+    top: 3px;
+}
+
+/* ══════════════════════════════════════════════════════
+   MOBILE PILL NAVIGATION (Figma node 416:118846)
+   Visible only on mobile (≤ 768px)
+   ══════════════════════════════════════════════════════ */
+.fb-mobile-nav {
+    display: none; /* hidden on desktop */
+    width: 100%;
+    padding: 0 14px;
+    box-sizing: border-box;
+    order: 0;
+}
+
+.mobile-pill-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Pill button — base (inactive) */
+.mobile-pill {
+    flex: 1;
+    min-width: 0;
+    height: 34px;
+    border-radius: 289px;
+    border: none;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.10);
+    color: #fff;
+    font-family: 'General Sans', 'Sarabun', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: center;
+    padding: 0 10px;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Active pill — purple (Figma: rgba(89,26,219,0.53)) */
+.mobile-pill.is-active {
+    background: rgba(89, 26, 219, 0.53);
+    color: #fff;
+    box-shadow: 0 0 14px rgba(89, 26, 219, 0.45);
+}
+
+.mobile-pill:hover:not(.is-active) {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+/* Star separator between rows */
+.mobile-pill-star {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    margin: 2px 0;
+}
+.mobile-pill-star img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    opacity: 0.9;
+}
+
+/* Panel tab — mobile: larger title in #d2bcff (Figma: 36px → adapted) */
+@media (max-width: 768px) {
+    .panel-tab-row {
+        padding: 20px 20px 10px;
+    }
+    .panel-tab {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 22px;
+        font-weight: 700;
+        color: #d2bcff;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 41px;
+        padding: 12px 24px;
+        box-shadow: inset 0 4px 12px rgba(255, 255, 255, 0.25);
+        text-align: left;
+        line-height: 1.3;
+        white-space: normal;
+    }
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+
+/* ── 1100px: Stack to single column ─────────────────── */
+@media (max-width: 1100px) {
+    .fb-layout {
+        grid-template-columns: 1fr;
+        padding: 0 32px 60px;
+        gap: 24px;
+    }
+    .fb-left {
+        order: 1;
+        padding-bottom: 0;
+    }
+    .fb-right {
+        order: 2;
+        padding-left: 0;
+        padding: 0;
+    }
+    .venn-wrapper {
+        width: 420px;
+        height: 420px;
+    }
+    .sphere-top, .sphere-bottom {
+        width: 162px;
+        height: 200px;
+    }
+    .sphere-left, .sphere-right {
+        width: 200px;
+        height: 162px;
+    }
+    .sphere-top .sphere-inner    { clip-path: path('M 81 0 C 126 0 162 45 162 89 C 162 150 85 199 81 200 C 77 199 0 150 0 89 C 0 45 36 0 81 0 Z'); }
+    .sphere-bottom .sphere-inner { clip-path: path('M 81 200 C 36 200 0 155 0 111 C 0 50 77 2 81 0 C 85 2 162 50 162 111 C 162 155 126 200 81 200 Z'); }
+    .sphere-left .sphere-inner   { clip-path: path('M 0 81 C 0 36 45 0 89 0 C 150 0 198 77 200 81 C 198 85 150 162 89 162 C 45 162 0 126 0 81 Z'); }
+    .sphere-right .sphere-inner  { clip-path: path('M 200 81 C 200 126 155 162 111 162 C 50 162 2 85 0 81 C 2 77 50 0 111 0 C 155 0 200 36 200 81 Z'); }
+    .content-panel {
+        max-height: 65vh;
+    }
+}
+
+/* ── 900px: Tablet landscape ─────────────────────────── */
+@media (max-width: 900px) {
+    .venn-wrapper {
+        width: 360px;
+        height: 360px;
+    }
+    .sphere-top, .sphere-bottom {
+        width: 138px;
+        height: 170px;
+    }
+    .sphere-left, .sphere-right {
+        width: 170px;
+        height: 138px;
+    }
+    .sphere-top .sphere-inner    { clip-path: path('M 69 0 C 107 0 138 38 138 76 C 138 128 72 169 69 170 C 66 169 0 128 0 76 C 0 38 31 0 69 0 Z'); }
+    .sphere-bottom .sphere-inner { clip-path: path('M 69 170 C 31 170 0 131 0 94 C 0 42 66 1 69 0 C 72 1 138 42 138 94 C 138 131 107 170 69 170 Z'); }
+    .sphere-left .sphere-inner   { clip-path: path('M 0 69 C 0 31 38 0 76 0 C 128 0 169 66 170 69 C 169 72 128 138 76 138 C 38 138 0 107 0 69 Z'); }
+    .sphere-right .sphere-inner  { clip-path: path('M 170 69 C 170 107 131 138 94 138 C 42 138 1 72 0 69 C 1 66 42 0 94 0 C 131 0 170 31 170 69 Z'); }
+    .sphere-label .line-main { font-size: 12px; }
+    .sphere-label .line-vs   { font-size: 22px; }
+    .sphere-label .line-sub  { font-size: 11px; }
+    .sphere-label .line-tool { font-size: 13px; }
+}
+
+/* ── 768px: Tablet portrait / Mobile ────────────────── */
+@media (max-width: 768px) {
+    .fb-page {
+        height: 100dvh;
+        min-height: unset;
+        overflow: hidden;
+        max-width: 100vw;
+    }
+    .fb-hero {
+        padding: 100px 24px 10px;
+        max-width: 100%;
+        box-sizing: border-box;
+        flex-shrink: 0;
+    }
+    .fb-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        padding: 0 0 12px;
+        gap: 10px;
+        align-items: stretch;
+        max-width: 100vw;
+        box-sizing: border-box;
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    /* Hide venn diagram, show pill nav */
+    .fb-left {
+        display: none;
+    }
+    .fb-mobile-nav {
+        display: block;
+        order: 0;
+        flex-shrink: 0;
+    }
+    .fb-right {
+        order: 1;
+        padding: 0 14px;
+        min-height: 0;
+        overflow: hidden;
+        display: flex;
+    }
+
+    .content-panel {
+        max-height: 100%;
+        min-height: 0;
+        border-radius: 20px;
+    }
+    .panel-content { padding: 8px 20px 28px; }
+    .topic-section p { font-size: 15px; }
+}
+
+/* ── 640px: Large phones ─────────────────────────────── */
+@media (max-width: 640px) {
+    .fb-hero {
+        padding: 90px 20px 16px;
+    }
+    .fb-right {
+        padding: 0 12px;
+    }
+    .content-panel {
+        border-radius: 16px;
+    }
+    .mobile-pill {
+        font-size: 11px;
+        padding: 0 8px;
+    }
+}
+
+/* ── 480px: Small phones ─────────────────────────────── */
+@media (max-width: 480px) {
+    .fb-hero {
+        padding: 80px 16px 12px;
+    }
+    .fb-hero-badge {
+        font-size: 12px;
+        padding: 5px 18px;
+    }
+    .fb-layout {
+        padding: 0 0 32px;
+        gap: 12px;
+    }
+    .fb-mobile-nav {
+        padding: 0 12px;
+    }
+    .fb-right {
+        padding: 0 12px;
+    }
+    .panel-tab { font-size: 18px; padding: 10px 18px; }
+    .panel-tab-row { padding: 16px 16px 8px; }
+    .panel-content { padding: 6px 16px 24px; }
+    .topic-section p { font-size: 14px; line-height: 1.75; }
+    .topic-sources h4 { font-size: 12px; }
+    .topic-sources li { font-size: 12px; }
+}
+
+/* ── 390px: iPhone SE / smallest phones ─────────────── */
+@media (max-width: 390px) {
+    .fb-hero-title {
+        font-size: 20px;
+    }
+    .mobile-pill {
+        font-size: 10px;
+        height: 30px;
+        padding: 0 6px;
+    }
+    .mobile-pill-row {
+        gap: 6px;
+    }
+    .fb-mobile-nav {
+        padding: 0 10px;
+    }
+    .panel-tab { font-size: 16px; padding: 9px 16px; }
+}

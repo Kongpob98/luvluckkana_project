@@ -13,9 +13,10 @@
     min-height: 100vh;
     background: linear-gradient(135deg, #000000 0%, #1a0033 50%, #2d1b69 100%);
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
-    padding: 120px 40px 40px;
+    gap: 80px;
+    padding: 110px 80px 60px;
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -27,8 +28,7 @@
 .result-card {
     position: relative;
     z-index: 10;
-    margin-right: auto;
-    margin-left: 80px;
+    flex-shrink: 0;
     animation: cardEntrance 1s ease-out;
 }
 
@@ -213,11 +213,22 @@
     z-index: 10;
     display: flex;
     flex-direction: column;
-    gap: 50px;
-    margin-left: auto;
-    margin-right: 120px;
+    align-items: stretch;
+    gap: 16px;
+    width: 290px;
+    flex-shrink: 0;
     animation: buttonsEntrance 1s ease-out 0.3s backwards;
-    width: auto;
+}
+
+.action-heading {
+    font-family: 'General Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.38);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 10px;
 }
 
 @keyframes buttonsEntrance {
@@ -237,23 +248,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
-    padding: 40px 60px;
-    min-width: 440px;
-    height: 174px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 225px;
-    backdrop-filter: blur(75px);
+    gap: 14px;
+    padding: 0 28px;
+    width: 100%;
+    min-width: unset;
+    height: 90px;
+    background: linear-gradient(145deg, rgba(100, 50, 220, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%);
+    border: 1px solid rgba(160, 110, 255, 0.28);
+    border-radius: 100px;
+    backdrop-filter: blur(60px);
     cursor: pointer;
     transition: all 0.3s ease;
     overflow: hidden;
-    box-shadow: 
-        inset 29.8px 29.8px 5px -35px rgba(255, 255, 255, 0.5),
-        inset 19.9px 19.9px 10px -20px rgba(179, 179, 179, 0.3),
-        inset -19.9px -19.9px 10px -20px rgba(179, 179, 179, 0.3),
-        inset 0 0 0 10px rgba(153, 153, 153, 0.2),
-        0 0 220px rgba(242, 242, 242, 0.3);
+    box-shadow:
+        0 8px 40px rgba(89, 26, 219, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.18);
 }
 
 /* Glass button pseudo-element for gradient overlay */
@@ -284,15 +294,12 @@
 }
 
 .glass-button:hover {
-    transform: translateY(-5px) scale(1.02);
-    border-color: rgba(255, 255, 255, 0.4);
-    box-shadow: 
-        inset 29.8px 29.8px 5px -35px rgba(255, 255, 255, 0.7),
-        inset 19.9px 19.9px 10px -20px rgba(179, 179, 179, 0.5),
-        inset -19.9px -19.9px 10px -20px rgba(179, 179, 179, 0.5),
-        inset 0 0 0 10px rgba(153, 153, 153, 0.4),
-        0 0 280px rgba(242, 242, 242, 0.5),
-        0 20px 60px rgba(138, 43, 226, 0.6);
+    transform: translateY(-4px) scale(1.02);
+    border-color: rgba(180, 140, 255, 0.5);
+    box-shadow:
+        0 16px 60px rgba(89, 26, 219, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15);
 }
 
 .glass-button:active {
@@ -301,24 +308,24 @@
 
 /* Button Icon */
 .button-icon {
-    width: 58px;
-    height: 58px;
+    width: 36px;
+    height: 36px;
     flex-shrink: 0;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
+    filter: drop-shadow(0 0 8px rgba(200, 170, 255, 0.7));
 }
 
 .restart-button .button-icon {
-    width: 72px;
-    height: 72px;
+    width: 44px;
+    height: 44px;
 }
 
 /* Button Text */
 .glass-button span {
     font-family: 'General Sans', sans-serif;
-    font-size: 32px;
+    font-size: 19px;
     font-weight: 600;
     color: #ffffff;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
     white-space: nowrap;
 }
 
@@ -328,11 +335,8 @@
 
 @media (max-width: 1440px) {
     .simsy-result-container {
-        padding: 80px 30px 0;
-    }
-
-    .result-card {
-        margin-left: 60px;
+        padding: 90px 60px 50px;
+        gap: 60px;
     }
 
     .card-frame {
@@ -353,28 +357,16 @@
     }
 
     .action-buttons {
-        margin-right: 80px;
-        gap: 40px;
+        width: 260px;
+        gap: 14px;
     }
 
     .glass-button {
-        min-width: 400px;
-        height: 160px;
-        padding: 35px 50px;
+        height: 84px;
     }
 
     .glass-button span {
-        font-size: 28px;
-    }
-
-    .button-icon {
-        width: 52px;
-        height: 52px;
-    }
-
-    .restart-button .button-icon {
-        width: 64px;
-        height: 64px;
+        font-size: 17px;
     }
 }
 
@@ -383,12 +375,7 @@
         flex-direction: column;
         align-items: center;
         padding: 80px 20px 40px;
-        gap: 50px;
-    }
-
-    .result-card {
-        margin-left: 0;
-        margin-right: 0;
+        gap: 40px;
     }
 
     .card-frame {
@@ -409,41 +396,24 @@
     }
 
     .action-buttons {
-        margin-left: 0;
-        margin-right: 0;
-        gap: 30px;
         width: 100%;
-        max-width: 400px;
-        align-items: center;
+        max-width: 360px;
+        gap: 14px;
     }
 
     .glass-button {
-        min-width: 350px;
-        width: 100%;
-        max-width: 400px;
-        height: 140px;
-        padding: 30px 40px;
+        height: 84px;
     }
 
     .glass-button span {
-        font-size: 24px;
-    }
-
-    .button-icon {
-        width: 45px;
-        height: 45px;
-    }
-
-    .restart-button .button-icon {
-        width: 56px;
-        height: 56px;
+        font-size: 18px;
     }
 }
 
 @media (max-width: 768px) {
     .simsy-result-container {
         padding: 70px 20px 30px;
-        gap: 40px;
+        gap: 32px;
     }
 
     .card-frame {
@@ -469,37 +439,23 @@
     }
 
     .action-buttons {
-        gap: 25px;
-        max-width: 350px;
+        max-width: 340px;
+        gap: 12px;
     }
 
     .glass-button {
-        min-width: unset;
-        width: 100%;
-        height: 120px;
-        padding: 25px 30px;
-        gap: 15px;
+        height: 78px;
     }
 
     .glass-button span {
-        font-size: 20px;
-    }
-
-    .button-icon {
-        width: 40px;
-        height: 40px;
-    }
-
-    .restart-button .button-icon {
-        width: 50px;
-        height: 50px;
+        font-size: 17px;
     }
 }
 
 @media (max-width: 640px) {
     .simsy-result-container {
         padding: 70px 15px 25px;
-        gap: 35px;
+        gap: 28px;
     }
 
     .card-frame {
@@ -525,31 +481,16 @@
     }
 
     .action-buttons {
-        gap: 20px;
-        max-width: 320px;
+        max-width: 310px;
+        gap: 12px;
     }
 
     .glass-button {
-        min-width: unset;
-        width: 100%;
-        height: 110px;
-        padding: 20px 25px;
-        gap: 12px;
-        border-radius: 150px;
+        height: 74px;
     }
 
     .glass-button span {
-        font-size: 18px;
-    }
-
-    .button-icon {
-        width: 38px;
-        height: 38px;
-    }
-
-    .restart-button .button-icon {
-        width: 48px;
-        height: 48px;
+        font-size: 16px;
     }
 }
 
@@ -857,4 +798,269 @@
     footer {
         display: none !important;
     }
+}
+
+/* ============================================================
+   NEW SIMSY CARD — Figma node 426:118837
+   ============================================================ */
+
+/* ── Card Shell ─────────────────────────────────────────── */
+.simsy-card {
+    position: relative;
+    width: 370px;
+    min-height: 660px;
+    flex-shrink: 0;
+    background: linear-gradient(180deg, #000000 0%, #0a001f 45%, #160838 70%, #27135e 100%);
+    border-radius: 28px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow:
+        0 0 80px rgba(89, 26, 219, 0.35),
+        0 0 200px rgba(89, 26, 219, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* ── Background Decorative Shapes (Figma: Exclude/MaskGroup) ── */
+.sc-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.sc-shape {
+    position: absolute;
+    pointer-events: none;
+    display: block;
+}
+
+.sc-shape-top {
+    top: -2%;
+    left: -4%;
+    width: 108%;
+    opacity: 0.95;
+}
+
+.sc-shape-mid {
+    top: 33%;
+    left: 48%;
+    width: 90%;
+    opacity: 0.55;
+}
+
+.sc-shape-bottom {
+    bottom: -2%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    opacity: 0.85;
+}
+
+.sc-blur-center {
+    position: absolute;
+    top: 36%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65%;
+    height: 22%;
+    background: #000;
+    filter: blur(55px);
+    border-radius: 50%;
+    opacity: 0.65;
+}
+
+/* ── Logo (Figma: Artboard 1 5) ────────────────────────── */
+.sc-logo-wrap {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 28px;
+    height: 100px;
+    flex-shrink: 0;
+}
+
+.sc-logo {
+    width: 38%;
+    object-fit: contain;
+    object-position: center;
+}
+
+/* ── Level Badge (Figma: Rectangle glass pill + ดีเลิศ) ── */
+.sc-badge {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 100px;
+    padding: 7px 28px;
+    box-shadow: inset 2px 4px 2px 0 rgba(255, 255, 255, 0.25);
+    margin-top: -8px;
+    flex-shrink: 0;
+}
+
+.sc-badge-text {
+    font-family: 'General Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: 0.06em;
+}
+
+/* ── Slip Sub-label (เซียมซีใบที่) ─────────────────────── */
+.sc-sub-label {
+    position: relative;
+    z-index: 2;
+    font-family: 'General Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 14px 0 0;
+    flex-shrink: 0;
+}
+
+/* ── Large Number (Figma: Component5 vector "01") ─────── */
+.sc-number {
+    position: relative;
+    z-index: 2;
+    font-family: 'General Sans', sans-serif;
+    font-size: 90px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-shadow:
+        0 0 40px rgba(210, 188, 255, 0.9),
+        0 0 80px rgba(138, 43, 226, 0.65),
+        0 0 120px rgba(89, 26, 219, 0.4);
+    flex-shrink: 0;
+}
+
+/* ── Poem (Figma: Component4 — large centered Thai text) ─ */
+.sc-poem {
+    position: relative;
+    z-index: 2;
+    font-family: 'General Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #ffffff;
+    text-align: center;
+    line-height: 1.85;
+    padding: 16px 24px 8px;
+    margin: 0;
+    flex: 1;
+    min-height: 0;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* ── Meaning Section (Figma: Rectangle2 label + Rectangle1 box + Component3 text) ── */
+.sc-meaning-section {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 8px 18px 26px;
+    flex-shrink: 0;
+}
+
+/* Header row: right-aligned glass pill (Figma: Rectangle2 + Component) */
+.sc-meaning-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 8px;
+    padding-right: 2px;
+}
+
+.sc-meaning-pill {
+    font-family: 'General Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: 0.05em;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 100px;
+    padding: 5px 20px;
+    box-shadow:
+        inset 2px 4px 2px 0 rgba(255, 255, 255, 0.25),
+        inset -1px -1px 1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.sc-meaning-box {
+    background: rgba(0, 0, 0, 0.20);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 14px 16px;
+}
+
+.sc-meaning-text {
+    font-family: 'General Sans', sans-serif;
+    font-size: 13.5px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.80);
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* ── Capture mode override for share/screenshot ─────────── */
+.result-card.capture-mode .simsy-card {
+    animation: none !important;
+}
+
+/* ── Responsive — simsy-card ────────────────────────────── */
+@media (max-width: 1440px) {
+    .simsy-card { width: 340px; min-height: 630px; }
+    .sc-number  { font-size: 82px; }
+    .sc-poem    { font-size: 19px; }
+}
+
+@media (max-width: 1100px) {
+    .simsy-card { width: 310px; min-height: 600px; }
+    .sc-number  { font-size: 74px; }
+    .sc-poem    { font-size: 17px; }
+    .sc-meaning-text { font-size: 12.5px; }
+}
+
+@media (max-width: 1024px) {
+    .simsy-card {
+        width: min(360px, 90vw);
+        min-height: 630px;
+    }
+    .sc-number { font-size: 82px; }
+    .sc-poem   { font-size: 19px; }
+}
+
+@media (max-width: 768px) {
+    .simsy-card {
+        width: min(380px, 92vw);
+        min-height: 620px;
+    }
+    .sc-logo-wrap { height: 88px; }
+    .sc-number { font-size: 78px; }
+    .sc-poem   { font-size: 19px; }
+}
+
+@media (max-width: 480px) {
+    .simsy-card {
+        width: min(360px, 94vw);
+        min-height: 600px;
+        border-radius: 22px;
+    }
+    .sc-logo-wrap { height: 80px; }
+    .sc-logo { width: 42%; }
+    .sc-number { font-size: 70px; }
+    .sc-poem { font-size: 17px; padding: 14px 20px 6px; }
+    .sc-meaning-section { padding: 6px 14px 22px; }
+    .sc-meaning-text { font-size: 12px; }
+}
+
+@media (max-width: 390px) {
+    .simsy-card { width: 92vw; min-height: 560px; border-radius: 18px; }
+    .sc-number { font-size: 62px; }
+    .sc-poem   { font-size: 15px; padding: 10px 16px 4px; }
+    .sc-meaning-text { font-size: 11.5px; }
 }

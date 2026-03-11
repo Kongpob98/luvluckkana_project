@@ -16,6 +16,7 @@
     { "source": "/numerology.html", "destination": "/pages/numerology.html" },
     { "source": "/blog.html", "destination": "/pages/blog.html" },
     { "source": "/colors.html", "destination": "/pages/colors.html" },
-    { "source": "/about.html", "destination": "/pages/about.html" }
+    { "source": "/about.html", "destination": "/pages/about.html" },
+    { "source": "/fortune-boost.html", "destination": "/pages/fortune-boost.html" }
   ]
 }
