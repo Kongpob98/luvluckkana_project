@@ -1330,30 +1330,14 @@
     top: 50%;
     width: 380px;
     height: 500px;
-    background: linear-gradient(135deg, 
-        rgba(255, 105, 180, 0.6) 0%, 
-        rgba(138, 43, 226, 0.6) 50%, 
-        rgba(0, 191, 255, 0.6) 100%);\n    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 24px;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    overflow: hidden;
     cursor: pointer;
     opacity: 1;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
-                0 0 30px rgba(138, 43, 226, 0.3),
-                inset 0 0 50px rgba(255, 255, 255, 0.1);
     z-index: 1;
     transform-origin: center;
+    perspective: 1200px;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
                 opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.3s ease,
-                box-shadow 0.3s ease,
                 z-index 0s;
 }
 
@@ -1403,6 +1387,9 @@
 /* Hover effect only for active card */
 .zodiac-card-item.active:hover {
     transform: translate(-50%, -50%) translateZ(5px) scale(1.02);
+}
+
+.zodiac-card-item.active:hover .card-front {
     border-color: rgba(255, 255, 255, 0.4);
     box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6),
                 0 0 50px rgba(138, 43, 226, 0.5),
@@ -1410,55 +1397,259 @@
 }
 
 /* Color variants for each zodiac - Glass Morphism Style */
-.zodiac-card-item[data-zodiac-id="1"] {
+.zodiac-card-item[data-zodiac-id="1"] .card-front {
+    background: linear-gradient(135deg, rgba(255, 0, 128, 0.7) 0%, rgba(255, 105, 180, 0.7) 50%, rgba(138, 43, 226, 0.7) 100%);
+}
+.zodiac-card-item[data-zodiac-id="1"] .card-back {
     background: linear-gradient(135deg, rgba(255, 0, 128, 0.7) 0%, rgba(255, 105, 180, 0.7) 50%, rgba(138, 43, 226, 0.7) 100%);
 }
 
-.zodiac-card-item[data-zodiac-id="2"] {
+.zodiac-card-item[data-zodiac-id="2"] .card-front {
+    background: linear-gradient(135deg, rgba(255, 179, 186, 0.7) 0%, rgba(255, 223, 186, 0.7) 100%);
+}
+.zodiac-card-item[data-zodiac-id="2"] .card-back {
     background: linear-gradient(135deg, rgba(255, 179, 186, 0.7) 0%, rgba(255, 223, 186, 0.7) 100%);
 }
 
-.zodiac-card-item[data-zodiac-id="3"] {
+.zodiac-card-item[data-zodiac-id="3"] .card-front {
+    background: linear-gradient(135deg, rgba(34, 193, 195, 0.7) 0%, rgba(45, 253, 211, 0.7) 100%);
+}
+.zodiac-card-item[data-zodiac-id="3"] .card-back {
     background: linear-gradient(135deg, rgba(34, 193, 195, 0.7) 0%, rgba(45, 253, 211, 0.7) 100%);
 }
 
-.zodiac-card-item[data-zodiac-id="4"] {
+.zodiac-card-item[data-zodiac-id="4"] .card-front {
+    background: linear-gradient(135deg, rgba(167, 112, 239, 0.7) 0%, rgba(207, 159, 255, 0.7) 100%);
+}
+.zodiac-card-item[data-zodiac-id="4"] .card-back {
     background: linear-gradient(135deg, rgba(167, 112, 239, 0.7) 0%, rgba(207, 159, 255, 0.7) 100%);
 }
 
-.zodiac-card-item[data-zodiac-id="5"] {
+.zodiac-card-item[data-zodiac-id="5"] .card-front {
+    background: linear-gradient(135deg, rgba(255, 140, 0, 0.7) 0%, rgba(255, 200, 124, 0.7) 100%);
+}
+.zodiac-card-item[data-zodiac-id="5"] .card-back {
     background: linear-gradient(135deg, rgba(255, 140, 0, 0.7) 0%, rgba(255, 200, 124, 0.7) 100%);
 }
 
-.zodiac-card-item[data-zodiac-id="6"] {
+.zodiac-card-item[data-zodiac-id="6"] .card-front {
+    background: linear-gradient(135deg, rgba(252, 203, 144, 0.7) 0%, rgba(213, 126, 235, 0.7) 100%);
+}
+.zodiac-card-item[data-zodiac-id="6"] .card-back {
     background: linear-gradient(135deg, rgba(252, 203, 144, 0.7) 0%, rgba(213, 126, 235, 0.7) 100%);
 }
 
-.zodiac-card-item[data-zodiac-id="7"] {
+.zodiac-card-item[data-zodiac-id="7"] .card-front {
+    background: linear-gradient(135deg, rgba(255, 192, 203, 0.7) 0%, rgba(255, 182, 193, 0.7) 100%);
+}
+.zodiac-card-item[data-zodiac-id="7"] .card-back {
     background: linear-gradient(135deg, rgba(255, 192, 203, 0.7) 0%, rgba(255, 182, 193, 0.7) 100%);
 }
 
-.zodiac-card-item[data-zodiac-id="8"] {
+.zodiac-card-item[data-zodiac-id="8"] .card-front {
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.7) 0%, rgba(152, 125, 255, 0.7) 100%);
+}
+.zodiac-card-item[data-zodiac-id="8"] .card-back {
     background: linear-gradient(135deg, rgba(108, 92, 231, 0.7) 0%, rgba(152, 125, 255, 0.7) 100%);
 }
 
-.zodiac-card-item[data-zodiac-id="9"] {
+.zodiac-card-item[data-zodiac-id="9"] .card-front {
+    background: linear-gradient(135deg, rgba(255, 128, 8, 0.7) 0%, rgba(255, 200, 55, 0.7) 100%);
+}
+.zodiac-card-item[data-zodiac-id="9"] .card-back {
     background: linear-gradient(135deg, rgba(255, 128, 8, 0.7) 0%, rgba(255, 200, 55, 0.7) 100%);
 }
 
-.zodiac-card-item[data-zodiac-id="10"] {
+.zodiac-card-item[data-zodiac-id="10"] .card-front {
+    background: linear-gradient(135deg, rgba(0, 150, 255, 0.7) 0%, rgba(100, 200, 255, 0.7) 100%);
+}
+.zodiac-card-item[data-zodiac-id="10"] .card-back {
     background: linear-gradient(135deg, rgba(0, 150, 255, 0.7) 0%, rgba(100, 200, 255, 0.7) 100%);
 }
 
-.zodiac-card-item[data-zodiac-id="11"] {
+.zodiac-card-item[data-zodiac-id="11"] .card-front {
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.7) 0%, rgba(255, 154, 158, 0.7) 100%);
+}
+.zodiac-card-item[data-zodiac-id="11"] .card-back {
     background: linear-gradient(135deg, rgba(255, 0, 0, 0.7) 0%, rgba(255, 154, 158, 0.7) 100%);
 }
 
-.zodiac-card-item[data-zodiac-id="12"] {
+.zodiac-card-item[data-zodiac-id="12"] .card-front {
+    background: linear-gradient(135deg, rgba(255, 0, 255, 0.7) 0%, rgba(200, 0, 255, 0.7) 100%);
+}
+.zodiac-card-item[data-zodiac-id="12"] .card-back {
     background: linear-gradient(135deg, rgba(255, 0, 255, 0.7) 0%, rgba(200, 0, 255, 0.7) 100%);
 }
 
 /* Stagger animation delay - DISABLED */
+
+/* ===== Card Flip (Inner / Front / Back) ===== */
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
+    border-radius: 24px;
+    will-change: transform;
+}
+
+.card-inner.is-flipped {
+    transform: rotateY(180deg);
+}
+
+/* Both faces: stacked absolutely, hidden when facing away */
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    border-radius: 24px;
+    overflow: hidden;
+    will-change: transform;
+}
+
+/* Front face */
+.card-front {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: linear-gradient(135deg, 
+        rgba(255, 105, 180, 0.6) 0%, 
+        rgba(138, 43, 226, 0.6) 50%, 
+        rgba(0, 191, 255, 0.6) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(138, 43, 226, 0.3),
+                inset 0 0 50px rgba(255, 255, 255, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Back face: pre-rotated so it starts hidden */
+.card-back {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    transform: rotateY(180deg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(138, 43, 226, 0.3),
+                inset 0 0 50px rgba(255, 255, 255, 0.12);
+}
+
+.card-back-content {
+    padding: 32px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.card-back-content::-webkit-scrollbar {
+    display: none;
+}
+
+.card-back-symbol {
+    font-size: 52px;
+    line-height: 1;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 2px 12px rgba(255,255,255,0.5));
+}
+
+.card-back-name {
+    font-family: 'General Sans', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 4px;
+    text-align: center;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.card-back-dates {
+    font-family: 'General Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.card-back-divider {
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%);
+    margin-bottom: 18px;
+}
+
+.card-back-info {
+    flex: 1;
+    width: 100%;
+    overflow-y: auto;
+    padding-right: 4px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.card-back-info::-webkit-scrollbar {
+    display: none;
+}
+
+.card-back-description {
+    font-family: 'General Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.93);
+    margin: 0;
+    text-align: center;
+    line-height: 1.8;
+}
+
+.flip-back-btn {
+    margin-top: 18px;
+    padding: 11px 30px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    border-radius: 12px;
+    color: #ffffff;
+    font-family: 'General Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    pointer-events: auto;
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.flip-back-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.flip-back-btn:active {
+    transform: translateY(0);
+}
 
 /* Card Image Container */
 .zodiac-card-image {
