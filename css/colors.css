@@ -11,20 +11,15 @@ html {
 /* Body Background - Always Black */
 body.colors-page {
     background-color: #000000 !important;
-    overflow-y: auto;
     overflow-x: hidden;
-    height: 100vh;
 }
 
-/* Create scrollable height (9 sections x 100vh) */
+/* Create scrollable height (9 sections x 100vh) — must be in normal flow */
 body.colors-page::after {
     content: '';
     display: block;
     height: 900vh;
     width: 1px;
-    position: absolute;
-    top: 0;
-    left: 0;
     pointer-events: none;
     opacity: 0;
 }
