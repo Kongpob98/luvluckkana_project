@@ -86,8 +86,8 @@ body.colors-page::after {
 }
 
 .intro-title {
-    font-family: 'Noto Sans Thai', 'General Sans', sans-serif;
-    font-size: 72px;
+    font-family: 'Noto Sans Thai', 'DB Heavent Cond', sans-serif;
+    font-size: 90px;
     font-weight: 700;
     color: white;
     margin-bottom: 24px;
@@ -96,8 +96,8 @@ body.colors-page::after {
 }
 
 .intro-subtitle {
-    font-family: 'Noto Sans Thai', 'General Sans', sans-serif;
-    font-size: 24px;
+    font-family: 'Noto Sans Thai', 'DB Heavent Cond', sans-serif;
+    font-size: 30px;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.85);
     line-height: 1.6;
@@ -114,8 +114,8 @@ body.colors-page::after {
     align-items: center;
     gap: 12px;
     color: rgba(255, 255, 255, 0.6);
-    font-family: 'General Sans', sans-serif;
-    font-size: 14px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 18px;
     letter-spacing: 2px;
     text-transform: uppercase;
     animation: fadeInBounce 2s ease infinite;
@@ -223,8 +223,8 @@ body.colors-page::after {
 }
 
 .color-title {
-    font-family: 'Noto Sans Thai', 'General Sans', sans-serif;
-    font-size: 64px;
+    font-family: 'Noto Sans Thai', 'DB Heavent Cond', sans-serif;
+    font-size: 80px;
     font-weight: 700;
     margin-bottom: 16px;
     line-height: 1.1;
@@ -232,16 +232,16 @@ body.colors-page::after {
 }
 
 .color-subtitle {
-    font-family: 'Noto Sans Thai', 'General Sans', sans-serif;
-    font-size: 24px;
+    font-family: 'Noto Sans Thai', 'DB Heavent Cond', sans-serif;
+    font-size: 30px;
     font-weight: 400;
     margin-bottom: 24px;
     opacity: 0.9;
 }
 
 .color-description {
-    font-family: 'Noto Sans Thai', 'General Sans', sans-serif;
-    font-size: 18px;
+    font-family: 'Noto Sans Thai', 'DB Heavent Cond', sans-serif;
+    font-size: 22px;
     line-height: 1.8;
     margin-bottom: 24px;
     opacity: 0.85;
@@ -257,11 +257,11 @@ body.colors-page::after {
 }
 
 .color-benefits {
-    font-family: 'Noto Sans Thai', 'General Sans', sans-serif;
+    font-family: 'Noto Sans Thai', 'DB Heavent Cond', sans-serif;
 }
 
 .color-benefits h3 {
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 600;
     margin-bottom: 12px;
     opacity: 0.95;
@@ -274,7 +274,7 @@ body.colors-page::after {
 }
 
 .color-benefits li {
-    font-size: 16px;
+    font-size: 20px;
     padding: 6px 0;
     padding-left: 20px;
     position: relative;
@@ -289,7 +289,7 @@ body.colors-page::after {
 }
 
 .color-note {
-    font-size: 16px;
+    font-size: 20px;
     font-style: italic;
     opacity: 0.7;
     margin-top: 16px;
@@ -408,11 +408,11 @@ body.bg-pink {
     }
 
     .intro-title {
-        font-size: 72px;
+        font-size: 90px;
     }
 
     .intro-subtitle {
-        font-size: 28px;
+        font-size: 35px;
     }
 
     .color-section {
@@ -425,7 +425,7 @@ body.bg-pink {
     }
 
     .color-title {
-        font-size: 72px;
+        font-size: 90px;
     }
 
     .color-body {
@@ -434,15 +434,15 @@ body.bg-pink {
     }
 
     .color-title {
-        font-size: 72px;
+        font-size: 90px;
     }
 
     .color-subtitle {
-        font-size: 28px;
+        font-size: 35px;
     }
 
     .color-description {
-        font-size: 18px;
+        font-size: 22px;
     }
 
     .color-visual {
@@ -456,11 +456,11 @@ body.bg-pink {
     }
 
     .intro-title {
-        font-size: 56px;
+        font-size: 70px;
     }
 
     .intro-subtitle {
-        font-size: 24px;
+        font-size: 30px;
     }
 
     .color-section {
@@ -472,23 +472,23 @@ body.bg-pink {
     }
 
     .color-title {
-        font-size: 56px;
+        font-size: 70px;
     }
 
     .color-subtitle {
-        font-size: 24px;
+        font-size: 30px;
     }
 
     .color-description {
-        font-size: 16px;
-    }
-
-    .color-benefits h3 {
         font-size: 20px;
     }
 
+    .color-benefits h3 {
+        font-size: 25px;
+    }
+
     .color-benefits li {
-        font-size: 16px;
+        font-size: 20px;
     }
 
     .color-visual {
@@ -502,11 +502,11 @@ body.bg-pink {
     }
 
     .intro-title {
-        font-size: 42px;
+        font-size: 52px;
     }
 
     .intro-subtitle {
-        font-size: 20px;
+        font-size: 25px;
     }
 
     .color-section {
@@ -514,15 +514,15 @@ body.bg-pink {
     }
 
     .color-title {
-        font-size: 42px;
+        font-size: 52px;
     }
 
     .color-subtitle {
-        font-size: 20px;
+        font-size: 25px;
     }
 
     .color-description {
-        font-size: 15px;
+        font-size: 19px;
         line-height: 1.6;
     }
 

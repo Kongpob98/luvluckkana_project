@@ -185,8 +185,8 @@
 .result-number {
     position: relative;
     z-index: 10;
-    font-family: 'General Sans', sans-serif;
-    font-size: 180px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 225px;
     font-weight: 700;
     color: #ffffff;
     text-shadow: 
@@ -221,8 +221,8 @@
 }
 
 .action-heading {
-    font-family: 'General Sans', sans-serif;
-    font-size: 11px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 14px;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.38);
     letter-spacing: 0.16em;
@@ -321,8 +321,8 @@
 
 /* Button Text */
 .glass-button span {
-    font-family: 'General Sans', sans-serif;
-    font-size: 19px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 24px;
     font-weight: 600;
     color: #ffffff;
     text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
@@ -345,7 +345,7 @@
     }
 
     .result-number {
-        font-size: 150px;
+        font-size: 188px;
     }
 
     .decor-bg {
@@ -366,7 +366,7 @@
     }
 
     .glass-button span {
-        font-size: 17px;
+        font-size: 21px;
     }
 }
 
@@ -384,7 +384,7 @@
     }
 
     .result-number {
-        font-size: 120px;
+        font-size: 150px;
     }
 
     .decor-bg {
@@ -406,7 +406,7 @@
     }
 
     .glass-button span {
-        font-size: 18px;
+        font-size: 22px;
     }
 }
 
@@ -422,7 +422,7 @@
     }
 
     .result-number {
-        font-size: 100px;
+        font-size: 125px;
     }
 
     .decor-bg {
@@ -448,7 +448,7 @@
     }
 
     .glass-button span {
-        font-size: 17px;
+        font-size: 21px;
     }
 }
 
@@ -464,7 +464,7 @@
     }
 
     .result-number {
-        font-size: 90px;
+        font-size: 112px;
     }
 
     .decor-bg {
@@ -490,7 +490,7 @@
     }
 
     .glass-button span {
-        font-size: 16px;
+        font-size: 20px;
     }
 }
 
@@ -506,7 +506,7 @@
     }
 
     .result-number {
-        font-size: 75px;
+        font-size: 94px;
     }
 
     .decor-bg {
@@ -535,7 +535,7 @@
     }
 
     .glass-button span {
-        font-size: 16px;
+        font-size: 20px;
     }
 
     .button-icon {
@@ -561,7 +561,7 @@
     }
 
     .result-number {
-        font-size: 65px;
+        font-size: 81px;
     }
 
     .decor-bg {
@@ -590,7 +590,7 @@
     }
 
     .glass-button span {
-        font-size: 15px;
+        font-size: 19px;
     }
 
     .button-icon {
@@ -615,7 +615,7 @@
     }
 
     .result-number {
-        font-size: 60px;
+        font-size: 75px;
     }
 
     .decor-bg {
@@ -637,7 +637,7 @@
     }
 
     .glass-button span {
-        font-size: 14px;
+        font-size: 18px;
     }
 }
 
@@ -736,7 +736,7 @@
     }
     
     .result-number {
-        font-size: 60px;
+        font-size: 75px;
     }
     
     .decor-bg {
@@ -764,7 +764,7 @@
     }
     
     .glass-button span {
-        font-size: 14px;
+        font-size: 18px;
     }
     
     .button-icon {
@@ -904,8 +904,8 @@
 }
 
 .sc-badge-text {
-    font-family: 'General Sans', sans-serif;
-    font-size: 13px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 16px;
     font-weight: 500;
     color: #ffffff;
     letter-spacing: 0.06em;
@@ -915,8 +915,8 @@
 .sc-sub-label {
     position: relative;
     z-index: 2;
-    font-family: 'General Sans', sans-serif;
-    font-size: 14px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 18px;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.7);
     margin: 14px 0 0;
@@ -927,8 +927,8 @@
 .sc-number {
     position: relative;
     z-index: 2;
-    font-family: 'General Sans', sans-serif;
-    font-size: 90px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 112px;
     font-weight: 700;
     color: #ffffff;
     line-height: 1;
@@ -945,8 +945,8 @@
 .sc-poem {
     position: relative;
     z-index: 2;
-    font-family: 'General Sans', sans-serif;
-    font-size: 20px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 25px;
     font-weight: 500;
     color: #ffffff;
     text-align: center;
@@ -977,8 +977,8 @@
 }
 
 .sc-meaning-pill {
-    font-family: 'General Sans', sans-serif;
-    font-size: 12px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 15px;
     font-weight: 500;
     color: #ffffff;
     letter-spacing: 0.05em;
@@ -998,8 +998,8 @@
 }
 
 .sc-meaning-text {
-    font-family: 'General Sans', sans-serif;
-    font-size: 13.5px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 17px;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.80);
     line-height: 1.8;
@@ -1011,18 +1011,32 @@
     animation: none !important;
 }
 
+/* sc-capture: replace backdrop-filter with solid fallbacks so html-to-image can render correctly */
+.sc-capture .sc-badge,
+.sc-capture .sc-meaning-pill {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(60, 30, 120, 0.75) !important;
+}
+
+.sc-capture .sc-meaning-box {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(0, 0, 0, 0.55) !important;
+}
+
 /* ── Responsive — simsy-card ────────────────────────────── */
 @media (max-width: 1440px) {
     .simsy-card { width: 340px; min-height: 630px; }
-    .sc-number  { font-size: 82px; }
-    .sc-poem    { font-size: 19px; }
+    .sc-number  { font-size: 102px; }
+    .sc-poem    { font-size: 24px; }
 }
 
 @media (max-width: 1100px) {
     .simsy-card { width: 310px; min-height: 600px; }
-    .sc-number  { font-size: 74px; }
-    .sc-poem    { font-size: 17px; }
-    .sc-meaning-text { font-size: 12.5px; }
+    .sc-number  { font-size: 92px; }
+    .sc-poem    { font-size: 21px; }
+    .sc-meaning-text { font-size: 16px; }
 }
 
 @media (max-width: 1024px) {
@@ -1030,8 +1044,8 @@
         width: min(360px, 90vw);
         min-height: 630px;
     }
-    .sc-number { font-size: 82px; }
-    .sc-poem   { font-size: 19px; }
+    .sc-number { font-size: 102px; }
+    .sc-poem   { font-size: 24px; }
 }
 
 @media (max-width: 768px) {
@@ -1040,8 +1054,8 @@
         min-height: 620px;
     }
     .sc-logo-wrap { height: 88px; }
-    .sc-number { font-size: 78px; }
-    .sc-poem   { font-size: 19px; }
+    .sc-number { font-size: 98px; }
+    .sc-poem   { font-size: 24px; }
 }
 
 @media (max-width: 480px) {
@@ -1052,15 +1066,15 @@
     }
     .sc-logo-wrap { height: 80px; }
     .sc-logo { width: 42%; }
-    .sc-number { font-size: 70px; }
-    .sc-poem { font-size: 17px; padding: 14px 20px 6px; }
+    .sc-number { font-size: 88px; }
+    .sc-poem { font-size: 21px; padding: 14px 20px 6px; }
     .sc-meaning-section { padding: 6px 14px 22px; }
-    .sc-meaning-text { font-size: 12px; }
+    .sc-meaning-text { font-size: 15px; }
 }
 
 @media (max-width: 390px) {
     .simsy-card { width: 92vw; min-height: 560px; border-radius: 18px; }
-    .sc-number { font-size: 62px; }
-    .sc-poem   { font-size: 15px; padding: 10px 16px 4px; }
-    .sc-meaning-text { font-size: 11.5px; }
+    .sc-number { font-size: 78px; }
+    .sc-poem   { font-size: 19px; padding: 10px 16px 4px; }
+    .sc-meaning-text { font-size: 14px; }
 }

@@ -2,6 +2,36 @@
    COMMON STYLES - ใช้ร่วมกันทุกหน้า
    ========================================== */
 
+/* DB Heavent Cond Font */
+@font-face {
+    font-family: 'DB Heavent Cond';
+    src: url('../assets/fonts/DB Heavent Cond v3.2.1.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'DB Heavent Cond';
+    src: url('../assets/fonts/DB Heavent Cond It v3.2.1.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'DB Heavent Cond';
+    src: url('../assets/fonts/DB Heavent Bd Cond v3.2.1.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'DB Heavent Cond';
+    src: url('../assets/fonts/DB Heavent Bd Cond It v3.2.1.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -22,17 +52,17 @@
     --color-ai-message: rgba(100, 50, 200, 0.2);
     
     /* Typography from Figma */
-    --font-primary: 'General Sans', sans-serif;
-    --font-heading: 'FC Minimal', sans-serif;
-    --font-size-nav: 24px;
-    --font-size-cta: 24px;
-    --font-size-footer: 32px;
-    --font-size-detail: 24px;
-    --font-size-intro-main: 36px;
-    --font-size-intro-sub: 36px;
-    --font-size-suggestion: 20px;
-    --font-size-chat-input: 24px;
-    --font-size-message: 16px;
+    --font-primary: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
+    --font-heading: 'DB Heavent Cond', 'FC Minimal', sans-serif;
+    --font-size-nav: 28px;
+    --font-size-cta: 28px;
+    --font-size-footer: 36px;
+    --font-size-detail: 28px;
+    --font-size-intro-main: 42px;
+    --font-size-intro-sub: 42px;
+    --font-size-suggestion: 24px;
+    --font-size-chat-input: 28px;
+    --font-size-message: 20px;
     
     /* Spacing from Figma Layout */
     --spacing-xs: 8px;
@@ -53,6 +83,7 @@
 
 html {
     overflow-x: hidden;
+    font-size: 150%; /* ขยายทุก rem/em 50% (16px → 24px base) */
 }
 
 body {

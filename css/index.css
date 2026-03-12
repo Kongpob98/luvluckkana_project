@@ -498,8 +498,8 @@
     position: relative;
     overflow: hidden;
     /* Typography: DB Helvethaica X / General Sans, 20px */
-    font-family: 'General Sans', 'DB Helvethaica X', sans-serif;
-    font-size: 18px;
+    font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
+    font-size: 22px;
     font-weight: 500;
     color: #ffffff;
     letter-spacing: 0.01em;
@@ -602,7 +602,7 @@
     .hero-cta-button {
         width: 170px;
         height: 46px;
-        font-size: 16px;
+        font-size: 20px;
     }
     .hero-elements-wrapper {
         width: 100vw;
@@ -862,8 +862,8 @@ body {
 }
 
 .social-link span {
-    font-family: 'General Sans', sans-serif;
-    font-size: 24px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 30px;
     font-weight: 500;
     color: black;
     white-space: nowrap;
@@ -932,8 +932,8 @@ body {
 }
 
 .thesis-badge p {
-    font-family: 'General Sans', sans-serif;
-    font-size: 24px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 30px;
     color: black;
     margin: 0;
     white-space: nowrap;
@@ -966,8 +966,8 @@ body {
 }
 
 .intro-text {
-    font-family: 'General Sans', sans-serif;
-    font-size: 24px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 30px;
     color: black;
     line-height: normal;
     margin-bottom: 16px;
@@ -978,8 +978,8 @@ body {
 }
 
 .description-text {
-    font-family: 'General Sans', sans-serif;
-    font-size: 24px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 30px;
     color: black;
     line-height: normal;
     margin-bottom: 16px;
@@ -1080,7 +1080,7 @@ body {
     }
     
     .social-link span {
-        font-size: 18px;
+        font-size: 22px;
     }
     
     .about-content-wrapper {
@@ -1098,7 +1098,7 @@ body {
     }
     
     .thesis-badge p {
-        font-size: 18px;
+        font-size: 22px;
     }
     
     .about-content-left,
@@ -1117,7 +1117,7 @@ body {
     
     .intro-text,
     .description-text {
-        font-size: 18px;
+        font-size: 22px;
         line-height: 1.4;
     }
     
@@ -1133,7 +1133,7 @@ body {
     }
     
     .cta-button {
-        font-size: 18px;
+        font-size: 22px;
         padding: 12px 30px;
     }
     
@@ -1227,8 +1227,8 @@ body {
 }
 
 .universe-title {
-    font-family: 'General Sans', sans-serif;
-    font-size: 72px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 90px;
     font-weight: 600;
     margin: 0 0 40px 0;
     line-height: 1.2;
@@ -1260,8 +1260,8 @@ body {
 }
 
 .universe-description {
-    font-family: 'General Sans', sans-serif;
-    font-size: 24px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 30px;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.85);
     max-width: 900px;
@@ -1282,7 +1282,7 @@ body {
 
 .floating-star {
     position: absolute;
-    font-size: 32px;
+    font-size: 40px;
     color: rgba(220, 38, 255, 0.6);
     text-shadow: 0 0 20px rgba(220, 38, 255, 0.8);
     animation: floatingStar 6s ease-in-out infinite;
@@ -1396,16 +1396,16 @@ body {
     }
 
     .universe-title {
-        font-size: 56px;
+        font-size: 70px;
     }
 
     .universe-description {
-        font-size: 20px;
+        font-size: 25px;
         max-width: 700px;
     }
 
     .floating-star {
-        font-size: 24px;
+        font-size: 30px;
     }
 }
 
@@ -1415,16 +1415,16 @@ body {
     }
 
     .universe-title {
-        font-size: 42px;
+        font-size: 52px;
     }
 
     .universe-description {
-        font-size: 18px;
+        font-size: 22px;
         max-width: 500px;
     }
 
     .floating-star {
-        font-size: 20px;
+        font-size: 25px;
     }
 }
 
@@ -1434,16 +1434,16 @@ body {
     }
 
     .universe-title {
-        font-size: 32px;
+        font-size: 40px;
     }
 
     .universe-description {
-        font-size: 16px;
+        font-size: 20px;
         max-width: 100%;
     }
 
     .floating-star {
-        font-size: 16px;
+        font-size: 20px;
     }
 }
 
@@ -1543,7 +1543,7 @@ body {
 /* ─── Heading ─── */
 /* Figma: Inter SemiBold 53.7px, line-height 61.6px, gradient white */
 .detail-heading {
-    font-family: 'Inter', 'General Sans', sans-serif;
+    font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
     font-size: clamp(20px, 2.8vw, 42px);
     font-weight: 600;
     line-height: 1.147;
@@ -1565,7 +1565,7 @@ body {
 /* ─── Description ─── */
 /* Figma: DB Helvethaica X 32px, color white, 692×228 */
 .detail-description {
-    font-family: 'DB Helvethaica X', 'General Sans', sans-serif;
+    font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
     font-size: clamp(13px, 1.6vw, 24px);
     font-weight: 400;
     line-height: 1.5;
@@ -1585,8 +1585,8 @@ body {
     height: 48px;
     border-radius: 200px;
     background: linear-gradient(17.4deg, #FF7AFB 0%, #7C2BFE 100%);
-    font-family: 'Inter', 'General Sans', sans-serif;
-    font-size: 16px;
+    font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
+    font-size: 20px;
     font-weight: 500;
     color: #ffffff;
     text-decoration: none;
@@ -1666,14 +1666,14 @@ body {
 @media (max-width: 480px) {
     .detail-content   { padding: 40px 20px; }
     .detail-heading   { font-size: clamp(20px, 7vw, 28px); }
-    .detail-description { font-size: 15px; }
-    .detail-cta-button { width: 110px; height: 44px; font-size: 14px; }
+    .detail-description { font-size: 19px; }
+    .detail-cta-button { width: 110px; height: 44px; font-size: 18px; }
 }
 
 /* Very small (375px) */
 @media (max-width: 390px) {
-    .detail-heading   { font-size: 20px; }
-    .detail-description { font-size: 14px; }
+    .detail-heading   { font-size: 25px; }
+    .detail-description { font-size: 18px; }
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -1770,7 +1770,7 @@ body {
     z-index: 20;
 }
 .menu-card__title {
-    font-family: 'Sarabun', 'DB Helvethaica X', 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'DB Heavent Cond', 'DB Heavent Cond', 'DB Heavent Cond', -apple-system, BlinkMacSystemFont, sans-serif;
     font-weight: 600;
     color: #fff;
     line-height: 1;
@@ -2268,7 +2268,7 @@ body {
 
 /* Percentage number — gradient white → purple → deep purple (Figma 85%) */
 .sp-percent {
-    font-family: 'General Sans', 'Sarabun', sans-serif;
+    font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
     font-size: clamp(28px, 5vw, 72px);
     font-weight: 400;
     line-height: 1;
@@ -2315,7 +2315,7 @@ body {
 
 /* "Social Proof" title — #b794ff, DB Helvethaica X 65 Med equiv */
 .sp-title {
-    font-family: 'General Sans', 'Sarabun', sans-serif;
+    font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
     font-size: clamp(24px, 5vw, 72px);
     font-weight: 600;
     color: #b794ff;
@@ -2325,7 +2325,7 @@ body {
 
 /* Body paragraph */
 .sp-body p {
-    font-family: 'Sarabun', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
     font-size: clamp(12px, 1.5vw, 22px);
     font-weight: 400;
     color: #fff;
@@ -2335,7 +2335,7 @@ body {
 
 /* Highlighted closing line — larger, semi-bold */
 .sp-highlight {
-    font-family: 'Sarabun', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
     font-weight: 600;
     font-size: clamp(14px, 2vw, 30px) !important;
     margin-top: clamp(12px, 2vh, 24px) !important;

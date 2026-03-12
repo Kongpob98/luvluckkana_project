@@ -64,8 +64,8 @@
     border: 1px solid rgba(255,255,255,0.12);
     border-radius: 40px;
     padding: 6px 24px;
-    font-family: 'General Sans', sans-serif;
-    font-size: 14px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 18px;
     font-weight: 600;
     color: rgba(210,188,255,0.9);
     letter-spacing: 0.1em;
@@ -73,7 +73,7 @@
     margin-bottom: 18px;
 }
 .fb-hero-title {
-    font-family: 'General Sans', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
     font-size: clamp(28px, 3vw, 42px);
     font-weight: 700;
     color: #fff;
@@ -356,7 +356,7 @@
     justify-content: center;
     text-align: center;
     color: #fff;
-    font-family: 'General Sans', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
     pointer-events: none;
     padding: 8px;
     width: 100%;
@@ -366,25 +366,25 @@
     gap: 2px;
 }
 .sphere-label .line-main {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
     line-height: 1.3;
     color: rgba(255,255,255,0.92);
 }
 .sphere-label .line-vs {
-    font-size: 32px;
+    font-size: 40px;
     font-weight: 700;
     color: #fff;
     line-height: 1;
 }
 .sphere-label .line-sub {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 500;
     color: rgba(255,255,255,0.85);
     line-height: 1.3;
 }
 .sphere-label .line-tool {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 700;
     color: #fff;
 }
@@ -443,8 +443,8 @@
     background: rgba(255,255,255,0.2);
     border-radius: 41px;
     padding: 10px 26px;
-    font-family: 'General Sans', sans-serif;
-    font-size: 18px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 22px;
     font-weight: 600;
     color: #d2bcff;
     box-shadow: inset 0 4px 12px rgba(255,255,255,0.25);
@@ -484,8 +484,8 @@
 }
 
 .topic-section p {
-    font-family: 'Sarabun', 'General Sans', sans-serif;
-    font-size: 17px;
+    font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
+    font-size: 21px;
     font-weight: 400;
     line-height: 1.85;
     color: rgba(255,255,255,0.88);
@@ -498,7 +498,7 @@
 }
 
 .topic-section .topic-ref {
-    font-size: 13px;
+    font-size: 16px;
     color: rgba(210,188,255,0.55);
 }
 
@@ -514,8 +514,8 @@
     border-top: 1px solid rgba(210,188,255,0.15);
 }
 .topic-sources h4 {
-    font-family: 'General Sans', sans-serif;
-    font-size: 14px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 18px;
     font-weight: 600;
     color: rgba(210,188,255,0.6);
     margin-bottom: 12px;
@@ -528,8 +528,8 @@
     margin: 0;
 }
 .topic-sources li {
-    font-family: 'General Sans', sans-serif;
-    font-size: 13px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 16px;
     color: rgba(255,255,255,0.45);
     line-height: 1.6;
     padding-left: 14px;
@@ -541,7 +541,7 @@
     position: absolute;
     left: 0;
     color: rgba(89,26,219,0.7);
-    font-size: 10px;
+    font-size: 12px;
     top: 3px;
 }
 
@@ -573,8 +573,8 @@
     cursor: pointer;
     background: rgba(255, 255, 255, 0.10);
     color: #fff;
-    font-family: 'General Sans', 'Sarabun', sans-serif;
-    font-size: 12px;
+    font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
+    font-size: 15px;
     font-weight: 500;
     line-height: 1.2;
     text-align: center;
@@ -620,7 +620,7 @@
         display: block;
         width: 100%;
         box-sizing: border-box;
-        font-size: 22px;
+        font-size: 28px;
         font-weight: 700;
         color: #d2bcff;
         background: rgba(255, 255, 255, 0.2);
@@ -690,10 +690,10 @@
     .sphere-bottom .sphere-inner { clip-path: path('M 69 170 C 31 170 0 131 0 94 C 0 42 66 1 69 0 C 72 1 138 42 138 94 C 138 131 107 170 69 170 Z'); }
     .sphere-left .sphere-inner   { clip-path: path('M 0 69 C 0 31 38 0 76 0 C 128 0 169 66 170 69 C 169 72 128 138 76 138 C 38 138 0 107 0 69 Z'); }
     .sphere-right .sphere-inner  { clip-path: path('M 170 69 C 170 107 131 138 94 138 C 42 138 1 72 0 69 C 1 66 42 0 94 0 C 131 0 170 31 170 69 Z'); }
-    .sphere-label .line-main { font-size: 12px; }
-    .sphere-label .line-vs   { font-size: 22px; }
-    .sphere-label .line-sub  { font-size: 11px; }
-    .sphere-label .line-tool { font-size: 13px; }
+    .sphere-label .line-main { font-size: 15px; }
+    .sphere-label .line-vs   { font-size: 28px; }
+    .sphere-label .line-sub  { font-size: 14px; }
+    .sphere-label .line-tool { font-size: 16px; }
 }
 
 /* ── 768px: Tablet portrait / Mobile ────────────────── */
@@ -746,7 +746,7 @@
         border-radius: 20px;
     }
     .panel-content { padding: 8px 20px 28px; }
-    .topic-section p { font-size: 15px; }
+    .topic-section p { font-size: 19px; }
 }
 
 /* ── 640px: Large phones ─────────────────────────────── */
@@ -761,7 +761,7 @@
         border-radius: 16px;
     }
     .mobile-pill {
-        font-size: 11px;
+        font-size: 14px;
         padding: 0 8px;
     }
 }
@@ -772,7 +772,7 @@
         padding: 80px 16px 12px;
     }
     .fb-hero-badge {
-        font-size: 12px;
+        font-size: 15px;
         padding: 5px 18px;
     }
     .fb-layout {
@@ -785,21 +785,21 @@
     .fb-right {
         padding: 0 12px;
     }
-    .panel-tab { font-size: 18px; padding: 10px 18px; }
+    .panel-tab { font-size: 22px; padding: 10px 18px; }
     .panel-tab-row { padding: 16px 16px 8px; }
     .panel-content { padding: 6px 16px 24px; }
-    .topic-section p { font-size: 14px; line-height: 1.75; }
-    .topic-sources h4 { font-size: 12px; }
-    .topic-sources li { font-size: 12px; }
+    .topic-section p { font-size: 18px; line-height: 1.75; }
+    .topic-sources h4 { font-size: 15px; }
+    .topic-sources li { font-size: 15px; }
 }
 
 /* ── 390px: iPhone SE / smallest phones ─────────────── */
 @media (max-width: 390px) {
     .fb-hero-title {
-        font-size: 20px;
+        font-size: 25px;
     }
     .mobile-pill {
-        font-size: 10px;
+        font-size: 12px;
         height: 30px;
         padding: 0 6px;
     }
@@ -809,5 +809,5 @@
     .fb-mobile-nav {
         padding: 0 10px;
     }
-    .panel-tab { font-size: 16px; padding: 9px 16px; }
+    .panel-tab { font-size: 20px; padding: 9px 16px; }
 }

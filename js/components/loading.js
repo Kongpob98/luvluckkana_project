@@ -203,16 +203,10 @@ class LoadingScreen {
             }
         }, { once: false });
         
-        // Intercept browser back/forward buttons
-        window.addEventListener('popstate', () => {
-            // Only show loading if not coming from cache
-            if (!document.hidden) {
-                this.show();
-                setTimeout(() => {
-                    this.checkAndHide();
-                }, 100);
-            }
-        });
+        // Note: popstate handler removed — back/forward navigation is handled
+        // by the pageshow event above (bfcache) or by the browser's native
+        // scroll restoration (full reload). Showing loading here caused
+        // body overflow:hidden to reset the scroll position to 0.
     }
     
     isInternalLink(link) {

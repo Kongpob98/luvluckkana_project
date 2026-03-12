@@ -14,7 +14,7 @@
     --numerology-shadow: rgba(114, 79, 252, 0.3);
     
     /* Typography */
-    --font-primary: 'General Sans', sans-serif;
+    --font-primary: 'DB Heavent Cond', sans-serif;
     --font-size-hero: 32px;
     --font-size-title: 48px;
     --font-size-card: 24px;
@@ -215,7 +215,7 @@ html, body {
 
 .numerology-hero-content .intro-quote {
     font-family: var(--font-primary);
-    font-size: 24px;
+    font-size: 30px;
     font-weight: 500;
     line-height: 1.5;
     color: var(--numerology-text);
@@ -226,7 +226,7 @@ html, body {
 
 .numerology-hero-content .intro-subtitle {
     font-family: var(--font-primary);
-    font-size: 24px;
+    font-size: 30px;
     font-weight: 400;
     line-height: 1.6;
     color: var(--numerology-text-secondary);
@@ -283,7 +283,7 @@ html, body {
 
 .section-subtitle {
     font-family: var(--font-primary);
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 400;
     color: var(--numerology-text-secondary);
     margin: 0;
@@ -315,7 +315,7 @@ html, body {
     border-radius: 50%;
     backdrop-filter: blur(10px);
     color: var(--numerology-text);
-    font-size: 20px;
+    font-size: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
     z-index: 10;
@@ -403,7 +403,7 @@ html, body {
 
 /* Flip hint text at bottom of card front */
 .card-flip-hint {
-    font-size: 11px;
+    font-size: 14px;
     color: rgba(255, 255, 255, 0.3);
     margin-top: auto;
     padding-top: 12px;
@@ -439,7 +439,7 @@ html, body {
 
 .card-back-title {
     font-family: var(--font-primary);
-    font-size: 17px;
+    font-size: 21px;
     font-weight: 700;
     background: linear-gradient(135deg, #a78bfa, #724ffc);
     -webkit-background-clip: text;
@@ -451,7 +451,7 @@ html, body {
 
 .card-back-subtitle {
     font-family: var(--font-primary);
-    font-size: 12px;
+    font-size: 15px;
     color: rgba(255, 255, 255, 0.45);
     margin: 0;
     font-style: italic;
@@ -460,7 +460,7 @@ html, body {
 
 .card-back-desc {
     font-family: var(--font-primary);
-    font-size: 13px;
+    font-size: 16px;
     color: rgba(255, 255, 255, 0.82);
     line-height: 1.65;
     margin: 0;
@@ -478,14 +478,14 @@ html, body {
     border: 1px solid rgba(114, 79, 252, 0.38);
     border-radius: 20px;
     padding: 3px 9px;
-    font-size: 11px;
+    font-size: 14px;
     color: rgba(255, 255, 255, 0.75);
     font-family: var(--font-primary);
 }
 
 .card-back-gem {
     font-family: var(--font-primary);
-    font-size: 12px;
+    font-size: 15px;
     color: rgba(255, 255, 255, 0.5);
     margin: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -495,7 +495,7 @@ html, body {
 
 .number-display {
     font-family: var(--font-primary);
-    font-size: 120px;
+    font-size: 150px;
     font-weight: 800;
     color: var(--numerology-text);
     line-height: 1;
@@ -509,7 +509,7 @@ html, body {
 
 .number-name {
     font-family: var(--font-primary);
-    font-size: 32px;
+    font-size: 40px;
     font-weight: 600;
     color: var(--numerology-text);
     margin: var(--spacing-md) 0;
@@ -518,7 +518,7 @@ html, body {
 
 .number-tagline {
     font-family: var(--font-primary);
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 400;
     color: var(--numerology-text-secondary);
     margin: 0;
@@ -562,7 +562,7 @@ html, body {
     
     .numerology-hero-content .intro-quote,
     .numerology-hero-content .intro-subtitle {
-        font-size: 20px;
+        font-size: 25px;
     }
     
     .hero-frame-decoration {
@@ -581,11 +581,11 @@ html, body {
     }
     
     .number-display {
-        font-size: 100px;
+        font-size: 125px;
     }
     
     .number-name {
-        font-size: 28px;
+        font-size: 35px;
     }
 }
 
@@ -601,11 +601,11 @@ html, body {
     }
     
     .numerology-hero-content .intro-quote {
-        font-size: 18px;
+        font-size: 22px;
     }
     
     .numerology-hero-content .intro-subtitle {
-        font-size: 18px;
+        font-size: 22px;
     }
     
     .hero-frame-decoration {
@@ -614,7 +614,7 @@ html, body {
     }
     
     .section-title {
-        font-size: 36px;
+        font-size: 45px;
     }
     
     .numbers-carousel-wrapper {
@@ -633,15 +633,15 @@ html, body {
     }
     
     .number-display {
-        font-size: 80px;
+        font-size: 100px;
     }
     
     .number-name {
-        font-size: 24px;
+        font-size: 30px;
     }
     
     .number-tagline {
-        font-size: 14px;
+        font-size: 18px;
     }
 }
 
@@ -652,11 +652,11 @@ html, body {
     }
     
     .numerology-hero-content .intro-quote {
-        font-size: 16px;
+        font-size: 20px;
     }
     
     .numerology-hero-content .intro-subtitle {
-        font-size: 16px;
+        font-size: 20px;
     }
     
     .hero-frame-decoration {
@@ -664,11 +664,11 @@ html, body {
     }
     
     .section-title {
-        font-size: 28px;
+        font-size: 35px;
     }
     
     .section-subtitle {
-        font-size: 16px;
+        font-size: 20px;
     }
     
     .numbers-carousel-wrapper {
@@ -678,7 +678,7 @@ html, body {
     .carousel-nav {
         width: 40px;
         height: 40px;
-        font-size: 16px;
+        font-size: 20px;
     }
     
     .number-card {
@@ -693,17 +693,17 @@ html, body {
     }
     
     .number-display {
-        font-size: 70px;
+        font-size: 88px;
         margin-bottom: var(--spacing-sm);
     }
     
     .number-name {
-        font-size: 22px;
+        font-size: 28px;
         margin: var(--spacing-sm) 0;
     }
     
     .number-tagline {
-        font-size: 13px;
+        font-size: 16px;
     }
 }
 
@@ -714,11 +714,11 @@ html, body {
     
     .numerology-hero-content .intro-quote,
     .numerology-hero-content .intro-subtitle {
-        font-size: 14px;
+        font-size: 18px;
     }
     
     .section-title {
-        font-size: 24px;
+        font-size: 30px;
     }
     
     .numbers-carousel-wrapper {
@@ -732,10 +732,10 @@ html, body {
     }
     
     .number-display {
-        font-size: 60px;
+        font-size: 75px;
     }
     
     .number-name {
-        font-size: 20px;
+        font-size: 25px;
     }
 }

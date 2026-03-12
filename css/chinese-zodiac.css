@@ -21,7 +21,7 @@ html {
 }
 
 body.chinese-zodiac-page {
-    font-family: 'General Sans', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
     background-color: #000000;
     color: #ffffff;
     overflow-x: hidden;
@@ -199,7 +199,7 @@ body.chinese-zodiac-page {
 }
 
 .chinese-hero-title {
-    font-family: 'General Sans', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
     font-size: clamp(60px, 12vw, 180px);
     font-weight: 600;
     font-style: italic;
@@ -223,6 +223,16 @@ body.chinese-zodiac-page {
     display: block;
     font-size: 0.8em;
     margin-top: -10px;
+}
+
+.chinese-hero-subtitle {
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.15em;
+    margin-top: 12px;
+    text-align: center;
 }
 
 /* ========================================
@@ -461,7 +471,7 @@ body.chinese-zodiac-page {
 }
 
 .history-title {
-    font-family: 'General Sans', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
     font-size: clamp(28px, 4vw, 48px);
     font-weight: 600;
     background: linear-gradient(
@@ -494,8 +504,8 @@ body.chinese-zodiac-page {
 }
 
 .chinese-history-text {
-    font-family: 'General Sans', sans-serif;
-    font-size: 24px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 30px;
     line-height: 1.8;
     color: #ffffff;
     text-align: left;
@@ -621,7 +631,7 @@ body.chinese-zodiac-page {
     }
     
     .chinese-history-text {
-        font-size: 24px;
+        font-size: 30px;
     }
 }
 
@@ -672,7 +682,7 @@ body.chinese-zodiac-page {
     }
     
     .chinese-history-text {
-        font-size: 22px;
+        font-size: 28px;
     }
     
     .history-section-header {
@@ -760,7 +770,7 @@ body.chinese-zodiac-page {
     }
     
     .chinese-history-text {
-        font-size: 18px;
+        font-size: 22px;
         line-height: 1.6;
         text-align: left;
     }
@@ -848,7 +858,7 @@ body.chinese-zodiac-page {
     }
     
     .chinese-history-text {
-        font-size: 14px;
+        font-size: 18px;
         line-height: 1.5;
         text-align: left;
     }
@@ -941,7 +951,7 @@ body.chinese-zodiac-page {
     }
     
     .chinese-history-text {
-        font-size: 13px;
+        font-size: 16px;
         line-height: 1.4;
     }
     
@@ -1083,7 +1093,7 @@ body.chinese-zodiac-page {
 }
 
 .cards-section-title {
-    font-family: 'General Sans', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
     font-size: clamp(36px, 6vw, 64px);
     font-weight: 700;
     color: #ffffff;
@@ -1092,7 +1102,7 @@ body.chinese-zodiac-page {
 }
 
 .cards-section-subtitle {
-    font-family: 'General Sans', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
     font-size: clamp(16px, 2vw, 20px);
     font-weight: 400;
     color: #b5b5b5;
@@ -1103,7 +1113,7 @@ body.chinese-zodiac-page {
     content: 'Scroll or use arrows to navigate';
     display: block;
     margin-top: 24px;
-    font-size: 14px;
+    font-size: 18px;
     color: rgba(138, 43, 226, 0.7);
     animation: fadeInOut 3s ease-in-out infinite;
 }
@@ -1148,7 +1158,7 @@ body.chinese-zodiac-page {
     cursor: pointer;
     transition: all 0.3s ease;
     color: #ffffff;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .carousel-nav:hover {
@@ -1326,8 +1336,8 @@ body.chinese-zodiac-page {
 }
 
 .zodiac-card-name {
-    font-family: 'General Sans', sans-serif;
-    font-size: 28px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 48px;
     font-weight: 700;
     color: #ffffff;
     margin-bottom: 8px;
@@ -1336,16 +1346,16 @@ body.chinese-zodiac-page {
 }
 
 .zodiac-card-name-th {
-    font-family: 'General Sans', sans-serif;
-    font-size: 18px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 32px;
     font-weight: 500;
     color: #b5b5b5;
     margin-bottom: 12px;
 }
 
 .zodiac-card-years {
-    font-family: 'General Sans', sans-serif;
-    font-size: 14px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 25px;
     font-weight: 400;
     color: #8a8a8a;
     display: block;
@@ -1444,7 +1454,7 @@ body.chinese-zodiac-page {
     color: #ffffff;
     padding: 6px 16px;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -1507,8 +1517,8 @@ body.chinese-zodiac-page {
 }
 
 .zodiac-back-title {
-    font-family: 'General Sans', sans-serif;
-    font-size: 32px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 65px;
     font-weight: 700;
     color: #ffffff;
     margin-bottom: 24px;
@@ -1523,8 +1533,8 @@ body.chinese-zodiac-page {
 }
 
 .zodiac-back-info p {
-    font-family: 'General Sans', sans-serif;
-    font-size: 16px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 35px;
     line-height: 1.6;
     color: #ffffff;
     margin-bottom: 16px;
@@ -1545,8 +1555,8 @@ body.chinese-zodiac-page {
     border: none;
     border-radius: 12px;
     color: #ffffff;
-    font-family: 'General Sans', sans-serif;
-    font-size: 16px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 28px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1621,7 +1631,7 @@ body.chinese-zodiac-page {
     }
     
     .cards-section-subtitle {
-        font-size: 16px;
+        font-size: 20px;
     }
     
     .carousel-3d-container {
@@ -1635,15 +1645,15 @@ body.chinese-zodiac-page {
     }
     
     .zodiac-card-name {
-        font-size: 26px;
+        font-size: 32px;
     }
     
     .zodiac-card-name-th {
-        font-size: 17px;
+        font-size: 21px;
     }
     
     .zodiac-card-years {
-        font-size: 13px;
+        font-size: 16px;
     }
     
     .zodiac-card.left-1 {
@@ -1657,7 +1667,7 @@ body.chinese-zodiac-page {
     .carousel-nav {
         width: 50px;
         height: 50px;
-        font-size: 18px;
+        font-size: 22px;
     }
     
     .carousel-nav-prev {
@@ -1700,7 +1710,7 @@ body.chinese-zodiac-page {
     }
     
     .cards-section-subtitle {
-        font-size: 15px;
+        font-size: 19px;
     }
     
     .carousel-3d-container {
@@ -1728,15 +1738,15 @@ body.chinese-zodiac-page {
     }
     
     .zodiac-card-name {
-        font-size: 24px;
+        font-size: 30px;
     }
     
     .zodiac-card-name-th {
-        font-size: 16px;
+        font-size: 20px;
     }
     
     .zodiac-card-years {
-        font-size: 12px;
+        font-size: 15px;
     }
     
     /* Show only 3 cards on tablet */
@@ -1759,7 +1769,7 @@ body.chinese-zodiac-page {
     .carousel-nav {
         width: 45px;
         height: 45px;
-        font-size: 16px;
+        font-size: 20px;
     }
     
     .carousel-nav-prev {
@@ -1801,7 +1811,7 @@ body.chinese-zodiac-page {
     }
     
     .cards-section-subtitle {
-        font-size: 14px;
+        font-size: 18px;
     }
     
     .carousel-3d-container {
@@ -1829,15 +1839,15 @@ body.chinese-zodiac-page {
     }
     
     .zodiac-card-name {
-        font-size: 20px;
+        font-size: 25px;
     }
     
     .zodiac-card-name-th {
-        font-size: 14px;
+        font-size: 18px;
     }
     
     .zodiac-card-years {
-        font-size: 11px;
+        font-size: 14px;
     }
     
     .zodiac-card.left-1 {
@@ -1853,7 +1863,7 @@ body.chinese-zodiac-page {
     .carousel-nav {
         width: 40px;
         height: 40px;
-        font-size: 14px;
+        font-size: 18px;
     }
     
     .carousel-nav-prev {
@@ -1896,7 +1906,7 @@ body.chinese-zodiac-page {
     }
     
     .cards-section-subtitle {
-        font-size: 13px;
+        font-size: 16px;
     }
     
     .carousel-3d-container {
@@ -1924,15 +1934,15 @@ body.chinese-zodiac-page {
     }
     
     .zodiac-card-name {
-        font-size: 18px;
+        font-size: 22px;
     }
     
     .zodiac-card-name-th {
-        font-size: 12px;
+        font-size: 15px;
     }
     
     .zodiac-card-years {
-        font-size: 10px;
+        font-size: 12px;
     }
     
     .zodiac-card.left-1 {
@@ -1948,7 +1958,7 @@ body.chinese-zodiac-page {
     .carousel-nav {
         width: 35px;
         height: 35px;
-        font-size: 12px;
+        font-size: 15px;
     }
     
     .carousel-nav-prev {

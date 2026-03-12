@@ -83,8 +83,8 @@
     --badge-height: 86px;
 
     /* Typography */
-    --font-poppins: 'Poppins', sans-serif;
-    --font-sans: 'General Sans', sans-serif;
+    --font-poppins: 'DB Heavent Cond', sans-serif;
+    --font-sans: 'DB Heavent Cond', sans-serif;
 }
 
 /* ========================================
@@ -211,7 +211,7 @@ body {
     z-index: 1;
     font-family: var(--font-poppins);
     font-weight: 600;          /* SemiBold */
-    font-size: 36px;
+    font-size: 45px;
     font-style: normal;
     line-height: normal;
     letter-spacing: 0.04em;
@@ -649,7 +649,7 @@ body {
 }
 
 .skills-hl-main {
-    font-family: 'Preahvihear', 'General Sans', sans-serif;
+    font-family: 'Preahvihear', 'DB Heavent Cond', sans-serif;
     font-size: clamp(11px, 1.67vw, 24px);   /* 24px / 1440px */
     font-weight: 400;
     font-style: normal;
@@ -660,7 +660,7 @@ body {
 }
 
 .skills-hl-sub {
-    font-family: 'Preahvihear', 'General Sans', sans-serif;
+    font-family: 'Preahvihear', 'DB Heavent Cond', sans-serif;
     font-size: clamp(8px, 1.18vw, 17px);    /* 17px / 1440px */
     font-weight: 400;
     font-style: normal;
@@ -855,8 +855,8 @@ body {
 
 @media (max-width: 480px) {
     .skills-icons .sic { width: 48px; height: 48px; }
-    .skills-hl-main    { font-size: 13px; }
-    .skills-hl-sub     { font-size: 11px; }
+    .skills-hl-main    { font-size: 16px; }
+    .skills-hl-sub     { font-size: 14px; }
 }
 
 /* ========================================
@@ -918,7 +918,7 @@ body {
     left: 16.11%;          /* 232/1440 */
     right: 16.18%;         /* (1440-232-975)/1440 */
     top: 9.99%;            /* 105/1051 */
-    font-family: 'Poppins', 'General Sans', sans-serif;
+    font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
     font-weight: 500;
     font-style: normal;
     font-size: clamp(28px, 4.5vw, 64px);
@@ -941,7 +941,7 @@ body {
     left: 15.07%;          /* 217/1440 */
     right: 15.07%;         /* (1440-217-1006)/1440 */
     top: 26.45%;           /* 278/1051 */
-    font-family: 'General Sans', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
     font-size: clamp(12px, 1.6vw, 24px);
     font-weight: 400;
     color: #fff;
@@ -1065,7 +1065,7 @@ body {
 
 /* Card title — General Sans 64px white */
 .s4-card-title {
-    font-family: 'General Sans', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
     font-size: clamp(18px, 2.9vw, 42px);
     font-weight: 400;
     color: #fff;
@@ -1076,7 +1076,7 @@ body {
 
 /* Card subtitle — General Sans 24px */
 .s4-card-sub {
-    font-family: 'General Sans', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
     font-size: clamp(9px, 1.05vw, 15px);
     font-weight: 400;
     color: rgba(255, 255, 255, 0.85);
@@ -1191,7 +1191,7 @@ body {
 @media (max-width: 480px) {
     .about-s4 { padding: 48px 16px 64px; }
     .s4-card  { min-height: 260px; }
-    .s4-card-title { font-size: 20px; }
+    .s4-card-title { font-size: 25px; }
 }
 
 /* ========================================
@@ -1305,7 +1305,7 @@ body {
 /* "CONTACT" text */
 .s5-badge-text {
     padding-left: 5%;
-    font-family: 'Poppins', 'General Sans', sans-serif;
+    font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
     font-weight: 600;
     font-size: clamp(14px, 2.78vw, 40px);
     color: #fff;
@@ -1390,7 +1390,7 @@ body {
 /* Handle text — General Sans / Inter 20px white */
 .s5-social-handle {
     flex: 1;
-    font-family: 'General Sans', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
     font-size: clamp(10px, 1.39vw, 20px);
     font-weight: 400;
     color: #fff;
@@ -1459,7 +1459,7 @@ body {
     border-radius: 18px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     color: #fff;
-    font-family: 'Poppins', 'General Sans', sans-serif;
+    font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
     font-size: clamp(10px, 1.39vw, 20px);
     font-weight: 400;
     padding: 0 4%;
@@ -1519,7 +1519,7 @@ body {
         inset 0 1px 0 rgba(255, 255, 255, 0.35),
         inset 0 -1px 0 rgba(255, 255, 255, 0.05);
     border-radius: 32px;
-    font-family: 'Poppins', 'General Sans', sans-serif;
+    font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
     font-size: clamp(10px, 1.39vw, 20px);
     font-weight: 600;
     color: #fff;
@@ -1551,8 +1551,8 @@ body {
     transform: translateX(-50%) translateY(80px);
     background: rgba(172, 131, 255, 0.95);
     color: #fff;
-    font-family: 'General Sans', sans-serif;
-    font-size: 16px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 20px;
     padding: 12px 28px;
     border-radius: 40px;
     z-index: 9999;
@@ -1642,17 +1642,17 @@ body {
     }
     .s5-input      { height: 52px; padding: 0 16px; }
     .s5-textarea   { height: 160px; padding: 14px 16px; }
-    .s5-submit     { height: 56px; margin-top: 4px; margin-bottom: 0; font-size: 18px; }
+    .s5-submit     { height: 56px; margin-top: 4px; margin-bottom: 0; font-size: 22px; }
 }
 
 @media (max-width: 480px) {
     .about-s5       { padding: 48px 16px 64px; }
-    .s5-badge-text  { font-size: 18px; }
+    .s5-badge-text  { font-size: 22px; }
     .s5-form        { padding: 20px 16px; border-radius: 20px; }
     .s5-input       { height: 48px; }
     .s5-textarea    { height: 140px; }
-    .s5-submit      { height: 52px; font-size: 16px; }
-    .s5-social-handle { font-size: 13px; }
+    .s5-submit      { height: 52px; font-size: 20px; }
+    .s5-social-handle { font-size: 16px; }
 }
 
 /* ========================================
@@ -1660,25 +1660,25 @@ body {
    ======================================== */
 @media (max-width: 375px) {
     /* Hero */
-    .badge-text { font-size: 15px; }
+    .badge-text { font-size: 19px; }
     .meet-team-badge { height: 52px; }
 
     /* Team */
-    .team-title   { font-size: 28px; }
+    .team-title   { font-size: 35px; }
     .team-photo--1,
     .team-photo--2 { width: 96%; }
     .name-text--lg,
-    .name-text--sm { font-size: 12px; padding: 12px 16px; }
+    .name-text--sm { font-size: 15px; padding: 12px 16px; }
 
     /* Skills */
     .skills-icons .sic { width: 40px; height: 40px; gap: 8px; }
-    .skills-hl-main { font-size: 11px; }
-    .skills-hl-sub  { font-size: 10px; }
+    .skills-hl-main { font-size: 14px; }
+    .skills-hl-sub  { font-size: 12px; }
 
     /* S4 cards */
     .about-s4    { padding: 40px 12px 56px; }
-    .s4-title    { font-size: 26px; }
-    .s4-subtitle { font-size: 12px; }
+    .s4-title    { font-size: 32px; }
+    .s4-subtitle { font-size: 15px; }
 
     /* S5 contact */
     .about-s5  { padding: 40px 12px 56px; }
