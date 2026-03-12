@@ -452,7 +452,7 @@ body.bg-pink {
 
 @media (max-width: 768px) {
     .intro-section {
-        padding: 100px 24px 40px;
+        padding: 120px 24px 40px;
     }
 
     .intro-title {
@@ -464,7 +464,7 @@ body.bg-pink {
     }
 
     .color-section {
-        padding: 100px 24px 40px;
+        padding: 120px 24px 40px;
     }
 
     .color-body {
@@ -498,7 +498,7 @@ body.bg-pink {
 
 @media (max-width: 480px) {
     .intro-section {
-        padding: 80px 20px 40px;
+        padding: 110px 20px 40px;
     }
 
     .intro-title {
@@ -510,7 +510,7 @@ body.bg-pink {
     }
 
     .color-section {
-        padding: 80px 20px 40px;
+        padding: 110px 20px 40px;
     }
 
     .color-title {

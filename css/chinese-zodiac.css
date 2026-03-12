@@ -1594,6 +1594,61 @@ body.chinese-zodiac-page {
     background: rgba(138, 43, 226, 0.8);
 }
 
+/* Responsive: Back Card Content on Mobile */
+@media screen and (max-width: 768px) {
+    .zodiac-card-back-content {
+        padding: 24px 18px;
+    }
+
+    .zodiac-back-title {
+        font-size: 28px;
+        margin-bottom: 14px;
+    }
+
+    .zodiac-back-info {
+        max-height: calc(100% - 110px);
+    }
+
+    .zodiac-back-info p {
+        font-size: 17px;
+        line-height: 1.5;
+        margin-bottom: 10px;
+    }
+
+    .flip-back-btn {
+        font-size: 17px;
+        padding: 8px 20px;
+        margin-top: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .zodiac-card-back-content {
+        padding: 18px 14px;
+    }
+
+    .zodiac-back-title {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .zodiac-back-info {
+        max-height: calc(100% - 95px);
+    }
+
+    .zodiac-back-info p {
+        font-size: 14px;
+        line-height: 1.45;
+        margin-bottom: 8px;
+    }
+
+    .flip-back-btn {
+        font-size: 15px;
+        padding: 7px 18px;
+        margin-top: 8px;
+    }
+}
+
 /* Responsive Design for Section 3 */
 
 /* 1440px Breakpoint */
