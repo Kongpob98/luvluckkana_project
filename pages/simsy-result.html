@@ -148,6 +148,26 @@
 
             // Share button — capture card and share/download
             const shareButton = document.querySelector('.share-button');
+
+            async function waitForImageReady(img) {
+                if (img.complete && img.naturalWidth > 0) {
+                    if (typeof img.decode === 'function') {
+                        try { await img.decode(); } catch (e) { /* ignore decode errors */ }
+                    }
+                    return;
+                }
+
+                await new Promise((resolve) => {
+                    const done = () => resolve();
+                    img.addEventListener('load', done, { once: true });
+                    img.addEventListener('error', done, { once: true });
+                });
+
+                if (typeof img.decode === 'function') {
+                    try { await img.decode(); } catch (e) { /* ignore decode errors */ }
+                }
+            }
+
             if (shareButton) {
                 shareButton.addEventListener('click', async function() {
                     const spanEl = this.querySelector('span');
@@ -175,9 +195,12 @@
                             } catch(e) { /* keep original src */ }
                         }
 
+                        // Ensure every image is fully loaded before capture (fixes intermittent missing logo)
+                        await Promise.all(Array.from(imgs).map(waitForImageReady));
+
                         // Apply capture overrides and wait for paint
                         simsyCard.classList.add('sc-capture');
-                        await new Promise(r => setTimeout(r, 200));
+                        await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
 
                         const dataUrl = await htmlToImage.toPng(simsyCard, {
                             pixelRatio: 3,

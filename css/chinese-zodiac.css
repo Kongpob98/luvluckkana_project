@@ -1110,7 +1110,7 @@ body.chinese-zodiac-page {
 
 /* Scroll Hint */
 .cards-section-header::after {
-    content: 'Scroll or use arrows to navigate';
+    content: 'เลื่อนหรือใช้ลูกศรเพื่อนำทาง';
     display: block;
     margin-top: 24px;
     font-size: 18px;
@@ -1444,36 +1444,6 @@ body.chinese-zodiac-page {
     box-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
 }
 
-/* Featured Badge (for active card) */
-.zodiac-card.active::before {
-    content: 'Featured';
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: linear-gradient(135deg, #8a2be2 0%, #4b0498 100%);
-    color: #ffffff;
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 15px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    z-index: 100;
-    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
-    }
-    50% {
-        transform: scale(1.05);
-        box-shadow: 0 6px 25px rgba(138, 43, 226, 0.6);
-    }
-}
-
 /* Flip Card Styles */
 .zodiac-card-flipper {
     position: relative;
@@ -1503,6 +1473,18 @@ body.chinese-zodiac-page {
 }
 
 .zodiac-card-back {
+    pointer-events: none;
+}
+
+.zodiac-card.flipped .zodiac-card-front {
+    pointer-events: none;
+}
+
+.zodiac-card.flipped .zodiac-card-back {
+    pointer-events: auto;
+}
+
+.zodiac-card-back {
     transform: rotateY(180deg);
 }
 
@@ -1513,7 +1495,8 @@ body.chinese-zodiac-page {
     display: flex;
     flex-direction: column;
     padding: 40px 30px;
-    overflow-y: auto;
+    overflow: hidden;
+    touch-action: pan-y;
 }
 
 .zodiac-back-title {
@@ -1530,6 +1513,10 @@ body.chinese-zodiac-page {
     flex: 1;
     overflow-y: auto;
     padding-right: 10px;
+    min-height: 0;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
 }
 
 .zodiac-back-info p {

@@ -1575,7 +1575,7 @@
 }
 
 .card-back-symbol {
-    font-size: 52px;
+    font-size: clamp(58px, 4.3vw, 66px);
     line-height: 1;
     margin-bottom: 8px;
     filter: drop-shadow(0 2px 12px rgba(255,255,255,0.5));
@@ -1583,7 +1583,7 @@
 
 .card-back-name {
     font-family: 'DB Heavent Cond', sans-serif;
-    font-size: 30px;
+    font-size: clamp(34px, 2.7vw, 38px);
     font-weight: 700;
     color: #ffffff;
     margin-bottom: 4px;
@@ -1593,7 +1593,7 @@
 
 .card-back-dates {
     font-family: 'DB Heavent Cond', sans-serif;
-    font-size: 14px;
+    font-size: clamp(16px, 1.2vw, 19px);
     font-weight: 400;
     color: rgba(255, 255, 255, 0.75);
     margin-bottom: 12px;
@@ -1632,12 +1632,12 @@
 
 .card-back-description {
     font-family: 'DB Heavent Cond', sans-serif;
-    font-size: 16px;
+    font-size: clamp(18px, 1.45vw, 21px);
     font-weight: 400;
     color: rgba(255, 255, 255, 0.93);
     margin: 0;
     text-align: center;
-    line-height: 1.7;
+    line-height: 1.6;
 }
 
 .flip-back-btn {
@@ -1719,39 +1719,45 @@
     z-index: 3;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 }
 
 /* Card Title - English Name */
 .zodiac-card-name {
     font-family: 'DB Heavent Cond', sans-serif;
-    font-size: 48px;
+    font-size: clamp(34px, 3vw, 42px);
     font-weight: 700;
     color: #ffffff;
     margin: 0;
-    line-height: 1.2;
+    line-height: 1.05;
     letter-spacing: 1px;
     text-transform: uppercase;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 /* Card Thai Name */
 .zodiac-card-thai-name {
     font-family: 'DB Heavent Cond', sans-serif;
-    font-size: 32px;
+    font-size: clamp(24px, 2.1vw, 28px);
     font-weight: 500;
     color: #b5b5b5;
     margin: 0;
     text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+    max-width: 100%;
+    overflow-wrap: anywhere;
 }
 
 /* Card Date Range */
 .zodiac-card-dates {
     font-family: 'DB Heavent Cond', sans-serif;
-    font-size: 25px;
+    font-size: clamp(18px, 1.8vw, 22px);
     font-weight: 400;
     color: rgba(255, 255, 255, 0.7);
     margin: 0;
+    max-width: 100%;
 }
 
 /* Responsive Design for Horizontal Scroll Cards */
@@ -1969,6 +1975,18 @@
     .zodiac-card-dates {
         font-size: 14px;
     }
+
+    .card-back-name {
+        font-size: 30px;
+    }
+
+    .card-back-dates {
+        font-size: 16px;
+    }
+
+    .card-back-description {
+        font-size: 18px;
+    }
     
     .zodiac-card-item.left-1 {
         transform: translate(-50%, -50%) translateX(-180px) translateZ(-80px) rotateY(50deg) scale(0.6);
@@ -2045,6 +2063,19 @@
 
     .zodiac-card-dates {
         font-size: 14px;
+    }
+
+    .card-back-name {
+        font-size: 26px;
+    }
+
+    .card-back-dates {
+        font-size: 15px;
+    }
+
+    .card-back-description {
+        font-size: 17px;
+        line-height: 1.5;
     }
     
     .zodiac-card-item.left-1 {

@@ -121,8 +121,8 @@
             
             <!-- Section Title -->
             <div class="cards-section-header" data-parallax-speed="0.25">
-                <h2 class="cards-section-title">Discover Your Zodiac</h2>
-                <p class="cards-section-subtitle">Select your Chinese zodiac animal</p>
+                <h2 class="cards-section-title">ค้นหานักษัตรของคุณ</h2>
+                <p class="cards-section-subtitle">เลือกสัตว์นักษัตรจีนของคุณ</p>
             </div>
             
             <!-- 3D Carousel Container -->
@@ -580,12 +580,22 @@
                     // Touch/Swipe support
                     let touchStartX = 0;
                     let touchEndX = 0;
+                    let allowNativeScroll = false;
+
+                    const isBackContentTarget = (target) => {
+                        return Boolean(target.closest('.zodiac-back-info, .zodiac-card-back-content'));
+                    };
                     
                     this.track.addEventListener('touchstart', (e) => {
+                        allowNativeScroll = isBackContentTarget(e.target);
                         touchStartX = e.changedTouches[0].screenX;
                     });
                     
                     this.track.addEventListener('touchend', (e) => {
+                        if (allowNativeScroll) {
+                            allowNativeScroll = false;
+                            return;
+                        }
                         touchEndX = e.changedTouches[0].screenX;
                         this.handleSwipe();
                     });
@@ -606,8 +616,40 @@
                 initMouseWheelNavigation: function() {
                     const carouselContainer = document.querySelector('.carousel-3d-container');
                     if (!carouselContainer) return;
+
+                    const canScroll = (element, deltaY) => {
+                        if (!element) return false;
+
+                        const isScrollingDown = deltaY > 0;
+                        const maxScrollTop = element.scrollHeight - element.clientHeight;
+
+                        if (maxScrollTop <= 0) return false;
+                        if (!isScrollingDown && element.scrollTop > 0) return true;
+                        if (isScrollingDown && element.scrollTop < maxScrollTop) return true;
+
+                        return false;
+                    };
                     
                     carouselContainer.addEventListener('wheel', (e) => {
+                        const activeFlippedCard = carouselContainer.querySelector('.zodiac-card.active.flipped');
+                        if (activeFlippedCard && activeFlippedCard.contains(e.target)) {
+                            const backInfoEl = activeFlippedCard.querySelector('.zodiac-back-info');
+                            if (backInfoEl) {
+                                e.preventDefault();
+                                backInfoEl.scrollTop += e.deltaY;
+                                return;
+                            }
+                        }
+
+                        const backInfo = e.target.closest('.zodiac-back-info');
+                        const backContent = e.target.closest('.zodiac-card-back-content');
+                        const scrollTarget = backInfo || backContent;
+
+                        if (scrollTarget && canScroll(scrollTarget, e.deltaY)) {
+                            // Let browser handle scroll inside flipped card content.
+                            return;
+                        }
+
                         e.preventDefault();
                         
                         // Accumulate wheel delta

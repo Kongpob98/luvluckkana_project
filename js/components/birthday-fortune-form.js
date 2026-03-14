@@ -1,5 +1,7 @@
 // Birthday Fortune Form Component
 (function() {
+    const BIRTHDAY_FORM_STATE_KEY = 'luckkana-birthday-form-state';
+
     // State
     let selectedDate = {
         year: 2025,
@@ -27,6 +29,10 @@
     // Initialize
     function init() {
         console.log('🔮 Birthday Fortune Form initialized');
+
+        if (isReloadNavigation()) {
+            clearPersistedFormState();
+        }
         
         // Set default date to today
         const today = new Date();
@@ -41,9 +47,120 @@
         populateYearDropdown();
         populateMonthDropdown();
         attachEventListeners();
+        restoreFormState();
 
         // Always start at top of page
         window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    function isReloadNavigation() {
+        const navigationEntries = performance.getEntriesByType?.('navigation');
+        if (Array.isArray(navigationEntries) && navigationEntries.length > 0) {
+            return navigationEntries[0].type === 'reload';
+        }
+
+        return performance.navigation?.type === 1;
+    }
+
+    function readPersistedFormState() {
+        try {
+            const rawState = sessionStorage.getItem(BIRTHDAY_FORM_STATE_KEY);
+            return rawState ? JSON.parse(rawState) : null;
+        } catch (error) {
+            console.warn('Unable to parse birthday form state:', error);
+            return null;
+        }
+    }
+
+    function persistFormState(overrides = {}) {
+        const firstName = document.getElementById('firstNameInput')?.value ?? '';
+        const lastName = document.getElementById('lastNameInput')?.value ?? '';
+        const birthTimeText = document.getElementById('birthTimeText')?.textContent?.trim() ?? '00:00 - 00:59';
+        const activeBirthTimeItem = document.querySelector('#birthTimeDropdown .dropdown-item.active');
+        const activeWeeklyTab = document.querySelector('.weekly-tab.active')?.dataset.target ?? 'weekContent1';
+
+        const existingState = readPersistedFormState() || {};
+        const nextState = {
+            ...existingState,
+            firstName,
+            lastName,
+            selectedDate,
+            birthTimeText,
+            birthTimeValue: activeBirthTimeItem?.dataset.value ?? birthTimeText,
+            activeWeeklyTab,
+            ...overrides
+        };
+
+        sessionStorage.setItem(BIRTHDAY_FORM_STATE_KEY, JSON.stringify(nextState));
+    }
+
+    function clearPersistedFormState() {
+        sessionStorage.removeItem(BIRTHDAY_FORM_STATE_KEY);
+    }
+
+    function restoreBirthTimeSelection(birthTimeValue, birthTimeText) {
+        const display = document.getElementById('birthTimeText');
+        const dropdownItems = document.querySelectorAll('#birthTimeDropdown .dropdown-item');
+
+        if (display && birthTimeText) {
+            display.textContent = birthTimeText;
+        }
+
+        dropdownItems.forEach((item) => {
+            const isActive = item.dataset.value === birthTimeValue || item.textContent.trim() === birthTimeText;
+            item.classList.toggle('active', isActive);
+        });
+    }
+
+    function restoreWeeklyTab(targetId) {
+        if (!targetId) return;
+
+        const weeklySection = document.getElementById('fortuneWeeklySection');
+        if (!weeklySection) return;
+
+        weeklySection.querySelectorAll('.weekly-tab').forEach((tab) => {
+            tab.classList.toggle('active', tab.dataset.target === targetId);
+        });
+
+        weeklySection.querySelectorAll('.weekly-tab-content').forEach((content) => {
+            content.classList.toggle('active', content.id === targetId);
+        });
+    }
+
+    function restoreFormState() {
+        const savedState = readPersistedFormState();
+        if (!savedState) return;
+
+        if (savedState.selectedDate && Number.isInteger(savedState.selectedDate.year) && Number.isInteger(savedState.selectedDate.month) && Number.isInteger(savedState.selectedDate.day)) {
+            selectedDate = {
+                year: savedState.selectedDate.year,
+                month: savedState.selectedDate.month,
+                day: savedState.selectedDate.day
+            };
+
+            updateDateDisplay();
+            renderCalendar();
+            populateYearDropdown();
+            populateMonthDropdown();
+        }
+
+        const firstNameInput = document.getElementById('firstNameInput');
+        const lastNameInput = document.getElementById('lastNameInput');
+
+        if (firstNameInput && typeof savedState.firstName === 'string') {
+            firstNameInput.value = savedState.firstName;
+        }
+
+        if (lastNameInput && typeof savedState.lastName === 'string') {
+            lastNameInput.value = savedState.lastName;
+        }
+
+        restoreBirthTimeSelection(savedState.birthTimeValue, savedState.birthTimeText);
+
+        if (savedState.resultName && savedState.fortuneData) {
+            showFortuneResult(savedState.resultName, savedState.fortuneData, { scrollToResult: false });
+            restoreWeeklyTab(savedState.activeWeeklyTab);
+        }
     }
 
     // Render Circular Calendar
@@ -98,6 +215,7 @@
         selectedDate.day = day;
         updateDateDisplay();
         renderCalendar();
+        persistFormState();
         console.log('📅 Selected date:', selectedDate);
     }
 
@@ -173,6 +291,7 @@
         renderCalendar();
         populateYearDropdown();
         closeAllDropdowns();
+        persistFormState();
     }
 
     // Select Month
@@ -182,6 +301,7 @@
         renderCalendar();
         populateMonthDropdown();
         closeAllDropdowns();
+        persistFormState();
     }
 
     // Close all dropdowns
@@ -312,6 +432,12 @@
             submitBtn.addEventListener('click', handleSubmit);
         }
 
+        const firstNameInput = document.getElementById('firstNameInput');
+        const lastNameInput = document.getElementById('lastNameInput');
+
+        firstNameInput?.addEventListener('input', () => persistFormState());
+        lastNameInput?.addEventListener('input', () => persistFormState());
+
         // Birth time dropdown
         const birthTimeDisplay = document.getElementById('birthTimeDisplay');
         const birthTimeDropdown = document.getElementById('birthTimeDropdown');
@@ -354,6 +480,8 @@
                     // Update active state
                     dropdownItems.forEach(i => i.classList.remove('active'));
                     item.classList.add('active');
+
+                    persistFormState();
                     
                     // Close dropdown
                     birthTimeDropdown.classList.remove('show');
@@ -475,6 +603,11 @@
                 fortune,
                 timestamp: new Date().toISOString()
             }));
+
+            persistFormState({
+                resultName: fullName,
+                fortuneData: fortune
+            });
 
             console.log('✅ Fortune data:', fortune);
             // Show result section with structured fortune data
@@ -620,7 +753,8 @@
     }
 
     // Show fortune result in Section 3
-    function showFortuneResult(name, fortuneData) {
+    function showFortuneResult(name, fortuneData, options = {}) {
+        const { scrollToResult = true } = options;
         const resultSection = document.getElementById('fortuneResultSection');
         if (!resultSection) return;
 
@@ -677,10 +811,12 @@
         // --- Reveal Section 3: remove waiting state ---
         resultSection.classList.remove('waiting');
 
-        // Scroll to result section after short delay
-        setTimeout(function() {
-            resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 350);
+        if (scrollToResult) {
+            // Scroll to result section after short delay
+            setTimeout(function() {
+                resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 350);
+        }
 
         // --- Populate & reveal Section 4 ---
         showWeeklySection(fortuneData);
@@ -736,18 +872,22 @@
         }
 
         // --- Tab switching logic ---
-        var tabs = weeklySection.querySelectorAll('.weekly-tab');
-        tabs.forEach(function(tab) {
-            tab.addEventListener('click', function() {
-                tabs.forEach(function(t) { t.classList.remove('active'); });
-                weeklySection.querySelectorAll('.weekly-tab-content').forEach(function(c) {
-                    c.classList.remove('active');
+        if (weeklySection.dataset.tabsBound !== 'true') {
+            var tabs = weeklySection.querySelectorAll('.weekly-tab');
+            tabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(function(t) { t.classList.remove('active'); });
+                    weeklySection.querySelectorAll('.weekly-tab-content').forEach(function(c) {
+                        c.classList.remove('active');
+                    });
+                    tab.classList.add('active');
+                    var target = document.getElementById(tab.dataset.target);
+                    if (target) target.classList.add('active');
+                    persistFormState({ activeWeeklyTab: tab.dataset.target });
                 });
-                tab.classList.add('active');
-                var target = document.getElementById(tab.dataset.target);
-                if (target) target.classList.add('active');
             });
-        });
+            weeklySection.dataset.tabsBound = 'true';
+        }
 
         // --- Reveal Section 4 ---
         weeklySection.classList.remove('waiting');

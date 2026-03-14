@@ -729,8 +729,8 @@ body {
     width: 439px;
     height: 174px;
     margin: 54px auto 0;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1.5px solid rgba(255, 255, 255, 0.55);
+    background: rgba(19, 10, 31, 0.42);
+    border: 1.5px solid rgba(255, 0, 212, 0.28);
     border-radius: 225px;
     cursor: pointer;
     padding: 0;
@@ -740,43 +740,32 @@ body {
     overflow: hidden;
     backdrop-filter: blur(28px) saturate(160%);
     -webkit-backdrop-filter: blur(28px) saturate(160%);
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.35),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-        0 8px 32px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 5;
 }
 
 .fortune-submit-btn:hover {
     transform: translateY(-2px) scale(1.02);
-    background: rgba(255, 255, 255, 0.14);
-    border-color: rgba(255, 255, 255, 0.85);
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.5),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.15),
-        0 16px 48px rgba(0, 0, 0, 0.3);
+    background: rgba(26, 14, 43, 0.56);
+    border-color: rgba(255, 0, 212, 0.42);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
 }
 
 .fortune-submit-btn:active {
     transform: translateY(0) scale(0.98);
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow:
-        inset 0 2px 8px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    background: rgba(14, 8, 24, 0.62);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Liquid Glass Background — pure glass specular highlight, no color */
 .liquid-glass-bg {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 35% 25%,
-        rgba(255, 255, 255, 0.22) 0%,
-        rgba(255, 255, 255, 0.04) 55%,
-        transparent 100%);
+    background: none;
     border-radius: 225px;
     pointer-events: none;
-    opacity: 1;
+    opacity: 0;
 }
 
 /* Glass Lenses */
@@ -791,7 +780,7 @@ body {
     position: absolute;
     inset: 0;
     backdrop-filter: blur(50px);
-    background: rgba(255, 255, 255, 0.01);
+    background: transparent;
     border-radius: 1000px;
 }
 
@@ -885,14 +874,11 @@ body {
     left: -100%;
     width: 60%;
     height: 100%;
-    background: linear-gradient(105deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.18) 50%,
-        transparent 100%);
+    background: none;
     border-radius: inherit;
     pointer-events: none;
     z-index: 1;
-    animation: shine 4s ease-in-out infinite;
+    animation: none;
 }
 
 @keyframes shine {
@@ -907,11 +893,8 @@ body {
     inset: 2px;
     border-radius: inherit;
     pointer-events: none;
-    background: linear-gradient(180deg,
-        rgba(255,255,255,0.06) 0%,
-        transparent 60%,
-        rgba(0,0,0,0.08) 100%);
-    opacity: 1;
+    background: none;
+    opacity: 0;
 }
 
 /* ========================================

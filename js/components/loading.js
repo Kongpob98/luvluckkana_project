@@ -7,7 +7,8 @@ class LoadingScreen {
     constructor(options = {}) {
         this.options = {
             videoSrc: options.videoSrc || '../assets/images/Logoload.mp4',
-            minDisplayTime: options.minDisplayTime || 1500, // Minimum time to show loading (ms)
+            minDisplayTime: options.minDisplayTime ?? 0, // Do not force extra wait; follow actual load timing
+            navigationDisplayTime: options.navigationDisplayTime ?? 0, // Do not delay navigation artificially
             showProgress: options.showProgress !== false, // Show loading text
             autoHide: options.autoHide !== false, // Auto hide when page loads
             autoShow: options.autoShow !== undefined ? options.autoShow : true, // Show on page load by default
@@ -18,6 +19,8 @@ class LoadingScreen {
         this.startTime = Date.now();
         this.isReady = false;
         this.isNavigating = false;
+        this.progressValue = 0;
+        this.progressTimer = null;
         
         this.init();
     }
@@ -93,6 +96,53 @@ class LoadingScreen {
         
         this.loadingScreen = document.getElementById('loadingScreen');
         this.loadingVideo = document.getElementById('loadingVideo');
+        this.progressText = document.querySelector('.loading-progress-text');
+        this.progressFill = document.querySelector('.progress-fill');
+
+        this.setProgress(8);
+    }
+
+    setProgress(value, label) {
+        this.progressValue = Math.max(0, Math.min(100, value));
+
+        if (this.progressFill) {
+            this.progressFill.style.width = `${this.progressValue}%`;
+        }
+
+        if (this.progressText) {
+            const nextLabel = label || (this.progressValue >= 100 ? 'พร้อมแล้ว' : `กำลังโหลด ${Math.round(this.progressValue)}%`);
+            this.progressText.textContent = nextLabel;
+        }
+    }
+
+    stopProgressSimulation() {
+        if (this.progressTimer) {
+            clearInterval(this.progressTimer);
+            this.progressTimer = null;
+        }
+    }
+
+    startProgressSimulation(mode = 'initial') {
+        this.stopProgressSimulation();
+
+        const cap = mode === 'navigation' ? 72 : 92;
+        const intervalMs = mode === 'navigation' ? 90 : 140;
+
+        this.progressTimer = setInterval(() => {
+            if (this.progressValue >= cap) {
+                this.stopProgressSimulation();
+                return;
+            }
+
+            const remaining = cap - this.progressValue;
+            const increment = Math.max(1.5, remaining * 0.12);
+            this.setProgress(this.progressValue + increment);
+        }, intervalMs);
+    }
+
+    completeProgress() {
+        this.stopProgressSimulation();
+        this.setProgress(100, 'พร้อมแล้ว');
     }
     
     setupEventListeners() {
@@ -100,6 +150,20 @@ class LoadingScreen {
         if (this.loadingVideo) {
             this.loadingVideo.play().catch(err => {
                 console.log('Loading video autoplay prevented:', err);
+            });
+        }
+
+        if (this.options.showProgress) {
+            this.startProgressSimulation('initial');
+
+            document.addEventListener('readystatechange', () => {
+                if (document.readyState === 'interactive') {
+                    this.setProgress(Math.max(this.progressValue, 58));
+                }
+
+                if (document.readyState === 'complete') {
+                    this.setProgress(Math.max(this.progressValue, 92));
+                }
             });
         }
         
@@ -120,7 +184,14 @@ class LoadingScreen {
     checkAndHide() {
         const elapsedTime = Date.now() - this.startTime;
         const remainingTime = Math.max(0, this.options.minDisplayTime - elapsedTime);
-        
+
+        this.completeProgress();
+
+        if (remainingTime === 0) {
+            setTimeout(() => this.hide(), 120);
+            return;
+        }
+
         setTimeout(() => {
             this.hide();
         }, remainingTime);
@@ -128,6 +199,8 @@ class LoadingScreen {
     
     hide() {
         if (!this.loadingScreen) return;
+
+        this.stopProgressSimulation();
         
         // Fade out
         this.loadingScreen.classList.add('fade-out');
@@ -138,10 +211,10 @@ class LoadingScreen {
         // Reset navigation flag
         this.isNavigating = false;
         
-        // Remove from DOM after transition (1.2s animation + 100ms buffer)
+        // Remove from DOM after transition completes
         setTimeout(() => {
             this.loadingScreen.classList.add('hidden');
-        }, 1300);
+        }, 450);
     }
     
     show() {
@@ -149,6 +222,8 @@ class LoadingScreen {
         
         // Reset start time for minDisplayTime calculation
         this.startTime = Date.now();
+        this.setProgress(10);
+        this.startProgressSimulation(this.isNavigating ? 'navigation' : 'initial');
         
         this.loadingScreen.classList.remove('fade-out', 'hidden');
         document.body.classList.add('loading-active');
@@ -225,14 +300,25 @@ class LoadingScreen {
         if (this.isNavigating) return;
         
         this.isNavigating = true;
+
+        const backgroundAudio = document.getElementById('global-bg-audio');
+        if (backgroundAudio) {
+            sessionStorage.setItem('luckkana-bg-audio-time', String(backgroundAudio.currentTime || 0));
+        }
         
         // Show loading
         this.show();
+        this.setProgress(Math.max(this.progressValue, 24), 'กำลังเปลี่ยนหน้า');
         
-        // Navigate after minimum display time
+        // Navigate immediately so loading reflects actual network speed.
+        if (this.options.navigationDisplayTime === 0) {
+            window.location.href = url;
+            return;
+        }
+
         setTimeout(() => {
             window.location.href = url;
-        }, this.options.minDisplayTime);
+        }, this.options.navigationDisplayTime);
     }
     
     // Static method to create and initialize loading screen
