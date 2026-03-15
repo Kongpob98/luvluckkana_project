@@ -146,7 +146,8 @@
         restoreBirthTimeSelection(savedState.birthTimeValue, savedState.birthTimeText);
 
         if (savedState.resultName && savedState.fortuneData) {
-            showFortuneResult(savedState.resultName, savedState.fortuneData, { scrollToResult: false });
+            const normalizedSavedFortune = normalizeFortuneData(savedState.fortuneData);
+            showFortuneResult(savedState.resultName, normalizedSavedFortune, { scrollToResult: false });
             restoreWeeklyTab(savedState.activeWeeklyTab);
         }
     }
@@ -633,6 +634,158 @@
         }, autoCloseMs);
     }
 
+    function extractJsonObject(text) {
+        if (!text || typeof text !== 'string') return null;
+
+        const start = text.indexOf('{');
+        const end = text.lastIndexOf('}');
+        if (start === -1 || end === -1 || end <= start) return null;
+
+        return text.slice(start, end + 1);
+    }
+
+    function getFallbackFortuneData() {
+        return {
+            luckyColors: [
+                { name: 'สีทอง', hex: '#D4AC0D', meaning: 'เสริมความมั่งคั่ง' },
+                { name: 'สีแดง', hex: '#C0392B', meaning: 'เสริมความมั่นใจ' },
+                { name: 'สีขาว', hex: '#ECF0F1', meaning: 'เสริมโชคลาภ' }
+            ],
+            luckyDirection: {
+                name: 'ทิศตะวันออก',
+                meaning: 'ทิศมงคลสำหรับเริ่มต้นสิ่งใหม่และเสริมพลังชีวิต'
+            },
+            weeklyFortune: {
+                love: {
+                    points: [
+                        'สื่อสารด้วยความจริงใจ จะช่วยให้ความสัมพันธ์ราบรื่นขึ้นตลอดสัปดาห์',
+                        'คนโสดมีเกณฑ์ได้พบคนที่คุยแล้วสบายใจจากวงสังคมใกล้ตัว',
+                        'ควรหลีกเลี่ยงการใช้อารมณ์ในบทสนทนาสำคัญ เพื่อรักษาบรรยากาศที่ดี',
+                        'ช่วงปลายสัปดาห์เหมาะกับการเติมความหวานและทำกิจกรรมร่วมกัน'
+                    ]
+                },
+                money: {
+                    points: [
+                        'วางแผนรายจ่ายให้ชัดเจน แล้วการเงินจะนิ่งและคล่องตัวมากขึ้น',
+                        'มีโอกาสรับรายได้เสริมจากงานย่อยหรือโปรเจกต์ระยะสั้น',
+                        'เลี่ยงการซื้อของตามอารมณ์ จะช่วยรักษาสมดุลทางการเงินได้ดี',
+                        'ทบทวนบิลหรือค่าใช้จ่ายประจำ จะพบช่องทางประหยัดที่เห็นผลเร็ว'
+                    ]
+                },
+                career: {
+                    points: [
+                        'จัดลำดับความสำคัญงานรายวัน จะเห็นผลลัพธ์ที่ก้าวหน้าอย่างชัดเจน',
+                        'การประสานงานกับทีมจะราบรื่นขึ้น หากสื่อสารเป้าหมายให้ชัดตั้งแต่ต้น',
+                        'มีโอกาสได้รับคำชมหรือความไว้วางใจจากผู้ใหญ่ในเรื่องความรับผิดชอบ',
+                        'เหมาะกับการเริ่มไอเดียใหม่ โดยค่อยๆ แตกงานเป็นขั้นตอนเล็กๆ'
+                    ]
+                },
+                health: {
+                    points: [
+                        'พักผ่อนให้เพียงพอและดื่มน้ำมากขึ้น เพื่อคงพลังงานให้สมดุลทั้งสัปดาห์',
+                        'ลดการนอนดึกต่อเนื่อง จะช่วยให้สมาธิและอารมณ์ดีขึ้นชัดเจน',
+                        'ขยับร่างกายวันละเล็กน้อย เช่น เดินเร็ว 15-20 นาที เพื่อกระตุ้นระบบไหลเวียน',
+                        'ดูแลอาหารมื้อเย็นให้อยู่ในปริมาณพอดี เพื่อลดความอ่อนล้าตอนเช้า'
+                    ]
+                }
+            },
+            weeklyWarning: [
+                'หลีกเลี่ยงการตัดสินใจเร็วเกินไปในเรื่องการเงิน',
+                'ตรวจสอบเอกสารสำคัญก่อนส่งทุกครั้ง',
+                'ระวังการพักผ่อนไม่พอจากการทำงานต่อเนื่อง',
+                'งดรับภาระเกินกำลังเพื่อป้องกันความเครียดสะสม'
+            ],
+            luckyCalendar: [
+                { day: 'จันทร์', color: 'สีครีม', hex: '#F5E6C8', action: 'เริ่มงานใหม่ให้ลื่นไหล' },
+                { day: 'อังคาร', color: 'สีแดง', hex: '#C0392B', action: 'เพิ่มความกล้าในการตัดสินใจ' },
+                { day: 'พุธ', color: 'สีเขียว', hex: '#2ECC71', action: 'เจรจางานได้ผลดี' },
+                { day: 'พฤหัส', color: 'สีเหลืองทอง', hex: '#D4AC0D', action: 'เสริมโอกาสด้านการเงิน' },
+                { day: 'ศุกร์', color: 'สีชมพู', hex: '#FF69B4', action: 'หนุนเสน่ห์และความสัมพันธ์' },
+                { day: 'เสาร์', color: 'สีม่วง', hex: '#8E44AD', action: 'เสริมสมาธิและความนิ่ง' },
+                { day: 'อาทิตย์', color: 'สีขาว', hex: '#ECF0F1', action: 'พักใจและรีเซ็ตพลังงาน' }
+            ]
+        };
+    }
+
+    function normalizeFortuneData(rawData) {
+        const fallback = getFallbackFortuneData();
+        const safeData = rawData && typeof rawData === 'object' ? rawData : {};
+
+        function normalizeTextArray(items) {
+            return (Array.isArray(items) ? items : [])
+                .map((item) => (typeof item === 'string' ? item.trim() : ''))
+                .filter(Boolean);
+        }
+
+        function ensureMinItems(primaryItems, fallbackItems, minCount) {
+            const result = normalizeTextArray(primaryItems);
+            const backup = normalizeTextArray(fallbackItems);
+
+            for (let i = 0; i < backup.length && result.length < minCount; i++) {
+                if (!result.includes(backup[i])) result.push(backup[i]);
+            }
+
+            return result.slice(0, Math.max(minCount, result.length));
+        }
+
+        const luckyColors = Array.isArray(safeData.luckyColors) && safeData.luckyColors.length
+            ? safeData.luckyColors
+            : fallback.luckyColors;
+
+        const luckyDirection = safeData.luckyDirection && typeof safeData.luckyDirection === 'object'
+            ? safeData.luckyDirection
+            : fallback.luckyDirection;
+
+        const weeklyFortune = safeData.weeklyFortune && typeof safeData.weeklyFortune === 'object'
+            ? safeData.weeklyFortune
+            : {};
+
+        const normalizedWeeklyFortune = {
+            love: {
+                points: ensureMinItems(
+                    weeklyFortune?.love?.points,
+                    fallback.weeklyFortune.love.points,
+                    4
+                )
+            },
+            money: {
+                points: ensureMinItems(
+                    weeklyFortune?.money?.points,
+                    fallback.weeklyFortune.money.points,
+                    4
+                )
+            },
+            career: {
+                points: ensureMinItems(
+                    weeklyFortune?.career?.points,
+                    fallback.weeklyFortune.career.points,
+                    4
+                )
+            },
+            health: {
+                points: ensureMinItems(
+                    weeklyFortune?.health?.points,
+                    fallback.weeklyFortune.health.points,
+                    4
+                )
+            }
+        };
+
+        const weeklyWarning = ensureMinItems(safeData.weeklyWarning, fallback.weeklyWarning, 4);
+
+        const luckyCalendar = Array.isArray(safeData.luckyCalendar) && safeData.luckyCalendar.length >= 7
+            ? safeData.luckyCalendar.slice(0, 7)
+            : fallback.luckyCalendar;
+
+        return {
+            luckyColors,
+            luckyDirection,
+            weeklyFortune: normalizedWeeklyFortune,
+            weeklyWarning,
+            luckyCalendar
+        };
+    }
+
     // Handle form submit
     async function handleSubmit(e) {
         e.preventDefault();
@@ -807,7 +960,7 @@
                             temperature: 0.7,
                             topK: 40,
                             topP: 0.95,
-                            maxOutputTokens: 1024
+                            maxOutputTokens: 2048
                         }
                     })
                 });
@@ -819,26 +972,19 @@
 
             const data = await response.json();
             const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
-            // Strip markdown code fences if Gemini wraps JSON in them
-            const jsonText = rawText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+            // Strip markdown fences and keep only JSON object range if model adds extra text.
+            const cleanedText = rawText.replace(/```(?:json)?\s*/gi, '').replace(/```/g, '').trim();
+            const extractedJsonText = extractJsonObject(cleanedText) || cleanedText;
+
             let fortuneData;
             try {
-                fortuneData = JSON.parse(jsonText);
+                fortuneData = JSON.parse(extractedJsonText);
             } catch (parseErr) {
                 console.warn('⚠️ JSON parse failed, using fallback data');
-                fortuneData = {
-                    luckyColors: [
-                        { name: 'สีทอง', hex: '#D4AC0D', meaning: 'ความมั่งคั่ง' },
-                        { name: 'สีแดง', hex: '#C0392B', meaning: 'ความรัก' },
-                        { name: 'สีขาว', hex: '#ECF0F1', meaning: 'โชคลาภ' }
-                    ],
-                    luckyDirection: {
-                        name: 'ทิศตะวันออก',
-                        meaning: 'ทิศมงคลสำหรับการงานและความก้าวหน้า เสริมพลังชีวิตให้แก่ผู้ที่หันหน้าไปทางทิศนี้'
-                    }
-                };
+                fortuneData = getFallbackFortuneData();
             }
-            return fortuneData;
+
+            return normalizeFortuneData(fortuneData);
 
         } catch (error) {
             console.error('Gemini API Error:', error);
