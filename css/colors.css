@@ -452,7 +452,7 @@ body.bg-pink {
 
 @media (max-width: 768px) {
     .intro-section {
-        padding: 120px 24px 40px;
+        padding: max(150px, calc(env(safe-area-inset-top) + 130px)) 24px 40px;
     }
 
     .intro-title {
@@ -464,7 +464,7 @@ body.bg-pink {
     }
 
     .color-section {
-        padding: 120px 24px 40px;
+        padding: max(150px, calc(env(safe-area-inset-top) + 130px)) 24px 40px;
     }
 
     .color-body {
@@ -498,7 +498,7 @@ body.bg-pink {
 
 @media (max-width: 480px) {
     .intro-section {
-        padding: 110px 20px 40px;
+        padding: max(142px, calc(env(safe-area-inset-top) + 122px)) 20px 40px;
     }
 
     .intro-title {
@@ -510,7 +510,7 @@ body.bg-pink {
     }
 
     .color-section {
-        padding: 110px 20px 40px;
+        padding: max(142px, calc(env(safe-area-inset-top) + 122px)) 20px 40px;
     }
 
     .color-title {

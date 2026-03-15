@@ -695,6 +695,16 @@ body.chinese-zodiac-page {
     }
 }
 
+/* iPad portrait: keep section 2 centered */
+@media screen and (max-width: 1024px) and (min-width: 769px) and (orientation: portrait) {
+    .chinese-history-content {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 960px;
+        padding: 0 24px;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .chinese-hero-section {
         min-height: 100vh;
@@ -1303,6 +1313,7 @@ body.chinese-zodiac-page {
     align-items: center;
     justify-content: center;
     padding: 40px;
+    min-height: 0;
     background: linear-gradient(180deg, 
         rgba(255, 255, 255, 0.1) 0%, 
         rgba(0, 0, 0, 0.3) 100%);
@@ -1330,6 +1341,7 @@ body.chinese-zodiac-page {
 .zodiac-card-content {
     padding: 24px;
     text-align: center;
+    flex-shrink: 0;
     background: linear-gradient(180deg, 
         rgba(0, 0, 0, 0.3) 0%, 
         rgba(0, 0, 0, 0.6) 100%);
@@ -1341,6 +1353,7 @@ body.chinese-zodiac-page {
     font-weight: 700;
     color: #ffffff;
     margin-bottom: 8px;
+    line-height: 1.05;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -1351,6 +1364,7 @@ body.chinese-zodiac-page {
     font-weight: 500;
     color: #b5b5b5;
     margin-bottom: 12px;
+    line-height: 1.1;
 }
 
 .zodiac-card-years {
@@ -1359,6 +1373,7 @@ body.chinese-zodiac-page {
     font-weight: 400;
     color: #8a8a8a;
     display: block;
+    line-height: 1.2;
 }
 
 /* Card Positioning States */
@@ -1685,6 +1700,10 @@ body.chinese-zodiac-page {
         width: 320px;
         height: 420px;
     }
+
+    .zodiac-card-content {
+        padding: 18px 16px;
+    }
     
     .zodiac-card-name {
         font-size: 32px;
@@ -1696,6 +1715,33 @@ body.chinese-zodiac-page {
     
     .zodiac-card-years {
         font-size: 16px;
+    }
+
+    .zodiac-card-back-content {
+        padding: 24px 20px;
+    }
+
+    .zodiac-back-title {
+        font-size: 44px;
+        margin-bottom: 14px;
+        line-height: 1.05;
+    }
+
+    .zodiac-back-info {
+        max-height: calc(100% - 120px);
+    }
+
+    .zodiac-back-info p {
+        font-size: 24px;
+        line-height: 1.45;
+        margin-bottom: 10px;
+    }
+
+    .flip-back-btn {
+        margin-top: 14px;
+        padding: 10px 24px;
+        font-size: 22px;
+        align-self: center;
     }
     
     .zodiac-card.left-1 {

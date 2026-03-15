@@ -34,7 +34,7 @@
 
                 <!-- Logo top (Figma: Artboard 1 5) -->
                 <div class="sc-logo-wrap">
-                    <img src="../assets/images/simsy-result/logo-bg.png" alt="Luckkana Star" class="sc-logo">
+                    <img src="../assets/images/simsy-result/logo-bg.png" alt="Luckkana Star" class="sc-logo" loading="eager" decoding="sync">
                 </div>
 
                 <!-- Fortune Level Badge (Figma: Rectangle + ดีเลิศ) -->
@@ -105,14 +105,24 @@
             }
 
             // Populate card from a slip number
+            function normalizeText(text) {
+                return String(text || '').replace(/\s+/g, ' ').trim();
+            }
+
+            function truncateText(text, maxChars) {
+                const normalized = normalizeText(text);
+                if (normalized.length <= maxChars) return normalized;
+                return `${normalized.slice(0, maxChars).trimEnd()}...`;
+            }
+
             function renderSlip(num) {
                 const numPadded = String(num).padStart(2, '0');
                 const slipData = allSlips[String(num)];
                 document.getElementById('slipNumber').textContent = numPadded;
                 if (slipData) {
                     document.getElementById('slipLevel').textContent = slipData.level || 'ดีเลิศ';
-                    document.getElementById('slipPoem').textContent = slipData.poem || '';
-                    document.getElementById('slipMeaning').textContent = slipData.meaning || '';
+                    document.getElementById('slipPoem').textContent = truncateText(slipData.poem, 190);
+                    document.getElementById('slipMeaning').textContent = truncateText(slipData.meaning, 260);
                 }
             }
 
@@ -168,6 +178,39 @@
                 }
             }
 
+            function blobToDataUrl(blob) {
+                return new Promise((resolve, reject) => {
+                    const fr = new FileReader();
+                    fr.onload = (e) => resolve(e.target.result);
+                    fr.onerror = reject;
+                    fr.readAsDataURL(blob);
+                });
+            }
+
+            async function toDataUrlWithRetry(src, retries = 2) {
+                for (let attempt = 0; attempt <= retries; attempt++) {
+                    try {
+                        const response = await fetch(src, { cache: 'no-store' });
+                        if (!response.ok) {
+                            throw new Error(`fetch failed: ${response.status}`);
+                        }
+                        const blob = await response.blob();
+                        return await blobToDataUrl(blob);
+                    } catch (error) {
+                        if (attempt === retries) return null;
+                        await new Promise((resolve) => setTimeout(resolve, 120));
+                    }
+                }
+                return null;
+            }
+
+            function restoreCapturedImages(container) {
+                container.querySelectorAll('img[data-capture-orig-src]').forEach((img) => {
+                    img.src = img.dataset.captureOrigSrc;
+                    delete img.dataset.captureOrigSrc;
+                });
+            }
+
             if (shareButton) {
                 shareButton.addEventListener('click', async function() {
                     const spanEl = this.querySelector('span');
@@ -178,39 +221,52 @@
 
                         const simsyCard = document.getElementById('simsyCard');
 
-                        // Pre-convert all img src to data URLs to avoid CORS issues
-                        const imgs = simsyCard.querySelectorAll('img');
-                        const origSrcs = [];
-                        for (const img of imgs) {
-                            origSrcs.push(img.src);
-                            try {
-                                const r = await fetch(img.src);
-                                const b = await r.blob();
-                                const dataUrl = await new Promise(res => {
-                                    const fr = new FileReader();
-                                    fr.onload = e => res(e.target.result);
-                                    fr.readAsDataURL(b);
-                                });
-                                img.src = dataUrl;
-                            } catch(e) { /* keep original src */ }
+                        // Pre-convert image sources to data URLs to avoid intermittent missing assets.
+                        const imgs = Array.from(simsyCard.querySelectorAll('img'));
+                        const logoImg = simsyCard.querySelector('.sc-logo');
+
+                        imgs.forEach((img) => {
+                            img.dataset.captureOrigSrc = img.src;
+                        });
+
+                        if (logoImg) {
+                            const logoDataUrl = await toDataUrlWithRetry(logoImg.src, 3);
+                            if (logoDataUrl) {
+                                logoImg.src = logoDataUrl;
+                            }
                         }
 
+                        await Promise.all(imgs.filter((img) => img !== logoImg).map(async (img) => {
+                            const dataUrl = await toDataUrlWithRetry(img.src, 2);
+                            if (dataUrl) {
+                                img.src = dataUrl;
+                            }
+                        }));
+
                         // Ensure every image is fully loaded before capture (fixes intermittent missing logo)
-                        await Promise.all(Array.from(imgs).map(waitForImageReady));
+                        await Promise.all(imgs.map(waitForImageReady));
+
+                        if (logoImg && logoImg.naturalWidth === 0) {
+                            throw new Error('ไม่สามารถโหลดโลโก้สำหรับบันทึกรูปได้');
+                        }
 
                         // Apply capture overrides and wait for paint
                         simsyCard.classList.add('sc-capture');
+                        if (document.fonts && document.fonts.ready) {
+                            await document.fonts.ready;
+                        }
                         await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+                        await new Promise((resolve) => setTimeout(resolve, 100));
 
                         const dataUrl = await htmlToImage.toPng(simsyCard, {
                             pixelRatio: 3,
                             backgroundColor: '#000000',
-                            cacheBust: false
+                            cacheBust: true
                         });
 
                         // Restore everything
                         simsyCard.classList.remove('sc-capture');
-                        imgs.forEach((img, i) => { img.src = origSrcs[i]; });
+                        restoreCapturedImages(simsyCard);
 
                         // dataUrl → Blob
                         const fetchRes = await fetch(dataUrl);
@@ -249,6 +305,7 @@
                     } catch (error) {
                         const simsyCard = document.getElementById('simsyCard');
                         simsyCard.classList.remove('sc-capture');
+                        restoreCapturedImages(simsyCard);
                         console.error('Capture error:', error);
                         alert('เกิดข้อผิดพลาด: ' + (error.message || error));
                         spanEl.textContent = originalText;

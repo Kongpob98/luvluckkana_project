@@ -957,6 +957,11 @@
     min-height: 0;
     word-break: keep-all;
     overflow-wrap: break-word;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    line-clamp: 6;
 }
 
 /* ── Meaning Section (Figma: Rectangle2 label + Rectangle1 box + Component3 text) ── */
@@ -995,6 +1000,8 @@
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.06);
     padding: 14px 16px;
+    max-height: 210px;
+    overflow: hidden;
 }
 
 .sc-meaning-text {
@@ -1004,6 +1011,11 @@
     color: rgba(255, 255, 255, 0.80);
     line-height: 1.8;
     margin: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
 }
 
 /* ── Capture mode override for share/screenshot ─────────── */
@@ -1069,12 +1081,14 @@
     .sc-number { font-size: 88px; }
     .sc-poem { font-size: 21px; padding: 14px 20px 6px; }
     .sc-meaning-section { padding: 6px 14px 22px; }
-    .sc-meaning-text { font-size: 15px; }
+    .sc-meaning-box { max-height: 190px; }
+    .sc-meaning-text { font-size: 15px; -webkit-line-clamp: 4; line-clamp: 4; }
 }
 
 @media (max-width: 390px) {
     .simsy-card { width: 92vw; min-height: 560px; border-radius: 18px; }
     .sc-number { font-size: 78px; }
-    .sc-poem   { font-size: 19px; padding: 10px 16px 4px; }
-    .sc-meaning-text { font-size: 14px; }
+    .sc-poem   { font-size: 19px; padding: 10px 16px 4px; -webkit-line-clamp: 5; line-clamp: 5; }
+    .sc-meaning-box { max-height: 168px; }
+    .sc-meaning-text { font-size: 14px; -webkit-line-clamp: 4; line-clamp: 4; }
 }

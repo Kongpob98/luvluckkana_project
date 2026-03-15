@@ -257,6 +257,28 @@
                 z-index: 10001;
             }
 
+            @media (max-width: 1024px) {
+                .navbar-content::before {
+                    display: none;
+                }
+
+                .nav-link.active {
+                    background: rgba(255, 255, 255, 0.18);
+                    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+                }
+
+                .sound-toggle-floating {
+                    top: auto;
+                    bottom: max(18px, calc(env(safe-area-inset-bottom, 0px) + 18px));
+                    right: max(16px, calc(env(safe-area-inset-right, 0px) + 16px));
+                    transform: none;
+                    font-size: 12px;
+                    padding: 9px 12px;
+                    backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
+                }
+            }
+
             .sound-toggle:hover {
                 background: rgba(255, 255, 255, 0.18);
                 border-color: rgba(255, 255, 255, 0.35);
@@ -383,6 +405,7 @@
                     font-size: 12px;
                     padding: 9px 12px;
                     backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
                     transform: none;
                 }
 
@@ -768,19 +791,36 @@
             const navLinks = document.querySelectorAll('.nav-link');
             const navbar = document.querySelector('.navbar-content');
             if (!navbar) return;
+
+            function isDesktopIndicatorEnabled() {
+                return window.matchMedia('(min-width: 1025px)').matches;
+            }
+
+            function clearIndicator() {
+                navbar.classList.remove('has-active');
+                navbar.style.setProperty('--indicator-left', '0px');
+                navbar.style.setProperty('--indicator-width', '0px');
+            }
             
             function updateIndicator(link) {
-                // Only show indicator on desktop
-                if (window.innerWidth > 640) {
-                    const linkRect = link.getBoundingClientRect();
-                    const navbarRect = navbar.getBoundingClientRect();
-                    const left = linkRect.left - navbarRect.left;
-                    const width = linkRect.width;
-                    
-                    navbar.style.setProperty('--indicator-left', left + 'px');
-                    navbar.style.setProperty('--indicator-width', width + 'px');
-                    navbar.classList.add('has-active');
+                if (!link || !isDesktopIndicatorEnabled()) {
+                    clearIndicator();
+                    return;
                 }
+
+                const linkRect = link.getBoundingClientRect();
+                const navbarRect = navbar.getBoundingClientRect();
+                const left = linkRect.left - navbarRect.left;
+                const width = linkRect.width;
+
+                navbar.style.setProperty('--indicator-left', left + 'px');
+                navbar.style.setProperty('--indicator-width', width + 'px');
+                navbar.classList.add('has-active');
+            }
+
+            function refreshActiveIndicator() {
+                const activeLink = document.querySelector('.nav-link.active');
+                updateIndicator(activeLink);
             }
             
             navLinks.forEach(link => {
@@ -791,7 +831,7 @@
                 });
                 
                 link.addEventListener('mouseenter', function() {
-                    if (window.innerWidth > 640) {
+                    if (isDesktopIndicatorEnabled()) {
                         updateIndicator(this);
                     }
                 });
@@ -802,22 +842,25 @@
             });
             
             navbar.addEventListener('mouseleave', function() {
-                if (window.innerWidth > 640) {
-                    const activeLink = document.querySelector('.nav-link.active');
-                    if (activeLink) {
-                        updateIndicator(activeLink);
-                    }
+                if (isDesktopIndicatorEnabled()) {
+                    refreshActiveIndicator();
                 }
             });
             
             window.addEventListener('resize', function() {
-                if (window.innerWidth > 640) {
-                    const activeLink = document.querySelector('.nav-link.active');
-                    if (activeLink) {
-                        updateIndicator(activeLink);
-                    }
-                }
+                refreshActiveIndicator();
             });
+
+            window.addEventListener('orientationchange', refreshActiveIndicator);
+            window.addEventListener('load', refreshActiveIndicator);
+
+            if (document.fonts && typeof document.fonts.ready?.then === 'function') {
+                document.fonts.ready.then(refreshActiveIndicator).catch(() => {
+                    refreshActiveIndicator();
+                });
+            }
+
+            requestAnimationFrame(() => requestAnimationFrame(refreshActiveIndicator));
         }, 100);
     }
 
