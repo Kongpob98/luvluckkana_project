@@ -10,10 +10,10 @@
     const USE_SERVERLESS = IS_PRODUCTION; // เปลี่ยนเป็น true เพื่อใช้ Serverless บน localhost ด้วย
     
     const GEMINI_API_KEY = window.CONFIG?.GEMINI_API_KEY || 'YOUR_API_KEY_HERE';
-    const GEMINI_MODEL = 'gemini-3.1-flash-lite';
+    const GEMINI_MODEL = 'gemini-2.5-flash-lite';
     const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
     const SERVERLESS_API_URL = '/api/gemini'; // Vercel Function
-    // Model currently used: gemini-3.1-flash-lite
+    // Model currently used: gemini-2.5-flash-lite
     
     // 🔍 Debug Mode - เปิดเพื่อดูข้อมูลทั้งหมดที่ส่งให้ Gemini
     const DEBUG_MODE = true; // เปลี่ยนเป็น false ตอน production
