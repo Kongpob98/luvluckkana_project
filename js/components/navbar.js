@@ -30,7 +30,7 @@
                             หน้าหลัก
                         </a>
                         <a href="blog.html" class="nav-link" data-page="blog">
-                            ตรวจดวงชะตา
+                            สายมู
                         </a>
                     </div>
                     
@@ -446,8 +446,8 @@
                 }
 
                 .nav-link {
-                    font-size: 19px;
-                    padding: 12px 20px;
+                    font-size: 23px;
+                    padding: 14px 22px;
                     width: 100%;
                     justify-content: center;
                     text-align: center;
@@ -471,8 +471,8 @@
                 }
 
                 .nav-link {
-                    font-size: 17px;
-                    padding: 10px 15px;
+                    font-size: 20px;
+                    padding: 12px 16px;
                 }
 
                 .sound-toggle-floating {
@@ -497,8 +497,8 @@
                 }
 
                 .nav-link {
-                    font-size: 16px;
-                    padding: 10px 12px;
+                    font-size: 18px;
+                    padding: 12px 14px;
                 }
 
                 .nav-menu-wrapper {

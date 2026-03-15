@@ -157,10 +157,9 @@ html, body {
 .spotlight-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.85);
+    background: radial-gradient(circle 300px at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.85) 100%);
     z-index: 2;
     pointer-events: none;
-    transition: background 0.05s linear;
     will-change: background;
 }
 
@@ -300,7 +299,8 @@ html, body {
 .numbers-carousel {
     display: flex;
     gap: 30px;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
 }
 
 /* Carousel Navigation */

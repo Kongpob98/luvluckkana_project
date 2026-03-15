@@ -333,40 +333,92 @@
     <script src="../js/animations.js"></script>
     <script src="../js/main.js"></script>
     <script>
-        // Spotlight Effect - Smooth Version
+        // Spotlight Effect - Smooth fade in/out on mouse enter/leave
         const hero = document.querySelector('.numerology-hero');
         const spotlightOverlay = document.querySelector('.spotlight-overlay');
-        
-        let mouseX = 0;
-        let mouseY = 0;
-        let isInHero = false;
-        
-        hero.addEventListener('mousemove', (e) => {
-            const rect = hero.getBoundingClientRect();
-            mouseX = e.clientX - rect.left;
-            mouseY = e.clientY - rect.top;
-            isInHero = true;
-        });
-        
-        hero.addEventListener('mouseenter', () => {
-            isInHero = true;
-        });
-        
-        hero.addEventListener('mouseleave', () => {
-            isInHero = false;
-            spotlightOverlay.style.background = 'rgba(0, 0, 0, 0.85)';
-        });
-        
-        function updateSpotlight() {
-            if (isInHero) {
-                spotlightOverlay.style.background = `radial-gradient(circle 300px at ${mouseX}px ${mouseY}px, transparent 0%, rgba(0, 0, 0, 0.85) 100%)`;
+
+        if (hero && spotlightOverlay) {
+            const maxSpotlightRadius = 300;
+            let mouseX = hero.clientWidth / 2;
+            let mouseY = hero.clientHeight / 2;
+            let currentRadius = 0;
+            let targetRadius = 0;
+            let isInHero = false;
+            let rafId = null;
+            let lastFrameTime = 0;
+
+            const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+            function renderSpotlight() {
+                const radius = Math.max(0, currentRadius);
+                spotlightOverlay.style.background = `radial-gradient(circle ${radius}px at ${mouseX}px ${mouseY}px, transparent 0%, rgba(0, 0, 0, 0.85) 100%)`;
             }
-            requestAnimationFrame(updateSpotlight);
+
+            function updateSpotlight(timestamp) {
+                if (!lastFrameTime) {
+                    lastFrameTime = timestamp;
+                }
+
+                const delta = Math.min(50, timestamp - lastFrameTime);
+                lastFrameTime = timestamp;
+
+                // Exponential smoothing keeps motion consistent across frame rates.
+                const lerpAmount = 1 - Math.exp(-delta * 0.02);
+                currentRadius += (targetRadius - currentRadius) * lerpAmount;
+
+                // Snap tiny values to avoid micro-updates/flicker around zero.
+                if (Math.abs(targetRadius - currentRadius) < 0.2) {
+                    currentRadius = targetRadius;
+                }
+
+                renderSpotlight();
+
+                if (isInHero || currentRadius > 0) {
+                    rafId = requestAnimationFrame(updateSpotlight);
+                } else {
+                    rafId = null;
+                    lastFrameTime = 0;
+                }
+            }
+
+            function startSpotlightLoop() {
+                if (rafId === null) {
+                    rafId = requestAnimationFrame(updateSpotlight);
+                }
+            }
+
+            hero.addEventListener('mousemove', (e) => {
+                const rect = hero.getBoundingClientRect();
+                mouseX = clamp(e.clientX - rect.left, 0, rect.width);
+                mouseY = clamp(e.clientY - rect.top, 0, rect.height);
+
+                startSpotlightLoop();
+            });
+
+            hero.addEventListener('mouseenter', () => {
+                isInHero = true;
+                targetRadius = maxSpotlightRadius;
+                startSpotlightLoop();
+            });
+
+            hero.addEventListener('mouseleave', () => {
+                isInHero = false;
+                targetRadius = 0;
+                startSpotlightLoop();
+            });
+
+            window.addEventListener('resize', () => {
+                const rect = hero.getBoundingClientRect();
+                mouseX = clamp(mouseX, 0, rect.width);
+                mouseY = clamp(mouseY, 0, rect.height);
+                renderSpotlight();
+            });
+
+            renderSpotlight();
         }
-        
-        updateSpotlight();
 
         // Numerology Carousel
+        const carouselWrapper = document.querySelector('.numbers-carousel-wrapper');
         const carousel = document.querySelector('.numbers-carousel');
         const cards = document.querySelectorAll('.number-card');
         const prevBtn = document.querySelector('.carousel-nav.prev');
@@ -375,29 +427,161 @@
         let currentIndex = 0;
         const cardsToShow = window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3;
         const cardWidth = cards[0]?.offsetWidth + 30 || 300;
+        const transitionDurationMs = 1050;
+        const wheelThreshold = 170;
+        const wheelCooldownMs = 520;
+        let scrollTimeout = null;
+        let scrollAccumulator = 0;
+        let lastWheelDirection = 0;
+        let isAnimating = false;
+        let lastNavigationTime = 0;
+        let queuedDirection = 0;
+
+        const canScroll = (element, deltaY) => {
+            if (!element) return false;
+
+            const isScrollingDown = deltaY > 0;
+            const maxScrollTop = element.scrollHeight - element.clientHeight;
+
+            if (maxScrollTop <= 0) return false;
+            if (!isScrollingDown && element.scrollTop > 0) return true;
+            if (isScrollingDown && element.scrollTop < maxScrollTop) return true;
+
+            return false;
+        };
+
+        const canNavigate = () => {
+            const now = performance.now();
+            if (isAnimating || now - lastNavigationTime < wheelCooldownMs) {
+                return false;
+            }
+
+            lastNavigationTime = now;
+            isAnimating = true;
+
+            return true;
+        };
+
+        const releaseNavigationLock = () => {
+            setTimeout(() => {
+                isAnimating = false;
+
+                // If user kept scrolling during animation, continue smoothly once.
+                if (queuedDirection !== 0) {
+                    const nextDirection = queuedDirection;
+                    queuedDirection = 0;
+                    navigate(nextDirection);
+                }
+            }, transitionDurationMs);
+        };
+
+        function navigate(direction) {
+            if (!canNavigate()) {
+                queuedDirection = direction;
+                return;
+            }
+
+            const maxIndex = cards.length - cardsToShow;
+            let nextIndex = currentIndex + direction;
+
+            // Loop carousel when reaching the edges.
+            if (nextIndex > maxIndex) {
+                nextIndex = 0;
+            } else if (nextIndex < 0) {
+                nextIndex = maxIndex;
+            }
+
+            // Nothing to move, clear queued direction and unlock immediately.
+            if (nextIndex === currentIndex) {
+                queuedDirection = 0;
+                isAnimating = false;
+                return;
+            }
+
+            currentIndex = nextIndex;
+            updateCarousel();
+            releaseNavigationLock();
+        }
+
+        function goPrev() {
+            navigate(-1);
+        }
+
+        function goNext() {
+            navigate(1);
+        }
 
         function updateCarousel() {
             const offset = -currentIndex * cardWidth;
-            carousel.style.transform = `translateX(${offset}px)`;
-            
-            // Update button states
-            prevBtn.disabled = currentIndex === 0;
-            nextBtn.disabled = currentIndex >= cards.length - cardsToShow;
+            carousel.style.transform = `translate3d(${offset}px, 0, 0)`;
+
+            // Loop mode keeps navigation always available.
+            if (prevBtn) prevBtn.disabled = false;
+            if (nextBtn) nextBtn.disabled = false;
         }
 
-        prevBtn?.addEventListener('click', () => {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateCarousel();
-            }
-        });
+        prevBtn?.addEventListener('click', goPrev);
 
-        nextBtn?.addEventListener('click', () => {
-            if (currentIndex < cards.length - cardsToShow) {
-                currentIndex++;
-                updateCarousel();
-            }
-        });
+        nextBtn?.addEventListener('click', goNext);
+
+        // Wheel + swipe navigation (same interaction style as Chinese carousel)
+        if (carouselWrapper) {
+            carouselWrapper.addEventListener('wheel', (e) => {
+                const backContent = e.target.closest('.card-back');
+                if (backContent && canScroll(backContent, e.deltaY)) {
+                    return;
+                }
+
+                e.preventDefault();
+
+                const direction = Math.sign(e.deltaY);
+                if (direction !== 0 && lastWheelDirection !== 0 && direction !== lastWheelDirection) {
+                    // Reset accumulation when user changes wheel direction.
+                    scrollAccumulator = 0;
+                }
+                lastWheelDirection = direction;
+
+                scrollAccumulator += e.deltaY;
+
+                if (scrollTimeout) {
+                    clearTimeout(scrollTimeout);
+                }
+
+                if (Math.abs(scrollAccumulator) >= wheelThreshold) {
+                    if (scrollAccumulator > 0) {
+                        goNext();
+                    } else {
+                        goPrev();
+                    }
+                    scrollAccumulator = 0;
+                }
+
+                scrollTimeout = setTimeout(() => {
+                    scrollAccumulator = 0;
+                    lastWheelDirection = 0;
+                }, 200);
+            }, { passive: false });
+
+            let touchStartX = 0;
+            let touchEndX = 0;
+            let allowNativeTouchScroll = false;
+
+            carouselWrapper.addEventListener('touchstart', (e) => {
+                allowNativeTouchScroll = Boolean(e.target.closest('.card-back'));
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            carouselWrapper.addEventListener('touchend', (e) => {
+                if (allowNativeTouchScroll) {
+                    allowNativeTouchScroll = false;
+                    return;
+                }
+
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchEndX < touchStartX - 50) goNext();
+                if (touchEndX > touchStartX + 50) goPrev();
+            });
+        }
 
         // Responsive handling
         let resizeTimer;
