@@ -499,7 +499,7 @@
     overflow: hidden;
     /* Typography: DB Helvethaica X / General Sans, 20px */
     font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 500;
     color: #ffffff;
     letter-spacing: 0.01em;
@@ -863,7 +863,7 @@ body {
 
 .social-link span {
     font-family: 'DB Heavent Cond', sans-serif;
-    font-size: 30px;
+    font-size: 32px;
     font-weight: 500;
     color: black;
     white-space: nowrap;
@@ -933,7 +933,7 @@ body {
 
 .thesis-badge p {
     font-family: 'DB Heavent Cond', sans-serif;
-    font-size: 30px;
+    font-size: 32px;
     color: black;
     margin: 0;
     white-space: nowrap;
@@ -967,7 +967,7 @@ body {
 
 .intro-text {
     font-family: 'DB Heavent Cond', sans-serif;
-    font-size: 30px;
+    font-size: 32px;
     color: black;
     line-height: normal;
     margin-bottom: 16px;
@@ -979,7 +979,7 @@ body {
 
 .description-text {
     font-family: 'DB Heavent Cond', sans-serif;
-    font-size: 30px;
+    font-size: 32px;
     color: black;
     line-height: normal;
     margin-bottom: 16px;
@@ -1228,7 +1228,7 @@ body {
 
 .universe-title {
     font-family: 'DB Heavent Cond', sans-serif;
-    font-size: 90px;
+    font-size: 96px;
     font-weight: 600;
     margin: 0 0 40px 0;
     line-height: 1.2;
@@ -1261,7 +1261,7 @@ body {
 
 .universe-description {
     font-family: 'DB Heavent Cond', sans-serif;
-    font-size: 30px;
+    font-size: 32px;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.85);
     max-width: 900px;
@@ -1519,7 +1519,7 @@ body {
 .detail-content {
     position: absolute;
     left: 5.625%;
-    top: 38vh;
+    top: 34vh;
     z-index: 10;
     display: flex;
     flex-direction: column;
@@ -1544,7 +1544,7 @@ body {
 /* Figma: Inter SemiBold 53.7px, line-height 61.6px, gradient white */
 .detail-heading {
     font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
-    font-size: clamp(24px, 3.2vw, 48px);
+    font-size: clamp(26px, 3.4vw, 52px);
     font-weight: 600;
     line-height: 1.147;
     margin: 0 0 28px 0;
@@ -1566,7 +1566,7 @@ body {
 /* Figma: DB Helvethaica X 32px, color white, 692×228 */
 .detail-description {
     font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
-    font-size: clamp(16px, 1.9vw, 27px);
+    font-size: clamp(17px, 2vw, 29px);
     font-weight: 400;
     line-height: 1.5;
     color: #ffffff;
@@ -1586,7 +1586,7 @@ body {
     border-radius: 200px;
     background: linear-gradient(17.4deg, #FF7AFB 0%, #7C2BFE 100%);
     font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 500;
     color: #ffffff;
     text-decoration: none;
@@ -1626,7 +1626,7 @@ body {
         position: relative;
         left: auto;
         top: auto;
-        margin: 0 auto;
+        margin: -32px auto 0;
         padding: 60px 40px;
         max-width: 680px;
         width: 100%;
@@ -1650,6 +1650,7 @@ body {
         justify-content: center;
     }
     .detail-content {
+        margin-top: -20px;
         padding: 60px 24px;
         max-width: 100%;
         width: 100%;
@@ -1716,6 +1717,13 @@ body {
 .menu-right {
     will-change: transform;
 }
+.menu-top-row,
+.simsy-sticks,
+.chinese-art,
+.birthday-art,
+.simsy-star {
+    will-change: transform;
+}
 
 /* ─── BASE CARD STYLES ─── */
 .menu-card {
@@ -1743,6 +1751,19 @@ body {
 .menu-card:hover {
     filter: brightness(1.18);
     border-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Hover focus effect on desktop: active card bright, others slightly muted */
+@media (hover: hover) and (pointer: fine) {
+    .menu-grid:hover .menu-card {
+        filter: brightness(0.88) saturate(0.78);
+        border-color: rgba(255, 255, 255, 0.45);
+    }
+
+    .menu-grid:hover .menu-card:hover {
+        filter: brightness(1.24) saturate(1.08);
+        border-color: rgba(255, 255, 255, 0.82);
+    }
 }
 
 /* Card full-bleed background SVG/image */
@@ -2090,6 +2111,10 @@ body {
     .menu-grid,
     .menu-card--simsy,
     .menu-right,
+    .menu-top-row,
+    .simsy-sticks,
+    .chinese-art,
+    .birthday-art,
     .simsy-star {
         transform: none !important;
         will-change: auto;
@@ -2316,7 +2341,7 @@ body {
 /* "Social Proof" title — #b794ff, DB Helvethaica X 65 Med equiv */
 .sp-title {
     font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
-    font-size: clamp(24px, 5vw, 72px);
+    font-size: clamp(28px, 5.6vw, 80px);
     font-weight: 600;
     color: #b794ff;
     line-height: 1;
@@ -2326,7 +2351,7 @@ body {
 /* Body paragraph */
 .sp-body p {
     font-family: 'DB Heavent Cond', sans-serif;
-    font-size: clamp(12px, 1.5vw, 22px);
+    font-size: clamp(14px, 1.8vw, 26px);
     font-weight: 400;
     color: #fff;
     line-height: 1.53;
@@ -2336,8 +2361,8 @@ body {
 /* Highlighted closing line — larger, semi-bold */
 .sp-highlight {
     font-family: 'DB Heavent Cond', sans-serif;
-    font-weight: 600;
-    font-size: clamp(14px, 2vw, 30px) !important;
+    font-weight: 900;
+    font-size: clamp(17px, 2.3vw, 34px) !important;
     margin-top: clamp(12px, 2vh, 24px) !important;
     color: #fff;
 }
@@ -2395,9 +2420,9 @@ body {
         box-shadow: 0 0 5px 2px #591adb,
                     0 0 12px 5px rgba(89,26,219,0.4);
     }
-    .sp-title       { font-size: clamp(20px, 7vw, 32px); }
-    .sp-body p      { font-size: clamp(13px, 4vw, 16px); line-height: 1.6; }
-    .sp-highlight   { font-size: clamp(13px, 4.5vw, 18px) !important; }
+    .sp-title       { font-size: clamp(22px, 7.5vw, 36px); }
+    .sp-body p      { font-size: clamp(14px, 4.2vw, 18px); line-height: 1.6; }
+    .sp-highlight   { font-size: clamp(15px, 4.8vw, 21px) !important; }
 }
 
 /* ── Very small phone (≤360px) ── */

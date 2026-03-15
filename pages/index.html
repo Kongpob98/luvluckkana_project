@@ -291,7 +291,6 @@
     <script src="../js/scroll-animations.js"></script>
     <script src="../js/universe-animations.js"></script>
     <script src="../js/components/navbar.js"></script>
-    <script src="../js/components/footer.js"></script>
     <script src="../js/animations.js"></script>
     <script src="../js/main.js"></script>
     <script>
@@ -303,13 +302,22 @@
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
+                const isMobile = window.innerWidth <= 768;
+
                 if (entry.isIntersecting) {
                     const delay = entry.target.dataset.delay || 0;
-                    setTimeout(() => {
+                    clearTimeout(entry.target._revealTimer);
+                    entry.target._revealTimer = setTimeout(() => {
                         entry.target.classList.add('animate-in');
                     }, delay);
-                    // unobserve after first reveal — no snap-back on scroll away
-                    observer.unobserve(entry.target);
+
+                    // Desktop: reveal once. Mobile: keep observing for hide/show on scroll back.
+                    if (!isMobile) {
+                        observer.unobserve(entry.target);
+                    }
+                } else if (isMobile) {
+                    clearTimeout(entry.target._revealTimer);
+                    entry.target.classList.remove('animate-in');
                 }
             });
         }, observerOptions);
@@ -458,11 +466,16 @@
         const menuGrid     = document.querySelector('.menu-grid');
         const menuSimsy    = document.querySelector('.menu-card--simsy');
         const menuRight    = document.querySelector('.menu-right');
+        const menuTopRow   = document.querySelector('.menu-top-row');
+        const menuSimsySticks = document.querySelector('.simsy-sticks');
+        const menuChineseArt  = document.querySelector('.chinese-art');
+        const menuBirthdayArt = document.querySelector('.birthday-art');
         const menuStars    = document.querySelectorAll('.simsy-star');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         // Helper: reset all menu parallax transforms
         function resetMenuParallax() {
-            [menuGrid, menuSimsy, menuRight].forEach(el => {
+            [menuGrid, menuSimsy, menuRight, menuTopRow, menuSimsySticks, menuChineseArt, menuBirthdayArt].forEach(el => {
                 if (el) el.style.transform = '';
             });
             menuStars.forEach(s => s.style.transform = '');
@@ -472,8 +485,8 @@
             let menuTicking = false;
 
             window.addEventListener('scroll', () => {
-                // Skip parallax on tablet/phone — CSS already resets transforms
-                if (window.innerWidth <= 768) return;
+                // Skip parallax on tablet/phone
+                if (window.innerWidth <= 768 || prefersReducedMotion) return;
 
                 if (!menuTicking) {
                     window.requestAnimationFrame(() => {
@@ -487,24 +500,41 @@
                         const viewCenter    = scrolled + windowHeight / 2;
                         const delta         = viewCenter - sectionCenter;
 
-                        // Whole grid lifts slightly as you scroll down
+                        // Whole grid drift
                         if (menuGrid) {
-                            menuGrid.style.transform = `translateY(${delta * 0.06}px)`;
+                            menuGrid.style.transform = `translateY(${delta * 0.09}px)`;
                         }
 
-                        // Left card (เซียมซี) drifts up more than right
+                        // Left card moves faster for stronger depth
                         if (menuSimsy) {
-                            menuSimsy.style.transform = `translateY(${delta * -0.10}px)`;
+                            menuSimsy.style.transform = `translateY(${delta * -0.16}px)`;
                         }
 
-                        // Right column drifts up less — creates separation
+                        // Right column and top row split into different speeds
                         if (menuRight) {
-                            menuRight.style.transform = `translateY(${delta * -0.05}px)`;
+                            menuRight.style.transform = `translateY(${delta * -0.08}px)`;
+                        }
+
+                        if (menuTopRow) {
+                            menuTopRow.style.transform = `translateY(${delta * -0.11}px)`;
+                        }
+
+                        // Decorative layers move independently
+                        if (menuSimsySticks) {
+                            menuSimsySticks.style.transform = `translateY(${delta * -0.20}px)`;
+                        }
+
+                        if (menuChineseArt) {
+                            menuChineseArt.style.transform = `translateY(${delta * -0.14}px)`;
+                        }
+
+                        if (menuBirthdayArt) {
+                            menuBirthdayArt.style.transform = `translateY(${delta * 0.10}px)`;
                         }
 
                         // Sparkle stars drift independently (faster, floaty)
                         menuStars.forEach((star, i) => {
-                            const rate = [-0.18, -0.22, -0.14][i] ?? -0.16;
+                            const rate = [-0.26, -0.30, -0.20][i] ?? -0.24;
                             star.style.transform = `translateY(${delta * rate}px)`;
                         });
 
@@ -516,7 +546,7 @@
 
             // On resize: clear transforms when crossing to mobile, restore when back to desktop
             window.addEventListener('resize', () => {
-                if (window.innerWidth <= 768) resetMenuParallax();
+                if (window.innerWidth <= 768 || prefersReducedMotion) resetMenuParallax();
             });
         }
 

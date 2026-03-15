@@ -34,6 +34,11 @@
                         </a>
                     </div>
                     
+                    <!-- Center Logo -->
+                    <a href="index.html" class="nav-logo-center">
+                        <img src="https://res.cloudinary.com/dpezsckqq/image/upload/f_auto,q_auto/f_auto,q_auto/luckkana/hero-logo.png" alt="Luckkana Star Logo" class="nav-logo-image">
+                    </a>
+                    
                     <!-- Right Menu -->
                     <div class="nav-menu nav-right">
                         <a href="chatbot.html" class="nav-link" data-page="chatbot">
@@ -62,8 +67,10 @@
             .navbar-container {
                 position: fixed;
                 top: var(--luckkana-navbar-top);
-                left: 50%;
-                transform: translateX(-50%) translateY(-100px);
+                left: 0;
+                right: 0;
+                margin: 0 auto;
+                transform: translateY(-100px);
                 z-index: 10000; /* เพิ่มจาก 1000 เป็น 10000 เพื่อให้สูงกว่า loading screen */
                 width: 800px;
                 max-width: 90%;
@@ -74,7 +81,7 @@
 
             @keyframes navbarSlideDown {
                 to {
-                    transform: translateX(-50%) translateY(0);
+                    transform: translateY(0);
                     opacity: 1;
                 }
             }
@@ -82,6 +89,7 @@
             .navbar-content {
                 background-color: rgba(0, 0, 0, 0.2);
                 backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
                 border-radius: 41px;
                 padding: 8px 58px;
                 display: flex;
@@ -106,6 +114,12 @@
                 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 pointer-events: none;
                 opacity: 0;
+                z-index: 1;
+            }
+
+            .navbar-content > * {
+                position: relative;
+                z-index: 2;
             }
 
             .navbar-content.has-active::before {
@@ -150,9 +164,28 @@
             .nav-menu-wrapper {
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
+                justify-content: center;
                 width: 100%;
                 gap: 30px;
+            }
+
+            .nav-logo-center {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                flex-shrink: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .nav-logo-image {
+                height: 36px;
+                width: auto;
+                display: block;
+            }
+
+            .nav-logo-center:hover {
+                opacity: 0.85;
             }
 
             .nav-menu {
@@ -164,8 +197,8 @@
             .nav-link {
                 color: white;
                 text-decoration: none;
-                font-family: 'General Sans', sans-serif;
-                font-size: 24px;
+                font-family: 'DB Heavent Cond', sans-serif;
+                font-size: 25px;
                 font-weight: 400;
                 transition: all 0.3s ease;
                 display: flex;
@@ -179,11 +212,16 @@
             }
 
             .nav-link.active {
-                font-weight: 600;
+                font-weight: 700;
             }
 
             .nav-link:hover {
                 background: transparent;
+                font-weight: 700;
+            }
+
+            .nav-link:focus-visible {
+                font-weight: 700;
             }
 
             .nav-link i {
@@ -253,6 +291,32 @@
                     padding: 8px 30px;
                     gap: 15px;
                     height: 55px;
+                    background:
+                        linear-gradient(145deg,
+                            rgba(255, 255, 255, 0.20) 0%,
+                            rgba(255, 255, 255, 0.08) 38%,
+                            rgba(255, 255, 255, 0.02) 100%),
+                        rgba(10, 12, 20, 0.28);
+                    backdrop-filter: blur(26px) saturate(185%) contrast(112%);
+                    -webkit-backdrop-filter: blur(26px) saturate(185%) contrast(112%);
+                    border: 1px solid rgba(255, 255, 255, 0.28);
+                    box-shadow:
+                        0 10px 24px rgba(0, 0, 0, 0.24),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.34),
+                        inset 0 -14px 28px rgba(18, 24, 42, 0.22);
+                    overflow: hidden;
+                }
+
+                .navbar-content::after {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    border-radius: inherit;
+                    background:
+                        radial-gradient(120% 90% at 10% 0%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0) 52%),
+                        radial-gradient(100% 70% at 85% 120%, rgba(120, 170, 255, 0.14) 0%, rgba(120, 170, 255, 0) 60%);
+                    pointer-events: none;
+                    z-index: 0;
                 }
 
                 .nav-menu-wrapper {
@@ -263,8 +327,12 @@
                     gap: 30px;
                 }
 
+                .nav-logo-image {
+                    height: 30px;
+                }
+
                 .nav-link {
-                    font-size: 18px;
+                    font-size: 19px;
                     padding: 8px 15px;
                 }
 
@@ -301,6 +369,7 @@
                     height: auto;
                     min-height: 50px;
                     border-radius: 30px;
+                    overflow: visible;
                 }
 
                 .hamburger-menu {
@@ -323,8 +392,18 @@
                     left: 0;
                     right: 0;
                     margin-top: 10px;
-                    background-color: rgba(0, 0, 0, 0.3);
-                    backdrop-filter: blur(10px);
+                    background:
+                        linear-gradient(145deg,
+                            rgba(255, 255, 255, 0.18) 0%,
+                            rgba(255, 255, 255, 0.08) 36%,
+                            rgba(255, 255, 255, 0.03) 100%),
+                        rgba(10, 12, 20, 0.30);
+                    backdrop-filter: blur(24px) saturate(180%) contrast(110%);
+                    -webkit-backdrop-filter: blur(24px) saturate(180%) contrast(110%);
+                    border: 1px solid rgba(255, 255, 255, 0.24);
+                    box-shadow:
+                        0 12px 24px rgba(0, 0, 0, 0.24),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.28);
                     border-radius: 20px;
                     padding: 20px;
                     flex-direction: column;
@@ -333,6 +412,26 @@
                     overflow: hidden;
                     opacity: 0;
                     transition: all 0.3s ease;
+                    z-index: 30;
+                }
+
+                .nav-menu-wrapper::before {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    border-radius: inherit;
+                    background: radial-gradient(120% 90% at 10% 0%, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0) 56%);
+                    pointer-events: none;
+                    z-index: 0;
+                }
+
+                .nav-menu-wrapper > * {
+                    position: relative;
+                    z-index: 1;
+                }
+
+                .nav-logo-center {
+                    display: none;
                 }
 
                 .nav-menu-wrapper.active {
@@ -347,7 +446,7 @@
                 }
 
                 .nav-link {
-                    font-size: 18px;
+                    font-size: 19px;
                     padding: 12px 20px;
                     width: 100%;
                     justify-content: center;
@@ -372,7 +471,7 @@
                 }
 
                 .nav-link {
-                    font-size: 16px;
+                    font-size: 17px;
                     padding: 10px 15px;
                 }
 
@@ -398,7 +497,7 @@
                 }
 
                 .nav-link {
-                    font-size: 15px;
+                    font-size: 16px;
                     padding: 10px 12px;
                 }
 

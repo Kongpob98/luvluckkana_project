@@ -29,10 +29,6 @@
     // Initialize
     function init() {
         console.log('🔮 Birthday Fortune Form initialized');
-
-        if (isReloadNavigation()) {
-            clearPersistedFormState();
-        }
         
         // Set default date to today
         const today = new Date();
@@ -44,6 +40,7 @@
 
         renderCalendar();
         updateDateDisplay();
+        syncWeekdaySelection();
         populateYearDropdown();
         populateMonthDropdown();
         attachEventListeners();
@@ -51,15 +48,6 @@
 
         // Always start at top of page
         window.scrollTo({ top: 0, behavior: 'instant' });
-    }
-
-    function isReloadNavigation() {
-        const navigationEntries = performance.getEntriesByType?.('navigation');
-        if (Array.isArray(navigationEntries) && navigationEntries.length > 0) {
-            return navigationEntries[0].type === 'reload';
-        }
-
-        return performance.navigation?.type === 1;
     }
 
     function readPersistedFormState() {
@@ -92,10 +80,6 @@
         };
 
         sessionStorage.setItem(BIRTHDAY_FORM_STATE_KEY, JSON.stringify(nextState));
-    }
-
-    function clearPersistedFormState() {
-        sessionStorage.removeItem(BIRTHDAY_FORM_STATE_KEY);
     }
 
     function restoreBirthTimeSelection(birthTimeValue, birthTimeText) {
@@ -138,8 +122,11 @@
                 day: savedState.selectedDate.day
             };
 
+            normalizeSelectedDate();
+
             updateDateDisplay();
             renderCalendar();
+            syncWeekdaySelection();
             populateYearDropdown();
             populateMonthDropdown();
         }
@@ -210,11 +197,32 @@
         return new Date(year, month + 1, 0).getDate();
     }
 
+    // Keep selected date aligned with real calendar limits
+    function normalizeSelectedDate() {
+        const maxDays = getDaysInMonth(selectedDate.year, selectedDate.month);
+        if (selectedDate.day > maxDays) {
+            selectedDate.day = maxDays;
+        }
+        if (selectedDate.day < 1) {
+            selectedDate.day = 1;
+        }
+    }
+
+    function syncWeekdaySelection() {
+        const selectedWeekday = new Date(selectedDate.year, selectedDate.month, selectedDate.day).getDay();
+        const weekdayBtns = document.querySelectorAll('.weekday');
+        weekdayBtns.forEach((btn) => {
+            const dayOfWeek = Number.parseInt(btn.dataset.day, 10);
+            btn.classList.toggle('active', dayOfWeek === selectedWeekday);
+        });
+    }
+
     // Select date
     function selectDate(day) {
         selectedDate.day = day;
         updateDateDisplay();
         renderCalendar();
+        syncWeekdaySelection();
         persistFormState();
         console.log('📅 Selected date:', selectedDate);
     }
@@ -287,8 +295,10 @@
     // Select Year
     function selectYear(year) {
         selectedDate.year = year;
+        normalizeSelectedDate();
         updateDateDisplay();
         renderCalendar();
+        syncWeekdaySelection();
         populateYearDropdown();
         closeAllDropdowns();
         persistFormState();
@@ -297,8 +307,10 @@
     // Select Month
     function selectMonth(month) {
         selectedDate.month = month;
+        normalizeSelectedDate();
         updateDateDisplay();
         renderCalendar();
+        syncWeekdaySelection();
         populateMonthDropdown();
         closeAllDropdowns();
         persistFormState();
@@ -516,30 +528,108 @@
 
     // Select date by weekday
     function selectByWeekday(dayOfWeek) {
-        // Find the next occurrence of this weekday in current month
         const daysInMonth = getDaysInMonth(selectedDate.year, selectedDate.month);
         const currentDay = selectedDate.day;
-        
-        // Start from current day and find next matching weekday
+
+        // Collect all dates in the current month that match selected weekday.
+        const matchingDays = [];
         for (let day = 1; day <= daysInMonth; day++) {
             const date = new Date(selectedDate.year, selectedDate.month, day);
             if (date.getDay() === dayOfWeek) {
-                // Found a match
-                if (day >= currentDay || currentDay > daysInMonth) {
-                    selectDate(day);
-                    return;
+                matchingDays.push(day);
+            }
+        }
+
+        if (matchingDays.length === 0) return;
+
+        // Choose the nearest real date to current selection.
+        let nearestDay = matchingDays[0];
+        let minDistance = Math.abs(nearestDay - currentDay);
+
+        for (let i = 1; i < matchingDays.length; i++) {
+            const candidate = matchingDays[i];
+            const distance = Math.abs(candidate - currentDay);
+            if (distance < minDistance || (distance === minDistance && candidate > nearestDay)) {
+                nearestDay = candidate;
+                minDistance = distance;
+            }
+        }
+
+        selectDate(nearestDay);
+    }
+
+    function showPrettyAlert(message, options = {}) {
+        const {
+            type = 'warning',
+            autoCloseMs = 2600
+        } = options;
+
+        const previousPopup = document.querySelector('.fortune-popup-overlay');
+        if (previousPopup) {
+            previousPopup.remove();
+        }
+
+        const overlay = document.createElement('div');
+        overlay.className = 'fortune-popup-overlay';
+
+        const popup = document.createElement('div');
+        popup.className = `fortune-popup fortune-popup-${type}`;
+        popup.setAttribute('role', 'alertdialog');
+        popup.setAttribute('aria-modal', 'true');
+
+        const icon = document.createElement('div');
+        icon.className = 'fortune-popup-icon';
+        icon.textContent = type === 'error' ? '!' : '\u26A0';
+
+        const content = document.createElement('div');
+        content.className = 'fortune-popup-content';
+
+        const title = document.createElement('h4');
+        title.className = 'fortune-popup-title';
+        title.textContent = type === 'error' ? 'เกิดข้อผิดพลาด' : 'โปรดตรวจสอบข้อมูล';
+
+        const text = document.createElement('p');
+        text.className = 'fortune-popup-text';
+        text.textContent = message;
+
+        const closeBtn = document.createElement('button');
+        closeBtn.type = 'button';
+        closeBtn.className = 'fortune-popup-close';
+        closeBtn.textContent = 'รับทราบ';
+
+        content.appendChild(title);
+        content.appendChild(text);
+        popup.appendChild(icon);
+        popup.appendChild(content);
+        popup.appendChild(closeBtn);
+        overlay.appendChild(popup);
+        document.body.appendChild(overlay);
+
+        const dismiss = () => {
+            overlay.classList.add('closing');
+            setTimeout(() => {
+                if (overlay.parentNode) {
+                    overlay.parentNode.removeChild(overlay);
                 }
+            }, 180);
+        };
+
+        overlay.addEventListener('click', (event) => {
+            if (event.target === overlay) dismiss();
+        });
+        closeBtn.addEventListener('click', dismiss);
+
+        const onEscape = (event) => {
+            if (event.key === 'Escape') {
+                dismiss();
+                document.removeEventListener('keydown', onEscape);
             }
-        }
-        
-        // If not found after current day, get first occurrence
-        for (let day = 1; day <= daysInMonth; day++) {
-            const date = new Date(selectedDate.year, selectedDate.month, day);
-            if (date.getDay() === dayOfWeek) {
-                selectDate(day);
-                return;
-            }
-        }
+        };
+        document.addEventListener('keydown', onEscape);
+
+        setTimeout(() => {
+            if (overlay.parentNode) dismiss();
+        }, autoCloseMs);
     }
 
     // Handle form submit
@@ -553,19 +643,19 @@
 
         // Validation
         if (!firstName) {
-            alert('กรุณากรอกชื่อจริง');
+            showPrettyAlert('กรุณากรอกชื่อจริง', { type: 'warning' });
             document.getElementById('firstNameInput')?.focus();
             return;
         }
 
         if (!lastName) {
-            alert('กรุณากรอกนามสกุล');
+            showPrettyAlert('กรุณากรอกนามสกุล', { type: 'warning' });
             document.getElementById('lastNameInput')?.focus();
             return;
         }
 
         if (!birthTime) {
-            alert('กรุณาเลือกเวลาเกิด');
+            showPrettyAlert('กรุณาเลือกเวลาเกิด', { type: 'warning' });
             return;
         }
 
@@ -615,7 +705,10 @@
 
         } catch (error) {
             console.error('❌ Error:', error);
-            alert('เกิดข้อผิดพลาดในการคำนวณดวงชะตา กรุณาลองใหม่อีกครั้ง');
+            showPrettyAlert('เกิดข้อผิดพลาดในการคำนวณดวงชะตา กรุณาลองใหม่อีกครั้ง', {
+                type: 'error',
+                autoCloseMs: 4000
+            });
         } finally {
             // Reset button state
             if (submitBtn) {

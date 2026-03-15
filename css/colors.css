@@ -86,7 +86,7 @@ body.colors-page::after {
 }
 
 .intro-title {
-    font-family: 'Noto Sans Thai', 'DB Heavent Cond', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
     font-size: 90px;
     font-weight: 700;
     color: white;
@@ -96,7 +96,7 @@ body.colors-page::after {
 }
 
 .intro-subtitle {
-    font-family: 'Noto Sans Thai', 'DB Heavent Cond', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
     font-size: 30px;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.85);
@@ -223,7 +223,7 @@ body.colors-page::after {
 }
 
 .color-title {
-    font-family: 'Noto Sans Thai', 'DB Heavent Cond', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
     font-size: 80px;
     font-weight: 700;
     margin-bottom: 16px;
@@ -232,7 +232,7 @@ body.colors-page::after {
 }
 
 .color-subtitle {
-    font-family: 'Noto Sans Thai', 'DB Heavent Cond', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
     font-size: 30px;
     font-weight: 400;
     margin-bottom: 24px;
@@ -240,8 +240,8 @@ body.colors-page::after {
 }
 
 .color-description {
-    font-family: 'Noto Sans Thai', 'DB Heavent Cond', sans-serif;
-    font-size: 22px;
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: 27px;
     line-height: 1.8;
     margin-bottom: 24px;
     opacity: 0.85;
@@ -257,11 +257,11 @@ body.colors-page::after {
 }
 
 .color-benefits {
-    font-family: 'Noto Sans Thai', 'DB Heavent Cond', sans-serif;
+    font-family: 'DB Heavent Cond', sans-serif;
 }
 
 .color-benefits h3 {
-    font-size: 25px;
+    font-size: 30px;
     font-weight: 600;
     margin-bottom: 12px;
     opacity: 0.95;
@@ -274,7 +274,7 @@ body.colors-page::after {
 }
 
 .color-benefits li {
-    font-size: 20px;
+    font-size: 24px;
     padding: 6px 0;
     padding-left: 20px;
     position: relative;
@@ -289,7 +289,7 @@ body.colors-page::after {
 }
 
 .color-note {
-    font-size: 20px;
+    font-size: 24px;
     font-style: italic;
     opacity: 0.7;
     margin-top: 16px;
@@ -442,7 +442,7 @@ body.bg-pink {
     }
 
     .color-description {
-        font-size: 22px;
+        font-size: 25px;
     }
 
     .color-visual {
@@ -480,15 +480,15 @@ body.bg-pink {
     }
 
     .color-description {
-        font-size: 20px;
+        font-size: 23px;
     }
 
     .color-benefits h3 {
-        font-size: 25px;
+        font-size: 28px;
     }
 
     .color-benefits li {
-        font-size: 20px;
+        font-size: 23px;
     }
 
     .color-visual {
@@ -522,8 +522,17 @@ body.bg-pink {
     }
 
     .color-description {
-        font-size: 19px;
+        font-size: 22px;
         line-height: 1.6;
+    }
+
+    .color-benefits h3 {
+        font-size: 25px;
+    }
+
+    .color-benefits li,
+    .color-note {
+        font-size: 21px;
     }
 
     .color-visual {
