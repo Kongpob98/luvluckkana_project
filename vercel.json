@@ -10,6 +10,7 @@
     { "source": "/12zodiac.html", "destination": "/pages/12zodiac.html" },
     { "source": "/chinese-zodiac.html", "destination": "/pages/chinese-zodiac.html" },
     { "source": "/chatbot.html", "destination": "/pages/chatbot.html" },
+    { "source": "/api-monitor.html", "destination": "/pages/api-monitor.html" },
     { "source": "/birthday-fortune.html", "destination": "/pages/birthday-fortune.html" },
     { "source": "/simsy.html", "destination": "/pages/simsy.html" },
     { "source": "/simsy-result.html", "destination": "/pages/simsy-result.html" },
