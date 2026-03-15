@@ -10,9 +10,10 @@
     const USE_SERVERLESS = IS_PRODUCTION; // เปลี่ยนเป็น true เพื่อใช้ Serverless บน localhost ด้วย
     
     const GEMINI_API_KEY = window.CONFIG?.GEMINI_API_KEY || 'YOUR_API_KEY_HERE';
-    const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent';
+    const GEMINI_MODEL = 'gemini-3.1-flash-lite';
+    const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
     const SERVERLESS_API_URL = '/api/gemini'; // Vercel Function
-    // Model options: 'gemini-2.5-flash' (ฉลาดสุด 20/day) | 'gemini-2.5-flash-lite' (เร็วกว่า โควต้าสูงกว่า) | 'gemini-2.0-flash' (1,500/day)
+    // Model currently used: gemini-3.1-flash-lite
     
     // 🔍 Debug Mode - เปิดเพื่อดูข้อมูลทั้งหมดที่ส่งให้ Gemini
     const DEBUG_MODE = true; // เปลี่ยนเป็น false ตอน production
@@ -302,7 +303,7 @@ ${relevantKnowledge}
                     },
                     body: JSON.stringify({
                         message: `${systemPrompt}\n\nคำถาม: ${userMessage}`,
-                        model: 'gemini-2.5-flash-lite'
+                        model: GEMINI_MODEL
                     })
                 });
             } else {

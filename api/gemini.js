@@ -2,6 +2,7 @@
 // API Key จะเก็บใน Environment Variables ของ Vercel
 
 export default async function handler(req, res) {
+    const DEFAULT_MODEL = process.env.GEMINI_MODEL || 'gemini-3.1-flash-lite';
     // ตั้งค่า CORS
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -18,7 +19,7 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { message, model = 'gemini-2.5-flash-lite' } = req.body;
+        const { message, model = DEFAULT_MODEL } = req.body;
 
         if (!message) {
             return res.status(400).json({ error: 'Message is required' });

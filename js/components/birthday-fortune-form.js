@@ -23,7 +23,8 @@
     const IS_PRODUCTION = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
     const USE_SERVERLESS = IS_PRODUCTION;
     const GEMINI_API_KEY = window.CONFIG?.GEMINI_API_KEY || 'YOUR_API_KEY_HERE';
-    const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent';
+    const GEMINI_MODEL = 'gemini-3.1-flash-lite';
+    const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
     const SERVERLESS_API_URL = '/api/gemini';
 
     // Initialize
@@ -786,7 +787,7 @@
                     },
                     body: JSON.stringify({
                         message: prompt,
-                        model: 'gemini-2.5-flash-lite'
+                        model: GEMINI_MODEL
                     })
                 });
             } else {
