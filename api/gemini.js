@@ -2,8 +2,8 @@
 // API Key จะเก็บใน Environment Variables ของ Vercel
 
 export default async function handler(req, res) {
-    const DEFAULT_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
-    const FALLBACK_MODELS = (process.env.GEMINI_FALLBACK_MODELS || 'gemini-2.0-flash')
+    const DEFAULT_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+    const FALLBACK_MODELS = (process.env.GEMINI_FALLBACK_MODELS || 'gemini-2.5-flash-lite,gemini-2.0-flash')
         .split(',')
         .map((model) => model.trim())
         .filter(Boolean);

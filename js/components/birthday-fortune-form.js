@@ -23,7 +23,7 @@
     const IS_PRODUCTION = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
     const USE_SERVERLESS = IS_PRODUCTION;
     const GEMINI_API_KEY = window.CONFIG?.GEMINI_API_KEY || 'YOUR_API_KEY_HERE';
-    const GEMINI_MODEL = 'gemini-2.5-flash-lite';
+    const GEMINI_MODEL = 'gemini-2.5-flash';
     const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
     const SERVERLESS_API_URL = '/api/gemini';
 
