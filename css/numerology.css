@@ -294,6 +294,7 @@ html, body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 60px;
+    overflow: hidden;
 }
 
 .numbers-carousel {
@@ -618,7 +619,7 @@ html, body {
     }
     
     .numbers-carousel-wrapper {
-        padding: 0 40px;
+        padding: 0 12px;
     }
     
     .number-card {
@@ -672,7 +673,7 @@ html, body {
     }
     
     .numbers-carousel-wrapper {
-        padding: 0 35px;
+        padding: 0 8px;
     }
     
     .carousel-nav {
@@ -722,7 +723,7 @@ html, body {
     }
     
     .numbers-carousel-wrapper {
-        padding: 0 30px;
+        padding: 0 6px;
     }
     
     .number-card {

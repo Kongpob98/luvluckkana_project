@@ -12,6 +12,12 @@ html {
 body.colors-page {
     background-color: #000000 !important;
     overflow-x: hidden;
+    --colors-mobile-top-offset: calc(
+        env(safe-area-inset-top, 0px) +
+        var(--luckkana-navbar-top, 10px) +
+        var(--luckkana-navbar-height, 55px) +
+        26px
+    );
 }
 
 /* Create scrollable height (9 sections x 100vh) — must be in normal flow */
@@ -452,91 +458,129 @@ body.bg-pink {
 
 @media (max-width: 768px) {
     .intro-section {
-        padding: max(150px, calc(env(safe-area-inset-top) + 130px)) 24px 40px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: var(--colors-mobile-top-offset) 24px 28px;
     }
 
     .intro-title {
-        font-size: 70px;
+        font-size: 56px;
     }
 
     .intro-subtitle {
-        font-size: 30px;
+        font-size: 24px;
+        line-height: 1.45;
     }
 
     .color-section {
-        padding: max(150px, calc(env(safe-area-inset-top) + 130px)) 24px 40px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: var(--colors-mobile-top-offset) 24px 28px;
+        overflow: hidden;
     }
 
     .color-body {
-        gap: 32px;
+        gap: 20px;
+    }
+
+    .color-content {
+        gap: 20px;
+        max-height: calc(100vh - var(--colors-mobile-top-offset) - 28px);
+        overflow-y: auto;
+        padding-right: 6px;
+    }
+
+    .color-content::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .color-content::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+    }
+
+    .color-content::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.35);
+        border-radius: 999px;
+    }
+
+    .color-text-wrapper {
+        max-height: none;
+        overflow: visible;
     }
 
     .color-title {
-        font-size: 70px;
+        font-size: 56px;
     }
 
     .color-subtitle {
-        font-size: 30px;
+        font-size: 24px;
+        margin-bottom: 10px;
     }
 
     .color-description {
-        font-size: 23px;
+        font-size: 21px;
+        line-height: 1.55;
     }
 
     .color-benefits h3 {
-        font-size: 28px;
+        font-size: 24px;
     }
 
     .color-benefits li {
-        font-size: 23px;
+        font-size: 20px;
     }
 
     .color-visual {
-        height: 300px;
+        height: 210px;
     }
 }
 
 @media (max-width: 480px) {
     .intro-section {
-        padding: max(142px, calc(env(safe-area-inset-top) + 122px)) 20px 40px;
+        padding: calc(var(--colors-mobile-top-offset) + 4px) 20px 24px;
     }
 
     .intro-title {
-        font-size: 52px;
+        font-size: 44px;
     }
 
     .intro-subtitle {
-        font-size: 25px;
+        font-size: 21px;
     }
 
     .color-section {
-        padding: max(142px, calc(env(safe-area-inset-top) + 122px)) 20px 40px;
+        padding: calc(var(--colors-mobile-top-offset) + 4px) 20px 24px;
+    }
+
+    .color-content {
+        max-height: calc(100vh - var(--colors-mobile-top-offset) - 24px);
     }
 
     .color-title {
-        font-size: 52px;
+        font-size: 44px;
     }
 
     .color-subtitle {
-        font-size: 25px;
+        font-size: 21px;
     }
 
     .color-description {
-        font-size: 22px;
-        line-height: 1.6;
+        font-size: 19px;
+        line-height: 1.55;
     }
 
     .color-benefits h3 {
-        font-size: 25px;
+        font-size: 22px;
     }
 
     .color-benefits li,
     .color-note {
-        font-size: 21px;
+        font-size: 18px;
     }
 
     .color-visual {
-        height: 250px;
+        height: 180px;
     }
 
     .color-gradient {

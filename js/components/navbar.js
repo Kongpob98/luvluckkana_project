@@ -26,12 +26,37 @@
                 <nav class="nav-menu-wrapper">
                     <!-- Left Menu -->
                     <div class="nav-menu nav-left">
-                        <a href="index.html" class="nav-link" data-page="index">
-                            หน้าหลัก
-                        </a>
-                        <a href="blog.html" class="nav-link" data-page="blog">
-                            สายมู
-                        </a>
+                        <div class="nav-item nav-item-dropdown" data-dropdown="home-pages">
+                            <div class="nav-item-dropdown-header">
+                                <a href="index.html" class="nav-link" data-page="index">
+                                    หน้าหลัก
+                                </a>
+                                <button class="nav-dropdown-toggle" type="button" aria-label="เปิดเมนูหน้าหลัก" aria-expanded="false" aria-controls="homePagesDropdown">
+                                    <span class="nav-dropdown-caret" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <div class="nav-dropdown-menu" id="homePagesDropdown">
+                                <a href="simsy.html" class="nav-dropdown-link">เซียมซี</a>
+                                <a href="12zodiac.html" class="nav-dropdown-link">12 ราศี</a>
+                                <a href="chinese-zodiac.html" class="nav-dropdown-link">12 นักษัตร</a>
+                                <a href="birthday-fortune.html" class="nav-dropdown-link">ดูดวงวันเกิด</a>
+                            </div>
+                        </div>
+                        <div class="nav-item nav-item-dropdown" data-dropdown="mystic-pages">
+                            <div class="nav-item-dropdown-header">
+                                <a href="blog.html" class="nav-link" data-page="blog">
+                                    สายมู
+                                </a>
+                                <button class="nav-dropdown-toggle" type="button" aria-label="เปิดเมนูสายมู" aria-expanded="false" aria-controls="mysticPagesDropdown">
+                                    <span class="nav-dropdown-caret" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <div class="nav-dropdown-menu" id="mysticPagesDropdown">
+                                <a href="numerology.html" class="nav-dropdown-link">ศาสตร์ตัวเลข</a>
+                                <a href="colors.html" class="nav-dropdown-link">สีประจำวัน</a>
+                                <a href="fortune-boost.html" class="nav-dropdown-link">เสริมดวง</a>
+                            </div>
+                        </div>
                     </div>
                     
                     <!-- Center Logo -->
@@ -194,6 +219,120 @@
                 align-items: center;
             }
 
+            .nav-item {
+                position: relative;
+            }
+
+            .nav-item-dropdown {
+                display: flex;
+                align-items: center;
+            }
+
+            .nav-item-dropdown::after {
+                content: '';
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 210px;
+                height: 10px;
+            }
+
+            .nav-item-dropdown-header {
+                display: flex;
+                align-items: center;
+                position: relative;
+            }
+
+            .nav-dropdown-toggle {
+                display: none;
+                align-items: center;
+                justify-content: center;
+                width: 34px;
+                height: 34px;
+                border: none;
+                border-radius: 12px;
+                background: transparent;
+                color: white;
+                cursor: pointer;
+                flex-shrink: 0;
+                z-index: 5;
+                pointer-events: auto;
+                transition: background 0.25s ease, transform 0.25s ease;
+            }
+
+            .nav-dropdown-toggle:hover,
+            .nav-dropdown-toggle:focus-visible {
+                background: transparent;
+            }
+
+            .nav-dropdown-caret {
+                width: 9px;
+                height: 9px;
+                border-right: 2px solid currentColor;
+                border-bottom: 2px solid currentColor;
+                transform: rotate(45deg) translateY(-1px);
+                transition: transform 0.25s ease;
+            }
+
+            .nav-item-dropdown.open .nav-dropdown-caret {
+                transform: rotate(-135deg) translate(-1px, -1px);
+            }
+
+            .nav-dropdown-menu {
+                position: absolute;
+                top: calc(100% + 8px);
+                left: 50%;
+                min-width: 210px;
+                padding: 10px;
+                border-radius: 16px;
+                background-color: rgba(0, 0, 0, 0.2);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                opacity: 0;
+                transform: translate(-50%, 8px);
+                pointer-events: none;
+                transition: opacity 0.2s ease, transform 0.2s ease;
+                z-index: 60;
+            }
+
+            .nav-dropdown-link {
+                color: white;
+                text-decoration: none;
+                font-family: 'DB Heavent Cond', sans-serif;
+                font-size: 22px;
+                line-height: 1.1;
+                display: block;
+                padding: 10px 14px;
+                border-radius: 10px;
+                transition: background 0.25s ease;
+                white-space: nowrap;
+                text-align: center;
+            }
+
+            .nav-dropdown-link:hover,
+            .nav-dropdown-link:focus-visible {
+                background: rgba(255, 255, 255, 0.14);
+            }
+
+            .nav-item-dropdown:hover .nav-dropdown-menu,
+            .nav-item-dropdown:focus-within .nav-dropdown-menu {
+                opacity: 1;
+                transform: translate(-50%, 0);
+                pointer-events: auto;
+            }
+
+            .nav-item-dropdown.open .nav-dropdown-menu {
+                opacity: 1;
+                transform: translate(-50%, 0);
+                pointer-events: auto;
+            }
+
             .nav-link {
                 color: white;
                 text-decoration: none;
@@ -260,6 +399,31 @@
             @media (max-width: 1024px) {
                 .navbar-content::before {
                     display: none;
+                }
+
+                .nav-item-dropdown::after {
+                    display: none;
+                }
+
+                .nav-item-dropdown:hover .nav-dropdown-menu,
+                .nav-item-dropdown:focus-within .nav-dropdown-menu {
+                    opacity: 0;
+                    transform: translate(-50%, 8px);
+                    pointer-events: none;
+                }
+
+                .nav-item-dropdown.open .nav-dropdown-menu {
+                    opacity: 1;
+                    transform: translate(-50%, 0);
+                    pointer-events: auto;
+                }
+
+                .nav-dropdown-toggle {
+                    display: inline-flex;
+                    position: absolute;
+                    right: 8px;
+                    top: 50%;
+                    transform: translateY(-50%);
                 }
 
                 .nav-link.active {
@@ -347,6 +511,15 @@
 
                 .nav-menu {
                     gap: 30px;
+                }
+
+                .nav-dropdown-menu {
+                    min-width: 190px;
+                }
+
+                .nav-dropdown-link {
+                    font-size: 20px;
+                    padding: 9px 12px;
                 }
 
                 .nav-logo-image {
@@ -466,6 +639,78 @@
                     flex-direction: column;
                     gap: 10px;
                     width: 100%;
+                }
+
+                .nav-item-dropdown {
+                    width: 100%;
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+
+                .nav-item-dropdown::after {
+                    display: none;
+                }
+
+                .nav-item-dropdown-header {
+                    width: 100%;
+                    display: block;
+                }
+
+                .nav-item-dropdown-header .nav-link {
+                    width: 100%;
+                }
+
+                .nav-dropdown-toggle {
+                    right: 10px;
+                    width: 40px;
+                    height: 40px;
+                }
+
+                .nav-dropdown-menu {
+                    position: static;
+                    margin-top: 8px;
+                    min-width: 100%;
+                    border-radius: 14px;
+                    padding: 0;
+                    background:
+                        linear-gradient(145deg,
+                            rgba(255, 255, 255, 0.18) 0%,
+                            rgba(255, 255, 255, 0.08) 36%,
+                            rgba(255, 255, 255, 0.03) 100%),
+                        rgba(10, 12, 20, 0.30);
+                    backdrop-filter: blur(24px) saturate(180%) contrast(110%);
+                    -webkit-backdrop-filter: blur(24px) saturate(180%) contrast(110%);
+                    border: 1px solid rgba(255, 255, 255, 0.24);
+                    box-shadow:
+                        0 12px 24px rgba(0, 0, 0, 0.24),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.28);
+                    max-height: 0;
+                    overflow: hidden;
+                    opacity: 0;
+                    transform: none;
+                    pointer-events: none;
+                    transition: max-height 0.28s ease, opacity 0.2s ease, padding 0.2s ease;
+                }
+
+                .nav-item-dropdown:hover .nav-dropdown-menu,
+                .nav-item-dropdown:focus-within .nav-dropdown-menu {
+                    opacity: 0;
+                    transform: none;
+                    pointer-events: none;
+                }
+
+                .nav-item-dropdown.open .nav-dropdown-menu {
+                    max-height: 260px;
+                    padding: 8px;
+                    opacity: 1;
+                    transform: none;
+                    pointer-events: auto;
+                }
+
+                .nav-dropdown-link {
+                    font-size: 20px;
+                    padding: 12px 16px;
+                    text-align: center;
                 }
 
                 .nav-link {
@@ -736,11 +981,15 @@
         const pageMapping = {
             'index': 'index',
             'blog': 'blog',
-            'simsy': 'blog',
-            'simsy-result': 'blog',
+            'simsy': 'index',
+            'simsy-result': 'index',
             'chatbot': 'chatbot',
             '12zodiac': 'index',
-            'colors': 'index',
+            'chinese-zodiac': 'index',
+            'birthday-fortune': 'index',
+            'numerology': 'blog',
+            'colors': 'blog',
+            'fortune-boost': 'blog',
             'about': 'about'
         };
         
@@ -756,17 +1005,54 @@
         // Hamburger menu functionality
         const hamburger = document.querySelector('.hamburger-menu');
         const navMenuWrapper = document.querySelector('.nav-menu-wrapper');
+        const dropdownItems = document.querySelectorAll('.nav-item-dropdown');
+        const dropdownToggles = document.querySelectorAll('.nav-dropdown-toggle');
+
+        function closeAllDropdowns() {
+            dropdownItems.forEach((item) => item.classList.remove('open'));
+            dropdownToggles.forEach((toggle) => {
+                toggle.setAttribute('aria-expanded', 'false');
+            });
+        }
+
+        dropdownToggles.forEach((toggle) => {
+            toggle.addEventListener('click', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                if (window.innerWidth > 1024) return;
+
+                const parentDropdown = this.closest('.nav-item-dropdown');
+                const willOpen = parentDropdown && !parentDropdown.classList.contains('open');
+
+                closeAllDropdowns();
+
+                if (willOpen && parentDropdown) {
+                    parentDropdown.classList.add('open');
+                    this.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
         
         if (hamburger) {
             hamburger.addEventListener('click', function() {
+                const isOpening = !navMenuWrapper.classList.contains('active');
                 this.classList.toggle('active');
                 navMenuWrapper.classList.toggle('active');
+
+                if (!isOpening) {
+                    closeAllDropdowns();
+                }
             });
             
             // Close menu when clicking a link
-            const navLinks = document.querySelectorAll('.nav-link');
+            const navLinks = document.querySelectorAll('.nav-link, .nav-dropdown-link');
             navLinks.forEach(link => {
                 link.addEventListener('click', function() {
+                    if (window.innerWidth <= 1024) {
+                        closeAllDropdowns();
+                    }
+
                     if (window.innerWidth <= 640) {
                         hamburger.classList.remove('active');
                         navMenuWrapper.classList.remove('active');
@@ -776,12 +1062,23 @@
             
             // Close menu when clicking outside
             document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 1024 && !e.target.closest('.nav-item-dropdown')) {
+                    closeAllDropdowns();
+                }
+
                 if (window.innerWidth <= 640) {
                     const navbar = document.querySelector('.navbar-container');
                     if (navbar && !navbar.contains(e.target)) {
                         hamburger.classList.remove('active');
                         navMenuWrapper.classList.remove('active');
+                        closeAllDropdowns();
                     }
+                }
+            });
+
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 1024) {
+                    closeAllDropdowns();
                 }
             });
         }

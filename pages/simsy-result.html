@@ -304,7 +304,7 @@
                         }
 
                         if (!shared) {
-                            // Download then show Instagram popup
+                            // Download on fallback; avoid Instagram popup in mobile responsive mode
                             fallbackDownload(blob, fileName);
                         }
                     } catch (error) {
@@ -328,9 +328,13 @@
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
-                setTimeout(() => {
-                    showInstagramPopup();
-                }, 500);
+
+                const isMobileResponsive = window.matchMedia('(max-width: 768px)').matches;
+                if (!isMobileResponsive) {
+                    setTimeout(() => {
+                        showInstagramPopup();
+                    }, 500);
+                }
             }
 
             function showInstagramPopup() {

@@ -375,7 +375,13 @@
     
     .chat-input-container {
         max-width: 100%;
+        bottom: 0;
+        margin-top: 12px;
         padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    .chat-interface.chat-mode .chat-input-container {
+        margin-top: 0;
     }
 
     .chat-input-wrapper {
@@ -451,7 +457,12 @@
     .chat-input-container {
         max-width: 100%;
         padding: 0;
+        margin-top: 14px;
         padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    .chat-interface.chat-mode .chat-input-container {
+        margin-top: 0;
     }
     
     .chat-messages {

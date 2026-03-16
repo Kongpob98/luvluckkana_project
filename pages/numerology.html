@@ -438,6 +438,17 @@
             return cards[0].offsetWidth + gapValue;
         };
 
+        const getCenterOffset = () => {
+            if (!cards[0] || !carouselWrapper) return 0;
+            if (window.innerWidth >= 768) return 0;
+
+            const wrapperStyles = getComputedStyle(carouselWrapper);
+            const wrapperPaddingLeft = parseFloat(wrapperStyles.paddingLeft || '0') || 0;
+            const wrapperPaddingRight = parseFloat(wrapperStyles.paddingRight || '0') || 0;
+            const visibleWidth = carouselWrapper.clientWidth - wrapperPaddingLeft - wrapperPaddingRight;
+            return Math.max(0, (visibleWidth - cards[0].offsetWidth) / 2);
+        };
+
         let cardsToShow = getCardsToShow();
         const transitionDurationMs = 780;
         const wheelThreshold = 120;
@@ -514,7 +525,7 @@
         }
 
         function updateCarousel() {
-            const offset = -currentIndex * getCardStep();
+            const offset = (-currentIndex * getCardStep()) + getCenterOffset();
             carousel.style.transform = `translate3d(${offset}px, 0, 0)`;
 
             // Loop mode keeps navigation always available.
