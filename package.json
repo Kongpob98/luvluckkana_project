@@ -4,7 +4,8 @@
   "type": "module",
   "description": "AI Fortune Teller Chatbot",
   "scripts": {
-    "dev": "python3 -m http.server 8000"
+    "dev": "python3 -m http.server 8000",
+    "dev:api": "npx vercel dev --listen 3000"
   },
   "keywords": ["astrology", "fortune", "chatbot", "gemini"],
   "author": "",

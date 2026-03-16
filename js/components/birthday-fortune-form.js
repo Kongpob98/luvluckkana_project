@@ -19,13 +19,37 @@
         'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
     ];
 
-    // Gemini API Configuration (same as chatbot)
-    const IS_PRODUCTION = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
-    const USE_SERVERLESS = IS_PRODUCTION;
-    const GEMINI_API_KEY = window.CONFIG?.GEMINI_API_KEY || 'YOUR_API_KEY_HERE';
+    // Gemini API Configuration
     const GEMINI_MODEL = 'gemini-2.5-flash';
-    const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
     const SERVERLESS_API_URL = '/api/gemini';
+    const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+
+    function getDirectGeminiApiKey() {
+        const apiKey = typeof window.CONFIG?.GEMINI_API_KEY === 'string'
+            ? window.CONFIG.GEMINI_API_KEY.trim()
+            : '';
+
+        if (!apiKey || apiKey === 'YOUR_API_KEY_HERE') {
+            return '';
+        }
+
+        return apiKey;
+    }
+
+    function getServerlessApiCandidates() {
+        const configuredUrl = typeof window.CONFIG?.SERVERLESS_API_URL === 'string'
+            ? window.CONFIG.SERVERLESS_API_URL.trim()
+            : '';
+
+        const candidates = [
+            configuredUrl,
+            SERVERLESS_API_URL,
+            'http://localhost:3000/api/gemini',
+            'http://127.0.0.1:3000/api/gemini'
+        ].filter(Boolean);
+
+        return [...new Set(candidates)];
+    }
 
     // Initialize
     function init() {
@@ -145,10 +169,14 @@
 
         restoreBirthTimeSelection(savedState.birthTimeValue, savedState.birthTimeText);
 
-        if (savedState.resultName && savedState.fortuneData) {
-            const normalizedSavedFortune = normalizeFortuneData(savedState.fortuneData);
-            showFortuneResult(savedState.resultName, normalizedSavedFortune, { scrollToResult: false });
-            restoreWeeklyTab(savedState.activeWeeklyTab);
+        if (savedState.resultSource === 'api' && savedState.resultName && savedState.fortuneData) {
+            try {
+                const normalizedSavedFortune = normalizeFortuneData(savedState.fortuneData);
+                showFortuneResult(savedState.resultName, normalizedSavedFortune, { scrollToResult: false });
+                restoreWeeklyTab(savedState.activeWeeklyTab);
+            } catch (error) {
+                console.warn('Skipping invalid saved fortune data:', error);
+            }
         }
     }
 
@@ -637,79 +665,199 @@
     function extractJsonObject(text) {
         if (!text || typeof text !== 'string') return null;
 
-        const start = text.indexOf('{');
-        const end = text.lastIndexOf('}');
-        if (start === -1 || end === -1 || end <= start) return null;
+        let start = -1;
+        let depth = 0;
+        let inString = false;
+        let isEscaped = false;
 
-        return text.slice(start, end + 1);
-    }
+        for (let i = 0; i < text.length; i++) {
+            const char = text[i];
 
-    function getFallbackFortuneData() {
-        return {
-            luckyColors: [
-                { name: 'สีทอง', hex: '#D4AC0D', meaning: 'เสริมความมั่งคั่ง' },
-                { name: 'สีแดง', hex: '#C0392B', meaning: 'เสริมความมั่นใจ' },
-                { name: 'สีขาว', hex: '#ECF0F1', meaning: 'เสริมโชคลาภ' }
-            ],
-            luckyDirection: {
-                name: 'ทิศตะวันออก',
-                meaning: 'ทิศมงคลสำหรับเริ่มต้นสิ่งใหม่และเสริมพลังชีวิต'
-            },
-            weeklyFortune: {
-                love: {
-                    points: [
-                        'สื่อสารด้วยความจริงใจ จะช่วยให้ความสัมพันธ์ราบรื่นขึ้นตลอดสัปดาห์',
-                        'คนโสดมีเกณฑ์ได้พบคนที่คุยแล้วสบายใจจากวงสังคมใกล้ตัว',
-                        'ควรหลีกเลี่ยงการใช้อารมณ์ในบทสนทนาสำคัญ เพื่อรักษาบรรยากาศที่ดี',
-                        'ช่วงปลายสัปดาห์เหมาะกับการเติมความหวานและทำกิจกรรมร่วมกัน'
-                    ]
-                },
-                money: {
-                    points: [
-                        'วางแผนรายจ่ายให้ชัดเจน แล้วการเงินจะนิ่งและคล่องตัวมากขึ้น',
-                        'มีโอกาสรับรายได้เสริมจากงานย่อยหรือโปรเจกต์ระยะสั้น',
-                        'เลี่ยงการซื้อของตามอารมณ์ จะช่วยรักษาสมดุลทางการเงินได้ดี',
-                        'ทบทวนบิลหรือค่าใช้จ่ายประจำ จะพบช่องทางประหยัดที่เห็นผลเร็ว'
-                    ]
-                },
-                career: {
-                    points: [
-                        'จัดลำดับความสำคัญงานรายวัน จะเห็นผลลัพธ์ที่ก้าวหน้าอย่างชัดเจน',
-                        'การประสานงานกับทีมจะราบรื่นขึ้น หากสื่อสารเป้าหมายให้ชัดตั้งแต่ต้น',
-                        'มีโอกาสได้รับคำชมหรือความไว้วางใจจากผู้ใหญ่ในเรื่องความรับผิดชอบ',
-                        'เหมาะกับการเริ่มไอเดียใหม่ โดยค่อยๆ แตกงานเป็นขั้นตอนเล็กๆ'
-                    ]
-                },
-                health: {
-                    points: [
-                        'พักผ่อนให้เพียงพอและดื่มน้ำมากขึ้น เพื่อคงพลังงานให้สมดุลทั้งสัปดาห์',
-                        'ลดการนอนดึกต่อเนื่อง จะช่วยให้สมาธิและอารมณ์ดีขึ้นชัดเจน',
-                        'ขยับร่างกายวันละเล็กน้อย เช่น เดินเร็ว 15-20 นาที เพื่อกระตุ้นระบบไหลเวียน',
-                        'ดูแลอาหารมื้อเย็นให้อยู่ในปริมาณพอดี เพื่อลดความอ่อนล้าตอนเช้า'
-                    ]
+            if (inString) {
+                if (isEscaped) {
+                    isEscaped = false;
+                    continue;
                 }
-            },
-            weeklyWarning: [
-                'หลีกเลี่ยงการตัดสินใจเร็วเกินไปในเรื่องการเงิน',
-                'ตรวจสอบเอกสารสำคัญก่อนส่งทุกครั้ง',
-                'ระวังการพักผ่อนไม่พอจากการทำงานต่อเนื่อง',
-                'งดรับภาระเกินกำลังเพื่อป้องกันความเครียดสะสม'
-            ],
-            luckyCalendar: [
-                { day: 'จันทร์', color: 'สีครีม', hex: '#F5E6C8', action: 'เริ่มงานใหม่ให้ลื่นไหล' },
-                { day: 'อังคาร', color: 'สีแดง', hex: '#C0392B', action: 'เพิ่มความกล้าในการตัดสินใจ' },
-                { day: 'พุธ', color: 'สีเขียว', hex: '#2ECC71', action: 'เจรจางานได้ผลดี' },
-                { day: 'พฤหัส', color: 'สีเหลืองทอง', hex: '#D4AC0D', action: 'เสริมโอกาสด้านการเงิน' },
-                { day: 'ศุกร์', color: 'สีชมพู', hex: '#FF69B4', action: 'หนุนเสน่ห์และความสัมพันธ์' },
-                { day: 'เสาร์', color: 'สีม่วง', hex: '#8E44AD', action: 'เสริมสมาธิและความนิ่ง' },
-                { day: 'อาทิตย์', color: 'สีขาว', hex: '#ECF0F1', action: 'พักใจและรีเซ็ตพลังงาน' }
-            ]
-        };
+                if (char === '\\') {
+                    isEscaped = true;
+                    continue;
+                }
+                if (char === '"') {
+                    inString = false;
+                }
+                continue;
+            }
+
+            if (char === '"') {
+                inString = true;
+                continue;
+            }
+
+            if (char === '{') {
+                if (depth === 0) {
+                    start = i;
+                }
+                depth += 1;
+                continue;
+            }
+
+            if (char === '}') {
+                if (depth > 0) {
+                    depth -= 1;
+                    if (depth === 0 && start !== -1) {
+                        return text.slice(start, i + 1);
+                    }
+                }
+            }
+        }
+
+        return null;
     }
+
+    function formatFortuneErrorMessage(error) {
+        const message = typeof error?.message === 'string' ? error.message : '';
+
+        if (/API key not configured/i.test(message)) {
+            return 'เซิร์ฟเวอร์ยังไม่ตั้งค่า GEMINI_API_KEY กรุณาตั้งค่า Environment Variable แล้วลองใหม่';
+        }
+
+        if (/no GEMINI_API_KEY configured in js\/config\.js/i.test(message)) {
+            return 'ยังไม่ได้ตั้งค่า GEMINI_API_KEY ใน js/config.js และ API server ก็ยังไม่พร้อมใช้งาน';
+        }
+
+        if (/API key not valid|invalid API key|permission denied/i.test(message)) {
+            return 'GEMINI_API_KEY ไม่ถูกต้องหรือไม่มีสิทธิ์ใช้งาน กรุณาตรวจสอบ key อีกครั้ง';
+        }
+
+        if (/Failed to fetch|NetworkError|Load failed|endpoint not found|status 404|Cannot reach Gemini API endpoint/i.test(message)) {
+            return 'เชื่อมต่อ API ไม่ได้ กรุณาเปิด API server (`npm run dev:api`) แล้วลองใหม่อีกครั้ง';
+        }
+
+        if (/invalid json|missing required field/i.test(message)) {
+            return 'ระบบได้รับข้อมูลทำนายไม่ถูกต้องจาก API กรุณาลองใหม่อีกครั้ง';
+        }
+
+        return `เกิดข้อผิดพลาด: ${message || 'ไม่ทราบสาเหตุ'}`;
+    }
+
+    async function fetchFortuneViaDirectGemini(prompt, options = {}) {
+        const { strictJson = false } = options;
+        const apiKey = getDirectGeminiApiKey();
+        if (!apiKey) {
+            throw new Error('no GEMINI_API_KEY configured in js/config.js');
+        }
+
+        const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
+            method: 'POST',
+            cache: 'no-store',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                contents: [
+                    {
+                        parts: [{ text: prompt }]
+                    }
+                ],
+                generationConfig: {
+                    temperature: strictJson ? 0.2 : 0.7,
+                    topK: 40,
+                    topP: 0.95,
+                    maxOutputTokens: 4096,
+                    responseMimeType: 'application/json'
+                }
+            })
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error(data?.error?.message || data?.error || `Gemini direct API Error: ${response.status}`);
+        }
+
+        return data;
+    }
+
+    function parseFortuneFromGeminiData(data) {
+        const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
+        const cleanedText = rawText.replace(/```(?:json)?\s*/gi, '').replace(/```/g, '').trim();
+        const extractedJsonText = extractJsonObject(cleanedText) || cleanedText;
+
+        let fortuneData;
+        try {
+            fortuneData = JSON.parse(extractedJsonText);
+        } catch (parseError) {
+            const normalizedText = extractedJsonText
+                .replace(/[\u201C\u201D]/g, '"')
+                .replace(/[\u2018\u2019]/g, "'")
+                .replace(/,\s*([}\]])/g, '$1')
+                .trim();
+
+            try {
+                fortuneData = JSON.parse(normalizedText);
+            } catch (secondParseError) {
+                throw new Error(`Gemini returned invalid JSON: ${secondParseError.message}`);
+            }
+        }
+
+        return normalizeFortuneData(fortuneData);
+    }
+
+        function buildFortunePrompt(birthData, options = {}) {
+                const { strict = false } = options;
+                const { fullName, birthDate, birthTime } = birthData;
+
+                const extraStrictRule = strict
+                        ? '\n- เขียนสั้น กระชับ ไม่เกิน 90 ตัวอักษรต่อข้อความ และคง JSON ให้สมบูรณ์'
+                        : '';
+
+                return `คุณคือผู้เชี่ยวชาญด้านโหราศาสตร์และดวงชะตา
+
+ข้อมูลผู้ขอดูดวง:
+- ชื่อ: ${fullName}
+- วันเกิด: ${birthDate.day} ${monthNamesThai[birthDate.month - 1]} ${birthDate.year + 543} (${birthDate.day}/${birthDate.month}/${birthDate.year})
+- เวลาเกิด: ${birthTime}
+
+ตอบกลับเป็น JSON object เท่านั้น (ห้าม markdown และห้ามมีข้อความอื่น):
+{
+    "luckyColors": [
+        {"name": "ชื่อสีภาษาไทย", "hex": "#RRGGBB", "meaning": "ความหมายสั้นๆ"},
+        {"name": "ชื่อสีภาษาไทย", "hex": "#RRGGBB", "meaning": "ความหมายสั้นๆ"},
+        {"name": "ชื่อสีภาษาไทย", "hex": "#RRGGBB", "meaning": "ความหมายสั้นๆ"}
+    ],
+    "luckyDirection": {
+        "name": "ทิศ...",
+        "meaning": "คำอธิบายสั้น 1 ประโยค"
+    },
+    "weeklyFortune": {
+        "love": {"points": ["...", "...", "..."]},
+        "money": {"points": ["...", "...", "..."]},
+        "career": {"points": ["...", "...", "..."]},
+        "health": {"points": ["...", "...", "..."]}
+    },
+    "weeklyWarning": ["...", "...", "...", "..."],
+    "luckyCalendar": [
+        {"day": "จันทร์", "color": "ชื่อสี", "hex": "#RRGGBB", "action": "ผลลัพธ์สั้นๆ"},
+        {"day": "อังคาร", "color": "ชื่อสี", "hex": "#RRGGBB", "action": "ผลลัพธ์สั้นๆ"},
+        {"day": "พุธ", "color": "ชื่อสี", "hex": "#RRGGBB", "action": "ผลลัพธ์สั้นๆ"},
+        {"day": "พฤหัส", "color": "ชื่อสี", "hex": "#RRGGBB", "action": "ผลลัพธ์สั้นๆ"},
+        {"day": "ศุกร์", "color": "ชื่อสี", "hex": "#RRGGBB", "action": "ผลลัพธ์สั้นๆ"},
+        {"day": "เสาร์", "color": "ชื่อสี", "hex": "#RRGGBB", "action": "ผลลัพธ์สั้นๆ"},
+        {"day": "อาทิตย์", "color": "ชื่อสี", "hex": "#RRGGBB", "action": "ผลลัพธ์สั้นๆ"}
+    ]
+}
+
+กฎสำคัญ:
+- luckyColors ต้องมี 3 รายการพอดี และ hex ถูกต้อง
+- luckyDirection.name ต้องขึ้นต้นด้วยคำว่า "ทิศ"
+- weeklyFortune แต่ละด้านมี points 3 รายการพอดี
+- weeklyWarning มี 4 รายการพอดี
+- luckyCalendar มีครบ 7 วันพอดี
+- ห้าม trailing comma และต้อง parse JSON ได้${extraStrictRule}`;
+        }
 
     function normalizeFortuneData(rawData) {
-        const fallback = getFallbackFortuneData();
         const safeData = rawData && typeof rawData === 'object' ? rawData : {};
+        const hexPattern = /^#[0-9A-Fa-f]{6}$/;
 
         function normalizeTextArray(items) {
             return (Array.isArray(items) ? items : [])
@@ -717,24 +865,38 @@
                 .filter(Boolean);
         }
 
-        function ensureMinItems(primaryItems, fallbackItems, minCount) {
+        function ensureMinItems(primaryItems, minCount, fieldName) {
             const result = normalizeTextArray(primaryItems);
-            const backup = normalizeTextArray(fallbackItems);
 
-            for (let i = 0; i < backup.length && result.length < minCount; i++) {
-                if (!result.includes(backup[i])) result.push(backup[i]);
+            if (result.length < minCount) {
+                throw new Error(`API response missing required field: ${fieldName}`);
             }
 
-            return result.slice(0, Math.max(minCount, result.length));
+            return result;
         }
 
-        const luckyColors = Array.isArray(safeData.luckyColors) && safeData.luckyColors.length
-            ? safeData.luckyColors
-            : fallback.luckyColors;
+        const luckyColors = (Array.isArray(safeData.luckyColors) ? safeData.luckyColors : [])
+            .map((color) => ({
+                name: typeof color?.name === 'string' ? color.name.trim() : '',
+                hex: typeof color?.hex === 'string' ? color.hex.trim() : '',
+                meaning: typeof color?.meaning === 'string' ? color.meaning.trim() : ''
+            }))
+            .filter((color) => color.name && color.meaning && hexPattern.test(color.hex));
+
+        if (luckyColors.length < 3) {
+            throw new Error('API response missing required field: luckyColors');
+        }
 
         const luckyDirection = safeData.luckyDirection && typeof safeData.luckyDirection === 'object'
-            ? safeData.luckyDirection
-            : fallback.luckyDirection;
+            ? {
+                name: typeof safeData.luckyDirection.name === 'string' ? safeData.luckyDirection.name.trim() : '',
+                meaning: typeof safeData.luckyDirection.meaning === 'string' ? safeData.luckyDirection.meaning.trim() : ''
+            }
+            : { name: '', meaning: '' };
+
+        if (!luckyDirection.name || !luckyDirection.meaning) {
+            throw new Error('API response missing required field: luckyDirection');
+        }
 
         const weeklyFortune = safeData.weeklyFortune && typeof safeData.weeklyFortune === 'object'
             ? safeData.weeklyFortune
@@ -744,45 +906,54 @@
             love: {
                 points: ensureMinItems(
                     weeklyFortune?.love?.points,
-                    fallback.weeklyFortune.love.points,
-                    4
+                    3,
+                    'weeklyFortune.love.points'
                 )
             },
             money: {
                 points: ensureMinItems(
                     weeklyFortune?.money?.points,
-                    fallback.weeklyFortune.money.points,
-                    4
+                    3,
+                    'weeklyFortune.money.points'
                 )
             },
             career: {
                 points: ensureMinItems(
                     weeklyFortune?.career?.points,
-                    fallback.weeklyFortune.career.points,
-                    4
+                    3,
+                    'weeklyFortune.career.points'
                 )
             },
             health: {
                 points: ensureMinItems(
                     weeklyFortune?.health?.points,
-                    fallback.weeklyFortune.health.points,
-                    4
+                    3,
+                    'weeklyFortune.health.points'
                 )
             }
         };
 
-        const weeklyWarning = ensureMinItems(safeData.weeklyWarning, fallback.weeklyWarning, 4);
+        const weeklyWarning = ensureMinItems(safeData.weeklyWarning, 4, 'weeklyWarning');
 
-        const luckyCalendar = Array.isArray(safeData.luckyCalendar) && safeData.luckyCalendar.length >= 7
-            ? safeData.luckyCalendar.slice(0, 7)
-            : fallback.luckyCalendar;
+        const luckyCalendar = (Array.isArray(safeData.luckyCalendar) ? safeData.luckyCalendar : [])
+            .map((entry) => ({
+                day: typeof entry?.day === 'string' ? entry.day.trim() : '',
+                color: typeof entry?.color === 'string' ? entry.color.trim() : '',
+                hex: typeof entry?.hex === 'string' ? entry.hex.trim() : '',
+                action: typeof entry?.action === 'string' ? entry.action.trim() : ''
+            }))
+            .filter((entry) => entry.day && entry.color && entry.action && hexPattern.test(entry.hex));
+
+        if (luckyCalendar.length < 7) {
+            throw new Error('API response missing required field: luckyCalendar');
+        }
 
         return {
-            luckyColors,
+            luckyColors: luckyColors.slice(0, 3),
             luckyDirection,
             weeklyFortune: normalizedWeeklyFortune,
             weeklyWarning,
-            luckyCalendar
+            luckyCalendar: luckyCalendar.slice(0, 7)
         };
     }
 
@@ -850,7 +1021,9 @@
 
             persistFormState({
                 resultName: fullName,
-                fortuneData: fortune
+                fortuneData: fortune,
+                resultSource: 'api',
+                resultTimestamp: new Date().toISOString()
             });
 
             console.log('✅ Fortune data:', fortune);
@@ -859,7 +1032,7 @@
 
         } catch (error) {
             console.error('❌ Error:', error);
-            showPrettyAlert('เกิดข้อผิดพลาดในการคำนวณดวงชะตา กรุณาลองใหม่อีกครั้ง', {
+            showPrettyAlert(formatFortuneErrorMessage(error), {
                 type: 'error',
                 autoCloseMs: 4000
             });
@@ -875,66 +1048,48 @@
 
     // Get fortune prediction from Gemini API
     async function getFortunePrediction(birthData) {
-        const { fullName, birthDate, birthTime } = birthData;
-        
-        // Create prompt for Gemini
-        const prompt = `คุณคือผู้เชี่ยวชาญด้านโหราศาสตร์และดวงชะตา
+                const prompt = buildFortunePrompt(birthData);
 
-ข้อมูลผู้ขอดูดวง:
-- ชื่อ: ${fullName}
-- วันเกิด: ${birthDate.day} ${monthNamesThai[birthDate.month - 1]} ${birthDate.year + 543} (${birthDate.day}/${birthDate.month}/${birthDate.year})
-- เวลาเกิด: ${birthTime}
+        const hasDirectApiKey = Boolean(getDirectGeminiApiKey());
 
-วิเคราะห์ดวงชะตาและตอบกลับเป็น JSON object เท่านั้น ห้ามมี markdown ห้ามมีข้อความอื่นนอกจาก JSON:
-{
-  "luckyColors": [
-    {"name": "ชื่อสีภาษาไทย", "hex": "#RRGGBB", "meaning": "ความหมายสั้นๆ 2-4 คำ"},
-    {"name": "ชื่อสีภาษาไทย", "hex": "#RRGGBB", "meaning": "ความหมายสั้นๆ 2-4 คำ"},
-    {"name": "ชื่อสีภาษาไทย", "hex": "#RRGGBB", "meaning": "ความหมายสั้นๆ 2-4 คำ"}
-  ],
-  "luckyDirection": {
-    "name": "ทิศ...",
-    "meaning": "คำอธิบาย 1-2 ประโยค"
-  },
-  "weeklyFortune": {
-    "love":   {"points": ["ประโยคทำนาย 3-5 ข้อ","ประโยคทำนาย","ประโยคทำนาย","ประโยคทำนาย"]},
-    "money":  {"points": ["ประโยคทำนาย 3-5 ข้อ","ประโยคทำนาย","ประโยคทำนาย","ประโยคทำนาย"]},
-    "career": {"points": ["ประโยคทำนาย 3-5 ข้อ","ประโยคทำนาย","ประโยคทำนาย","ประโยคทำนาย"]},
-    "health": {"points": ["ประโยคทำนาย 3-5 ข้อ","ประโยคทำนาย","ประโยคทำนาย","ประโยคทำนาย"]}
-  },
-  "weeklyWarning": [
-    "ข้อควรระวัง 1 (ประโยคเต็ม)",
-    "ข้อควรระวัง 2",
-    "ข้อควรระวัง 3",
-    "ข้อควรระวัง 4",
-    "ข้อควรระวัง 5"
-  ],
-  "luckyCalendar": [
-    {"day": "จันทร์",   "color": "ชื่อสี", "hex": "#RRGGBB", "action": "สิ่งที่ได้จากสีนี้"},
-    {"day": "อังคาร์",  "color": "ชื่อสี", "hex": "#RRGGBB", "action": "สิ่งที่ได้จากสีนี้"},
-    {"day": "พุธ",    "color": "ชื่อสี", "hex": "#RRGGBB", "action": "สิ่งที่ได้จากสีนี้"},
-    {"day": "พฤหัส",   "color": "ชื่อสี", "hex": "#RRGGBB", "action": "สิ่งที่ได้จากสีนี้"},
-    {"day": "ศุกร์",   "color": "ชื่อสี", "hex": "#RRGGBB", "action": "สิ่งที่ได้จากสีนี้"},
-    {"day": "เสาร์",   "color": "ชื่อสี", "hex": "#RRGGBB", "action": "สิ่งที่ได้จากสีนี้"},
-    {"day": "อาทิตย์",  "color": "ชื่อสี", "hex": "#RRGGBB", "action": "สิ่งที่ได้จากสีนี้"}
-  ]
-}
+        if (hasDirectApiKey) {
+            try {
+                const directData = await fetchFortuneViaDirectGemini(prompt);
+                return parseFortuneFromGeminiData(directData);
+            } catch (directError) {
+                const isInvalidJson = /invalid JSON/i.test(String(directError?.message || ''));
+                if (isInvalidJson) {
+                    try {
+                        const strictPrompt = buildFortunePrompt(birthData, { strict: true });
+                        const strictData = await fetchFortuneViaDirectGemini(strictPrompt, { strictJson: true });
+                        return parseFortuneFromGeminiData(strictData);
+                    } catch (strictError) {
+                        directError = strictError;
+                    }
+                }
 
-กฎสำคัญ:
-- luckyColors ต้องมีครบ 3 สี, hex ต้องถูกต้อง
-- ชื่อทิศต้องขึ้นต้นด้วยคำว่า "ทิศ"
-- weeklyFortune แต่ละด้านต้องมี points อย่างน้อย 3-5 ข้อ เป็นประโยคเต็ม ภาษาไทยสวยงาม
-- weeklyWarning ต้องมีอย่างน้อย 4-6 รายการ เป็นประโยคเต็ม
-- luckyCalendar ต้องมีครบทุก  7 วัน
-- ตอบเป็น JSON เท่านั้น ไม่มีข้อความอื่น`;
+                const directMessage = typeof directError?.message === 'string' ? directError.message : '';
+                const shouldFallbackToServerless = /Failed to fetch|NetworkError|Load failed|timeout|temporarily unavailable|quota|429|5\d\d/i.test(directMessage);
 
-        try {
-            let response;
+                if (!shouldFallbackToServerless) {
+                    throw directError;
+                }
 
-            if (USE_SERVERLESS) {
-                // Use Vercel Serverless Function
-                response = await fetch(SERVERLESS_API_URL, {
+                console.warn('Direct Gemini call failed, trying serverless API endpoints...', directError);
+            }
+        }
+
+        const apiCandidates = getServerlessApiCandidates();
+        let lastError = null;
+        let networkFailureCount = 0;
+
+        for (let i = 0; i < apiCandidates.length; i++) {
+            const apiUrl = apiCandidates[i];
+
+            try {
+                const response = await fetch(apiUrl, {
                     method: 'POST',
+                    cache: 'no-store',
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -943,53 +1098,50 @@
                         model: GEMINI_MODEL
                     })
                 });
-            } else {
-                // Use direct API call (development)
-                response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        contents: [
-                            {
-                                parts: [{ text: prompt }]
-                            }
-                        ],
-                        generationConfig: {
-                            temperature: 0.7,
-                            topK: 40,
-                            topP: 0.95,
-                            maxOutputTokens: 2048
-                        }
-                    })
-                });
+
+                const contentType = response.headers.get('content-type') || '';
+                const isJsonResponse = contentType.includes('application/json');
+                const data = isJsonResponse ? await response.json() : null;
+
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error(`API endpoint not found at ${apiUrl}`);
+                    }
+                    throw new Error(data?.error || `API Error: ${response.status}`);
+                }
+
+                if (!data || data?.error) {
+                    throw new Error(data?.error || 'API returned empty response');
+                }
+
+                return parseFortuneFromGeminiData(data);
+            } catch (error) {
+                lastError = error;
+                const errorMessage = typeof error?.message === 'string' ? error.message : '';
+                if (/Failed to fetch|NetworkError|Load failed|endpoint not found|status 404/i.test(errorMessage)) {
+                    networkFailureCount += 1;
+                }
+                console.warn(`Gemini API attempt failed via ${apiUrl}:`, error);
+
+                const shouldRetry = i < apiCandidates.length - 1;
+                if (!shouldRetry) {
+                    break;
+                }
             }
-
-            if (!response.ok) {
-                throw new Error(`API Error: ${response.status}`);
-            }
-
-            const data = await response.json();
-            const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
-            // Strip markdown fences and keep only JSON object range if model adds extra text.
-            const cleanedText = rawText.replace(/```(?:json)?\s*/gi, '').replace(/```/g, '').trim();
-            const extractedJsonText = extractJsonObject(cleanedText) || cleanedText;
-
-            let fortuneData;
-            try {
-                fortuneData = JSON.parse(extractedJsonText);
-            } catch (parseErr) {
-                console.warn('⚠️ JSON parse failed, using fallback data');
-                fortuneData = getFallbackFortuneData();
-            }
-
-            return normalizeFortuneData(fortuneData);
-
-        } catch (error) {
-            console.error('Gemini API Error:', error);
-            throw error;
         }
+
+        if (networkFailureCount === apiCandidates.length) {
+            try {
+                console.warn('All serverless API endpoints unreachable, trying direct Gemini API fallback...');
+                const directData = await fetchFortuneViaDirectGemini(prompt);
+                return parseFortuneFromGeminiData(directData);
+            } catch (fallbackError) {
+                throw fallbackError;
+            }
+        }
+
+        console.error('Gemini API Error:', lastError);
+        throw lastError || new Error('API request failed');
     }
 
     // Show fortune result in Section 3
