@@ -425,17 +425,23 @@
         const nextBtn = document.querySelector('.carousel-nav.next');
         
         let currentIndex = 0;
-        const cardsToShow = window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3;
-        const cardWidth = cards[0]?.offsetWidth + 30 || 300;
-        const transitionDurationMs = 1050;
-        const wheelThreshold = 170;
-        const wheelCooldownMs = 520;
+        const getCardsToShow = () => (window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3);
+        const getCardStep = () => {
+            if (!cards[0] || !carousel) return 300;
+            const styles = getComputedStyle(carousel);
+            const gapValue = parseFloat(styles.columnGap || styles.gap || '30') || 30;
+            return cards[0].offsetWidth + gapValue;
+        };
+
+        let cardsToShow = getCardsToShow();
+        const transitionDurationMs = 780;
+        const wheelThreshold = 120;
+        const wheelCooldownMs = 420;
         let scrollTimeout = null;
         let scrollAccumulator = 0;
         let lastWheelDirection = 0;
         let isAnimating = false;
         let lastNavigationTime = 0;
-        let queuedDirection = 0;
 
         const canScroll = (element, deltaY) => {
             if (!element) return false;
@@ -465,23 +471,15 @@
         const releaseNavigationLock = () => {
             setTimeout(() => {
                 isAnimating = false;
-
-                // If user kept scrolling during animation, continue smoothly once.
-                if (queuedDirection !== 0) {
-                    const nextDirection = queuedDirection;
-                    queuedDirection = 0;
-                    navigate(nextDirection);
-                }
             }, transitionDurationMs);
         };
 
         function navigate(direction) {
             if (!canNavigate()) {
-                queuedDirection = direction;
                 return;
             }
 
-            const maxIndex = cards.length - cardsToShow;
+            const maxIndex = Math.max(0, cards.length - cardsToShow);
             let nextIndex = currentIndex + direction;
 
             // Loop carousel when reaching the edges.
@@ -493,7 +491,6 @@
 
             // Nothing to move, clear queued direction and unlock immediately.
             if (nextIndex === currentIndex) {
-                queuedDirection = 0;
                 isAnimating = false;
                 return;
             }
@@ -512,7 +509,7 @@
         }
 
         function updateCarousel() {
-            const offset = -currentIndex * cardWidth;
+            const offset = -currentIndex * getCardStep();
             carousel.style.transform = `translate3d(${offset}px, 0, 0)`;
 
             // Loop mode keeps navigation always available.
@@ -588,7 +585,10 @@
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
-                location.reload();
+                cardsToShow = getCardsToShow();
+                const maxIndex = Math.max(0, cards.length - cardsToShow);
+                currentIndex = Math.min(currentIndex, maxIndex);
+                updateCarousel();
             }, 250);
         });
 

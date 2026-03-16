@@ -240,7 +240,7 @@
         }
 
         if (monthText) {
-            monthText.textContent = monthNames[selectedDate.month];
+            monthText.textContent = monthNamesThai[selectedDate.month];
         }
 
         if (dayDisplay) {
@@ -282,7 +282,7 @@
         if (!dropdownScroll) return;
 
         dropdownScroll.innerHTML = '';
-        monthNames.forEach((monthName, index) => {
+        monthNamesThai.forEach((monthName, index) => {
             const item = document.createElement('div');
             item.className = 'dropdown-item';
             if (index === selectedDate.month) {

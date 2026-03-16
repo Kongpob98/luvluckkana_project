@@ -600,19 +600,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 7px;
     z-index: 3;
 }
 
 .weekday {
     position: relative;
     font-family: 'DB Heavent Cond', sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     color: rgba(255, 255, 255, 0.8);
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 5px 11px;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
@@ -1359,6 +1359,21 @@ body {
 
 .label-colors    { left: 251px; }
 .label-direction { left: 912px; }
+
+/* Desktop: center each label inside its corresponding card */
+@media (min-width: 1367px) {
+    .label-colors {
+        left: 95px;
+        width: 494px;
+        text-align: center;
+    }
+
+    .label-direction {
+        left: 660px;
+        width: 686px;
+        text-align: center;
+    }
+}
 
 /* ----------------------------------------
    Glass Card Base
@@ -2145,6 +2160,15 @@ body {
         height: 140px !important;
     }
 
+    .weekday-labels {
+        gap: 5px;
+    }
+
+    .weekday {
+        font-size: 17px !important;
+        padding: 4px 9px;
+    }
+
     /* Birth time */
     .birth-time-section {
         position: relative !important;
@@ -2397,6 +2421,12 @@ body {
     .month-display { font-size: 30px !important; }
     .day-display   { font-size: 36px !important; }
 
+    .weekday-labels { gap: 3px; }
+    .weekday {
+        font-size: 15px !important;
+        padding: 4px 6px;
+    }
+
     .fortune-cards-grid {
         grid-template-columns: 1fr !important;
     }
@@ -2592,22 +2622,31 @@ body {
     /* Result section — drop scale at 1024px handled below */
 }
 
-/* Result + Weekly sections: drop scale on tablets */
-@media (max-width: 1024px) and (min-width: 901px) {
+/* Result + Weekly sections: centered tablet landscape layout */
+@media (max-width: 1366px) and (min-width: 901px) {
 
     .fortune-result-section {
         min-height: auto !important;
-        padding: 48px 32px 64px;
+        padding: 48px 20px 64px;
     }
 
     .result-container {
         position: relative !important;
         width: 100% !important;
+        max-width: 1080px;
         height: auto !important;
         transform: none !important;
-        display: flex !important;
-        flex-direction: column;
-        gap: 24px;
+        display: grid !important;
+        grid-template-columns: minmax(300px, 430px) minmax(380px, 520px);
+        grid-template-areas:
+            'header header'
+            'label-colors label-direction'
+            'colors direction';
+        column-gap: 24px;
+        row-gap: 16px;
+        justify-content: center;
+        align-items: start;
+        margin: 0 auto !important;
     }
 
     .result-header {
@@ -2615,6 +2654,7 @@ body {
         top: auto !important;
         left: auto !important;
         transform: none !important;
+        grid-area: header;
         text-align: center;
         white-space: normal !important;
     }
@@ -2624,30 +2664,40 @@ body {
         position: relative !important;
         top: auto !important;
         left: auto !important;
-        font-size: 24px !important;
+        font-size: 30px !important;
         text-align: center;
         display: block;
+        margin: 0;
     }
+
+    .label-colors { grid-area: label-colors; left: auto !important; }
+    .label-direction { grid-area: label-direction; left: auto !important; }
 
     .lucky-colors-card {
         position: relative !important;
         left: auto !important;
         top: auto !important;
+        grid-area: colors;
         width: 100% !important;
-        height: auto !important;
+        height: 320px !important;
     }
     .color-circles-row {
         position: relative !important;
         top: auto !important;
-        padding: 24px 16px;
+        padding: 36px 16px 20px;
     }
 
     .lucky-direction-card {
         position: relative !important;
         left: auto !important;
         top: auto !important;
+        grid-area: direction;
         width: 100% !important;
-        height: auto !important;
+        height: 360px !important;
+    }
+
+    .direction-content {
+        padding: 28px 28px 24px;
     }
     .direction-name-text { font-size: 36px !important; }
 

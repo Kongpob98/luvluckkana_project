@@ -657,8 +657,8 @@ body {
 }
 
 .skills-hl-main {
-    font-family: 'Preahvihear', 'DB Heavent Cond', sans-serif;
-    font-size: clamp(13px, 2vw, 30px);
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: clamp(14px, 2.1vw, 32px);
     font-weight: 400;
     font-style: normal;
     color: #fff;
@@ -668,8 +668,8 @@ body {
 }
 
 .skills-hl-sub {
-    font-family: 'Preahvihear', 'DB Heavent Cond', sans-serif;
-    font-size: clamp(10px, 1.5vw, 22px);
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-size: clamp(11px, 1.6vw, 24px);
     font-weight: 400;
     font-style: normal;
     color: #fff;
@@ -814,12 +814,12 @@ body {
         text-align: center;
     }
     .skills-hl-main {
-        font-size: clamp(15px, 4.2vw, 24px);
+        font-size: clamp(16px, 4.4vw, 26px);
         white-space: normal;
         line-height: 1.5;
     }
     .skills-hl-sub {
-        font-size: clamp(12px, 3.4vw, 19px);
+        font-size: clamp(13px, 3.6vw, 20px);
         white-space: normal;
         line-height: 1.5;
     }
@@ -863,8 +863,8 @@ body {
 
 @media (max-width: 480px) {
     .skills-icons .sic { width: 48px; height: 48px; }
-    .skills-hl-main    { font-size: 19px; }
-    .skills-hl-sub     { font-size: 16px; }
+    .skills-hl-main    { font-size: 20px; }
+    .skills-hl-sub     { font-size: 17px; }
 }
 
 /* ========================================
@@ -921,7 +921,7 @@ body {
     font-family: 'DB Heavent Cond', 'DB Heavent Cond', sans-serif;
     font-weight: 500;
     font-style: normal;
-    font-size: clamp(28px, 4.5vw, 64px);
+    font-size: clamp(30px, 4.8vw, 68px);
     line-height: 1;
     letter-spacing: -0.01em;
     text-align: center;
@@ -942,7 +942,7 @@ body {
     right: 15.07%;         /* (1440-217-1006)/1440 */
     top: 26.45%;           /* 278/1051 */
     font-family: 'DB Heavent Cond', sans-serif;
-    font-size: clamp(12px, 1.6vw, 24px);
+    font-size: clamp(13px, 1.8vw, 26px);
     font-weight: 400;
     color: #fff;
     text-align: center;
@@ -1066,7 +1066,7 @@ body {
 /* Card title — General Sans 64px white */
 .s4-card-title {
     font-family: 'DB Heavent Cond', sans-serif;
-    font-size: clamp(18px, 2.9vw, 42px);
+    font-size: clamp(19px, 3vw, 44px);
     font-weight: 400;
     color: #fff;
     line-height: 1;
@@ -1077,7 +1077,7 @@ body {
 /* Card subtitle — General Sans 24px */
 .s4-card-sub {
     font-family: 'DB Heavent Cond', sans-serif;
-    font-size: clamp(9px, 1.05vw, 15px);
+    font-size: clamp(10px, 1.15vw, 16px);
     font-weight: 400;
     color: rgba(255, 255, 255, 0.85);
     line-height: 1.4;
@@ -1164,12 +1164,12 @@ body {
     }
 
     .s4-title {
-        font-size: clamp(28px, 7vw, 56px);
+        font-size: clamp(30px, 7.4vw, 60px);
         margin-bottom: 12px;
     }
 
     .s4-subtitle {
-        font-size: clamp(13px, 3.5vw, 18px);
+        font-size: clamp(14px, 3.8vw, 20px);
         margin-bottom: 36px;
     }
 
@@ -1184,14 +1184,14 @@ body {
         min-height: 300px;
     }
 
-    .s4-card-title { font-size: clamp(20px, 5vw, 30px); }
-    .s4-card-sub   { font-size: clamp(11px, 2.5vw, 14px); }
+    .s4-card-title { font-size: clamp(22px, 5.3vw, 32px); }
+    .s4-card-sub   { font-size: clamp(12px, 2.8vw, 15px); }
 }
 
 @media (max-width: 480px) {
     .about-s4 { padding: 48px 16px 64px; }
     .s4-card  { min-height: 260px; }
-    .s4-card-title { font-size: 25px; }
+    .s4-card-title { font-size: 27px; }
 }
 
 /* ========================================
@@ -1672,8 +1672,8 @@ body {
 
     /* Skills */
     .skills-icons .sic { width: 40px; height: 40px; gap: 8px; }
-    .skills-hl-main { font-size: 17px; }
-    .skills-hl-sub  { font-size: 14px; }
+    .skills-hl-main { font-size: 18px; }
+    .skills-hl-sub  { font-size: 15px; }
 
     /* S4 cards */
     .about-s4    { padding: 40px 12px 56px; }

@@ -2091,6 +2091,28 @@ body {
         width: clamp(42px, 4.5vw, 58px);
         height: clamp(42px, 4.5vw, 58px);
     }
+
+    /* Keep birthday artwork clear of footer/title on tablet widths */
+    .menu-card--birthday .birthday-art {
+        inset: 0 0 76px 0;
+    }
+
+    .menu-card--birthday .birthday-crystal {
+        height: 72%;
+        max-width: 50%;
+    }
+
+    .menu-card--birthday .birthday-hand {
+        height: 70%;
+    }
+
+    .menu-card--birthday .birthday-hand--left {
+        left: -10%;
+    }
+
+    .menu-card--birthday .birthday-hand--right {
+        right: -10%;
+    }
 }
 
 /* ── Tablet portrait (≤768px) — vertical stack, NO parallax ── */
@@ -2154,8 +2176,13 @@ body {
         width: clamp(38px, 5vw, 52px);
         height: clamp(38px, 5vw, 52px);
     }
-    .birthday-crystal { height: 75%; }
-    .birthday-hand    { height: 78%; }
+    .menu-card--birthday .birthday-art {
+        inset: 0 0 62px 0;
+    }
+    .birthday-crystal { height: 68%; max-width: 52%; }
+    .birthday-hand    { height: 64%; }
+    .birthday-hand--left  { left: -12%; }
+    .birthday-hand--right { right: -12%; }
 }
 
 /* ── Large phone (≤600px) ── */
