@@ -401,6 +401,11 @@
                     display: none;
                 }
 
+                .nav-item-dropdown-header {
+                    padding-right: 44px;
+                    box-sizing: border-box;
+                }
+
                 .nav-item-dropdown::after {
                     display: none;
                 }
@@ -482,12 +487,12 @@
                             rgba(255, 255, 255, 0.20) 0%,
                             rgba(255, 255, 255, 0.08) 38%,
                             rgba(255, 255, 255, 0.02) 100%),
-                        rgba(10, 12, 20, 0.28);
+                        rgba(10, 12, 20, 0.84);
                     backdrop-filter: blur(26px) saturate(185%) contrast(112%);
                     -webkit-backdrop-filter: blur(26px) saturate(185%) contrast(112%);
-                    border: 1px solid rgba(255, 255, 255, 0.28);
+                    border: 1px solid rgba(255, 255, 255, 0.42);
                     box-shadow:
-                        0 10px 24px rgba(0, 0, 0, 0.24),
+                        0 14px 30px rgba(0, 0, 0, 0.48),
                         inset 0 1px 0 rgba(255, 255, 255, 0.34),
                         inset 0 -14px 28px rgba(18, 24, 42, 0.22);
                     overflow: hidden;
@@ -564,6 +569,12 @@
                     height: auto;
                     min-height: 50px;
                     border-radius: 30px;
+                    background:
+                        linear-gradient(145deg,
+                            rgba(255, 255, 255, 0.20) 0%,
+                            rgba(255, 255, 255, 0.08) 38%,
+                            rgba(255, 255, 255, 0.02) 100%),
+                        rgba(10, 12, 20, 0.88);
                     overflow: visible;
                 }
 
@@ -593,12 +604,12 @@
                             rgba(255, 255, 255, 0.18) 0%,
                             rgba(255, 255, 255, 0.08) 36%,
                             rgba(255, 255, 255, 0.03) 100%),
-                        rgba(10, 12, 20, 0.30);
+                        rgba(10, 12, 20, 0.90);
                     backdrop-filter: blur(24px) saturate(180%) contrast(110%);
                     -webkit-backdrop-filter: blur(24px) saturate(180%) contrast(110%);
-                    border: 1px solid rgba(255, 255, 255, 0.24);
+                    border: 1px solid rgba(255, 255, 255, 0.40);
                     box-shadow:
-                        0 12px 24px rgba(0, 0, 0, 0.24),
+                        0 16px 32px rgba(0, 0, 0, 0.52),
                         inset 0 1px 0 rgba(255, 255, 255, 0.28);
                     border-radius: 20px;
                     padding: 20px;
@@ -654,10 +665,14 @@
                 .nav-item-dropdown-header {
                     width: 100%;
                     display: block;
+                    position: relative;
+                    padding-right: 0;
+                    box-sizing: border-box;
                 }
 
                 .nav-item-dropdown-header .nav-link {
                     width: 100%;
+                    box-sizing: border-box;
                 }
 
                 .nav-dropdown-toggle {
@@ -677,12 +692,12 @@
                             rgba(255, 255, 255, 0.18) 0%,
                             rgba(255, 255, 255, 0.08) 36%,
                             rgba(255, 255, 255, 0.03) 100%),
-                        rgba(10, 12, 20, 0.30);
+                        rgba(10, 12, 20, 0.92);
                     backdrop-filter: blur(24px) saturate(180%) contrast(110%);
                     -webkit-backdrop-filter: blur(24px) saturate(180%) contrast(110%);
-                    border: 1px solid rgba(255, 255, 255, 0.24);
+                    border: 1px solid rgba(255, 255, 255, 0.40);
                     box-shadow:
-                        0 12px 24px rgba(0, 0, 0, 0.24),
+                        0 16px 32px rgba(0, 0, 0, 0.52),
                         inset 0 1px 0 rgba(255, 255, 255, 0.28);
                     max-height: 0;
                     overflow: hidden;
@@ -823,6 +838,11 @@
             sessionStorage.setItem(AUDIO_TIME_KEY, String(audio.currentTime || 0));
         }
 
+        function persistAndPauseAudio() {
+            persistAudioTime();
+            audio.pause();
+        }
+
         function applyResumeTimeWhenReady() {
             if (hasAppliedResumeTime || resumeTime <= 0) {
                 return;
@@ -942,13 +962,13 @@
             tryPlayAudio();
         });
 
-        window.addEventListener('beforeunload', persistAudioTime);
-        window.addEventListener('pagehide', persistAudioTime);
+        window.addEventListener('beforeunload', persistAndPauseAudio);
+        window.addEventListener('pagehide', persistAndPauseAudio);
         window.addEventListener('focus', retryAudioWhenPageActive);
         window.addEventListener('pageshow', retryAudioWhenPageActive);
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'hidden') {
-                persistAudioTime();
+                persistAndPauseAudio();
                 return;
             }
 
