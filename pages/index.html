@@ -12,10 +12,14 @@
 <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/loading.css">
     <link rel="stylesheet" href="../css/index.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <script defer src="/_vercel/insights/script.js"></script>
+    <script>
+        if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+            var insightsScript = document.createElement('script');
+            insightsScript.defer = true;
+            insightsScript.src = '/_vercel/insights/script.js';
+            document.head.appendChild(insightsScript);
+        }
+    </script>
 </head>
 <body>
     <!-- Navbar Component -->
@@ -30,7 +34,7 @@
         <!-- Video Background (parallax wrapper) -->
         <div class="hero-video-wrapper" aria-hidden="true">
             <video class="hero-video-bg" autoplay muted loop playsinline preload="metadata">
-                <source src="https://res.cloudinary.com/dpezsckqq/video/upload/luckkana/bgindex3.mp4" type="video/mp4">
+                <source src="https://res.cloudinary.com/dpezsckqq/video/upload/f_auto,q_auto:eco/luckkana/bgindex3.mp4" type="video/mp4">
             </video>
         </div>
 
@@ -39,7 +43,18 @@
 
         <!-- Logo -->
         <div class="logo-container">
-            <img src="https://res.cloudinary.com/dpezsckqq/image/upload/f_auto,q_auto/f_auto,q_auto/luckkana/hero-logo.png" alt="Luckkana Star Logo" class="hero-logo">
+            <img
+                src="https://res.cloudinary.com/dpezsckqq/image/upload/f_auto,q_auto,w_700/luckkana/hero-logo.png"
+                srcset="https://res.cloudinary.com/dpezsckqq/image/upload/f_auto,q_auto,w_420/luckkana/hero-logo.png 420w,
+                        https://res.cloudinary.com/dpezsckqq/image/upload/f_auto,q_auto,w_700/luckkana/hero-logo.png 700w,
+                        https://res.cloudinary.com/dpezsckqq/image/upload/f_auto,q_auto,w_980/luckkana/hero-logo.png 980w"
+                sizes="(max-width: 768px) 72vw, 700px"
+                width="700"
+                height="346"
+                fetchpriority="high"
+                alt="Luckkana Star Logo"
+                class="hero-logo"
+            >
         </div>
 
         <!-- CTA Button -->
@@ -240,8 +255,8 @@
     <section id="social-proof" class="sp-section">
 
         <!-- Background video -->
-        <video class="sp-bg" autoplay muted loop playsinline aria-hidden="true">
-            <source src="https://res.cloudinary.com/dpezsckqq/video/upload/luckkana/social-proof/bgs5.mov" type="video/mp4">
+        <video class="sp-bg" autoplay muted loop playsinline preload="none" aria-hidden="true">
+            <source data-src="https://res.cloudinary.com/dpezsckqq/video/upload/f_auto,q_auto:eco/luckkana/social-proof/bgs5.mov" type="video/mp4">
         </video>
 
         <!-- Top black gradient overlay -->
@@ -285,6 +300,34 @@
     <script src="../js/animations.js"></script>
     <script src="../js/main.js"></script>
     <script>
+        (function lazyLoadSocialProofVideo() {
+            const section = document.getElementById('social-proof');
+            if (!section) return;
+
+            const video = section.querySelector('.sp-bg');
+            const source = video ? video.querySelector('source[data-src]') : null;
+            if (!video || !source) return;
+
+            let loaded = false;
+            function loadVideo() {
+                if (loaded) return;
+                loaded = true;
+                source.src = source.dataset.src;
+                video.load();
+            }
+
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        loadVideo();
+                        io.disconnect();
+                    }
+                });
+            }, { rootMargin: '500px 0px' });
+
+            io.observe(section);
+        })();
+
         // Scroll Animation for Detail Section
         const observerOptions = {
             threshold: 0.2,

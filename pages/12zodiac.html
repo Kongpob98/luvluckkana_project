@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <script defer src="/_vercel/insights/script.js"></script>
+        <script>if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') { var s=document.createElement('script'); s.defer=true; s.src='/_vercel/insights/script.js'; document.head.appendChild(s); }</script>
 </head>
 <body class="zodiac-page-body">
     <!-- Navbar Component -->
@@ -29,10 +29,10 @@
         <!-- Hero Section -->
         <section class="zodiac-hero-section">
             <div class="zodiac-hero-bg-wrapper">
-                <video id="zodiac-hero-video-1" autoplay muted loop playsinline preload="auto" class="zodiac-hero-bg zodiac-hero-video-primary">
+                <video id="zodiac-hero-video-1" autoplay muted loop playsinline preload="metadata" class="zodiac-hero-bg zodiac-hero-video-primary">
                     <source src="../assets/videos/bg12.mp4" type="video/mp4">
                 </video>
-                <video id="zodiac-hero-video-2" muted loop playsinline preload="auto" class="zodiac-hero-bg zodiac-hero-video-secondary">
+                <video id="zodiac-hero-video-2" muted loop playsinline preload="none" class="zodiac-hero-bg zodiac-hero-video-secondary">
                     <source src="../assets/videos/bg12.mp4" type="video/mp4">
                 </video>
             </div>
@@ -198,62 +198,76 @@
     </main>
 
     <!-- Scripts -->
-    <script src="../js/components/loading.js"></script>
-    <script src="../js/cursor-trail.js"></script>
-    <script src="../js/components/navbar.js"></script>
-    <script src="../js/components/zodiac-cards.js"></script>
-    <script src="../js/zodiac-history-parallax.js"></script>
+    <script defer src="../js/components/loading.js"></script>
+    <script defer src="../js/cursor-trail.js"></script>
+    <script defer src="../js/components/navbar.js"></script>
+    <script defer src="../js/components/zodiac-cards.js"></script>
+    <script defer src="../js/zodiac-history-parallax.js"></script>
     <!-- <script src="../js/zodiac-section3-effects.js"></script> -->
-    <script src="../js/animations.js"></script>
-    <script>
+    <script defer src="../js/animations.js"></script>
+    <script defer>
         // Ultra-smooth video loop with double buffering and crossfade
         document.addEventListener('DOMContentLoaded', function() {
             const video1 = document.getElementById('zodiac-hero-video-1');
             const video2 = document.getElementById('zodiac-hero-video-2');
             
             if (video1 && video2) {
+                const isMobile = window.matchMedia('(max-width: 1024px)').matches;
+
+                // On tablet/mobile keep single-video mode to reduce CPU and long main-thread activity.
+                if (isMobile) {
+                    video2.style.display = 'none';
+                    video1.play().catch(err => console.log('Video autoplay prevented:', err));
+                    return;
+                }
+
                 let currentVideo = video1;
                 let nextVideo = video2;
                 const fadeDuration = 0.5; // 0.5 seconds crossfade
                 const loopPoint = 0.8; // Start crossfade at 80% of video duration
+                let isTransitioning = false;
                 
                 // Start first video
                 video1.play().catch(err => console.log('Video autoplay prevented:', err));
-                
-                // Monitor playback and trigger seamless loop with crossfade
-                function checkLoop() {
-                    if (currentVideo.currentTime >= currentVideo.duration * loopPoint && 
-                        nextVideo.paused) {
-                        // Start next video and begin crossfade
-                        nextVideo.currentTime = 0;
-                        nextVideo.play();
-                        
-                        // Crossfade animation
-                        currentVideo.style.opacity = '1';
-                        nextVideo.style.opacity = '0';
-                        nextVideo.style.transition = `opacity ${fadeDuration}s ease-in-out`;
-                        
-                        setTimeout(() => {
-                            nextVideo.style.opacity = '1';
-                            currentVideo.style.opacity = '0';
-                        }, 50);
-                        
-                        // Swap videos after fade completes
-                        setTimeout(() => {
-                            currentVideo.pause();
-                            currentVideo.currentTime = 0;
-                            
-                            // Swap references
-                            const temp = currentVideo;
-                            currentVideo = nextVideo;
-                            nextVideo = temp;
-                        }, fadeDuration * 1000);
+
+                function swapWithCrossfade() {
+                    if (isTransitioning || !Number.isFinite(currentVideo.duration) || currentVideo.duration <= 0) {
+                        return;
                     }
-                    
-                    requestAnimationFrame(checkLoop);
+
+                    isTransitioning = true;
+                    nextVideo.currentTime = 0;
+                    nextVideo.play();
+
+                    currentVideo.style.opacity = '1';
+                    nextVideo.style.opacity = '0';
+                    nextVideo.style.transition = `opacity ${fadeDuration}s ease-in-out`;
+
+                    setTimeout(() => {
+                        nextVideo.style.opacity = '1';
+                        currentVideo.style.opacity = '0';
+                    }, 50);
+
+                    setTimeout(() => {
+                        currentVideo.pause();
+                        currentVideo.currentTime = 0;
+
+                        const temp = currentVideo;
+                        currentVideo = nextVideo;
+                        nextVideo = temp;
+                        isTransitioning = false;
+                    }, fadeDuration * 1000);
                 }
-                
-                checkLoop();
+
+                function onTimeUpdate() {
+                    if (!Number.isFinite(currentVideo.duration) || currentVideo.duration <= 0) return;
+                    if (currentVideo.currentTime >= currentVideo.duration * loopPoint) {
+                        swapWithCrossfade();
+                    }
+                }
+
+                video1.addEventListener('timeupdate', onTimeUpdate);
+                video2.addEventListener('timeupdate', onTimeUpdate);
                 
                 // Also add backup simple loop for each video
                 [video1, video2].forEach(video => {
@@ -266,6 +280,6 @@
             }
         });
     </script>
-    <script src="../js/main.js"></script>
+    <script defer src="../js/main.js"></script>
 </body>
 </html>

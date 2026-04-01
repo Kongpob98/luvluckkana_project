@@ -25,7 +25,7 @@
     <!-- Meta Tags -->
     <meta name="description" content="Discover your Chinese Zodiac sign and unlock ancient wisdom with AI-powered readings">
     <meta name="keywords" content="chinese zodiac, astrology, fortune telling, horoscope">
-    <script defer src="/_vercel/insights/script.js"></script>
+    <script>if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') { var s=document.createElement('script'); s.defer=true; s.src='/_vercel/insights/script.js'; document.head.appendChild(s); }</script>
 </head>
 <body class="chinese-zodiac-page">
     
@@ -48,7 +48,7 @@
                     muted 
                     loop 
                     playsinline 
-                    preload="auto"
+                    preload="metadata"
                     class="chinese-hero-video"
                     webkit-playsinline="true"
                     x-webkit-airplay="deny">
@@ -356,19 +356,19 @@
     
     <!-- Scripts -->
     <!-- Navbar Component -->
-    <script src="../js/components/loading.js"></script>
-    <script src="../js/components/navbar.js"></script>
+    <script defer src="../js/components/loading.js"></script>
+    <script defer src="../js/components/navbar.js"></script>
     
     <!-- Cursor Trail Effect -->
-    <script src="../js/cursor-trail.js"></script>
+    <script defer src="../js/cursor-trail.js"></script>
     
     <!-- Zodiac Flip Cards -->
-    <script src="../js/components/zodiac-flip-cards.js"></script>
+    <script defer src="../js/components/zodiac-flip-cards.js"></script>
     
     <!-- Page Initialization -->
     <script>
-        // Wait for DOM to be fully loaded
-        document.addEventListener('DOMContentLoaded', function() {
+        (function scheduleChineseZodiacInit() {
+            function bootChineseZodiac() {
             // Initialize components
             console.log('Chinese Zodiac page loaded');
             
@@ -380,6 +380,19 @@
             const heroVideo = document.querySelector('.chinese-hero-video');
             const heroTitle = document.querySelector('.chinese-hero-title');
             const heroContent = document.querySelector('.chinese-hero-content');
+            const isLowPowerMode = window.matchMedia('(max-width: 1024px), (prefers-reduced-motion: reduce)').matches;
+
+            if (isLowPowerMode) {
+                if (historySection) {
+                    historySection.style.opacity = '1';
+                    historySection.style.transform = 'translateY(0)';
+                }
+
+                document.querySelectorAll('.chinese-history-section img, .chinese-cards-section img').forEach(function(img) {
+                    if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+                    if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+                });
+            }
             
             // Universal Parallax Effect for All Sections
             function handleParallax() {
@@ -519,7 +532,7 @@
                     });
                     ticking = true;
                 }
-            });
+            }, { passive: true });
             
             // Initial call
             handleParallax();
@@ -758,7 +771,19 @@
             
             // Initialize carousel
             carousel3D.init();
-        });
+            }
+
+            if ('requestIdleCallback' in window) {
+                window.addEventListener('load', function() {
+                    requestIdleCallback(bootChineseZodiac, { timeout: 1200 });
+                }, { once: true });
+                return;
+            }
+
+            window.addEventListener('load', function() {
+                setTimeout(bootChineseZodiac, 250);
+            }, { once: true });
+        })();
     </script>
     
 </body>

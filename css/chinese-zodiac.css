@@ -1,9 +1,6 @@
 /* Chinese Zodiac Page Styles */
 /* Based on Figma Design - node-id: 238-604 */
 
-/* General Sans Font (ตามที่กำหนดใน Figma) */
-@import url('https://fonts.googleapis.com/css2?family=General+Sans:wght@400;500;600;700&display=swap');
-
 /* Reset & Base */
 * {
     margin: 0;
