@@ -11,7 +11,7 @@ class LoadingScreen {
             navigationDisplayTime: options.navigationDisplayTime ?? 0, // Do not delay navigation artificially
             showProgress: options.showProgress !== false, // Show loading text
             autoHide: options.autoHide !== false, // Auto hide when page loads
-            autoShow: options.autoShow !== undefined ? options.autoShow : true, // Show on page load by default
+            autoShow: options.autoShow !== undefined ? options.autoShow : false, // Show only during navigation by default
             interceptLinks: options.interceptLinks !== false, // Intercept internal links for smooth transition
             ...options
         };
@@ -312,7 +312,12 @@ class LoadingScreen {
         
         // Navigate immediately so loading reflects actual network speed.
         if (this.options.navigationDisplayTime === 0) {
-            window.location.href = url;
+            // Let browser paint loading UI at least one frame before navigation.
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    window.location.href = url;
+                });
+            });
             return;
         }
 
