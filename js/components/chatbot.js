@@ -151,6 +151,57 @@
             typingIndicator.remove();
         }
     }
+
+    function buildConversationContext(maxMessages = 6) {
+        const recentMessages = chatMessages
+            .filter((msg) => msg && (msg.sender === 'user' || msg.sender === 'ai'))
+            .slice(-maxMessages);
+
+        if (!recentMessages.length) {
+            return 'ยังไม่มีบทสนทนาก่อนหน้า';
+        }
+
+        return recentMessages
+            .map((msg) => `${msg.sender === 'user' ? 'ผู้ใช้' : 'AI'}: ${msg.content}`)
+            .join('\n');
+    }
+
+    function formatAiResponseForReadability(text) {
+        if (!text || typeof text !== 'string') return 'ขออภัย ฉันยังไม่สามารถสรุปคำตอบได้ในขณะนี้';
+
+        // ตัด markdown ที่มักทำให้ยาวและอ่านยากใน bubble แชต
+        let cleaned = text
+            .replace(/\*\*(.*?)\*\*/g, '$1')
+            .replace(/`([^`]+)`/g, '$1')
+            .replace(/\n{3,}/g, '\n\n')
+            .trim();
+
+        // จำกัดความยาวโดยคงใจความหลักไว้
+        const lines = cleaned.split('\n').map((line) => line.trim()).filter(Boolean);
+        const compact = lines.slice(0, 12).join('\n');
+
+        if (compact.length <= 1400) {
+            return compact;
+        }
+
+        const cutAt = compact.lastIndexOf(' ', 1397);
+        const safeIndex = cutAt > 900 ? cutAt : 1397;
+        return `${compact.slice(0, safeIndex).trim()}...`;
+    }
+
+    function extractAiResponseText(data) {
+        const candidate = data?.candidates?.[0];
+        const parts = candidate?.content?.parts;
+
+        if (!Array.isArray(parts) || !parts.length) {
+            return '';
+        }
+
+        return parts
+            .map((part) => (typeof part?.text === 'string' ? part.text : ''))
+            .join('')
+            .trim();
+    }
     
     // 🛡️ Guardrail: ตรวจสอบว่าคำถามเกี่ยวกับโหราศาสตร์หรือไม่
     function isRelevantQuestion(userMessage) {
@@ -175,8 +226,9 @@
             'วันเกิด', 'birthday', 'ปีเกิด', 'เดือนเกิด'
         ];
         
-        // ตรวจสอบว่ามีคำที่เกี่ยวข้องหรือไม่
-        const hasRelevantKeyword = relevantKeywords.some(keyword => lowerMessage.includes(keyword));
+        function hasRelevantKeyword(text) {
+            return relevantKeywords.some((keyword) => text.includes(keyword));
+        }
         
         // คำที่ห้ามชัดเจน (นอกเรื่องโดยสิ้นเชิง)
         const offTopicKeywords = [
@@ -187,9 +239,39 @@
             'สอบ', 'exam', 'ข้อสอบ', 'test'
         ];
         
-        const hasOffTopicKeyword = offTopicKeywords.some(keyword => lowerMessage.includes(keyword));
-        
-        return hasRelevantKeyword && !hasOffTopicKeyword;
+        function hasOffTopicKeyword(text) {
+            return offTopicKeywords.some((keyword) => text.includes(keyword));
+        }
+
+        if (hasOffTopicKeyword(lowerMessage)) {
+            return false;
+        }
+
+        if (hasRelevantKeyword(lowerMessage)) {
+            return true;
+        }
+
+        // อนุญาตข้อความต่อเนื่องสั้น ๆ เมื่อมีบริบทดวงจากข้อความก่อนหน้า
+        const followUpKeywords = [
+            'ต่อ', 'เพิ่มเติม', 'เพิ่มอีก', 'ขอเพิ่ม', 'ขยายความ',
+            'อธิบายเพิ่ม', 'แล้ว', 'แล้วถ้า', 'ยังไง', 'ควรทำไง',
+            'ใช่', 'ไม่ใช่', 'โอเค', 'ครับ', 'ค่ะ', 'คะ'
+        ];
+        const looksLikeFollowUp = followUpKeywords.some((keyword) => lowerMessage.includes(keyword)) || lowerMessage.length <= 30;
+
+        const previousUserMessages = chatMessages
+            .filter((msg) => msg && msg.sender === 'user' && typeof msg.content === 'string')
+            .slice(0, -1)
+            .slice(-4)
+            .map((msg) => msg.content.toLowerCase());
+
+        const hasAstroContext = previousUserMessages.some((msg) => hasRelevantKeyword(msg) && !hasOffTopicKeyword(msg));
+
+        if (looksLikeFollowUp && hasAstroContext) {
+            return true;
+        }
+
+        return false;
     }
     
     // Gemini API Integration with RAG (Retrieval-Augmented Generation)
@@ -200,24 +282,20 @@
             // 🛡️ Guardrail: ตรวจสอบคำถามก่อนส่ง API
             if (!isRelevantQuestion(userMessage)) {
                 console.warn('⚠️ Question not relevant to astrology/fortune telling');
-                return `🔮 ขออภัยค่ะ ฉันเป็น AI ผู้นำทางจิตวิญญาณที่เชี่ยวชาญเฉพาะด้าน:
-
-✨ โหราศาสตร์ ราศี ดวงชะตา
-🌙 การทำนายดวง (ความรัก การเงิน การงาน สุขภาพ)
-💫 เลขศาสตร์ การตั้งชื่อ
-🌟 การตีความความฝัน
-🔯 ทาโรต์ การหาเนื้อคู่
-
-หากคุณมีคำถามเกี่ยวกับชีวิต ความรัก หรือชะตากรรม ฉันยินดีช่วยทำนายให้ค่ะ 🙏`;
+                return 'ฉันดูแลได้เฉพาะเรื่องดวงและการทำนายค่ะ ลองพิมพ์เพิ่มอีกนิด เช่น "ดวงความรักของฉันเดือนนี้" หรือ "ช่วยดูการงานจากวันเกิด..." แล้วฉันจะทำนายให้ทันที';
             }
             
             // Get relevant knowledge from knowledge bases
             const relevantKnowledge = getRelevantKnowledge(userMessage);
+            const conversationContext = buildConversationContext();
             console.log('📚 Knowledge retrieved:', relevantKnowledge);
             
-            const systemPrompt = `คุณคือ AI ผู้นำทางจิตวิญญาณที่มีความรู้เกี่ยวกับโหราศาสตร์ ดาราศาสตร์ ดวงชะตา และการทำนาย คุณมีประสบการณ์มายาวนานกว่า 1,000 ปี
+            const systemPrompt = `คุณคือ AI ที่ปรึกษาด้านโหราศาสตร์และการทำนาย สำหรับผู้ใช้ทั่วไป
 
 ${relevantKnowledge}
+
+บริบทบทสนทนาล่าสุด:
+${conversationContext}
 
 🛡️ **ข้อจำกัดสำคัญ:**
 - คุณตอบได้เฉพาะเรื่อง: โหราศาสตร์ ราศี ดวงชะตา เลขศาสตร์ ทาโรต์ ความฝัน การทำนาย
@@ -228,15 +306,21 @@ ${relevantKnowledge}
 - ตีความความฝัน
 - อ่านดวงดาว ราศี ทาโรต์ เลขศาสตร์
 - ให้คำปรึกษาเกี่ยวกับชีวิต ความรัก และชะตากรรม
-- ตอบคำถามด้วยภาษาไทยที่นุ่มนวล มีความลึกซึ้งและน่าเชื่อถือ
+- ตอบคำถามด้วยภาษาไทยที่เรียบง่าย ชัดเจน และเข้าใจได้ทันที
 
 รูปแบบการตอบ:
-- ใช้ภาษาไทยที่สวยงาม มีเสน่ห์ลึกลับแต่เข้าใจง่าย
-- ใช้คำศัพท์เกี่ยวกับดวงดาว เช่น "ดาวเวนัส", "ดวงจันทร์", "ดาวพฤหัสบดี"
-- อ้างอิงข้อมูลจาก Knowledge Base ที่ให้ไว้ข้างต้น
-- ให้คำทำนายที่มีเหตุผล มีความหวัง และสร้างแรงบันดาลใจ
-- หลีกเลี่ยงการพูดแบบลบหรือน่ากลัวมากเกินไป
-- ใช้ความยาวประมาณ 3-5 ประโยค
+- เริ่มด้วยประโยคสรุปใจความ 1 ประโยค โดยไม่ต้องขึ้นต้นด้วยหัวข้อหรือคำว่า "สรุปสั้นๆ"
+- ตามด้วยคำทำนายแบบภาษาง่าย 3-5 ประโยค
+- ปิดท้ายด้วย "คำแนะนำทำได้ทันที" 1-2 ข้อแบบ bullet
+- หลีกเลี่ยงศัพท์ยาก ศัพท์ลึกลับ และประโยคยาวเกินไป
+- หลีกเลี่ยงการพูดแบบลบหรือน่ากลัว
+- ความยาวรวมประมาณ 8-12 บรรทัด
+
+กติกาการถามโต้ตอบ:
+- ถ้าคำถามผู้ใช้ยังกว้างหรือข้อมูลไม่พอ ให้ถามคำถามกลับแบบเจาะจง 1-2 ข้อก่อนทำนาย
+- ข้อมูลที่ควรถามเพิ่มเมื่อจำเป็น: วันเกิด เดือนเกิด ปีเกิด เวลาเกิด และหัวข้อที่อยากรู้ (รัก/งาน/เงิน/สุขภาพ)
+- ถ้าข้อมูลพอแล้ว ให้ทำนายตามปกติ และปิดท้ายด้วยคำถามสั้นๆ 1 ข้อเพื่อชวนผู้ใช้คุยต่อ
+- ถ้าผู้ใช้ขอเจาะลึก ให้ถามต่อว่าอยากเจาะลึกด้านไหนมากที่สุด
 
 จงตอบคำถามต่อไปนี้ในฐานะ AI ผู้นำทางจิตวิญญาณ โดยอ้างอิงข้อมูลจาก Knowledge Base:`;
 
@@ -258,7 +342,7 @@ ${relevantKnowledge}
                     }]
                 }],
                 generationConfig: {
-                    temperature: 0.9,
+                    temperature: 0.72,
                     topK: 40,
                     topP: 0.95,
                     maxOutputTokens: 1024,
@@ -354,13 +438,14 @@ ${relevantKnowledge}
             }
             
             if (data.candidates && data.candidates.length > 0) {
-                const aiResponse = data.candidates[0].content.parts[0].text;
+                const aiResponse = extractAiResponseText(data);
                 console.log('💬 AI Response:', aiResponse);
+                const readableResponse = formatAiResponseForReadability(aiResponse);
                 
                 // 📊 บันทึก API call สำเร็จลง localStorage
                 logApiCall({
                     userMessage: userMessage,
-                    response: aiResponse,
+                    response: readableResponse,
                     status: 200,
                     tokens: {
                         input: data.usageMetadata?.promptTokenCount || 0,
@@ -369,7 +454,7 @@ ${relevantKnowledge}
                     }
                 });
                 
-                return aiResponse;
+                return readableResponse;
             } else {
                 console.error('❌ No candidates in response:', data);
                 throw new Error('No response from Gemini API');

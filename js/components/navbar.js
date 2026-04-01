@@ -74,12 +74,24 @@
                         </a>
                     </div>
                 </nav>
+
+                <button class="sound-toggle" type="button" aria-label="ปิดเสียงพื้นหลัง" aria-pressed="true" title="ปิดเสียงพื้นหลัง">
+                    <span class="sound-toggle-icon" aria-hidden="true">
+                        <svg class="icon-sound-on" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                            <path d="M4 10v4h4l5 4V6l-5 4H4z" fill="currentColor" stroke="none"></path>
+                            <path d="M16 9.5a4 4 0 0 1 0 5"></path>
+                            <path d="M18.5 7a7.5 7.5 0 0 1 0 10"></path>
+                        </svg>
+                        <svg class="icon-sound-off" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                            <path d="M4 10v4h4l5 4V6l-5 4H4z" fill="currentColor" stroke="none"></path>
+                            <path d="M16 10l5 5"></path>
+                            <path d="M21 10l-5 5"></path>
+                        </svg>
+                    </span>
+                    <span class="sound-toggle-label sr-only">ปิดเสียงพื้นหลัง</span>
+                </button>
             </div>
         </div>
-
-        <button class="sound-toggle sound-toggle-floating" type="button" aria-label="เปิดหรือปิดเสียงพื้นหลัง" aria-pressed="true">
-            เสียง: เปิด
-        </button>
     `;
 
     const navbarStyles = `
@@ -112,9 +124,18 @@
             }
 
             .navbar-content {
-                background-color: rgba(0, 0, 0, 0.2);
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
+                background:
+                    linear-gradient(145deg,
+                        rgba(255, 255, 255, 0.2) 0%,
+                        rgba(255, 255, 255, 0.1) 36%,
+                        rgba(255, 255, 255, 0.04) 100%),
+                    rgba(14, 18, 30, 0.66);
+                backdrop-filter: blur(18px) saturate(145%);
+                -webkit-backdrop-filter: blur(18px) saturate(145%);
+                border: 1px solid rgba(255, 255, 255, 0.36);
+                box-shadow:
+                    0 12px 24px rgba(0, 0, 0, 0.34),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.28);
                 border-radius: 41px;
                 padding: 8px 58px;
                 display: flex;
@@ -190,7 +211,8 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                width: 100%;
+                flex: 1;
+                min-width: 0;
                 gap: 30px;
             }
 
@@ -204,7 +226,7 @@
             }
 
             .nav-logo-image {
-                height: 36px;
+                height: 46px;
                 width: auto;
                 display: block;
             }
@@ -286,11 +308,16 @@
                 min-width: 210px;
                 padding: 10px;
                 border-radius: 16px;
-                background-color: rgba(0, 0, 0, 0.2);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
-                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+                background:
+                    linear-gradient(145deg,
+                        rgba(255, 255, 255, 0.2) 0%,
+                        rgba(255, 255, 255, 0.1) 36%,
+                        rgba(255, 255, 255, 0.04) 100%),
+                    rgba(16, 20, 34, 0.72);
+                border: 1px solid rgba(255, 255, 255, 0.34);
+                backdrop-filter: blur(18px) saturate(150%);
+                -webkit-backdrop-filter: blur(18px) saturate(150%);
+                box-shadow: 0 14px 28px rgba(0, 0, 0, 0.32);
                 display: flex;
                 flex-direction: column;
                 gap: 4px;
@@ -379,21 +406,56 @@
                 border-radius: 999px;
                 color: white;
                 cursor: pointer;
-                font-family: 'General Sans', sans-serif;
-                font-size: 14px;
-                font-weight: 500;
-                line-height: 1;
-                padding: 10px 14px;
+                width: 44px;
+                height: 44px;
+                padding: 0;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
                 transition: background 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
-                white-space: nowrap;
             }
 
-            .sound-toggle-floating {
-                position: fixed;
-                top: calc(var(--luckkana-navbar-top) + (var(--luckkana-navbar-height) / 2));
-                right: max(24px, calc(env(safe-area-inset-right, 0px) + 24px));
-                transform: translateY(-50%);
-                z-index: 10001;
+            .sound-toggle-icon {
+                width: 21px;
+                height: 21px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .sound-toggle-icon svg {
+                width: 100%;
+                height: 100%;
+                stroke: currentColor;
+                stroke-width: 1.8;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                fill: none;
+            }
+
+            .sound-toggle .icon-sound-off {
+                display: none;
+            }
+
+            .sound-toggle[data-enabled="false"] .icon-sound-on {
+                display: none;
+            }
+
+            .sound-toggle[data-enabled="false"] .icon-sound-off {
+                display: block;
+            }
+
+            .sr-only {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                padding: 0;
+                margin: -1px;
+                overflow: hidden;
+                clip: rect(0, 0, 0, 0);
+                white-space: nowrap;
+                border: 0;
             }
 
             @media (max-width: 1024px) {
@@ -436,15 +498,9 @@
                     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
                 }
 
-                .sound-toggle-floating {
-                    top: auto;
-                    bottom: max(18px, calc(env(safe-area-inset-bottom, 0px) + 18px));
-                    right: max(16px, calc(env(safe-area-inset-right, 0px) + 16px));
-                    transform: none;
-                    font-size: 12px;
-                    padding: 9px 12px;
-                    backdrop-filter: blur(10px);
-                    -webkit-backdrop-filter: blur(10px);
+                .sound-toggle {
+                    width: 42px;
+                    height: 42px;
                 }
             }
 
@@ -528,7 +584,7 @@
                 }
 
                 .nav-logo-image {
-                    height: 30px;
+                    height: 37px;
                 }
 
                 .nav-link {
@@ -545,12 +601,8 @@
                 }
 
                 .sound-toggle {
-                    font-size: 13px;
-                    padding: 9px 12px;
-                }
-
-                .sound-toggle-floating {
-                    right: max(18px, calc(env(safe-area-inset-right, 0px) + 18px));
+                    width: 40px;
+                    height: 40px;
                 }
             }
 
@@ -582,15 +634,9 @@
                     display: flex;
                 }
 
-                .sound-toggle-floating {
-                    top: auto;
-                    bottom: max(16px, calc(env(safe-area-inset-bottom, 0px) + 16px));
-                    right: max(12px, calc(env(safe-area-inset-right, 0px) + 12px));
-                    font-size: 12px;
-                    padding: 9px 12px;
-                    backdrop-filter: blur(10px);
-                    -webkit-backdrop-filter: blur(10px);
-                    transform: none;
+                .sound-toggle {
+                    width: 38px;
+                    height: 38px;
                 }
 
                 .nav-menu-wrapper {
@@ -758,9 +804,9 @@
                     padding: 12px 16px;
                 }
 
-                .sound-toggle-floating {
-                    font-size: 11px;
-                    padding: 8px 10px;
+                .sound-toggle {
+                    width: 36px;
+                    height: 36px;
                 }
 
                 .hamburger-menu {
@@ -867,18 +913,29 @@
         }
 
         function updateSoundToggle() {
+            const soundToggleLabel = soundToggle.querySelector('.sound-toggle-label');
+
             if (!isAudioAvailable) {
-                soundToggle.textContent = 'เสียง: ไม่พร้อม';
+                soundToggle.setAttribute('aria-label', 'เสียงพื้นหลังไม่พร้อมใช้งาน');
+                soundToggle.setAttribute('title', 'เสียงพื้นหลังไม่พร้อมใช้งาน');
                 soundToggle.setAttribute('aria-pressed', 'false');
                 soundToggle.dataset.enabled = 'false';
+                if (soundToggleLabel) {
+                    soundToggleLabel.textContent = 'เสียงพื้นหลังไม่พร้อมใช้งาน';
+                }
                 soundToggle.disabled = true;
                 return;
             }
 
             soundToggle.disabled = false;
-            soundToggle.textContent = isEnabled ? 'เสียง: เปิด' : 'เสียง: ปิด';
+            const toggleLabel = isEnabled ? 'ปิดเสียงพื้นหลัง' : 'เปิดเสียงพื้นหลัง';
+            soundToggle.setAttribute('aria-label', toggleLabel);
+            soundToggle.setAttribute('title', toggleLabel);
             soundToggle.setAttribute('aria-pressed', String(isEnabled));
             soundToggle.dataset.enabled = String(isEnabled);
+            if (soundToggleLabel) {
+                soundToggleLabel.textContent = toggleLabel;
+            }
         }
 
         function requestAudioLoad() {

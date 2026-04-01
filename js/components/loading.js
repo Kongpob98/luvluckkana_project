@@ -76,7 +76,7 @@ class LoadingScreen {
                         muted 
                         loop 
                         playsinline
-                        preload="auto">
+                        preload="metadata">
                         <source src="${this.options.videoSrc}" type="video/mp4">
                     </video>
                     ${this.options.showProgress ? `
@@ -256,7 +256,7 @@ class LoadingScreen {
                     link.getAttribute('download')) {
                     return;
                 }
-                
+
                 e.preventDefault();
                 this.navigateToPage(link.href);
             }
