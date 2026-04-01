@@ -606,8 +606,8 @@
                 }
             }
 
-            /* Small Mobile */
-            @media (max-width: 640px) {
+            /* Small Mobile + iPad Portrait */
+            @media (max-width: 768px), (max-width: 1024px) and (orientation: portrait) {
                 :root {
                     --luckkana-navbar-top: 10px;
                 }
@@ -1112,6 +1112,10 @@
         });
         
         if (hamburger) {
+            function isCompactMenuMode() {
+                return window.innerWidth <= 768 || window.matchMedia('(max-width: 1024px) and (orientation: portrait)').matches;
+            }
+
             hamburger.addEventListener('click', function() {
                 const isOpening = !navMenuWrapper.classList.contains('active');
                 this.classList.toggle('active');
@@ -1130,7 +1134,7 @@
                         closeAllDropdowns();
                     }
 
-                    if (window.innerWidth <= 640) {
+                    if (isCompactMenuMode()) {
                         hamburger.classList.remove('active');
                         navMenuWrapper.classList.remove('active');
                     }
@@ -1143,7 +1147,7 @@
                     closeAllDropdowns();
                 }
 
-                if (window.innerWidth <= 640) {
+                if (isCompactMenuMode()) {
                     const navbar = document.querySelector('.navbar-container');
                     if (navbar && !navbar.contains(e.target)) {
                         hamburger.classList.remove('active');
