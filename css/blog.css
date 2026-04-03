@@ -164,6 +164,7 @@ body {
     transition: all var(--transition-smooth);
     position: relative;
     overflow: hidden;
+    text-decoration: none;
 }
 
 .btn-start-wish::before {
@@ -228,6 +229,8 @@ body {
     padding: var(--spacing-md) var(--spacing-sm);
     display: flex;
     flex-direction: column;
+    text-decoration: none;
+    color: inherit;
 }
 
 /* Card Hover Effect - Scale Up + Shadow + Text Grow */
