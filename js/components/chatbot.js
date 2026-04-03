@@ -97,9 +97,6 @@
 
             body.classList.add('chatbot-input-focus');
             refreshViewportState();
-            requestAnimationFrame(() => {
-                chatInput.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-            });
         });
 
         chatInput.addEventListener('blur', () => {

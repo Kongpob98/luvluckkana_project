@@ -325,17 +325,6 @@
     max-height: calc(100dvh - 300px);
 }
 
-body.chatbot-input-focus .chatbot-container,
-body.chatbot-keyboard-open .chatbot-container {
-    justify-content: flex-start;
-}
-
-body.chatbot-input-focus .chat-interface,
-body.chatbot-keyboard-open .chat-interface {
-    justify-content: flex-start;
-    min-height: auto;
-}
-
 body.chatbot-input-focus .chat-input-container,
 body.chatbot-keyboard-open .chat-input-container {
     margin-top: 0;
