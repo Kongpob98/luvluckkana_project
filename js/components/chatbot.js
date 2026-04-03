@@ -23,8 +23,6 @@
         const sendBtn = document.getElementById('sendBtn');
         const chatMessagesContainer = document.getElementById('chatMessages');
         const suggestionBtns = document.querySelectorAll('.suggestion-btn');
-
-        setupMobileKeyboardHandling(chatInput);
         
         // Handle suggestion buttons
         suggestionBtns.forEach(btn => {
@@ -57,61 +55,6 @@
             this.style.height = 'auto';
             this.style.height = this.scrollHeight + 'px';
         });
-    }
-
-    function setupMobileKeyboardHandling(chatInput) {
-        if (!chatInput) return;
-
-        const body = document.body;
-        const root = document.documentElement;
-        const visualViewport = window.visualViewport;
-        let blurTimer = null;
-
-        const setAppHeight = (height) => {
-            if (!Number.isFinite(height) || height <= 0) return;
-            root.style.setProperty('--chatbot-app-height', `${Math.round(height)}px`);
-        };
-
-        const isKeyboardOpen = () => {
-            if (!visualViewport) return false;
-            return (window.innerHeight - visualViewport.height) > 140;
-        };
-
-        const refreshViewportState = () => {
-            const currentHeight = visualViewport ? visualViewport.height : window.innerHeight;
-            setAppHeight(currentHeight);
-
-            const keyboardOpen = isKeyboardOpen();
-            body.classList.toggle('chatbot-keyboard-open', keyboardOpen);
-        };
-
-        setAppHeight(visualViewport ? visualViewport.height : window.innerHeight);
-
-        chatInput.addEventListener('focus', () => {
-            if (blurTimer) {
-                clearTimeout(blurTimer);
-                blurTimer = null;
-            }
-
-            body.classList.add('chatbot-input-focus');
-            refreshViewportState();
-        });
-
-        chatInput.addEventListener('blur', () => {
-            blurTimer = setTimeout(() => {
-                body.classList.remove('chatbot-input-focus');
-                body.classList.remove('chatbot-keyboard-open');
-                refreshViewportState();
-            }, 140);
-        });
-
-        if (visualViewport) {
-            visualViewport.addEventListener('resize', refreshViewportState);
-            visualViewport.addEventListener('scroll', refreshViewportState);
-        }
-
-        window.addEventListener('resize', refreshViewportState);
-        window.addEventListener('orientationchange', refreshViewportState);
     }
     
     function sendMessage(message) {
