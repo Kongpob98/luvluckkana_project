@@ -240,6 +240,13 @@ class LoadingScreen {
     setupLinkInterception() {
         // Intercept clicks on internal links
         document.addEventListener('click', (e) => {
+            if (e.defaultPrevented) return;
+
+            // Respect modified clicks and non-primary buttons (new tab, context menu, etc.)
+            if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+                return;
+            }
+
             const link = e.target.closest('a');
             
             // Check if it's an internal link
@@ -312,11 +319,9 @@ class LoadingScreen {
         
         // Navigate immediately so loading reflects actual network speed.
         if (this.options.navigationDisplayTime === 0) {
-            // Let browser paint loading UI at least one frame before navigation.
+            // Let browser paint loading UI one frame before navigation.
             requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    window.location.href = url;
-                });
+                window.location.href = url;
             });
             return;
         }
