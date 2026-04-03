@@ -78,13 +78,11 @@
         };
 
         const refreshViewportState = () => {
+            const currentHeight = visualViewport ? visualViewport.height : window.innerHeight;
+            setAppHeight(currentHeight);
+
             const keyboardOpen = isKeyboardOpen();
             body.classList.toggle('chatbot-keyboard-open', keyboardOpen);
-
-            // Keep app height stable while keyboard is open to prevent jumpy recentering.
-            if (!keyboardOpen) {
-                setAppHeight(visualViewport ? visualViewport.height : window.innerHeight);
-            }
         };
 
         setAppHeight(visualViewport ? visualViewport.height : window.innerHeight);
