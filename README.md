@@ -79,6 +79,82 @@ live-server
 - Tablet: 768px - 1440px
 - Mobile: < 768px
 
+## 🧪 Methodology (Keyword-Aligned)
+
+**Keywords จาก Abstract:** AI Astrology, Interactive Website, Parallax Scrolling, User Experience (UX), Zodiac Signs
+
+### 1) Methodology ภาพรวมการสร้างเว็บ
+
+```mermaid
+flowchart LR
+    A[Define Scope and Keywords] --> B[Research Astrology Content]
+    B --> C[Build Zodiac Knowledge Base]
+    C --> D[Design UX Flow and Information Architecture]
+    D --> E[Develop Interactive Pages]
+    E --> F[Implement Parallax and Motion Layer]
+    F --> G[Integrate AI Astrology Pipeline]
+    G --> H[Test UX and Performance]
+    H --> I[Deploy and Monitor]
+
+    C --> C1[Zodiac Signs]
+    E --> E1[Interactive Website]
+    F --> F1[Parallax Scrolling]
+    G --> G1[AI Astrology]
+    H --> H1[User Experience UX]
+```
+
+### 2) AI Astrology ทำอย่างไร (RAG + Prompt Pipeline)
+
+```mermaid
+flowchart LR
+    U[User Question] --> N[Intent and Entity Detection]
+    N --> K[Select Knowledge by Topic]
+    K --> P[Compose System + Context Prompt]
+    P --> A[Call Gemini API via Serverless Endpoint]
+    A --> R[Post-process and Safety Check]
+    R --> O[Astrology Response to User]
+
+    K --> K1[Zodiac Signs Data]
+    K --> K2[Numerology Data]
+    K --> K3[Dream and Fortune Data]
+```
+
+### 3) Interactive Website ทำได้อย่างไร (Frontend Flow)
+
+```mermaid
+flowchart LR
+    S[User Opens Page] --> L[Load Core Assets]
+    L --> C[Initialize Components]
+    C --> I[Bind User Interactions]
+    I --> R[Render Dynamic Sections]
+    R --> X[Handle Route or Page Navigation]
+
+    C --> C1[Navbar and Footer]
+    C --> C2[Cards and Sections]
+    I --> I1[Click Hover Scroll]
+    R --> R1[Responsive Layout]
+```
+
+### 4) UX ออกแบบอย่างไร (Iterative UX Cycle)
+
+```mermaid
+flowchart LR
+    U1[User Persona and Goals] --> U2[Wireframe and Content Hierarchy]
+    U2 --> U3[Prototype with Interaction]
+    U3 --> U4[UX Test and Feedback]
+    U4 --> U5[Refine Copy Layout Motion]
+    U5 --> U6[Release and Measure]
+    U6 --> U1
+```
+
+### 5) Mapping: Keyword -> Implementation
+
+- **AI Astrology** -> RAG retrieval + prompt composition + Gemini API integration
+- **Interactive Website** -> component-based frontend + event-driven interactions
+- **Parallax Scrolling** -> layered assets + scroll/mouse motion effects
+- **User Experience (UX)** -> iterative testing loop + responsive optimization
+- **Zodiac Signs** -> structured domain knowledge for personalized answers
+
 ## 🔧 Customization
 
 ### เปลี่ยนสี
