@@ -33,8 +33,8 @@
 
         <!-- Video Background (parallax wrapper) -->
         <div class="hero-video-wrapper" aria-hidden="true">
-            <video class="hero-video-bg" autoplay muted loop playsinline preload="metadata">
-                <source src="https://res.cloudinary.com/dpezsckqq/video/upload/f_auto,q_auto:eco/luckkana/bgindex3.mp4" type="video/mp4">
+            <video class="hero-video-bg" autoplay muted playsinline preload="metadata">
+                <source src="../assets/videos/section1.mp4" type="video/mp4">
             </video>
         </div>
 
@@ -44,13 +44,9 @@
         <!-- Logo -->
         <div class="logo-container">
             <img
-                src="https://res.cloudinary.com/dpezsckqq/image/upload/f_auto,q_auto,w_700/luckkana/hero-logo.png"
-                srcset="https://res.cloudinary.com/dpezsckqq/image/upload/f_auto,q_auto,w_420/luckkana/hero-logo.png 420w,
-                        https://res.cloudinary.com/dpezsckqq/image/upload/f_auto,q_auto,w_700/luckkana/hero-logo.png 700w,
-                        https://res.cloudinary.com/dpezsckqq/image/upload/f_auto,q_auto,w_980/luckkana/hero-logo.png 980w"
-                sizes="(max-width: 768px) 72vw, 700px"
-                width="700"
-                height="346"
+                src="../assets/images/Logo3D.png"
+                width="595"
+                height="351"
                 fetchpriority="high"
                 alt="Luckkana Star Logo"
                 class="hero-logo"
@@ -326,6 +322,71 @@
             }, { rootMargin: '500px 0px' });
 
             io.observe(section);
+        })();
+
+        (function enableHeroPingPongLoop() {
+            const video = document.querySelector('.hero-video-bg');
+            if (!video) return;
+
+            let isReversing = false;
+            let reverseFrameId = null;
+            let lastTs = 0;
+
+            function stopReverse() {
+                if (reverseFrameId !== null) {
+                    cancelAnimationFrame(reverseFrameId);
+                    reverseFrameId = null;
+                }
+                lastTs = 0;
+                isReversing = false;
+            }
+
+            function resumeForward() {
+                stopReverse();
+                video.playbackRate = 1;
+                video.play().catch(() => {
+                    // Ignore autoplay interruptions; retry happens on user gesture naturally.
+                });
+            }
+
+            function reverseStep(ts) {
+                if (!isReversing) return;
+
+                if (!lastTs) lastTs = ts;
+                const deltaSec = (ts - lastTs) / 1000;
+                lastTs = ts;
+
+                const nextTime = video.currentTime - deltaSec;
+                if (nextTime <= 0.03) {
+                    video.currentTime = 0;
+                    resumeForward();
+                    return;
+                }
+
+                video.currentTime = nextTime;
+                reverseFrameId = requestAnimationFrame(reverseStep);
+            }
+
+            function startReverse() {
+                if (isReversing || !video.duration) return;
+                isReversing = true;
+                video.pause();
+                lastTs = 0;
+                reverseFrameId = requestAnimationFrame(reverseStep);
+            }
+
+            video.loop = false;
+            video.addEventListener('ended', startReverse);
+            video.addEventListener('pause', () => {
+                if (!isReversing && reverseFrameId !== null) {
+                    stopReverse();
+                }
+            });
+            video.addEventListener('play', () => {
+                if (isReversing) {
+                    stopReverse();
+                }
+            });
         })();
 
         // Scroll Animation for Detail Section
