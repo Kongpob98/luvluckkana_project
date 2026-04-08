@@ -1810,6 +1810,25 @@ body {
     color: #fff;
 }
 
+.menu-v2-ai-center-image {
+    display: none;
+}
+
+.menu-v2-ai.scroll-animate {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 48px));
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                filter 0.35s ease,
+                border-color 0.35s ease,
+                box-shadow 0.35s ease;
+}
+
+.menu-v2-ai.scroll-animate.animate-in {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+
 .menu-grid.menu-grid-v2 {
     position: absolute;
     inset: 0;
@@ -1975,6 +1994,16 @@ body {
     opacity: 0.74;
 }
 
+.menu-v2-chinese-single-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
 .menu-v2-card--personal {
     position: absolute;
     left: 65.6250%;
@@ -2058,6 +2087,18 @@ body {
 .menu-v2-personal-fx-image--b {
     inset: 0;
     opacity: 0.68;
+}
+
+.menu-v2-personal-single-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+    pointer-events: none;
+    transform: scale(1.06);
+    transform-origin: center;
 }
 
 .menu-v2-personal-fx-image--c {
@@ -2187,6 +2228,16 @@ body {
     object-fit: cover;
 }
 
+.menu-v2-zodiac-single-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
 /* Node 525:119433 (Mask group 400x673) */
 .menu-v2-card--siamsi .menu-v2-card__layers {
     overflow: hidden;
@@ -2287,6 +2338,16 @@ body {
     object-fit: cover;
 }
 
+.menu-v2-siamsi-single-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
 .menu-v2-label {
     position: absolute;
     left: 0;
@@ -2315,31 +2376,34 @@ body {
 }
 
 .menu-v2-card--zodiac .menu-v2-label {
-    left: 240px;
+    left: 36px;
     top: 39px;
+    text-align: left;
 }
 
 .menu-v2-card--zodiac .menu-v2-label__en {
-    margin-top: 5px !important;
+    margin-top: 0 !important;
 }
 
 .menu-v2-card--siamsi .menu-v2-label {
-    left: 246px;
+    left: 36px;
     top: 39px;
 }
 
 .menu-v2-card--siamsi .menu-v2-label__en {
-    margin-top: 5px !important;
+    margin-top: 0 !important;
 }
 
 .menu-v2-card--chinese .menu-v2-label {
-    left: 121px;
-    top: 65px;
-    text-align: center;
+    left: 36px;
+    top: 39px;
+    transform: none;
+    text-align: left;
+    max-width: calc(100% - 28px);
 }
 
 .menu-v2-card--chinese .menu-v2-label__en {
-    margin-top: 5px !important;
+    margin-top: 0 !important;
 }
 
 .menu-v2-card--personal .menu-v2-label {
@@ -2352,7 +2416,7 @@ body {
 }
 
 .menu-v2-card--personal .menu-v2-label__en {
-    margin-top: 6px !important;
+    margin-top: 0 !important;
     font-size: 20px;
 }
 
@@ -2404,12 +2468,19 @@ body {
     }
 
     .menu-v2-label__en {
-        margin-top: 2px !important;
+        margin-top: 0 !important;
         font-size: clamp(18px, 1.8vw, 22px);
     }
 
     .menu-v2-card--personal .menu-v2-label__th {
         font-size: clamp(32px, 3.1vw, 40px);
+    }
+
+    .menu-v2-card--chinese .menu-v2-label {
+        left: clamp(16px, 2.2vw, 26px) !important;
+        transform: none !important;
+        text-align: left;
+        max-width: calc(100% - 32px);
     }
 }
 
@@ -2509,6 +2580,7 @@ body {
         border: none;
         background:
             linear-gradient(158deg, rgba(188, 150, 255, 0.24) 0%, rgba(100, 65, 190, 0.14) 52%, rgba(32, 23, 78, 0.42) 100%),
+            url("../assets/images/Menu/aim2.png") center / 118% 118% no-repeat,
             rgba(16, 13, 42, 0.46);
         backdrop-filter: blur(18px) saturate(128%);
         -webkit-backdrop-filter: blur(18px) saturate(128%);
@@ -2547,11 +2619,31 @@ body {
 
     .menu-v2-ai__bottom {
         position: relative;
-        z-index: 1;
+        z-index: 2;
         margin-top: clamp(2px, 0.9vw, 8px);
         font-size: clamp(18px, 2.4vw, 24px);
         line-height: 1.05;
         color: #ab8eff;
+    }
+
+    .menu-v2-ai-center-image {
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 56%;
+        width: clamp(96px, 38%, 170px);
+        height: auto;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .menu-v2-ai.scroll-animate {
+        transform: translateY(48px);
+    }
+
+    .menu-v2-ai.scroll-animate.animate-in {
+        transform: translateY(0);
     }
 
     .menu-card {
@@ -2580,12 +2672,15 @@ body {
     }
 
     .menu-v2-label__en {
-        margin-top: 2px !important;
+        margin-top: 0 !important;
         font-size: clamp(16px, 2.8vw, 22px);
     }
 
     .menu-v2-card--chinese .menu-v2-label {
+        left: clamp(16px, 4vw, 28px) !important;
+        transform: none !important;
         text-align: left;
+        max-width: calc(100% - 28px);
     }
 
     .menu-v2-card--personal .menu-v2-label__th {
@@ -2689,6 +2784,7 @@ body {
         border: none;
         background:
             linear-gradient(158deg, rgba(188, 150, 255, 0.24) 0%, rgba(100, 65, 190, 0.14) 52%, rgba(32, 23, 78, 0.42) 100%),
+            url("../assets/images/Menu/aim2.png") center / 118% 118% no-repeat,
             rgba(16, 13, 42, 0.46);
         backdrop-filter: blur(18px) saturate(128%);
         -webkit-backdrop-filter: blur(18px) saturate(128%);
@@ -2727,11 +2823,31 @@ body {
 
     .menu-v2-ai__bottom {
         position: relative;
-        z-index: 1;
+        z-index: 2;
         margin-top: clamp(2px, 0.9vw, 8px);
         font-size: clamp(18px, 2.4vw, 24px);
         line-height: 1.05;
         color: #ab8eff;
+    }
+
+    .menu-v2-ai-center-image {
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 56%;
+        width: clamp(96px, 38%, 170px);
+        height: auto;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .menu-v2-ai.scroll-animate {
+        transform: translateY(48px);
+    }
+
+    .menu-v2-ai.scroll-animate.animate-in {
+        transform: translateY(0);
     }
 
     .menu-card {
@@ -2760,12 +2876,15 @@ body {
     }
 
     .menu-v2-label__en {
-        margin-top: 2px !important;
+        margin-top: 0 !important;
         font-size: clamp(16px, 2.8vw, 22px);
     }
 
     .menu-v2-card--chinese .menu-v2-label {
+        left: clamp(16px, 4vw, 28px) !important;
+        transform: none !important;
         text-align: left;
+        max-width: calc(100% - 28px);
     }
 
     .menu-v2-card--personal .menu-v2-label__th {
@@ -2798,6 +2917,11 @@ body {
 
     .menu-v2-ai__bottom {
         font-size: clamp(16px, 4.8vw, 22px);
+    }
+
+    .menu-v2-ai-center-image {
+        top: 58%;
+        width: clamp(100px, 42%, 170px);
     }
 
     .menu-v2-card--zodiac,
@@ -2858,6 +2982,11 @@ body {
     .menu-v2-label__en {
         font-size: clamp(17px, 5vw, 24px);
     }
+
+    .menu-v2-chinese-single-image {
+        transform: scale(1.12);
+        transform-origin: center;
+    }
 }
 
 @media (max-width: 420px) {
@@ -2869,6 +2998,11 @@ body {
         border-radius: 18px;
         margin-bottom: 10px;
         height: clamp(162px, 46vw, 220px);
+    }
+
+    .menu-v2-ai-center-image {
+        top: 60%;
+        width: clamp(96px, 44%, 156px);
     }
 
     .menu-grid.menu-grid-v2 {
@@ -2908,6 +3042,10 @@ body {
 
     .menu-v2-label__en {
         font-size: clamp(14px, 4.6vw, 18px);
+    }
+
+    .menu-v2-chinese-single-image {
+        transform: scale(1.18);
     }
 }
 
