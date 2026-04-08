@@ -1678,592 +1678,1248 @@ body {
 }
 
 /* ════════════════════════════════════════════════════════════════
-   MENU SECTION  (Figma: Desktop-31, node 382:118885)
-   Canvas: 1440 × ~1120 px
-   Design tokens:
-     card bg: #000  |  border: rgba(255,255,255,0.45)  |  radius: 27px
-     column gap: 34px  |  row gap: 39px
-     Left card:  w=421px  h=1001px  (spans both right rows + gap)
-     Top-right:  12ราศี w=369fr  |  12นักษัตร w=364fr  |  h=480px
-     Bottom-right: w=100%  h=481px
+   MENU SECTION (Figma node 459:119324)
+   Layer map:
+   - 525:119463 -> card 12 ราศี
+   - 525:119433 -> card เซียมซี
+   - 525:119443 -> card 12 นักษัตร
+   - 525:119404 -> card ดูดวงเฉพาะบุคคล
+   - 525:119421 -> top-right orb
+   - 525:119418 -> AI ดูดวง label
    ════════════════════════════════════════════════════════════════ */
 
-.menu-section {
+.menu-section.menu-section-v2 {
+    position: relative;
+    min-height: 100vh;
     background: #000;
-    height: 150vh;
-    padding: 0 20px;
+    overflow: hidden;
+    padding: 56px 20px;
     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-v2-shell {
+    position: relative;
+    width: min(1440px, calc(100vw - 40px));
+    aspect-ratio: 1440 / 1024;
+    max-height: calc(100svh - 112px);
+    margin: 0 auto;
+}
+
+.menu-v2-orb {
+    position: absolute;
+    left: 69.6528%;
+    top: 22.5586%;
+    width: 19.7222%;
+    height: 25.3906%;
+    z-index: 4;
+    pointer-events: none;
+}
+
+.menu-v2-orb__layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: scaleY(-1);
+}
+
+.menu-v2-orb__layer--2 { transform: translateY(15px) scaleY(-1); }
+.menu-v2-orb__layer--3 { transform: translateY(38px) scaleY(-1); }
+
+.menu-v2-star16 {
+    position: absolute;
+    left: 17.6389%;
+    top: 35.8398%;
+    width: 5.625%;
+    height: 7.9102%;
+    z-index: 4;
+    pointer-events: none;
+}
+
+.menu-v2-ai {
+    position: absolute;
+    left: 79.5139%;
+    top: 35.2539%;
+    width: 17.1001%;
+    height: 24.0469%;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: relative;
-    overflow: hidden;
-    box-sizing: border-box;
+    padding: 12px 10px;
+    text-align: center;
+    z-index: 5;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    border: none;
+    border-radius: 50%;
+    background:
+        linear-gradient(170deg, rgba(224, 145, 255, 0.38) 0%, rgba(144, 53, 179, 0.18) 46%, rgba(38, 14, 59, 0.7) 100%),
+        rgba(16, 4, 27, 0.58);
+    backdrop-filter: blur(14px) saturate(130%);
+    -webkit-backdrop-filter: blur(14px) saturate(130%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 238, 255, 0.46),
+        inset 0 -1px 0 rgba(197, 118, 242, 0.36),
+        0 12px 22px rgba(0, 0, 0, 0.42);
+    transition: filter 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
-/* Outer grid: left-tall | right-column */
-.menu-grid {
-    display: flex;
-    gap: 34px;
-    max-width: 1225px;
-    width: 100%;
-    height: calc(100vh - 34px);
-    min-height: 600px;
+.menu-v2-ai:hover {
+    filter: brightness(1.15) saturate(1.06);
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 245, 255, 0.56),
+        inset 0 -1px 0 rgba(222, 148, 252, 0.44),
+        0 16px 28px rgba(0, 0, 0, 0.48);
+}
+
+.menu-v2-ai:focus-visible {
+    outline: 2px solid rgba(255, 113, 255, 0.9);
+    outline-offset: 6px;
+    border-radius: 50%;
+}
+
+.menu-v2-icon {
+    font-family: 'DB Heavent Cond', sans-serif;
+    font-style: normal;
+}
+
+.menu-v2-ai__top {
+    display: block;
+    font-size: clamp(56px, 5.8vw, 84px);
+    line-height: 0.8;
+    letter-spacing: -0.02em;
+    background: linear-gradient(180deg, #ffe9ff 0%, #f8a2ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.menu-v2-ai__bottom {
+    display: block;
+    margin-top: 0;
+    font-size: clamp(22px, 1.9vw, 28px);
+    line-height: 0.88;
+    font-weight: 500;
+    color: #fff;
+}
+
+.menu-grid.menu-grid-v2 {
+    position: absolute;
+    inset: 0;
+    display: block;
     will-change: transform;
 }
 
-.menu-card--simsy {
-    will-change: transform;
-}
-.menu-right {
-    will-change: transform;
-}
-.menu-top-row,
-.simsy-sticks,
-.chinese-art,
-.birthday-art,
-.simsy-star {
-    will-change: transform;
-}
-
-/* ─── BASE CARD STYLES ─── */
 .menu-card {
     position: relative;
-    background: #000;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 27px;
+    border-radius: 42px;
     overflow: hidden;
-    display: block;
+    border: none;
+    background:
+        linear-gradient(148deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 42%, rgba(255, 255, 255, 0.02) 100%),
+        rgba(12, 16, 30, 0.34);
+    backdrop-filter: blur(18px) saturate(128%);
+    -webkit-backdrop-filter: blur(18px) saturate(128%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.34),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+        0 16px 28px rgba(0, 0, 0, 0.34);
+    color: #fff;
     text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-    /* scroll-reveal initial state */
+    display: block;
     opacity: 0;
-    transform: translateY(60px);
+    transform: translateY(48px);
     transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
                 transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-                filter 0.35s ease,
-                border-color 0.35s ease;
+                border-color 0.35s ease,
+                filter 0.35s ease;
 }
+
 .menu-card.animate-in {
     opacity: 1;
     transform: translateY(0);
 }
-.menu-card:hover {
-    filter: brightness(1.18);
-    border-color: rgba(255, 255, 255, 0.7);
-}
 
-/* Hover focus effect on desktop: active card bright, others slightly muted */
-@media (hover: hover) and (pointer: fine) {
-    .menu-grid:hover .menu-card {
-        filter: brightness(0.88) saturate(0.78);
-        border-color: rgba(255, 255, 255, 0.45);
-    }
-
-    .menu-grid:hover .menu-card:hover {
-        filter: brightness(1.24) saturate(1.08);
-        border-color: rgba(255, 255, 255, 0.82);
-    }
-}
-
-/* Card full-bleed background SVG/image */
-.menu-card__bg {
+.menu-v2-card--zodiac {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    pointer-events: none;
-    z-index: 0;
+    left: 6.5972%;
+    top: 21.2891%;
+    width: 27.7778%;
+    height: 40.3320%;
+    border-radius: 75px;
+    border-color: rgba(168, 138, 255, 0.58);
+    background:
+        linear-gradient(158deg, rgba(188, 150, 255, 0.24) 0%, rgba(100, 65, 190, 0.14) 52%, rgba(32, 23, 78, 0.42) 100%),
+        rgba(16, 13, 42, 0.46);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.24),
+        inset 0 -1px 0 rgba(145, 110, 236, 0.2),
+        0 16px 28px rgba(0, 0, 0, 0.34);
 }
 
-/* Card footer row: title left + optional button right */
-.menu-card__footer {
+.menu-v2-card--siamsi {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 22px 26px 26px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
-    z-index: 20;
-}
-.menu-card__title {
-    font-family: 'DB Heavent Cond', 'DB Heavent Cond', 'DB Heavent Cond', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-weight: 600;
-    color: #fff;
-    line-height: 1;
-    white-space: nowrap;
+    left: 36.1111%;
+    top: 21.2891%;
+    width: 27.7778%;
+    height: 65.7227%;
+    border-radius: 75px;
+    border-color: rgba(128, 203, 255, 0.56);
+    background:
+        linear-gradient(156deg, rgba(166, 227, 255, 0.22) 0%, rgba(66, 138, 224, 0.12) 54%, rgba(10, 35, 73, 0.44) 100%),
+        rgba(10, 28, 58, 0.48);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        inset 0 -1px 0 rgba(112, 188, 255, 0.2),
+        0 16px 28px rgba(0, 0, 0, 0.34);
 }
 
+.menu-v2-card--chinese {
+    position: absolute;
+    left: 6.5972%;
+    top: 64.9414%;
+    width: 27.7778%;
+    height: 21.8750%;
+    border-radius: 71px;
+    border-color: rgba(156, 188, 230, 0.48);
+    background:
+        linear-gradient(160deg, rgba(183, 209, 244, 0.16) 0%, rgba(72, 102, 163, 0.09) 50%, rgba(17, 27, 52, 0.46) 100%),
+        rgba(12, 20, 41, 0.5);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(120, 156, 214, 0.16),
+        0 16px 28px rgba(0, 0, 0, 0.34);
+}
 
-/* ════════════════════════════════════════════
-   LEFT CARD — เซียมซี  (w=421px, spans full h)
-   Figma node 381:118712 + overlays
-   ════════════════════════════════════════════ */
-.menu-card--simsy {
-    flex: 0 0 clamp(240px, 29.2vw, 421px);
-    height: 100%;
+/* Node 525:119443 (12 นักษัตร) */
+.menu-v2-card--chinese .menu-v2-card__layers {
     overflow: hidden;
 }
-.menu-card--simsy .menu-card__title {
-    font-size: clamp(22px, 4vw, 56px);
+
+.menu-v2-chinese-mask-base {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: #0d101f;
+    box-shadow: inset 0 4px 38.4px 0 rgba(156, 190, 232, 0.4);
 }
 
-/* Purple ambient glow — card-simsy-mask.svg (Figma MaskGroup) */
-.simsy-glow {
+.menu-v2-chinese-fx {
+    position: absolute;
+    pointer-events: none;
+}
+
+.menu-v2-chinese-fx--a {
+    left: 2%;
+    right: 2%;
+    top: 4%;
+    bottom: -54%;
+}
+
+.menu-v2-chinese-fx--b {
+    left: 6%;
+    right: 6%;
+    top: 9%;
+    bottom: -56%;
+}
+
+.menu-v2-chinese-base-wrap {
+    position: absolute;
+    inset: 17% -7% -57% -12%;
+    pointer-events: none;
+}
+
+.menu-v2-chinese-base-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 39% 9%;
+}
+
+.menu-v2-chinese-fx--c {
+    inset: 0;
+}
+
+.menu-v2-chinese-fx-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.menu-v2-chinese-fx-image--a {
+    inset: 0;
+    mix-blend-mode: screen;
+    opacity: 0.5;
+}
+
+.menu-v2-chinese-fx-image--b {
+    inset: 0;
+    mix-blend-mode: screen;
+    opacity: 0.62;
+}
+
+.menu-v2-chinese-fx-image--c {
+    inset: 0;
+    mix-blend-mode: screen;
+    opacity: 0.74;
+}
+
+.menu-v2-card--personal {
+    position: absolute;
+    left: 65.6250%;
+    top: 49.5117%;
+    width: 27.7778%;
+    height: 37.3047%;
+    border-radius: 42px;
+    border-color: rgba(210, 152, 235, 0.56);
+    background:
+        linear-gradient(156deg, rgba(238, 186, 255, 0.24) 0%, rgba(163, 92, 206, 0.14) 53%, rgba(50, 24, 74, 0.42) 100%),
+        rgba(32, 16, 48, 0.48);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.24),
+        inset 0 -1px 0 rgba(198, 130, 228, 0.2),
+        0 16px 28px rgba(0, 0, 0, 0.34);
+}
+
+/* Node 525:119404 (ดูดวงเฉพาะบุคคล) */
+.menu-v2-card--personal .menu-v2-card__layers {
+    overflow: hidden;
+}
+
+.menu-v2-personal-mask-base {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: #0b0f20;
+    box-shadow: inset 0 4px 30px 0 rgba(169, 126, 214, 0.38);
+}
+
+.menu-v2-personal-fx {
+    position: absolute;
+    pointer-events: none;
+}
+
+.menu-v2-personal-fx--a {
+    inset: 35% -24% -38% -24%;
+}
+
+.menu-v2-personal-fx--b {
+    inset: 28% -36% -34% -36%;
+}
+
+.menu-v2-personal-fx--c {
+    inset: 34% -23% -24% -23%;
+}
+
+.menu-v2-personal-base-wrap {
+    position: absolute;
+    inset: 12% -3% -9% -3%;
+    pointer-events: none;
+}
+
+.menu-v2-personal-base-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 58%;
+}
+
+.menu-v2-personal-fx--d {
+    inset: 46% -9% -34% -9%;
+}
+
+.menu-v2-personal-fx-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: screen;
+}
+
+.menu-v2-personal-fx-image--a {
+    inset: 0;
+    opacity: 0.74;
+}
+
+.menu-v2-personal-fx-image--b {
+    inset: 0;
+    opacity: 0.68;
+}
+
+.menu-v2-personal-fx-image--c {
+    inset: 0;
+    opacity: 0.72;
+}
+
+.menu-v2-personal-fx-image--d {
+    inset: 0;
+    opacity: 0.66;
+}
+
+.menu-v2-card__layers {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.menu-v2-layer {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     pointer-events: none;
-    z-index: 1;
-    opacity: 0.9;
 }
 
-/* Sticks container */
-.simsy-sticks {
+.menu-v2-layer--base {
+    object-fit: cover;
+    transform: none;
+}
+
+.menu-v2-layer--fx-a { mix-blend-mode: screen; opacity: 0.95; }
+.menu-v2-layer--fx-b { mix-blend-mode: screen; opacity: 0.85; }
+.menu-v2-layer--fx-c { mix-blend-mode: screen; opacity: 0.8; }
+.menu-v2-layer--fx-d { mix-blend-mode: screen; opacity: 0.8; }
+.menu-v2-layer--fx-e { mix-blend-mode: screen; opacity: 0.85; }
+
+.menu-v2-zodiac-star {
     position: absolute;
-    top: 0;
-    left: 50%;
-    translate: -50% 0;
-    width: 110%;
-    height: 84%;
-    z-index: 2;
-    pointer-events: none;
-    overflow: visible;
-}
-
-/* Individual stick — 3 copies as divs at Figma rotations */
-.simsy-stick {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 66%;
-    height: 100%;
-    transform-origin: center bottom;
-    display: block;
-}
-.simsy-stick--back   { translate: -50% 0; rotate: -16deg; opacity: 0.8; }
-.simsy-stick--center { translate: -50% 0; rotate:   0deg; z-index: 1; }
-.simsy-stick--front  { translate: -50% 0; rotate:  19deg; opacity: 0.8; }
-
-/* Stick body image fills wrapper */
-.simsy-stick__body {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: bottom center;
-    display: block;
-}
-
-/* Crystal-tip star — dark 4-pointed star inside diamond tip (Figma imgStar5) */
-.simsy-stick__star {
-    position: absolute;
-    width: 18%;
-    height: auto;
-    top: 4%;
-    left: 50%;
-    transform: translateX(-50%);
-    pointer-events: none;
-    z-index: 2;
-}
-
-/* Sparkle stars (Figma canvas px → % of card 421×1080)
-   Star 84px: left=248px(59%), top=333px(31%) | Star1 44px: left=37px(9%), top=629px(58%) | Star2 22px: left=292px(69%), top=799px(74%) */
-.simsy-star {
-    position: absolute;
-    pointer-events: none;
-    z-index: 3;
-}
-.simsy-star--lg { width: clamp(48px, 5.5vw, 72px); top: 31%;  right: 21%;  }
-.simsy-star--md { width: clamp(28px, 3vw,  40px); top: 58%;  left:  9%;  }
-.simsy-star--sm { width: clamp(14px, 1.5vw, 20px); bottom: 26%; right: 25%; }
-
-/* Arrow button (Ellipse circle + arrow icon, Figma: bottom-right) */
-.menu-card__arrow-btn {
-    position: relative;
-    width: clamp(52px, 5.5vw, 72px);
-    height: clamp(52px, 5.5vw, 72px);
-    flex-shrink: 0;
-}
-.arrow-btn__circle {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-.arrow-btn__icon {
-    position: absolute;
-    inset: 22%;
-    width: 56%;
-    height: 56%;
-    object-fit: contain;
-}
-
-
-/* ════════════════════════════════════════════
-   RIGHT COLUMN
-   ════════════════════════════════════════════ */
-.menu-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 39px;
-    height: 100%;
-    min-height: 0;
-}
-
-/* TOP ROW: 12 ราศี + 12 นักษัตร */
-.menu-top-row {
-    display: flex;
-    gap: 34px;
-    flex: 480;
-    min-height: 0;
-}
-
-/* ─── 12 ราศี ─── (Figma flex: 369) */
-.menu-card--zodiac {
-    flex: 369;
-    height: 100%;
-}
-.menu-card--zodiac .menu-card__title {
-    font-size: clamp(16px, 3vw, 42px);
-}
-
-/* 4-pointed gradient star (zodiac-shape.svg)
-   Figma: card 369×480 → star at left=17%, top=28%, width=55%, center at 44.5% horiz */
-.zodiac-star {
-    position: absolute;
-    width: 55%;
-    height: auto;
-    top: 28%;
-    left: 44.5%;
-    transform: translateX(-50%);
-    pointer-events: none;
-    z-index: 2;
-}
-
-/* ─── 12 นักษัตร ─── (Figma flex: 364) */
-.menu-card--chinese {
-    flex: 364;
-    height: 100%;
-}
-.menu-card--chinese .menu-card__title {
-    font-size: clamp(16px, 3vw, 42px);
-}
-
-/* Chinese zodiac overlay art — positions from Figma canvas (card 364×480px) */
-.chinese-art {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 2;
-}
-
-/* Vector arc / ring (node 381:118697): left=80/364=22%, top=62/480=13%, w=221/364=61% */
-.chinese-vector {
-    position: absolute;
-    width: 61%;
-    height: auto;
-    left: 22%;
-    top: 13%;
-}
-
-/* Animal silhouette shapes */
-.chinese-sub {
-    position: absolute;
-    height: auto;
-}
-/* Subtract2 = big body shape, rotate +15.66° (left=13/364≈4%, top=240/480=50%, w=141/364≈39%) */
-.chinese-sub--c {
-    width: 39%;
-    left: 4%;
-    top: 50%;
-    rotate: 15.66deg;
-}
-/* Subtract1 = medium shape, rotate -24.44° (left=203/364≈56%, top=314/480≈65%, w=84/364≈23%) */
-.chinese-sub--b {
-    width: 23%;
-    left: 56%;
-    top: 65%;
-    rotate: -24.44deg;
-}
-/* Subtract = small shape, rotate -51° (left=253/364≈70%, top=206/480≈43%, w=95/364≈26%) */
-.chinese-sub--a {
-    width: 26%;
-    left: 70%;
-    top: 43%;
-    rotate: -51deg;
-}
-
-
-/* ─── ดูดวงเฉพาะบุคคล (BOTTOM WIDE CARD) ─── */
-/* Figma Group3, node 381:118695, h=481px, w=full right */
-.menu-card--birthday {
-    flex: 481;
-    height: auto;
-    min-height: 0;
-}
-.menu-card--birthday .menu-card__title {
-    font-size: clamp(14px, 2.2vw, 32px);
-    white-space: normal;
-    line-height: 1.2;
-    max-width: 70%;
-}
-
-/* Birthday/fortune card artwork layer */
-.birthday-art {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 2;
-}
-
-/* Crystal ball (Group4, Figma: center 50% horiz, image top at ~5% of card)
-   Group4 bounding: left=36%, top=18%, w=28.3%, h=51%
-   + 24.7% top overflow, 17.25% side overflow → actual rendered: w=38%, left=31%, top=5%
-   z-index: auto so hands (in DOM after crystal) appear on top */
-.birthday-crystal {
-    position: absolute;
-    width: auto;
-    height: 80%;
-    max-width: 55%;
-    top: 50%;
-    left: 50%;
+    width: 81px;
+    height: 81px;
+    left: 57%;
+    top: 35%;
     transform: translate(-50%, -50%);
-    object-fit: contain;
-    z-index: 1;
+    pointer-events: none;
 }
 
-/* Hands (hand-left.png / hand-right.png)
-   Figma: Component1 (both hands) starts at card_top=-186px (above card),
-   hands appear from ~18% down the card, spanning ~50% wide each from the sides */
-.birthday-hand {
+/* Node 525:119463 (Mask group 400x413) */
+.menu-v2-card--zodiac .menu-v2-card__layers {
+    overflow: hidden;
+}
+
+.menu-v2-zodiac-mask-base {
     position: absolute;
-    height: 82%;
-    width: auto;
-    bottom: 0;
-    z-index: 2;
-}
-.birthday-hand--left {
-    left: -5%;
-    transform: none;
-}
-.birthday-hand--right {
-    right: -5%;
-    transform: none;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
 }
 
-
-/* ════════════════════════════════════════════
-   RESPONSIVE — Menu Section
-   Breakpoints: 1260 / 1024 / 768 / 600 / 480 / 360
-   ════════════════════════════════════════════ */
-
-/* ── Compact desktop (1025–1260px) ── */
-@media (max-width: 1260px) {
-    .menu-grid        { gap: 20px; }
-    .menu-card--simsy { flex: 0 0 30%; }
-    .menu-top-row     { gap: 20px; }
-    .menu-right       { gap: 20px; }
+.menu-v2-zodiac-mask-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: #000;
+    box-shadow: inset 0 4px 38.4px 0 #591adb;
 }
 
-/* ── Tablet landscape (769–1024px) ── */
-@media (max-width: 1024px) {
-    .menu-section {
-        height: 140vh;
-        padding: 0 16px;
+.menu-v2-zodiac-fx {
+    position: absolute;
+    pointer-events: none;
+}
+
+.menu-v2-zodiac-fx--a {
+    inset: 40.68% -8.63% -27.6% -4.63%;
+}
+
+.menu-v2-zodiac-fx--b {
+    left: 65%;
+    top: 100%;
+    width: 113.26%;
+    height: 86.93%;
+    transform: translate(-50%, -50%);
+}
+
+.menu-v2-zodiac-fx--c {
+    inset: 66.1% -7.63% -53.03% -5.63%;
+    transform: translateX(50px);
+}
+
+.menu-v2-zodiac-fx-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.menu-v2-zodiac-fx-image--a {
+    inset: -22.28% -17.66%;
+}
+
+.menu-v2-zodiac-fx-image--b {
+    inset: -16.98% -16.98%;
+}
+
+.menu-v2-zodiac-fx-image--c {
+    inset: -12.49% -12.49%;
+}
+
+.menu-v2-zodiac-base-wrap {
+    position: absolute;
+    left: 50%;
+    top: 85%;
+    width: 169.76%;
+    aspect-ratio: 1264 / 842;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.menu-v2-zodiac-base-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Node 525:119433 (Mask group 400x673) */
+.menu-v2-card--siamsi .menu-v2-card__layers {
+    overflow: hidden;
+    inset: 0;
+    border-radius: inherit;
+}
+
+.menu-v2-siamsi-mask-base {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.menu-v2-siamsi-mask-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: #000;
+    box-shadow: inset 0 4px 38.4px 0 #72a0d4;
+}
+
+.menu-v2-siamsi-fx {
+    position: absolute;
+    pointer-events: none;
+}
+
+.menu-v2-siamsi-fx--a {
+    inset: 32.84% 57% -19.76% -106.25%;
+}
+
+.menu-v2-siamsi-fx--b {
+    inset: 63.74% -85.75% -54.23% 24.5%;
+}
+
+.menu-v2-siamsi-fx--c {
+    inset: 51.11% -31.07% -49.01% -31%;
+    transform: rotate(96.44deg);
+    transform-origin: center;
+}
+
+.menu-v2-siamsi-fx--d {
+    inset: 62.02% -15.18% -39.51% -18.51%;
+    transform: rotate(96.44deg);
+    transform-origin: center;
+}
+
+.menu-v2-siamsi-fx--e {
+    inset: 74.55% -4.96% -38.54% -10.14%;
+    width: 386px;
+    height: 419.757px;
+    transform: rotate(96.439deg);
+    transform-origin: center;
+}
+
+.menu-v2-siamsi-fx-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: screen;
+}
+
+.menu-v2-siamsi-fx-image--a {
+    inset: -34.19% -33.5%;
+}
+
+.menu-v2-siamsi-fx-image--b {
+    inset: -32.84% -31.01%;
+}
+
+.menu-v2-siamsi-fx-image--c {
+    inset: -13.68% -13.4%;
+}
+
+.menu-v2-siamsi-fx-image--d {
+    inset: -14.02% -14.47%;
+}
+
+.menu-v2-siamsi-fx-image--e {
+    inset: -11.91% -12.95%;
+}
+
+.menu-v2-siamsi-base-wrap {
+    position: absolute;
+    left: -3%;
+    right: -4.25%;
+    top: 6.09%;
+    aspect-ratio: 799 / 1280;
+    pointer-events: none;
+}
+
+.menu-v2-siamsi-base-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.menu-v2-label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 4;
+    font-family: 'DB Heavent Cond', sans-serif;
+}
+
+.menu-v2-label p {
+    margin: 0;
+    line-height: 1.02;
+    font-style: normal;
+}
+
+.menu-v2-label__th {
+    font-size: 48px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.menu-v2-label__en {
+    margin-top: 0 !important;
+    font-size: 22px;
+    color: #ad85ff;
+    font-weight: 500;
+}
+
+.menu-v2-card--zodiac .menu-v2-label {
+    left: 240px;
+    top: 39px;
+}
+
+.menu-v2-card--zodiac .menu-v2-label__en {
+    margin-top: 5px !important;
+}
+
+.menu-v2-card--siamsi .menu-v2-label {
+    left: 246px;
+    top: 39px;
+}
+
+.menu-v2-card--siamsi .menu-v2-label__en {
+    margin-top: 5px !important;
+}
+
+.menu-v2-card--chinese .menu-v2-label {
+    left: 121px;
+    top: 65px;
+    text-align: center;
+}
+
+.menu-v2-card--chinese .menu-v2-label__en {
+    margin-top: 5px !important;
+}
+
+.menu-v2-card--personal .menu-v2-label {
+    left: 36px;
+    top: 27px;
+}
+
+.menu-v2-card--personal .menu-v2-label__th {
+    font-size: 40px;
+}
+
+.menu-v2-card--personal .menu-v2-label__en {
+    margin-top: 6px !important;
+    font-size: 20px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .menu-grid:has(.menu-card:hover) .menu-card {
+        filter: brightness(0.88) saturate(0.8);
+        border-color: rgba(255, 255, 255, 0.35);
     }
-    .menu-grid {
+
+    .menu-grid:has(.menu-card:hover) .menu-card:hover {
+        filter: brightness(1.15) saturate(1.06);
+        border-color: rgba(255, 255, 255, 0.7);
+    }
+}
+
+@media (max-width: 1200px) {
+    .menu-section.menu-section-v2 {
+        padding: 40px 16px;
+    }
+
+    .menu-v2-shell {
+        width: min(1320px, calc(100vw - 32px));
+        max-height: calc(100svh - 80px);
+    }
+
+    .menu-v2-card--zodiac .menu-v2-label,
+    .menu-v2-card--siamsi .menu-v2-label,
+    .menu-v2-card--chinese .menu-v2-label,
+    .menu-v2-card--personal .menu-v2-label {
+        transform: scale(0.88);
+        transform-origin: top left;
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1200px) and (orientation: landscape) {
+    .menu-v2-card--zodiac .menu-v2-label,
+    .menu-v2-card--siamsi .menu-v2-label,
+    .menu-v2-card--chinese .menu-v2-label,
+    .menu-v2-card--personal .menu-v2-label {
+        transform: none;
+        left: clamp(16px, 2.2vw, 26px) !important;
+        top: clamp(14px, 1.8vw, 24px) !important;
+        max-width: calc(100% - 32px);
+        text-align: left;
+    }
+
+    .menu-v2-label__th {
+        font-size: clamp(36px, 3.5vw, 44px);
+    }
+
+    .menu-v2-label__en {
+        margin-top: 2px !important;
+        font-size: clamp(18px, 1.8vw, 22px);
+    }
+
+    .menu-v2-card--personal .menu-v2-label__th {
+        font-size: clamp(32px, 3.1vw, 40px);
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1180px) and (orientation: portrait) {
+    .menu-section.menu-section-v2 {
+        min-height: auto;
+        padding: 44px 14px 56px;
+    }
+
+    .menu-v2-shell {
+        aspect-ratio: auto;
+        width: min(980px, 100%);
+        max-height: none;
+        padding-top: 0;
+    }
+
+    .menu-grid.menu-grid-v2 {
+        position: relative;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: clamp(196px, 27vw, 260px);
         gap: 16px;
-        height: calc(88vh - 32px);
-    }
-    .menu-card--simsy { flex: 0 0 33%; }
-    .menu-top-row     { gap: 16px; }
-    .menu-right       { gap: 16px; }
-    .menu-card--simsy .menu-card__title { font-size: clamp(18px, 3vw, 36px); }
-    .menu-card__arrow-btn {
-        width: clamp(42px, 4.5vw, 58px);
-        height: clamp(42px, 4.5vw, 58px);
+        display: grid;
     }
 
-    /* Keep birthday artwork clear of footer/title on tablet widths */
-    .menu-card--birthday .birthday-art {
-        inset: 0 0 76px 0;
-    }
-
-    .menu-card--birthday .birthday-crystal {
-        height: 72%;
-        max-width: 50%;
-    }
-
-    .menu-card--birthday .birthday-hand {
-        height: 70%;
-    }
-
-    .menu-card--birthday .birthday-hand--left {
-        left: -10%;
-    }
-
-    .menu-card--birthday .birthday-hand--right {
-        right: -10%;
-    }
-}
-
-/* ── Tablet portrait (≤768px) — vertical stack, NO parallax ── */
-@media (max-width: 768px) {
-    .menu-section {
+    .menu-v2-card--zodiac {
+        position: relative;
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        min-height: 0;
+        width: auto;
         height: auto;
-        padding: 72px 16px 96px;
-        align-items: center;
+        left: auto;
+        top: auto;
     }
-    .menu-grid {
-        flex-direction: column;
-        gap: 16px;
+
+    .menu-v2-card--siamsi {
+        position: relative;
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        min-height: 0;
+        width: auto;
         height: auto;
-        min-height: unset;
-        will-change: auto;  /* disable parallax on tablet */
+        left: auto;
+        top: auto;
     }
-    /* Reset inline parallax transforms */
-    .menu-grid,
-    .menu-card--simsy,
-    .menu-right,
-    .menu-top-row,
-    .simsy-sticks,
-    .chinese-art,
-    .birthday-art,
-    .simsy-star {
-        transform: none !important;
-        will-change: auto;
-    }
-    .menu-card--simsy {
-        flex: none;
-        width: 100%;
-        height: 52vw;
-        max-height: 400px;
-        min-height: 260px;
-    }
-    .menu-right {
-        height: auto;
-        gap: 16px;
-    }
-    .menu-top-row {
-        flex-direction: row;
-        flex: none;
-        height: 40vw;
-        max-height: 300px;
-        min-height: 170px;
-        gap: 16px;
-    }
-    .menu-card--zodiac,
-    .menu-card--chinese {
-        flex: 1;
+
+    .menu-v2-card--siamsi,
+    .menu-v2-card--zodiac,
+    .menu-v2-card--chinese,
+    .menu-v2-card--personal {
+        min-height: 0;
         height: 100%;
     }
-    .menu-card--birthday {
-        flex: none;
-        height: 36vw;
-        max-height: 260px;
-        min-height: 150px;
+
+    .menu-v2-card--chinese {
+        position: relative;
+        grid-column: 1;
+        grid-row: 3;
+        min-height: 0;
+        width: auto;
+        height: auto;
+        left: auto;
+        top: auto;
     }
-    .menu-card__footer { padding: 18px 20px 20px; }
-    .menu-card__arrow-btn {
-        width: clamp(38px, 5vw, 52px);
-        height: clamp(38px, 5vw, 52px);
+
+    .menu-v2-card--personal {
+        position: relative;
+        grid-column: 2;
+        grid-row: 3;
+        min-height: 0;
+        width: auto;
+        height: auto;
+        left: auto;
+        top: auto;
     }
-    .menu-card--birthday .birthday-art {
-        inset: 0 0 62px 0;
+
+    .menu-v2-orb,
+    .menu-v2-star16 {
+        display: none;
     }
-    .birthday-crystal { height: 68%; max-width: 52%; }
-    .birthday-hand    { height: 64%; }
-    .birthday-hand--left  { left: -12%; }
-    .birthday-hand--right { right: -12%; }
+
+    .menu-v2-ai {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: calc((100% - 16px) / 2);
+        height: clamp(196px, 27vw, 260px);
+        margin: 0 auto 16px;
+        padding: clamp(18px, 2.8vw, 28px) clamp(16px, 2.4vw, 24px);
+        text-align: left;
+        border-radius: 54px;
+        border: none;
+        background:
+            linear-gradient(158deg, rgba(188, 150, 255, 0.24) 0%, rgba(100, 65, 190, 0.14) 52%, rgba(32, 23, 78, 0.42) 100%),
+            rgba(16, 13, 42, 0.46);
+        backdrop-filter: blur(18px) saturate(128%);
+        -webkit-backdrop-filter: blur(18px) saturate(128%);
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.24),
+            inset 0 -1px 0 rgba(145, 110, 236, 0.2),
+            0 16px 28px rgba(0, 0, 0, 0.34);
+        overflow: hidden;
+        z-index: 6;
+    }
+
+    .menu-v2-ai::after {
+        content: "";
+        position: absolute;
+        right: -12%;
+        top: -18%;
+        width: 68%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(112, 70, 240, 0.52) 0%, rgba(112, 70, 240, 0.16) 46%, rgba(112, 70, 240, 0) 78%);
+        filter: blur(4px);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .menu-v2-ai__top {
+        position: relative;
+        z-index: 1;
+        font-size: clamp(36px, 4.8vw, 52px);
+        line-height: 0.9;
+        letter-spacing: 0;
+        color: #fff;
+        background: none;
+        -webkit-text-fill-color: #fff;
+    }
+
+    .menu-v2-ai__bottom {
+        position: relative;
+        z-index: 1;
+        margin-top: clamp(2px, 0.9vw, 8px);
+        font-size: clamp(18px, 2.4vw, 24px);
+        line-height: 1.05;
+        color: #ab8eff;
+    }
+
+    .menu-card {
+        border-radius: 30px;
+    }
+
+    .menu-v2-card__layers,
+    .menu-v2-zodiac-mask-base,
+    .menu-v2-zodiac-mask-bg,
+    .menu-v2-siamsi-mask-base,
+    .menu-v2-siamsi-mask-bg,
+    .menu-v2-chinese-mask-base,
+    .menu-v2-personal-mask-base {
+        inset: 0;
+        border-radius: inherit;
+    }
+
+    .menu-v2-label {
+        transform: none !important;
+        left: clamp(16px, 4vw, 28px) !important;
+        top: clamp(14px, 3vw, 28px) !important;
+    }
+
+    .menu-v2-label__th {
+        font-size: clamp(30px, 4.6vw, 44px);
+    }
+
+    .menu-v2-label__en {
+        margin-top: 2px !important;
+        font-size: clamp(16px, 2.8vw, 22px);
+    }
+
+    .menu-v2-card--chinese .menu-v2-label {
+        text-align: left;
+    }
+
+    .menu-v2-card--personal .menu-v2-label__th {
+        font-size: clamp(28px, 4.2vw, 40px);
+    }
 }
 
-/* ── Large phone (≤600px) ── */
-@media (max-width: 600px) {
-    .menu-section {
-        padding: 56px 12px 72px;
+@media (max-width: 900px) {
+    .menu-section.menu-section-v2 {
+        min-height: auto;
+        padding: 44px 14px 56px;
     }
-    .menu-grid  { gap: 12px; }
-    .menu-right { gap: 12px; }
-    .menu-top-row {
-        flex-direction: row;  /* keep zodiac + chinese side-by-side */
-        height: 46vw;
-        min-height: 160px;
-        max-height: 260px;
+
+    .menu-v2-shell {
+        aspect-ratio: auto;
+        width: min(980px, 100%);
+        max-height: none;
+        padding-top: 0;
+    }
+
+    .menu-grid.menu-grid-v2 {
+        position: relative;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: clamp(196px, 27vw, 260px);
+        gap: 16px;
+        display: grid;
+    }
+
+    .menu-v2-card--zodiac {
+        position: relative;
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        min-height: 0;
+        width: auto;
+        height: auto;
+        left: auto;
+        top: auto;
+    }
+
+    .menu-v2-card--siamsi {
+        position: relative;
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        min-height: 0;
+        width: auto;
+        height: auto;
+        left: auto;
+        top: auto;
+    }
+
+    .menu-v2-card--siamsi,
+    .menu-v2-card--zodiac,
+    .menu-v2-card--chinese,
+    .menu-v2-card--personal {
+        min-height: 0;
+        height: 100%;
+    }
+
+    .menu-v2-card--chinese {
+        position: relative;
+        grid-column: 1;
+        grid-row: 3;
+        min-height: 0;
+        width: auto;
+        height: auto;
+        left: auto;
+        top: auto;
+    }
+
+    .menu-v2-card--personal {
+        position: relative;
+        grid-column: 2;
+        grid-row: 3;
+        min-height: 0;
+        width: auto;
+        height: auto;
+        left: auto;
+        top: auto;
+    }
+
+    .menu-v2-orb,
+    .menu-v2-star16 {
+        display: none;
+    }
+
+    .menu-v2-ai {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: calc((100% - 16px) / 2);
+        height: clamp(196px, 27vw, 260px);
+        margin: 0 auto 16px;
+        padding: clamp(18px, 2.8vw, 28px) clamp(16px, 2.4vw, 24px);
+        text-align: left;
+        border-radius: 54px;
+        border: none;
+        background:
+            linear-gradient(158deg, rgba(188, 150, 255, 0.24) 0%, rgba(100, 65, 190, 0.14) 52%, rgba(32, 23, 78, 0.42) 100%),
+            rgba(16, 13, 42, 0.46);
+        backdrop-filter: blur(18px) saturate(128%);
+        -webkit-backdrop-filter: blur(18px) saturate(128%);
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.24),
+            inset 0 -1px 0 rgba(145, 110, 236, 0.2),
+            0 16px 28px rgba(0, 0, 0, 0.34);
+        overflow: hidden;
+        z-index: 6;
+    }
+
+    .menu-v2-ai::after {
+        content: "";
+        position: absolute;
+        right: -12%;
+        top: -18%;
+        width: 68%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(112, 70, 240, 0.52) 0%, rgba(112, 70, 240, 0.16) 46%, rgba(112, 70, 240, 0) 78%);
+        filter: blur(4px);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .menu-v2-ai__top {
+        position: relative;
+        z-index: 1;
+        font-size: clamp(36px, 4.8vw, 52px);
+        line-height: 0.9;
+        letter-spacing: 0;
+        color: #fff;
+        background: none;
+        -webkit-text-fill-color: #fff;
+    }
+
+    .menu-v2-ai__bottom {
+        position: relative;
+        z-index: 1;
+        margin-top: clamp(2px, 0.9vw, 8px);
+        font-size: clamp(18px, 2.4vw, 24px);
+        line-height: 1.05;
+        color: #ab8eff;
+    }
+
+    .menu-card {
+        border-radius: 30px;
+    }
+
+    .menu-v2-card__layers,
+    .menu-v2-zodiac-mask-base,
+    .menu-v2-zodiac-mask-bg,
+    .menu-v2-siamsi-mask-base,
+    .menu-v2-siamsi-mask-bg,
+    .menu-v2-chinese-mask-base,
+    .menu-v2-personal-mask-base {
+        inset: 0;
+        border-radius: inherit;
+    }
+
+    .menu-v2-label {
+        transform: none !important;
+        left: clamp(16px, 4vw, 28px) !important;
+        top: clamp(14px, 3vw, 28px) !important;
+    }
+
+    .menu-v2-label__th {
+        font-size: clamp(30px, 4.6vw, 44px);
+    }
+
+    .menu-v2-label__en {
+        margin-top: 2px !important;
+        font-size: clamp(16px, 2.8vw, 22px);
+    }
+
+    .menu-v2-card--chinese .menu-v2-label {
+        text-align: left;
+    }
+
+    .menu-v2-card--personal .menu-v2-label__th {
+        font-size: clamp(28px, 4.2vw, 40px);
+    }
+}
+
+@media (max-width: 640px) {
+    .menu-section.menu-section-v2 {
+        min-height: auto;
+        padding: 56px 10px 72px;
+    }
+
+    .menu-grid.menu-grid-v2 {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
         gap: 12px;
     }
-    .menu-card--simsy {
-        height: 65vw;
-        max-height: 360px;
-        min-height: 240px;
+
+    .menu-v2-ai {
+        width: 100%;
+        height: clamp(180px, 44vw, 250px);
+        margin: 0 0 12px;
+        border-radius: 34px;
     }
-    .menu-card--zodiac,
-    .menu-card--chinese { flex: 1; height: 100%; }
-    .menu-card--birthday {
-        height: 42vw;
-        min-height: 150px;
-        max-height: 230px;
+
+    .menu-v2-ai__top {
+        font-size: clamp(36px, 10vw, 48px);
     }
-    .menu-card__footer { padding: 14px 16px 16px; }
-    .menu-card__arrow-btn {
-        width: 38px;
-        height: 38px;
+
+    .menu-v2-ai__bottom {
+        font-size: clamp(16px, 4.8vw, 22px);
     }
-    .birthday-crystal { height: 70%; }
-    .birthday-hand    { height: 72%; }
+
+    .menu-v2-card--zodiac,
+    .menu-v2-card--siamsi,
+    .menu-v2-card--chinese,
+    .menu-v2-card--personal {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    .menu-card {
+        border-radius: 22px;
+        min-height: auto !important;
+    }
+
+    .menu-v2-card__layers,
+    .menu-v2-zodiac-mask-base,
+    .menu-v2-zodiac-mask-bg,
+    .menu-v2-siamsi-mask-base,
+    .menu-v2-siamsi-mask-bg,
+    .menu-v2-chinese-mask-base,
+    .menu-v2-personal-mask-base {
+        border-radius: inherit;
+    }
+
+    .menu-v2-zodiac-mask-base {
+        inset: 0;
+    }
+
+    .menu-v2-card--siamsi .menu-v2-card__layers {
+        inset: 0;
+        border-radius: inherit;
+    }
+
+    .menu-v2-card--zodiac {
+        height: clamp(280px, 72vw, 400px);
+    }
+
+    .menu-v2-card--siamsi {
+        height: clamp(360px, 92vw, 520px);
+    }
+
+    .menu-v2-card--chinese,
+    .menu-v2-card--personal {
+        height: clamp(180px, 44vw, 250px);
+    }
+
+    .menu-v2-label {
+        left: clamp(14px, 5vw, 18px) !important;
+        top: clamp(12px, 4vw, 16px) !important;
+        max-width: calc(100% - 28px);
+    }
+
+    .menu-v2-label__th {
+        font-size: clamp(24px, 8vw, 34px);
+    }
+
+    .menu-v2-label__en {
+        font-size: clamp(17px, 5vw, 24px);
+    }
 }
 
-/* ── Small phone (≤480px) ── */
-@media (max-width: 480px) {
-    .menu-section  { padding: 48px 10px 64px; }
-    .menu-grid     { gap: 10px; }
-    .menu-right    { gap: 10px; }
-    .menu-top-row  {
-        height: 50vw;
-        min-height: 150px;
+@media (max-width: 420px) {
+    .menu-section.menu-section-v2 {
+        padding: 46px 8px 64px;
+    }
+
+    .menu-v2-ai {
+        border-radius: 18px;
+        margin-bottom: 10px;
+        height: clamp(162px, 46vw, 220px);
+    }
+
+    .menu-grid.menu-grid-v2 {
         gap: 10px;
     }
-    .menu-card--simsy {
-        height: 72vw;
-        min-height: 220px;
-        max-height: 300px;
+
+    .menu-card {
+        border-radius: 18px;
     }
-    .menu-card--birthday {
-        height: 46vw;
-        min-height: 140px;
+
+    .menu-v2-card__layers,
+    .menu-v2-zodiac-mask-base,
+    .menu-v2-zodiac-mask-bg,
+    .menu-v2-siamsi-mask-base,
+    .menu-v2-siamsi-mask-bg,
+    .menu-v2-chinese-mask-base,
+    .menu-v2-personal-mask-base {
+        border-radius: inherit;
     }
-    .menu-card { border-radius: 18px; }
-    .menu-card__footer { padding: 12px 14px 14px; }
-    .menu-card__arrow-btn { width: 34px; height: 34px; }
-    .simsy-sticks { height: 78%; }
-    .simsy-star--lg { width: clamp(36px, 8vw, 52px); }
-    .simsy-star--md { width: clamp(22px, 5vw, 32px); }
-    .simsy-star--sm { width: clamp(10px, 3vw, 18px); }
+
+    .menu-v2-card--zodiac {
+        height: clamp(250px, 78vw, 340px);
+    }
+
+    .menu-v2-card--siamsi {
+        height: clamp(320px, 98vw, 440px);
+    }
+
+    .menu-v2-card--chinese,
+    .menu-v2-card--personal {
+        height: clamp(162px, 46vw, 220px);
+    }
+
+    .menu-v2-label__th {
+        font-size: clamp(22px, 8vw, 30px);
+    }
+
+    .menu-v2-label__en {
+        font-size: clamp(14px, 4.6vw, 18px);
+    }
 }
 
-/* ── Very small phone (≤360px) ── */
-@media (max-width: 360px) {
-    .menu-section  { padding: 40px 8px 56px; }
-    .menu-grid     { gap: 8px; }
-    .menu-right    { gap: 8px; }
-    .menu-top-row  { height: 52vw; gap: 8px; min-height: 140px; }
-    .menu-card--simsy {
-        height: 78vw;
-        min-height: 200px;
+@media (max-height: 820px) and (min-width: 901px) {
+    .menu-section.menu-section-v2 {
+        padding-top: 24px;
+        padding-bottom: 24px;
     }
-    .menu-card--birthday {
-        height: 48vw;
-        min-height: 130px;
+
+    .menu-v2-shell {
+        max-height: calc(100svh - 48px);
     }
-    .menu-card { border-radius: 14px; }
-    .menu-card__footer { padding: 10px 12px 12px; }
 }
 
 /* ═══════════════════════════════════════════════════════════════
