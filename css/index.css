@@ -2629,8 +2629,8 @@ body {
     .menu-v2-ai-center-image {
         display: block;
         position: absolute;
-        left: 50%;
-        top: 56%;
+        left: 48%;
+        top: 52%;
         width: clamp(96px, 38%, 170px);
         height: auto;
         transform: translate(-50%, -50%);
@@ -2685,6 +2685,16 @@ body {
 
     .menu-v2-card--personal .menu-v2-label__th {
         font-size: clamp(28px, 4.2vw, 40px);
+    }
+
+    .menu-v2-zodiac-single-image {
+        transform: scale(1.1);
+        transform-origin: center;
+    }
+
+    .menu-v2-chinese-single-image {
+        transform: scale(1.1);
+        transform-origin: center;
     }
 }
 
@@ -2833,8 +2843,8 @@ body {
     .menu-v2-ai-center-image {
         display: block;
         position: absolute;
-        left: 50%;
-        top: 56%;
+        left: 48%;
+        top: 52%;
         width: clamp(96px, 38%, 170px);
         height: auto;
         transform: translate(-50%, -50%);
@@ -2890,6 +2900,16 @@ body {
     .menu-v2-card--personal .menu-v2-label__th {
         font-size: clamp(28px, 4.2vw, 40px);
     }
+
+    .menu-v2-zodiac-single-image {
+        transform: scale(1.1);
+        transform-origin: center;
+    }
+
+    .menu-v2-chinese-single-image {
+        transform: scale(1.1);
+        transform-origin: center;
+    }
 }
 
 @media (max-width: 640px) {
@@ -2920,7 +2940,7 @@ body {
     }
 
     .menu-v2-ai-center-image {
-        top: 58%;
+        top: 54%;
         width: clamp(100px, 42%, 170px);
     }
 
@@ -3001,7 +3021,7 @@ body {
     }
 
     .menu-v2-ai-center-image {
-        top: 60%;
+        top: 56%;
         width: clamp(96px, 44%, 156px);
     }
 
