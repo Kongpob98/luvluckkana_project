@@ -238,8 +238,8 @@ body {
 .about-team {
     position: relative;
     width: 100%;
-    /* Maintain 1440:1117 aspect ratio for pixel-perfect desktop */
-    aspect-ratio: 1440 / 1117;
+    /* Extended height to accommodate the extra advisor member block */
+    aspect-ratio: 1440 / 1500;
     background: #000;
     overflow: hidden;
 }
@@ -375,6 +375,17 @@ body {
     z-index: 2;
 }
 
+/* Rectangle 1059 (advisor placement below Viyathorn zone) */
+.team-photo--3 {
+    left: 8%;
+    top: 68.6%;
+    width: 32.92%;
+    aspect-ratio: 338 / 326;
+    border-radius: 235.5px 235.5px 235.5px 0;
+    box-shadow: inset 0 4px 56px 0 #591adb;
+    z-index: 2;
+}
+
 /* ── Floating avatars ────────────────── */
 .team-avatar {
     position: absolute;
@@ -457,7 +468,7 @@ body {
    pill: 586×168  left:72  top:441
    text (361:118231): 36px  left offset = 123-72 = 51px padding */
 .team-name-card--1 {
-    left: 5%;         /* 72/1440 */
+    left: 20%;
     top: 39.48%;      /* 441/1117 */
 }
 
@@ -472,13 +483,27 @@ body {
    text (361:118237): 24px */
 .team-name-card--2 {
     left: 40.97%;     /* 590/1440 */
-    top: 75.83%;      /* 847/1117 */
+    top: 66.6%;
 }
 
 .name-text--sm {
     font-size: clamp(12px, 1.94vw, 28px);
     font-weight: 400;
     white-space: nowrap;
+}
+
+/* Name card 3 (advisor) */
+.team-name-card--3 {
+    left: 37%;
+    top: 90.4%;
+}
+
+.name-text--role {
+    font-size: clamp(14px, 1.35vw, 22px);
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.84);
+    letter-spacing: 0.05em;
+    padding: 14px 30px 0;
 }
 
 /* ========================================
@@ -568,7 +593,8 @@ body {
 
     /* Photos side by side on tablet-ish, stacked on small mobile */
     .team-photo--1,
-    .team-photo--2 {
+    .team-photo--2,
+    .team-photo--3 {
         width: 72%;
         margin: 0 auto 20px;
     }
@@ -581,6 +607,12 @@ body {
     .team-photo--2 {
         aspect-ratio: 474 / 458;
         border-radius: 100px 100px 0 100px;
+        margin-bottom: 28px;
+    }
+
+    .team-photo--3 {
+        aspect-ratio: 338 / 326;
+        border-radius: 100px 100px 100px 0;
         margin-bottom: 28px;
     }
 
@@ -602,11 +634,18 @@ body {
 
     .name-text--lg,
     .name-text--sm { font-size: clamp(13px, 4vw, 18px); }
+    .name-text--role {
+        font-size: clamp(13px, 4.2vw, 18px);
+        font-weight: 500;
+        padding: 14px 24px 0;
+        text-align: center;
+    }
 }
 
 @media (max-width: 480px) {
     .team-photo--1,
-    .team-photo--2 { width: 88%; }
+    .team-photo--2,
+    .team-photo--3 { width: 88%; }
 }
 
 /* ========================================
