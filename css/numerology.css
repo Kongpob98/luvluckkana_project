@@ -252,7 +252,8 @@ html, body {
     width: 100vw;
     padding: var(--spacing-2xl) var(--spacing-md);
     background: var(--numerology-dark);
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: visible;
     margin: 0;
     left: 0;
     right: 0;
@@ -293,8 +294,8 @@ html, body {
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 60px;
-    overflow: hidden;
+    padding: 18px 60px 26px;
+    overflow: visible;
 }
 
 .numbers-carousel {
@@ -572,7 +573,7 @@ html, body {
     }
     
     .numbers-carousel-wrapper {
-        padding: 0 50px;
+        padding: 16px 50px 24px;
     }
     
     .number-card {
@@ -619,7 +620,7 @@ html, body {
     }
     
     .numbers-carousel-wrapper {
-        padding: 0 12px;
+        padding: 14px 12px 22px;
     }
     
     .number-card {
@@ -673,7 +674,7 @@ html, body {
     }
     
     .numbers-carousel-wrapper {
-        padding: 0 8px;
+        padding: 12px 8px 18px;
     }
     
     .carousel-nav {
@@ -723,7 +724,7 @@ html, body {
     }
     
     .numbers-carousel-wrapper {
-        padding: 0 6px;
+        padding: 10px 6px 16px;
     }
     
     .number-card {
