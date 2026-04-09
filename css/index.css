@@ -3407,6 +3407,15 @@ body {
 }
 
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    .sp-stat--left,
+    .sp-stat--right {
+        top: 20%;
+    }
+
+    .sp-vline-wrap {
+        height: 190px;
+    }
+
     .sp-content {
         top: 56%;
         bottom: auto;
