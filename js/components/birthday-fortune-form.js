@@ -24,6 +24,15 @@
     const SERVERLESS_API_URL = '/api/gemini';
     const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
+    function isLocalRuntime() {
+        const host = window.location.hostname;
+        return host === 'localhost' || host === '127.0.0.1';
+    }
+
+    function isLocalApiUrl(url) {
+        return /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?\//i.test(url);
+    }
+
     function getDirectGeminiApiKey() {
         const apiKey = typeof window.CONFIG?.GEMINI_API_KEY === 'string'
             ? window.CONFIG.GEMINI_API_KEY.trim()
@@ -41,14 +50,16 @@
             ? window.CONFIG.SERVERLESS_API_URL.trim()
             : '';
 
+        const allowLocalFallback = isLocalRuntime();
+
         const candidates = [
             configuredUrl,
             SERVERLESS_API_URL,
-            'http://localhost:3000/api/gemini',
-            'http://127.0.0.1:3000/api/gemini'
+            allowLocalFallback ? 'http://localhost:3000/api/gemini' : '',
+            allowLocalFallback ? 'http://127.0.0.1:3000/api/gemini' : ''
         ].filter(Boolean);
 
-        return [...new Set(candidates)];
+        return [...new Set(candidates)].filter((url) => allowLocalFallback || !isLocalApiUrl(url));
     }
 
     // Initialize
