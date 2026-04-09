@@ -87,7 +87,7 @@
             .catch(error => {
                 hideTypingIndicator();
                 console.error('Gemini API Error:', error);
-                addMessage('ai', 'ขออภัย เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่อีกครั้ง');
+                addMessage('ai', 'ตอนนี้ระบบกำลังมีผู้ใช้งานจำนวนมาก จึงตอบกลับไม่ได้ชั่วคราว กรุณาลองใหม่อีกครั้ง');
             })
     }
     

@@ -716,6 +716,7 @@
 
     function formatFortuneErrorMessage(error) {
         const message = typeof error?.message === 'string' ? error.message : '';
+        const lowerMessage = message.toLowerCase();
 
         if (/API key not configured/i.test(message)) {
             return 'เซิร์ฟเวอร์ยังไม่ตั้งค่า GEMINI_API_KEY กรุณาตั้งค่า Environment Variable แล้วลองใหม่';
@@ -729,6 +730,20 @@
             return 'GEMINI_API_KEY ไม่ถูกต้องหรือไม่มีสิทธิ์ใช้งาน กรุณาตรวจสอบ key อีกครั้ง';
         }
 
+        if (
+            /status\s*503|api error:\s*503|\b503\b/i.test(message) ||
+            lowerMessage.includes('high demand') ||
+            lowerMessage.includes('spikes in demand') ||
+            lowerMessage.includes('try again later') ||
+            lowerMessage.includes('temporarily unavailable')
+        ) {
+            return 'ขณะนี้มีผู้ใช้งานจำนวนมาก ระบบยังประมวลผลไม่ทัน\nกรุณาลองใหม่อีกครั้ง';
+        }
+
+        if (/status\s*429|api error:\s*429|\b429\b|quota|rate limit/i.test(message)) {
+            return 'มีคำขอใช้งานจำนวนมากในขณะนี้\nกรุณาลองใหม่อีกครั้ง';
+        }
+
         if (/Failed to fetch|NetworkError|Load failed|endpoint not found|status 404|Cannot reach Gemini API endpoint/i.test(message)) {
             return 'เชื่อมต่อ API ไม่ได้ กรุณาเปิด API server (`npm run dev:api`) แล้วลองใหม่อีกครั้ง';
         }
@@ -737,7 +752,7 @@
             return 'ระบบได้รับข้อมูลทำนายไม่ถูกต้องจาก API กรุณาลองใหม่อีกครั้ง';
         }
 
-        return `เกิดข้อผิดพลาด: ${message || 'ไม่ทราบสาเหตุ'}`;
+        return 'ระบบขัดข้องชั่วคราว กรุณาลองใหม่อีกครั้ง';
     }
 
     async function fetchFortuneViaDirectGemini(prompt, options = {}) {
