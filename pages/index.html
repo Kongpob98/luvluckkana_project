@@ -231,23 +231,29 @@
         </div>
     </section>
 
-    <!-- Social Proof Section (Figma: Desktop-32, node 382:119103) -->
+    <!-- Social Proof Section (Figma: home, node 477:119332) -->
     <section id="social-proof" class="sp-section">
-
-        <!-- Background video -->
-        <video class="sp-bg" autoplay muted loop playsinline preload="none" aria-hidden="true">
-            <source data-src="https://res.cloudinary.com/dpezsckqq/video/upload/f_auto,q_auto:eco/luckkana/social-proof/bgs5.mov" type="video/mp4">
-        </video>
+        <!-- Background art from Figma -->
+        <div class="sp-bg-art" aria-hidden="true">
+            <div class="sp-glow sp-glow--1"></div>
+            <div class="sp-glow sp-glow--2"></div>
+            <div class="sp-glow sp-glow--3"></div>
+            <div class="sp-glow sp-glow--4"></div>
+            <div class="sp-glow sp-glow--5"></div>
+            <img class="sp-photo" loading="lazy" src="../assets/images/social-proof/social-proof-hero.png" alt="">
+        </div>
 
         <!-- Top black gradient overlay -->
         <div class="sp-overlay" aria-hidden="true"></div>
 
         <!-- 85% stat — left -->
         <div class="sp-stat sp-stat--left">
-            <div class="sp-percent">85%</div>
+            <div class="sp-percent sp-percent--left">85%</div>
             <div class="sp-vline-wrap" aria-hidden="true">
-                <div class="sp-vline"></div>
-                <div class="sp-glow-dot"></div>
+                <img class="sp-vline" loading="lazy" src="../assets/images/social-proof/line.svg" alt="">
+                <img class="sp-dot sp-dot--outer" loading="lazy" src="../assets/images/social-proof/dot-outer.svg" alt="">
+                <img class="sp-dot sp-dot--middle" loading="lazy" src="../assets/images/social-proof/dot-middle.svg" alt="">
+                <img class="sp-dot sp-dot--inner" loading="lazy" src="../assets/images/social-proof/dot-inner.svg" alt="">
             </div>
         </div>
 
@@ -255,8 +261,10 @@
         <div class="sp-stat sp-stat--right">
             <div class="sp-percent">70%</div>
             <div class="sp-vline-wrap" aria-hidden="true">
-                <div class="sp-vline"></div>
-                <div class="sp-glow-dot"></div>
+                <img class="sp-vline" loading="lazy" src="../assets/images/social-proof/line.svg" alt="">
+                <img class="sp-dot sp-dot--outer" loading="lazy" src="../assets/images/social-proof/dot-outer.svg" alt="">
+                <img class="sp-dot sp-dot--middle" loading="lazy" src="../assets/images/social-proof/dot-middle.svg" alt="">
+                <img class="sp-dot sp-dot--inner" loading="lazy" src="../assets/images/social-proof/dot-inner.svg" alt="">
             </div>
         </div>
 
@@ -280,34 +288,6 @@
     <script src="../js/animations.js"></script>
     <script src="../js/main.js"></script>
     <script>
-        (function lazyLoadSocialProofVideo() {
-            const section = document.getElementById('social-proof');
-            if (!section) return;
-
-            const video = section.querySelector('.sp-bg');
-            const source = video ? video.querySelector('source[data-src]') : null;
-            if (!video || !source) return;
-
-            let loaded = false;
-            function loadVideo() {
-                if (loaded) return;
-                loaded = true;
-                source.src = source.dataset.src;
-                video.load();
-            }
-
-            const io = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        loadVideo();
-                        io.disconnect();
-                    }
-                });
-            }, { rootMargin: '500px 0px' });
-
-            io.observe(section);
-        })();
-
         (function enableHeroPingPongLoop() {
             const video = document.querySelector('.hero-video-bg');
             if (!video) return;
@@ -483,23 +463,23 @@
 
         // ─── Social Proof Parallax ───
         const spSection = document.querySelector('.sp-section');
-        const spBg      = document.querySelector('.sp-bg');
+        const spBg      = document.querySelector('.sp-bg-art');
         const spStats   = document.querySelectorAll('.sp-stat');
         const spContent = document.querySelector('.sp-content');
 
         // Reset SP parallax transforms on resize when crossing to mobile
         function resetSpParallax() {
-            if (spBg)      spBg.style.transform      = '';
+            if (spBg) spBg.style.removeProperty('--sp-bg-parallax-y');
             if (spContent) spContent.style.transform = '';
-            spStats.forEach(s => s.style.transform = '');
+            spStats.forEach(s => s.style.removeProperty('--sp-stat-parallax-y'));
         }
 
         if (spSection) {
             let spTicking = false;
+            const spReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
             window.addEventListener('scroll', () => {
-                // Disable parallax on tablet/phone
-                if (window.innerWidth <= 768) return;
+                if (spReducedMotion) return;
 
                 if (!spTicking) {
                     window.requestAnimationFrame(() => {
@@ -512,21 +492,26 @@
                         const sectionCenter = sectionTop + sectionHeight / 2;
                         const viewCenter    = scrolled + windowHeight / 2;
                         const delta         = viewCenter - sectionCenter;
+                        const isMobile      = window.innerWidth <= 768;
+                        const bgRate        = isMobile ? 0.14 : 0.3;
+                        const statRate      = isMobile ? 0.05 : 0.12;
 
-                        // Video — moves at 30% of scroll speed (slow background)
+                        // Background art (mobile uses lighter intensity)
                         if (spBg) {
-                            spBg.style.transform = `translateY(${delta * 0.3}px)`;
+                            spBg.style.setProperty('--sp-bg-parallax-y', `${delta * bgRate}px`);
                         }
 
-                        // Stats — left drifts up, right drifts down (opposite parallax)
+                        // Stats — left drifts up, right drifts down (mobile is subtler)
                         spStats.forEach((stat, i) => {
-                            const rate = i === 0 ? -0.12 : 0.12;
-                            stat.style.transform = `translateY(${delta * rate}px)`;
+                            const rate = i === 0 ? -statRate : statRate;
+                            stat.style.setProperty('--sp-stat-parallax-y', `${delta * rate}px`);
                         });
 
-                        // Content — subtle float upward
-                        if (spContent) {
-                            spContent.style.transform = `translateY(${delta * -0.08}px)`;
+                        // Keep desktop content transform pinned; let mobile CSS own layout.
+                        if (spContent && !isMobile) {
+                            spContent.style.transform = 'translateX(-50%)';
+                        } else if (spContent) {
+                            spContent.style.transform = '';
                         }
 
                         spTicking = false;
@@ -536,7 +521,7 @@
             });
 
             window.addEventListener('resize', () => {
-                if (window.innerWidth <= 768) resetSpParallax();
+                if (spReducedMotion) resetSpParallax();
             });
         }
 
