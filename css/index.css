@@ -3309,12 +3309,19 @@ body {
 .sp-title {
     width: min(534px, 100%);
     margin: 0 auto;
-    color: #b794ff;
+    color: #efe3ff;
+    background: linear-gradient(180deg, #fffaff 0%, #e9d7ff 38%, #b985ff 72%, #6f36dc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-family: 'DB Heavent Cond', sans-serif;
     font-size: clamp(56px, 6.8vw, 96px);
     font-style: normal;
     font-weight: 600;
     line-height: 0.72;
+    letter-spacing: 0.01em;
+    -webkit-text-stroke: 0.9px rgba(37, 12, 90, 0.52);
+    text-shadow: 0 2px 8px rgba(115, 69, 194, 0.28), 0 10px 22px rgba(11, 2, 31, 0.56);
 }
 
 .sp-body {
