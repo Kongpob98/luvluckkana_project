@@ -3,7 +3,8 @@
     let chatMessages = [];
     let isAiTyping = false;
     let userProfile = {
-        birthDateText: ''
+        birthDateText: '',
+        relationshipStatus: 'unknown'
     };
     let clarificationState = {
         intent: null,
@@ -55,6 +56,13 @@
             const parsed = JSON.parse(raw);
             if (parsed && typeof parsed.birthDateText === 'string') {
                 userProfile.birthDateText = parsed.birthDateText.trim();
+            }
+
+            if (parsed && typeof parsed.relationshipStatus === 'string') {
+                const status = parsed.relationshipStatus.trim();
+                if (['single', 'in-relationship', 'complicated', 'unknown'].includes(status)) {
+                    userProfile.relationshipStatus = status;
+                }
             }
         } catch (error) {
             console.warn('Unable to load chatbot user profile from storage:', error);
@@ -374,14 +382,44 @@
 
     function captureUserProfileFromMessage(message = '') {
         const detectedBirthDate = extractBirthDateFromText(message);
+        const detectedRelationshipStatus = extractRelationshipStatusFromText(message);
+
+        let changed = false;
         if (detectedBirthDate) {
             userProfile.birthDateText = detectedBirthDate;
+            changed = true;
+        }
+
+        if (detectedRelationshipStatus) {
+            userProfile.relationshipStatus = detectedRelationshipStatus;
+            changed = true;
+        }
+
+        if (changed) {
             persistUserProfileToStorage();
         }
     }
 
+    function extractRelationshipStatusFromText(text = '') {
+        const message = (text || '').toLowerCase();
+
+        if (/(โสด|ไม่มีแฟน|ยังไม่มีแฟน|single)/i.test(message)) {
+            return 'single';
+        }
+
+        if (/(มีแฟน|คบอยู่|แต่งงาน|สมรส|married|in relationship|มีคนคุยประจำ)/i.test(message)) {
+            return 'in-relationship';
+        }
+
+        if (/(คุยหลายคน|ไม่ชัดเจน|สัมพันธ์ไม่ชัด|situationship|คนคุยยังไม่ชัด)/i.test(message)) {
+            return 'complicated';
+        }
+
+        return '';
+    }
+
     function hydrateUserProfileFromHistory() {
-        if (userProfile.birthDateText) {
+        if (userProfile.birthDateText && userProfile.relationshipStatus !== 'unknown') {
             return;
         }
 
@@ -391,20 +429,44 @@
 
         for (let i = recentUserMessages.length - 1; i >= 0; i -= 1) {
             const detectedBirthDate = extractBirthDateFromText(recentUserMessages[i].content);
+            const detectedRelationshipStatus = extractRelationshipStatusFromText(recentUserMessages[i].content);
+            let changed = false;
+
             if (detectedBirthDate) {
                 userProfile.birthDateText = detectedBirthDate;
+                changed = true;
+            }
+
+            if (detectedRelationshipStatus && userProfile.relationshipStatus === 'unknown') {
+                userProfile.relationshipStatus = detectedRelationshipStatus;
+                changed = true;
+            }
+
+            if (changed) {
                 persistUserProfileToStorage();
+            }
+
+            if (userProfile.birthDateText && userProfile.relationshipStatus !== 'unknown') {
                 break;
             }
         }
     }
 
     function buildUserProfileContext() {
-        if (!userProfile.birthDateText) {
-            return '- วันเดือนปีเกิด: ยังไม่ทราบ';
-        }
+        const relationshipLabelMap = {
+            single: 'โสด',
+            'in-relationship': 'มีแฟน/มีคู่',
+            complicated: 'ความสัมพันธ์ไม่ชัดเจน',
+            unknown: 'ยังไม่ทราบ'
+        };
 
-        return `- วันเดือนปีเกิด: ${userProfile.birthDateText}`;
+        const birthDateLine = userProfile.birthDateText
+            ? `- วันเดือนปีเกิด: ${userProfile.birthDateText}`
+            : '- วันเดือนปีเกิด: ยังไม่ทราบ';
+
+        const relationshipLine = `- สถานะความรัก: ${relationshipLabelMap[userProfile.relationshipStatus] || 'ยังไม่ทราบ'}`;
+
+        return `${birthDateLine}\n${relationshipLine}`;
     }
 
     function getConversationDetailFlags(text = '') {
@@ -413,6 +475,7 @@
         const hasBirthDate = Boolean(userProfile.birthDateText) || Boolean(extractBirthDateFromText(recentUserText)) || /((วัน|เดือน|ปี)เกิด)|((ม\.|ค\.|พ\.ศ\.|ค\.ศ\.))|((วันที่|เกิดวันที่)\s*\d{1,2})/i.test(recentUserText);
         const hasBirthTime = /(เวลาเกิด|เกิดเวลา|\b\d{1,2}[:.]\d{2}\b|เช้า|บ่าย|เย็น|กลางคืน|ตี\d)/i.test(recentUserText);
         const hasTopic = /(ความรัก|รัก|การงาน|งาน|การเงิน|เงิน|สุขภาพ|ครอบครัว|เรียน|ธุรกิจ)/i.test(recentUserText);
+        const hasRelationshipStatus = userProfile.relationshipStatus !== 'unknown' || Boolean(extractRelationshipStatusFromText(recentUserText));
         const hasRelationshipTimeline = /(เลิกกันมา|เลิกกัน|คบกัน|ระยะเวลา|กี่เดือน|กี่ปี|เมื่อไหร่|นานแค่ไหน)/i.test(recentUserText);
         const hasContactStatus = /(ยังคุย|ยังติดต่อ|ติดต่อกัน|บล็อก|ไม่คุย|no contact|contact|ทัก|โทร)/i.test(recentUserText);
         const hasDreamDetail = /(ฝัน(ว่า|เห็น)|ในฝัน|ฉันฝัน|เมื่อคืนฝัน|ฝันถึง)/i.test(recentUserText)
@@ -422,6 +485,7 @@
             hasBirthDate,
             hasBirthTime,
             hasTopic,
+            hasRelationshipStatus,
             hasRelationshipTimeline,
             hasContactStatus,
             hasDreamDetail
@@ -575,6 +639,34 @@
             return null;
         }
 
+        if (intent === 'love') {
+            const loveQuestions = [];
+
+            if (!detailFlags.hasRelationshipStatus) {
+                loveQuestions.push({
+                    key: 'relationshipStatus',
+                    text: 'ตอนนี้สถานะความรักของคุณเป็นแบบไหนคะ: โสด หรือมีแฟน'
+                });
+            }
+
+            if (!detailFlags.hasBirthDate) {
+                loveQuestions.push({
+                    key: 'birthDate',
+                    text: 'ขอวันเดือนปีเกิดของคุณ เพื่อดูจังหวะความรักให้แม่นขึ้น'
+                });
+            }
+
+            if (loveQuestions.length) {
+                return {
+                    intent,
+                    questions: loveQuestions,
+                    outro: 'ถ้ายังไม่สะดวกบอกวันเกิด สามารถบอกแค่สถานะความรักก่อนก็ได้ค่ะ'
+                };
+            }
+
+            return null;
+        }
+
         const asksForGeneralReading = intent === 'general' || intent === 'love' || intent === 'career' || intent === 'money' || intent === 'health';
 
         if (!asksForGeneralReading) {
@@ -707,6 +799,8 @@ ${userProfileContext}
 - ข้อมูลที่ควรถามเพิ่มเมื่อจำเป็น: วันเกิด เดือนเกิด ปีเกิด เวลาเกิด และหัวข้อที่อยากรู้ (รัก/งาน/เงิน/สุขภาพ)
 - ถ้าเป็นคำถามความรักเชิงโอกาสกลับมา เช่น "แฟนเก่าจะกลับมาไหม" ให้ถามเพิ่มเรื่องระยะเวลาที่เลิกกัน สถานะการติดต่อปัจจุบัน และวันเกิดก่อนประเมิน
 - ห้ามถามข้อมูลซ้ำ ถ้าผู้ใช้ให้ข้อมูลนั้นแล้วในบริบทบทสนทนา เช่น วันเกิดหรือเวลาเกิด
+- ถ้าคำถามเกี่ยวกับความรักและทราบสถานะแล้ว ให้ตอบให้ตรงสถานะนั้นโดยตรง (โสด หรือ มีแฟน/มีคู่)
+- ถ้ายังไม่ทราบสถานะความรัก ให้สรุปคำทำนายแยก 2 ส่วนชัดเจน: "สำหรับคนโสด" และ "สำหรับคนมีแฟน"
 - ถ้าข้อมูลพอแล้ว ให้ทำนายตามปกติ และปิดท้ายด้วยคำถามสั้นๆ 1 ข้อเพื่อชวนผู้ใช้คุยต่อ
 - ถ้าผู้ใช้ขอเจาะลึก ให้ถามต่อว่าอยากเจาะลึกด้านไหนมากที่สุด
 
