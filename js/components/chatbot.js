@@ -28,12 +28,50 @@
     let activeGeminiModel = GEMINI_MODEL;
     const getGeminiApiUrl = (model) => `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
     const SERVERLESS_API_URL = '/api/gemini'; // Vercel Function
+    const USER_PROFILE_STORAGE_KEY = 'luckkana-chatbot-user-profile';
+    const RESET_PROFILE_ON_RELOAD = true;
     // Model currently used: gemini-2.5-flash-lite
     
     // 🔍 Debug Mode - เปิดเพื่อดูข้อมูลทั้งหมดที่ส่งให้ Gemini
     const DEBUG_MODE = true; // เปลี่ยนเป็น false ตอน production
+
+    function loadUserProfileFromStorage() {
+        try {
+            if (RESET_PROFILE_ON_RELOAD) {
+                const navEntry = performance.getEntriesByType('navigation')[0];
+                const isReload = navEntry && navEntry.type === 'reload';
+                if (isReload) {
+                    localStorage.removeItem(USER_PROFILE_STORAGE_KEY);
+                    userProfile.birthDateText = '';
+                    return;
+                }
+            }
+
+            const raw = localStorage.getItem(USER_PROFILE_STORAGE_KEY);
+            if (!raw) {
+                return;
+            }
+
+            const parsed = JSON.parse(raw);
+            if (parsed && typeof parsed.birthDateText === 'string') {
+                userProfile.birthDateText = parsed.birthDateText.trim();
+            }
+        } catch (error) {
+            console.warn('Unable to load chatbot user profile from storage:', error);
+        }
+    }
+
+    function persistUserProfileToStorage() {
+        try {
+            localStorage.setItem(USER_PROFILE_STORAGE_KEY, JSON.stringify(userProfile));
+        } catch (error) {
+            console.warn('Unable to persist chatbot user profile to storage:', error);
+        }
+    }
     
     function initChatbot() {
+        loadUserProfileFromStorage();
+
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendBtn');
         const chatMessagesContainer = document.getElementById('chatMessages');
@@ -338,6 +376,7 @@
         const detectedBirthDate = extractBirthDateFromText(message);
         if (detectedBirthDate) {
             userProfile.birthDateText = detectedBirthDate;
+            persistUserProfileToStorage();
         }
     }
 
@@ -354,6 +393,7 @@
             const detectedBirthDate = extractBirthDateFromText(recentUserMessages[i].content);
             if (detectedBirthDate) {
                 userProfile.birthDateText = detectedBirthDate;
+                persistUserProfileToStorage();
                 break;
             }
         }
