@@ -2,6 +2,12 @@
 (function() {
     let chatMessages = [];
     let isAiTyping = false;
+    let clarificationState = {
+        intent: null,
+        askedKeys: [],
+        attempts: 0,
+        waiting: false
+    };
     
     // Gemini API Configuration
     // Production: ใช้ Vercel Serverless Function
@@ -349,7 +355,20 @@
         return `ขอข้อมูลเพิ่มอีกนิดเพื่อดูให้แม่นขึ้นนะคะ\n1) ${cleanQuestions[0]}\n2) ${cleanQuestions[1]}${outro ? `\n${outro}` : ''}`;
     }
 
-    function buildClarifyingQuestion(userMessage) {
+    function resetClarificationState() {
+        clarificationState = {
+            intent: null,
+            askedKeys: [],
+            attempts: 0,
+            waiting: false
+        };
+    }
+
+    function userCannotProvideMoreDetails(message) {
+        return /(ไม่รู้|จำไม่ได้|ไม่แน่ใจ|ไม่ทราบ|ไม่มีข้อมูล|ไม่สะดวกบอก|ข้ามได้ไหม)/i.test(message || '');
+    }
+
+    function buildClarificationPlan(userMessage) {
         const message = (userMessage || '').toLowerCase();
         const recentUserText = getRecentUserText();
         const detailFlags = getConversationDetailFlags(`${recentUserText} ${message}`);
@@ -359,46 +378,101 @@
             const exQuestions = [];
 
             if (!detailFlags.hasRelationshipTimeline) {
-                exQuestions.push('เลิกกันมานานแค่ไหน และตอนจบความสัมพันธ์เป็นแบบไหน');
+                exQuestions.push({
+                    key: 'relationshipTimeline',
+                    text: 'เลิกกันมานานแค่ไหน และตอนจบความสัมพันธ์เป็นแบบไหน'
+                });
             }
 
             if (!detailFlags.hasContactStatus) {
-                exQuestions.push('ตอนนี้ยังติดต่อกันอยู่ไหม หรืออยู่ในสถานะ no contact');
+                exQuestions.push({
+                    key: 'contactStatus',
+                    text: 'ตอนนี้ยังติดต่อกันอยู่ไหม หรืออยู่ในสถานะ no contact'
+                });
             }
 
             if (!detailFlags.hasBirthDate) {
-                exQuestions.push('ขอวันเดือนปีเกิดของคุณ (และของแฟนเก่าถ้าทราบ)');
+                exQuestions.push({
+                    key: 'birthDate',
+                    text: 'ขอวันเดือนปีเกิดของคุณ (และของแฟนเก่าถ้าทราบ)'
+                });
             }
 
-            return formatClarifyingQuestions(
-                exQuestions,
-                'ข้อมูลพวกนี้จะช่วยประเมินโอกาสกลับมาและช่วงเวลาที่เป็นไปได้ได้แม่นขึ้นค่ะ'
-            );
+            return {
+                intent,
+                questions: exQuestions,
+                outro: 'ข้อมูลพวกนี้จะช่วยประเมินโอกาสกลับมาและช่วงเวลาที่เป็นไปได้ได้แม่นขึ้นค่ะ'
+            };
         }
 
         const asksForGeneralReading = intent === 'general' || intent === 'love' || intent === 'career' || intent === 'money' || intent === 'health';
 
         if (!asksForGeneralReading) {
-            return '';
+            return null;
         }
 
         const missing = [];
         if (!detailFlags.hasTopic) {
-            missing.push('อยากดูเรื่องไหนเป็นพิเศษ (ความรัก/งาน/เงิน/สุขภาพ)');
+            missing.push({
+                key: 'topic',
+                text: 'อยากดูเรื่องไหนเป็นพิเศษ (ความรัก/งาน/เงิน/สุขภาพ)'
+            });
         }
         if (!detailFlags.hasBirthDate) {
-            missing.push('วันเดือนปีเกิดของคุณ');
+            missing.push({
+                key: 'birthDate',
+                text: 'วันเดือนปีเกิดของคุณ'
+            });
         }
 
         if (!missing.length) {
+            return null;
+        }
+
+        return {
+            intent,
+            questions: missing,
+            outro: 'ถ้ารู้เวลาเกิดด้วย แจ้งเพิ่มได้เลย จะช่วยให้ละเอียดขึ้นค่ะ'
+        };
+    }
+
+    function buildClarifyingQuestion(userMessage) {
+        const plan = buildClarificationPlan(userMessage);
+        if (!plan || !Array.isArray(plan.questions) || !plan.questions.length) {
+            resetClarificationState();
             return '';
         }
 
-        if (missing.length === 1) {
-            return `เพื่อทำนายให้แม่นขึ้น ขอทราบ${missing[0]}ได้ไหมคะ\nถ้ารู้เวลาเกิดด้วย แจ้งเพิ่มได้เลย จะช่วยให้ละเอียดขึ้นค่ะ`;
+        if (clarificationState.waiting && userCannotProvideMoreDetails(userMessage)) {
+            resetClarificationState();
+            return '';
         }
 
-        return formatClarifyingQuestions(missing, 'ถ้ารู้เวลาเกิดด้วย แจ้งเพิ่มได้เลย จะช่วยให้ละเอียดขึ้นค่ะ');
+        const isSameIntent = clarificationState.waiting && clarificationState.intent === plan.intent;
+        const alreadyAskedKeys = isSameIntent ? clarificationState.askedKeys : [];
+        const remainingQuestions = plan.questions.filter((item) => !alreadyAskedKeys.includes(item.key));
+
+        if (!remainingQuestions.length || (isSameIntent && clarificationState.attempts >= 2)) {
+            resetClarificationState();
+            return '';
+        }
+
+        const selected = remainingQuestions.slice(0, 2);
+        const selectedKeys = selected.map((item) => item.key);
+        const selectedTexts = selected.map((item) => item.text);
+
+        clarificationState = {
+            intent: plan.intent,
+            askedKeys: [...new Set([...alreadyAskedKeys, ...selectedKeys])],
+            attempts: isSameIntent ? clarificationState.attempts + 1 : 1,
+            waiting: true
+        };
+
+        if (selectedTexts.length === 1) {
+            return `เพื่อทำนายให้แม่นขึ้น ขอทราบ${selectedTexts[0]}ได้ไหมคะ\n${plan.outro}`;
+        }
+
+        return formatClarifyingQuestions(selectedTexts, plan.outro);
     }
     
     // Gemini API Integration with RAG (Retrieval-Augmented Generation)
@@ -606,6 +680,7 @@ ${conversationContext}
                 const aiResponse = extractAiResponseText(data);
                 console.log('💬 AI Response:', aiResponse);
                 const readableResponse = formatAiResponseForReadability(aiResponse);
+                resetClarificationState();
                 
                 // 📊 บันทึก API call สำเร็จลง localStorage
                 logApiCall({
