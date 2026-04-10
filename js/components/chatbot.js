@@ -10,10 +10,16 @@
     const USE_SERVERLESS = IS_PRODUCTION; // เปลี่ยนเป็น true เพื่อใช้ Serverless บน localhost ด้วย
     
     const GEMINI_API_KEY = window.CONFIG?.GEMINI_API_KEY || 'YOUR_API_KEY_HERE';
-    const GEMINI_MODEL = 'gemini-2.5-flash';
-    const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+    const GEMINI_MODELS = [
+        'gemini-2.5-flash-lite',
+        'gemini-2.5-flash',
+        'gemini-2.0-flash'
+    ];
+    const GEMINI_MODEL = GEMINI_MODELS[0];
+    let activeGeminiModel = GEMINI_MODEL;
+    const getGeminiApiUrl = (model) => `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
     const SERVERLESS_API_URL = '/api/gemini'; // Vercel Function
-    // Model currently used: gemini-2.5-flash
+    // Model currently used: gemini-2.5-flash-lite
     
     // 🔍 Debug Mode - เปิดเพื่อดูข้อมูลทั้งหมดที่ส่งให้ Gemini
     const DEBUG_MODE = true; // เปลี่ยนเป็น false ตอน production
@@ -273,6 +279,127 @@
 
         return false;
     }
+
+    function getRecentUserText(maxMessages = 6) {
+        return chatMessages
+            .filter((msg) => msg && msg.sender === 'user' && typeof msg.content === 'string')
+            .slice(-maxMessages)
+            .map((msg) => msg.content)
+            .join(' ')
+            .toLowerCase();
+    }
+
+    function getConversationDetailFlags(text = '') {
+        const recentUserText = text || getRecentUserText();
+        const hasBirthDate = /(\d{1,2}[\/\-]\d{1,2}([\/\-]\d{2,4})?)|((วัน|เดือน|ปี)เกิด)|((ม\.|ค\.|พ\.ศ\.|ค\.ศ\.))/i.test(recentUserText);
+        const hasBirthTime = /(เวลาเกิด|เกิดเวลา|\b\d{1,2}[:.]\d{2}\b|เช้า|บ่าย|เย็น|กลางคืน|ตี\d)/i.test(recentUserText);
+        const hasTopic = /(ความรัก|รัก|การงาน|งาน|การเงิน|เงิน|สุขภาพ|ครอบครัว|เรียน|ธุรกิจ)/i.test(recentUserText);
+        const hasRelationshipTimeline = /(เลิกกันมา|เลิกกัน|คบกัน|ระยะเวลา|กี่เดือน|กี่ปี|เมื่อไหร่|นานแค่ไหน)/i.test(recentUserText);
+        const hasContactStatus = /(ยังคุย|ยังติดต่อ|ติดต่อกัน|บล็อก|ไม่คุย|no contact|contact|ทัก|โทร)/i.test(recentUserText);
+
+        return {
+            hasBirthDate,
+            hasBirthTime,
+            hasTopic,
+            hasRelationshipTimeline,
+            hasContactStatus
+        };
+    }
+
+    function detectConsultationIntent(message, recentUserText) {
+        const combinedText = `${message} ${recentUserText}`;
+
+        if (/(แฟนเก่า|คนเก่า|รีเทิร์น|กลับมาไหม|คืนดี|ex|กลับมาคบ)/i.test(combinedText)) {
+            return 'ex-relationship';
+        }
+
+        if (/(ความรัก|รัก|เนื้อคู่|คนคุย|แฟน|สถานะความสัมพันธ์)/i.test(combinedText)) {
+            return 'love';
+        }
+
+        if (/(งาน|การงาน|อาชีพ|เลื่อนตำแหน่ง|สัมภาษณ์|ธุรกิจ)/i.test(combinedText)) {
+            return 'career';
+        }
+
+        if (/(เงิน|การเงิน|หนี้|ลงทุน|รายได้|โชคลาภ)/i.test(combinedText)) {
+            return 'money';
+        }
+
+        if (/(สุขภาพ|ป่วย|พักผ่อน|เครียด|นอน|ไมเกรน)/i.test(combinedText)) {
+            return 'health';
+        }
+
+        if (/(ดูดวง|ทำนาย|เช็กดวง|ช่วยดูให้หน่อย|ดูให้หน่อย|อยากรู้ดวง|ขอดูดวง)/i.test(combinedText)) {
+            return 'general';
+        }
+
+        return 'other';
+    }
+
+    function formatClarifyingQuestions(questions, outro = '') {
+        const cleanQuestions = questions.filter(Boolean).slice(0, 2);
+        if (!cleanQuestions.length) {
+            return '';
+        }
+
+        if (cleanQuestions.length === 1) {
+            return `${cleanQuestions[0]}${outro ? `\n${outro}` : ''}`;
+        }
+
+        return `ขอข้อมูลเพิ่มอีกนิดเพื่อดูให้แม่นขึ้นนะคะ\n1) ${cleanQuestions[0]}\n2) ${cleanQuestions[1]}${outro ? `\n${outro}` : ''}`;
+    }
+
+    function buildClarifyingQuestion(userMessage) {
+        const message = (userMessage || '').toLowerCase();
+        const recentUserText = getRecentUserText();
+        const detailFlags = getConversationDetailFlags(`${recentUserText} ${message}`);
+        const intent = detectConsultationIntent(message, recentUserText);
+
+        if (intent === 'ex-relationship') {
+            const exQuestions = [];
+
+            if (!detailFlags.hasRelationshipTimeline) {
+                exQuestions.push('เลิกกันมานานแค่ไหน และตอนจบความสัมพันธ์เป็นแบบไหน');
+            }
+
+            if (!detailFlags.hasContactStatus) {
+                exQuestions.push('ตอนนี้ยังติดต่อกันอยู่ไหม หรืออยู่ในสถานะ no contact');
+            }
+
+            if (!detailFlags.hasBirthDate) {
+                exQuestions.push('ขอวันเดือนปีเกิดของคุณ (และของแฟนเก่าถ้าทราบ)');
+            }
+
+            return formatClarifyingQuestions(
+                exQuestions,
+                'ข้อมูลพวกนี้จะช่วยประเมินโอกาสกลับมาและช่วงเวลาที่เป็นไปได้ได้แม่นขึ้นค่ะ'
+            );
+        }
+
+        const asksForGeneralReading = intent === 'general' || intent === 'love' || intent === 'career' || intent === 'money' || intent === 'health';
+
+        if (!asksForGeneralReading) {
+            return '';
+        }
+
+        const missing = [];
+        if (!detailFlags.hasTopic) {
+            missing.push('อยากดูเรื่องไหนเป็นพิเศษ (ความรัก/งาน/เงิน/สุขภาพ)');
+        }
+        if (!detailFlags.hasBirthDate) {
+            missing.push('วันเดือนปีเกิดของคุณ');
+        }
+
+        if (!missing.length) {
+            return '';
+        }
+
+        if (missing.length === 1) {
+            return `เพื่อทำนายให้แม่นขึ้น ขอทราบ${missing[0]}ได้ไหมคะ\nถ้ารู้เวลาเกิดด้วย แจ้งเพิ่มได้เลย จะช่วยให้ละเอียดขึ้นค่ะ`;
+        }
+
+        return formatClarifyingQuestions(missing, 'ถ้ารู้เวลาเกิดด้วย แจ้งเพิ่มได้เลย จะช่วยให้ละเอียดขึ้นค่ะ');
+    }
     
     // Gemini API Integration with RAG (Retrieval-Augmented Generation)
     async function getGeminiResponse(userMessage) {
@@ -283,6 +410,12 @@
             if (!isRelevantQuestion(userMessage)) {
                 console.warn('⚠️ Question not relevant to astrology/fortune telling');
                 return 'ฉันดูแลได้เฉพาะเรื่องดวงและการทำนายค่ะ ลองพิมพ์เพิ่มอีกนิด เช่น "ดวงความรักของฉันเดือนนี้" หรือ "ช่วยดูการงานจากวันเกิด..." แล้วฉันจะทำนายให้ทันที';
+            }
+
+            const clarifyingQuestion = buildClarifyingQuestion(userMessage);
+            if (clarifyingQuestion) {
+                console.log('💬 Asking clarifying question before prediction');
+                return clarifyingQuestion;
             }
             
             // Get relevant knowledge from knowledge bases
@@ -319,6 +452,7 @@ ${conversationContext}
 กติกาการถามโต้ตอบ:
 - ถ้าคำถามผู้ใช้ยังกว้างหรือข้อมูลไม่พอ ให้ถามคำถามกลับแบบเจาะจง 1-2 ข้อก่อนทำนาย
 - ข้อมูลที่ควรถามเพิ่มเมื่อจำเป็น: วันเกิด เดือนเกิด ปีเกิด เวลาเกิด และหัวข้อที่อยากรู้ (รัก/งาน/เงิน/สุขภาพ)
+- ถ้าเป็นคำถามความรักเชิงโอกาสกลับมา เช่น "แฟนเก่าจะกลับมาไหม" ให้ถามเพิ่มเรื่องระยะเวลาที่เลิกกัน สถานะการติดต่อปัจจุบัน และวันเกิดก่อนประเมิน
 - ถ้าข้อมูลพอแล้ว ให้ทำนายตามปกติ และปิดท้ายด้วยคำถามสั้นๆ 1 ข้อเพื่อชวนผู้ใช้คุยต่อ
 - ถ้าผู้ใช้ขอเจาะลึก ให้ถามต่อว่าอยากเจาะลึกด้านไหนมากที่สุด
 
@@ -393,13 +527,44 @@ ${conversationContext}
             } else {
                 // ใช้ Direct API (Development)
                 console.log('📤 Sending to Gemini API directly...');
-                response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(requestBody)
-                });
+                const modelAttempts = [];
+                const modelQueue = [
+                    activeGeminiModel,
+                    ...GEMINI_MODELS.filter((modelName) => modelName !== activeGeminiModel)
+                ];
+
+                for (const modelName of modelQueue) {
+                    response = await fetch(`${getGeminiApiUrl(modelName)}?key=${GEMINI_API_KEY}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(requestBody)
+                    });
+
+                    modelAttempts.push({
+                        model: modelName,
+                        status: response.status
+                    });
+
+                    if (response.ok) {
+                        activeGeminiModel = modelName;
+                        if (modelName !== GEMINI_MODEL) {
+                            console.warn(`⚠️ Model ${GEMINI_MODEL} not available, fallback to ${modelName}`);
+                        }
+                        break;
+                    }
+
+                    if (response.status !== 404) {
+                        break;
+                    }
+                }
+
+                if (DEBUG_MODE) {
+                    console.group('🔍 DEBUG: Model Attempts');
+                    console.table(modelAttempts);
+                    console.groupEnd();
+                }
             }
 
             console.log('📥 Response status:', response.status);

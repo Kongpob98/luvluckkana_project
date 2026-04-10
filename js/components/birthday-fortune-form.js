@@ -20,9 +20,15 @@
     ];
 
     // Gemini API Configuration
-    const GEMINI_MODEL = 'gemini-2.5-flash';
+    const GEMINI_MODELS = [
+        'gemini-2.5-flash-lite',
+        'gemini-2.5-flash',
+        'gemini-2.0-flash'
+    ];
+    const GEMINI_MODEL = GEMINI_MODELS[0];
+    let activeGeminiModel = GEMINI_MODEL;
     const SERVERLESS_API_URL = '/api/gemini';
-    const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+    const getGeminiApiUrl = (model) => `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
     function isLocalRuntime() {
         const host = window.location.hostname;
@@ -755,6 +761,10 @@
             return 'มีคำขอใช้งานจำนวนมากในขณะนี้\nกรุณาลองใหม่อีกครั้ง';
         }
 
+        if (/models\/.+ is not found|not supported for generatecontent/i.test(message)) {
+            return 'โมเดล AI ที่เลือกยังไม่รองรับในระบบนี้ ระบบจะสลับไปโมเดลสำรองให้อัตโนมัติแล้ว กรุณาลองใหม่อีกครั้ง';
+        }
+
         if (/Failed to fetch|NetworkError|Load failed|endpoint not found|status 404|Cannot reach Gemini API endpoint/i.test(message)) {
             return 'เชื่อมต่อ API ไม่ได้ กรุณาเปิด API server (`npm run dev:api`) แล้วลองใหม่อีกครั้ง';
         }
@@ -773,34 +783,61 @@
             throw new Error('no GEMINI_API_KEY configured in js/config.js');
         }
 
-        const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
-            method: 'POST',
-            cache: 'no-store',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                contents: [
-                    {
-                        parts: [{ text: prompt }]
-                    }
-                ],
-                generationConfig: {
-                    temperature: strictJson ? 0.2 : 0.7,
-                    topK: 40,
-                    topP: 0.95,
-                    maxOutputTokens: 4096,
-                    responseMimeType: 'application/json'
+        const requestBody = {
+            contents: [
+                {
+                    parts: [{ text: prompt }]
                 }
-            })
-        });
+            ],
+            generationConfig: {
+                temperature: strictJson ? 0.2 : 0.7,
+                topK: 40,
+                topP: 0.95,
+                maxOutputTokens: 4096,
+                responseMimeType: 'application/json'
+            }
+        };
 
-        const data = await response.json();
-        if (!response.ok) {
-            throw new Error(data?.error?.message || data?.error || `Gemini direct API Error: ${response.status}`);
+        const modelQueue = [
+            activeGeminiModel,
+            ...GEMINI_MODELS.filter((modelName) => modelName !== activeGeminiModel)
+        ];
+
+        let lastError = null;
+
+        for (const modelName of modelQueue) {
+            const response = await fetch(`${getGeminiApiUrl(modelName)}?key=${apiKey}`, {
+                method: 'POST',
+                cache: 'no-store',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestBody)
+            });
+
+            let data = null;
+            try {
+                data = await response.json();
+            } catch (parseError) {
+                data = { error: { message: 'Invalid JSON response from Gemini API' } };
+            }
+
+            if (response.ok) {
+                activeGeminiModel = modelName;
+                if (modelName !== GEMINI_MODEL) {
+                    console.warn(`Birthday direct API fallback: ${GEMINI_MODEL} -> ${modelName}`);
+                }
+                return data;
+            }
+
+            lastError = new Error(data?.error?.message || data?.error || `Gemini direct API Error: ${response.status}`);
+
+            if (response.status !== 404) {
+                throw lastError;
+            }
         }
 
-        return data;
+        throw lastError || new Error('All configured Gemini models are unavailable');
     }
 
     function parseFortuneFromGeminiData(data) {
@@ -829,12 +866,20 @@
     }
 
         function buildFortunePrompt(birthData, options = {}) {
-                const { strict = false } = options;
+            const { strict = false, detailed = false, colorVariety = false } = options;
                 const { fullName, birthDate, birthTime } = birthData;
 
                 const extraStrictRule = strict
-                        ? '\n- เขียนสั้น กระชับ ไม่เกิน 90 ตัวอักษรต่อข้อความ และคง JSON ให้สมบูรณ์'
+                ? '\n- โฟกัสความถูกต้องของ JSON เป็นอันดับแรก ห้ามหลุดรูปแบบเด็ดขาด'
                         : '';
+
+            const extraDetailRule = detailed
+                ? '\n- weeklyFortune ทุกข้อความต้องลงรายละเอียดเชิงปฏิบัติ อย่างน้อย 2 ประโยค และยาวไม่น้อยกว่า 120 ตัวอักษรต่อข้อความ'
+                : '';
+
+            const extraColorRule = colorVariety
+                ? '\n- สีมงคล 3 สีต้องมีความหลากหลายและสัมพันธ์กับข้อมูลวันเวลาเกิด\n- หลีกเลี่ยงการตอบชุดเดิมซ้ำบ่อย เช่น เขียว-ฟ้า-ทอง\n- ห้ามใช้ชื่อสีซ้ำกัน และความหมายของแต่ละสีต้องต่างกันชัดเจน'
+                : '';
 
                 return `คุณคือผู้เชี่ยวชาญด้านโหราศาสตร์และดวงชะตา
 
@@ -855,10 +900,10 @@
         "meaning": "คำอธิบายสั้น 1 ประโยค"
     },
     "weeklyFortune": {
-        "love": {"points": ["...", "...", "..."]},
-        "money": {"points": ["...", "...", "..."]},
-        "career": {"points": ["...", "...", "..."]},
-        "health": {"points": ["...", "...", "..."]}
+        "love": {"points": ["คำทำนายความรักแบบละเอียด 2-3 ประโยค พร้อมคำแนะนำที่ทำได้จริง", "คำทำนายความรักแบบละเอียด 2-3 ประโยค พร้อมคำแนะนำที่ทำได้จริง", "คำทำนายความรักแบบละเอียด 2-3 ประโยค พร้อมคำแนะนำที่ทำได้จริง"]},
+        "money": {"points": ["คำทำนายการเงินแบบละเอียด 2-3 ประโยค พร้อมแนวทางใช้จ่าย/วางแผน", "คำทำนายการเงินแบบละเอียด 2-3 ประโยค พร้อมแนวทางใช้จ่าย/วางแผน", "คำทำนายการเงินแบบละเอียด 2-3 ประโยค พร้อมแนวทางใช้จ่าย/วางแผน"]},
+        "career": {"points": ["คำทำนายการงานแบบละเอียด 2-3 ประโยค พร้อมแนวทางปรับตัว", "คำทำนายการงานแบบละเอียด 2-3 ประโยค พร้อมแนวทางปรับตัว", "คำทำนายการงานแบบละเอียด 2-3 ประโยค พร้อมแนวทางปรับตัว"]},
+        "health": {"points": ["คำแนะนำสุขภาพแบบละเอียด 2-3 ประโยค เน้นป้องกันและดูแลตัวเอง", "คำแนะนำสุขภาพแบบละเอียด 2-3 ประโยค เน้นป้องกันและดูแลตัวเอง", "คำแนะนำสุขภาพแบบละเอียด 2-3 ประโยค เน้นป้องกันและดูแลตัวเอง"]}
     },
     "weeklyWarning": ["...", "...", "...", "..."],
     "luckyCalendar": [
@@ -874,11 +919,13 @@
 
 กฎสำคัญ:
 - luckyColors ต้องมี 3 รายการพอดี และ hex ถูกต้อง
+- luckyColors ต้องสะท้อนดวงเฉพาะบุคคล ไม่ใช้ชุดสีเดิมซ้ำแบบสำเร็จรูป
 - luckyDirection.name ต้องขึ้นต้นด้วยคำว่า "ทิศ"
 - weeklyFortune แต่ละด้านมี points 3 รายการพอดี
+- weeklyFortune แต่ละ point ต้องเป็นข้อความละเอียด อ่านแล้วนำไปใช้ได้จริง ไม่สั้นแบบวลี
 - weeklyWarning มี 4 รายการพอดี
 - luckyCalendar มีครบ 7 วันพอดี
-- ห้าม trailing comma และต้อง parse JSON ได้${extraStrictRule}`;
+- ห้าม trailing comma และต้อง parse JSON ได้${extraStrictRule}${extraDetailRule}${extraColorRule}`;
         }
 
     function normalizeFortuneData(rawData) {
@@ -983,6 +1030,40 @@
         };
     }
 
+    function hasShortWeeklyFortunePoints(fortuneData) {
+        const weeklyFortune = fortuneData?.weeklyFortune;
+        if (!weeklyFortune || typeof weeklyFortune !== 'object') {
+            return true;
+        }
+
+        const categories = ['love', 'money', 'career', 'health'];
+        return categories.some((category) => {
+            const points = weeklyFortune?.[category]?.points;
+            if (!Array.isArray(points) || points.length < 3) {
+                return true;
+            }
+
+            return points.some((point) => typeof point !== 'string' || point.trim().length < 100);
+        });
+    }
+
+    function hasRepeatedDefaultLuckyColors(fortuneData) {
+        const colors = Array.isArray(fortuneData?.luckyColors) ? fortuneData.luckyColors : [];
+        if (colors.length < 3) {
+            return false;
+        }
+
+        const joinedNames = colors
+            .map((color) => (typeof color?.name === 'string' ? color.name.toLowerCase() : ''))
+            .join(' ');
+
+        const containsGreen = /เขียว|green/.test(joinedNames);
+        const containsBlue = /ฟ้า|น้ำเงิน|blue/.test(joinedNames);
+        const containsGold = /ทอง|gold/.test(joinedNames);
+
+        return containsGreen && containsBlue && containsGold;
+    }
+
     // Handle form submit
     async function handleSubmit(e) {
         e.preventDefault();
@@ -1075,18 +1156,34 @@
     // Get fortune prediction from Gemini API
     async function getFortunePrediction(birthData) {
                 const prompt = buildFortunePrompt(birthData);
+                const detailedPrompt = buildFortunePrompt(birthData, { detailed: true });
+                const diversifiedPrompt = buildFortunePrompt(birthData, { detailed: true, colorVariety: true });
 
         const hasDirectApiKey = Boolean(getDirectGeminiApiKey());
 
         if (hasDirectApiKey) {
             try {
                 const directData = await fetchFortuneViaDirectGemini(prompt);
-                return parseFortuneFromGeminiData(directData);
+                let parsedFortune = parseFortuneFromGeminiData(directData);
+
+                if (hasShortWeeklyFortunePoints(parsedFortune)) {
+                    console.warn('Weekly fortune is too short, retrying with detailed prompt...');
+                    const detailedData = await fetchFortuneViaDirectGemini(detailedPrompt);
+                    parsedFortune = parseFortuneFromGeminiData(detailedData);
+                }
+
+                if (hasRepeatedDefaultLuckyColors(parsedFortune)) {
+                    console.warn('Lucky colors look repetitive, retrying with diversified color prompt...');
+                    const diversifiedData = await fetchFortuneViaDirectGemini(diversifiedPrompt);
+                    parsedFortune = parseFortuneFromGeminiData(diversifiedData);
+                }
+
+                return parsedFortune;
             } catch (directError) {
                 const isInvalidJson = /invalid JSON/i.test(String(directError?.message || ''));
                 if (isInvalidJson) {
                     try {
-                        const strictPrompt = buildFortunePrompt(birthData, { strict: true });
+                        const strictPrompt = buildFortunePrompt(birthData, { strict: true, detailed: true });
                         const strictData = await fetchFortuneViaDirectGemini(strictPrompt, { strictJson: true });
                         return parseFortuneFromGeminiData(strictData);
                     } catch (strictError) {
@@ -1140,7 +1237,66 @@
                     throw new Error(data?.error || 'API returned empty response');
                 }
 
-                return parseFortuneFromGeminiData(data);
+                let parsedFortune = parseFortuneFromGeminiData(data);
+                if (hasShortWeeklyFortunePoints(parsedFortune)) {
+                    console.warn('Serverless weekly fortune is too short, retrying with detailed prompt...');
+                    const detailedResponse = await fetch(apiUrl, {
+                        method: 'POST',
+                        cache: 'no-store',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: detailedPrompt,
+                            model: GEMINI_MODEL
+                        })
+                    });
+
+                    const detailedContentType = detailedResponse.headers.get('content-type') || '';
+                    const isDetailedJsonResponse = detailedContentType.includes('application/json');
+                    const detailedData = isDetailedJsonResponse ? await detailedResponse.json() : null;
+
+                    if (!detailedResponse.ok) {
+                        throw new Error(detailedData?.error || `API Error: ${detailedResponse.status}`);
+                    }
+
+                    if (!detailedData || detailedData?.error) {
+                        throw new Error(detailedData?.error || 'API returned empty response');
+                    }
+
+                    parsedFortune = parseFortuneFromGeminiData(detailedData);
+                }
+
+                if (hasRepeatedDefaultLuckyColors(parsedFortune)) {
+                    console.warn('Serverless lucky colors look repetitive, retrying with diversified color prompt...');
+                    const diversifiedResponse = await fetch(apiUrl, {
+                        method: 'POST',
+                        cache: 'no-store',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: diversifiedPrompt,
+                            model: GEMINI_MODEL
+                        })
+                    });
+
+                    const diversifiedContentType = diversifiedResponse.headers.get('content-type') || '';
+                    const isDiversifiedJsonResponse = diversifiedContentType.includes('application/json');
+                    const diversifiedData = isDiversifiedJsonResponse ? await diversifiedResponse.json() : null;
+
+                    if (!diversifiedResponse.ok) {
+                        throw new Error(diversifiedData?.error || `API Error: ${diversifiedResponse.status}`);
+                    }
+
+                    if (!diversifiedData || diversifiedData?.error) {
+                        throw new Error(diversifiedData?.error || 'API returned empty response');
+                    }
+
+                    parsedFortune = parseFortuneFromGeminiData(diversifiedData);
+                }
+
+                return parsedFortune;
             } catch (error) {
                 lastError = error;
                 const errorMessage = typeof error?.message === 'string' ? error.message : '';
