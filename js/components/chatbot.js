@@ -2,6 +2,9 @@
 (function() {
     let chatMessages = [];
     let isAiTyping = false;
+    let userProfile = {
+        birthDateText: ''
+    };
     let clarificationState = {
         intent: null,
         askedKeys: [],
@@ -123,6 +126,10 @@
         
         // Add to chat history
         chatMessages.push({ sender, content, time });
+
+        if (sender === 'user') {
+            captureUserProfileFromMessage(content);
+        }
         
         // Animate message appearance
         messageDiv.style.opacity = '0';
@@ -306,9 +313,64 @@
             .toLowerCase();
     }
 
+    function extractBirthDateFromText(text = '') {
+        if (!text || typeof text !== 'string') {
+            return '';
+        }
+
+        const trimmed = text.trim();
+        const slashOrDash = trimmed.match(/\b\d{1,2}[\s\/\-.]\d{1,2}[\s\/\-.]\d{2,4}\b/);
+        if (slashOrDash) {
+            return slashOrDash[0];
+        }
+
+        const thaiMonth = '(มกราคม|ม\.ค\.?|กุมภาพันธ์|ก\.พ\.?|มีนาคม|มี\.ค\.?|เมษายน|เม\.ย\.?|เมษา|พฤษภาคม|พ\.ค\.?|มิถุนายน|มิ\.ย\.?|กรกฎาคม|ก\.ค\.?|สิงหาคม|ส\.ค\.?|กันยายน|ก\.ย\.?|ตุลาคม|ต\.ค\.?|พฤศจิกายน|พ\.ย\.?|ธันวาคม|ธ\.ค\.?)';
+        const thaiDateRegex = new RegExp(`\\b\\d{1,2}\\s*${thaiMonth}\\s*\\d{2,4}\\b`, 'i');
+        const thaiDateMatch = trimmed.match(thaiDateRegex);
+        if (thaiDateMatch) {
+            return thaiDateMatch[0];
+        }
+
+        return '';
+    }
+
+    function captureUserProfileFromMessage(message = '') {
+        const detectedBirthDate = extractBirthDateFromText(message);
+        if (detectedBirthDate) {
+            userProfile.birthDateText = detectedBirthDate;
+        }
+    }
+
+    function hydrateUserProfileFromHistory() {
+        if (userProfile.birthDateText) {
+            return;
+        }
+
+        const recentUserMessages = chatMessages
+            .filter((msg) => msg && msg.sender === 'user' && typeof msg.content === 'string')
+            .slice(-20);
+
+        for (let i = recentUserMessages.length - 1; i >= 0; i -= 1) {
+            const detectedBirthDate = extractBirthDateFromText(recentUserMessages[i].content);
+            if (detectedBirthDate) {
+                userProfile.birthDateText = detectedBirthDate;
+                break;
+            }
+        }
+    }
+
+    function buildUserProfileContext() {
+        if (!userProfile.birthDateText) {
+            return '- วันเดือนปีเกิด: ยังไม่ทราบ';
+        }
+
+        return `- วันเดือนปีเกิด: ${userProfile.birthDateText}`;
+    }
+
     function getConversationDetailFlags(text = '') {
+        hydrateUserProfileFromHistory();
         const recentUserText = text || getRecentUserText();
-        const hasBirthDate = /(\b\d{1,2}[\s\/\-.]\d{1,2}[\s\/\-.]\d{2,4}\b)|((วัน|เดือน|ปี)เกิด)|((ม\.|ค\.|พ\.ศ\.|ค\.ศ\.))|((วันที่|เกิดวันที่)\s*\d{1,2})/i.test(recentUserText);
+        const hasBirthDate = Boolean(userProfile.birthDateText) || Boolean(extractBirthDateFromText(recentUserText)) || /((วัน|เดือน|ปี)เกิด)|((ม\.|ค\.|พ\.ศ\.|ค\.ศ\.))|((วันที่|เกิดวันที่)\s*\d{1,2})/i.test(recentUserText);
         const hasBirthTime = /(เวลาเกิด|เกิดเวลา|\b\d{1,2}[:.]\d{2}\b|เช้า|บ่าย|เย็น|กลางคืน|ตี\d)/i.test(recentUserText);
         const hasTopic = /(ความรัก|รัก|การงาน|งาน|การเงิน|เงิน|สุขภาพ|ครอบครัว|เรียน|ธุรกิจ)/i.test(recentUserText);
         const hasRelationshipTimeline = /(เลิกกันมา|เลิกกัน|คบกัน|ระยะเวลา|กี่เดือน|กี่ปี|เมื่อไหร่|นานแค่ไหน)/i.test(recentUserText);
@@ -568,6 +630,7 @@
             // Get relevant knowledge from knowledge bases
             const relevantKnowledge = getRelevantKnowledge(userMessage);
             const conversationContext = buildConversationContext();
+            const userProfileContext = buildUserProfileContext();
             console.log('📚 Knowledge retrieved:', relevantKnowledge);
             
             const systemPrompt = `คุณคือ AI ที่ปรึกษาด้านโหราศาสตร์และการทำนาย สำหรับผู้ใช้ทั่วไป
@@ -576,6 +639,9 @@ ${relevantKnowledge}
 
 บริบทบทสนทนาล่าสุด:
 ${conversationContext}
+
+ข้อมูลพื้นฐานของผู้ใช้งาน:
+${userProfileContext}
 
 🛡️ **ข้อจำกัดสำคัญ:**
 - คุณตอบได้เฉพาะเรื่อง: โหราศาสตร์ ราศี ดวงชะตา เลขศาสตร์ ทาโรต์ ความฝัน การทำนาย
