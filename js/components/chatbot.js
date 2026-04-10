@@ -302,41 +302,73 @@
         const hasTopic = /(ความรัก|รัก|การงาน|งาน|การเงิน|เงิน|สุขภาพ|ครอบครัว|เรียน|ธุรกิจ)/i.test(recentUserText);
         const hasRelationshipTimeline = /(เลิกกันมา|เลิกกัน|คบกัน|ระยะเวลา|กี่เดือน|กี่ปี|เมื่อไหร่|นานแค่ไหน)/i.test(recentUserText);
         const hasContactStatus = /(ยังคุย|ยังติดต่อ|ติดต่อกัน|บล็อก|ไม่คุย|no contact|contact|ทัก|โทร)/i.test(recentUserText);
+        const hasDreamDetail = /(ฝัน(ว่า|เห็น)|ในฝัน|ฉันฝัน|เมื่อคืนฝัน|ฝันถึง)/i.test(recentUserText)
+            && !/(แปลความฝัน(ให้หน่อย)?|ตีความฝัน(ให้หน่อย)?|ทำนายฝัน(ให้หน่อย)?|ฝันหมายถึงอะไร|ช่วยแปลฝัน)/i.test(recentUserText);
 
         return {
             hasBirthDate,
             hasBirthTime,
             hasTopic,
             hasRelationshipTimeline,
-            hasContactStatus
+            hasContactStatus,
+            hasDreamDetail
         };
     }
 
-    function detectConsultationIntent(message, recentUserText) {
-        const combinedText = `${message} ${recentUserText}`;
+    function isShortFollowUpMessage(message = '') {
+        const followUpKeywords = [
+            'ต่อ', 'เพิ่มเติม', 'เพิ่มอีก', 'ขอเพิ่ม', 'ขยายความ',
+            'อธิบายเพิ่ม', 'แล้ว', 'แล้วถ้า', 'ยังไง', 'ควรทำไง',
+            'ใช่', 'ไม่ใช่', 'โอเค', 'ครับ', 'ค่ะ', 'คะ'
+        ];
 
-        if (/(แฟนเก่า|คนเก่า|รีเทิร์น|กลับมาไหม|คืนดี|ex|กลับมาคบ)/i.test(combinedText)) {
+        return followUpKeywords.some((keyword) => message.includes(keyword)) || message.length <= 30;
+    }
+
+    function detectIntentFromText(text = '') {
+        if (/(แฟนเก่า|คนเก่า|รีเทิร์น|กลับมาไหม|คืนดี|ex|กลับมาคบ)/i.test(text)) {
             return 'ex-relationship';
         }
 
-        if (/(ความรัก|รัก|เนื้อคู่|คนคุย|แฟน|สถานะความสัมพันธ์)/i.test(combinedText)) {
+        if (/(ความรัก|รัก|เนื้อคู่|คนคุย|แฟน|สถานะความสัมพันธ์)/i.test(text)) {
             return 'love';
         }
 
-        if (/(งาน|การงาน|อาชีพ|เลื่อนตำแหน่ง|สัมภาษณ์|ธุรกิจ)/i.test(combinedText)) {
+        if (/(งาน|การงาน|อาชีพ|เลื่อนตำแหน่ง|สัมภาษณ์|ธุรกิจ)/i.test(text)) {
             return 'career';
         }
 
-        if (/(เงิน|การเงิน|หนี้|ลงทุน|รายได้|โชคลาภ)/i.test(combinedText)) {
+        if (/(เงิน|การเงิน|หนี้|ลงทุน|รายได้|โชคลาภ)/i.test(text)) {
             return 'money';
         }
 
-        if (/(สุขภาพ|ป่วย|พักผ่อน|เครียด|นอน|ไมเกรน)/i.test(combinedText)) {
+        if (/(สุขภาพ|ป่วย|พักผ่อน|เครียด|นอน|ไมเกรน)/i.test(text)) {
             return 'health';
         }
 
-        if (/(ดูดวง|ทำนาย|เช็กดวง|ช่วยดูให้หน่อย|ดูให้หน่อย|อยากรู้ดวง|ขอดูดวง)/i.test(combinedText)) {
+        if (/(ฝัน|dream|ตีความฝัน|แปลความฝัน)/i.test(text)) {
+            return 'dream';
+        }
+
+        if (/(ดูดวง|ทำนาย|เช็กดวง|ช่วยดูให้หน่อย|ดูให้หน่อย|อยากรู้ดวง|ขอดูดวง)/i.test(text)) {
             return 'general';
+        }
+
+        return 'other';
+    }
+
+    function detectConsultationIntent(message, recentUserText) {
+        const currentIntent = detectIntentFromText(message);
+        if (currentIntent !== 'other') {
+            return currentIntent;
+        }
+
+        if (clarificationState.waiting && isShortFollowUpMessage(message)) {
+            return clarificationState.intent || 'other';
+        }
+
+        if (isShortFollowUpMessage(message)) {
+            return detectIntentFromText(recentUserText);
         }
 
         return 'other';
@@ -403,6 +435,27 @@
                 questions: exQuestions,
                 outro: 'ข้อมูลพวกนี้จะช่วยประเมินโอกาสกลับมาและช่วงเวลาที่เป็นไปได้ได้แม่นขึ้นค่ะ'
             };
+        }
+
+        if (intent === 'dream') {
+            const dreamQuestions = [];
+
+            if (!detailFlags.hasDreamDetail) {
+                dreamQuestions.push({
+                    key: 'dreamDetail',
+                    text: 'เมื่อคืนฝันว่าอะไร หรือฝันเห็นเหตุการณ์ไหน เล่าให้ละเอียดสัก 1-2 ประโยค'
+                });
+            }
+
+            if (dreamQuestions.length) {
+                return {
+                    intent,
+                    questions: dreamQuestions,
+                    outro: 'ยิ่งรายละเอียดชัด เช่น คน สถานที่ หรืออารมณ์ในฝัน ผลตีความจะยิ่งแม่นขึ้นค่ะ'
+                };
+            }
+
+            return null;
         }
 
         const asksForGeneralReading = intent === 'general' || intent === 'love' || intent === 'career' || intent === 'money' || intent === 'health';
