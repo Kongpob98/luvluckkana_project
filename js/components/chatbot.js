@@ -308,7 +308,7 @@
 
     function getConversationDetailFlags(text = '') {
         const recentUserText = text || getRecentUserText();
-        const hasBirthDate = /(\d{1,2}[\/\-]\d{1,2}([\/\-]\d{2,4})?)|((วัน|เดือน|ปี)เกิด)|((ม\.|ค\.|พ\.ศ\.|ค\.ศ\.))/i.test(recentUserText);
+        const hasBirthDate = /(\b\d{1,2}[\s\/\-.]\d{1,2}[\s\/\-.]\d{2,4}\b)|((วัน|เดือน|ปี)เกิด)|((ม\.|ค\.|พ\.ศ\.|ค\.ศ\.))|((วันที่|เกิดวันที่)\s*\d{1,2})/i.test(recentUserText);
         const hasBirthTime = /(เวลาเกิด|เกิดเวลา|\b\d{1,2}[:.]\d{2}\b|เช้า|บ่าย|เย็น|กลางคืน|ตี\d)/i.test(recentUserText);
         const hasTopic = /(ความรัก|รัก|การงาน|งาน|การเงิน|เงิน|สุขภาพ|ครอบครัว|เรียน|ธุรกิจ)/i.test(recentUserText);
         const hasRelationshipTimeline = /(เลิกกันมา|เลิกกัน|คบกัน|ระยะเวลา|กี่เดือน|กี่ปี|เมื่อไหร่|นานแค่ไหน)/i.test(recentUserText);
@@ -409,6 +409,10 @@
 
     function userCannotProvideMoreDetails(message) {
         return /(ไม่รู้|จำไม่ได้|ไม่แน่ใจ|ไม่ทราบ|ไม่มีข้อมูล|ไม่สะดวกบอก|ข้ามได้ไหม)/i.test(message || '');
+    }
+
+    function isGratitudeMessage(message) {
+        return /(ขอบคุณ|ขอบคุณมาก|ขอบใจ|thank you|thanks|tysm)/i.test((message || '').toLowerCase());
     }
 
     function buildClarificationPlan(userMessage) {
@@ -543,6 +547,11 @@
     async function getGeminiResponse(userMessage) {
         try {
             console.log('🚀 Calling Gemini API...');
+
+            if (isGratitudeMessage(userMessage)) {
+                resetClarificationState();
+                return 'ยินดีมากเลยค่ะ ถ้าอยากดูดวงต่อ บอกหัวข้อที่อยากดูได้เลยนะคะ เช่น ความรัก การงาน การเงิน หรือความฝัน';
+            }
             
             // 🛡️ Guardrail: ตรวจสอบคำถามก่อนส่ง API
             if (!isRelevantQuestion(userMessage)) {
@@ -591,6 +600,7 @@ ${conversationContext}
 - ถ้าคำถามผู้ใช้ยังกว้างหรือข้อมูลไม่พอ ให้ถามคำถามกลับแบบเจาะจง 1-2 ข้อก่อนทำนาย
 - ข้อมูลที่ควรถามเพิ่มเมื่อจำเป็น: วันเกิด เดือนเกิด ปีเกิด เวลาเกิด และหัวข้อที่อยากรู้ (รัก/งาน/เงิน/สุขภาพ)
 - ถ้าเป็นคำถามความรักเชิงโอกาสกลับมา เช่น "แฟนเก่าจะกลับมาไหม" ให้ถามเพิ่มเรื่องระยะเวลาที่เลิกกัน สถานะการติดต่อปัจจุบัน และวันเกิดก่อนประเมิน
+- ห้ามถามข้อมูลซ้ำ ถ้าผู้ใช้ให้ข้อมูลนั้นแล้วในบริบทบทสนทนา เช่น วันเกิดหรือเวลาเกิด
 - ถ้าข้อมูลพอแล้ว ให้ทำนายตามปกติ และปิดท้ายด้วยคำถามสั้นๆ 1 ข้อเพื่อชวนผู้ใช้คุยต่อ
 - ถ้าผู้ใช้ขอเจาะลึก ให้ถามต่อว่าอยากเจาะลึกด้านไหนมากที่สุด
 
