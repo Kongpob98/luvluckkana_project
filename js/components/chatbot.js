@@ -218,6 +218,11 @@
     // 🛡️ Guardrail: ตรวจสอบว่าคำถามเกี่ยวกับโหราศาสตร์หรือไม่
     function isRelevantQuestion(userMessage) {
         const lowerMessage = userMessage.toLowerCase();
+
+        // ระหว่างที่บอทรอข้อมูลเพิ่ม ให้ถือว่าข้อความสั้นจากผู้ใช้ยังอยู่ในบริบทเดิม
+        if (clarificationState.waiting && lowerMessage.length <= 60) {
+            return true;
+        }
         
         // คำที่เกี่ยวข้องกับโหราศาสตร์
         const relevantKeywords = [
@@ -232,6 +237,8 @@
             'ฝัน', 'dream', 'ตีความ',
             // การทำนาย
             'รัก', 'เงิน', 'การเงิน', 'งาน', 'อาชีพ', 'สุขภาพ', 'love', 'money', 'career', 'health',
+            // ความสัมพันธ์
+            'แฟน', 'แฟนเก่า', 'คนเก่า', 'รีเทิร์น', 'คืนดี', 'กลับมาไหม',
             // คำทั่วไป
             'ทาโรต', 'tarot', 'ไพ่', 'เนื้อคู่', 'soulmate', 'อนาคต', 'future',
             'ดวงจันทร์', 'ดาวเสาร์', 'ดาวพฤหัส', 'ดาวเวนัส', 'ดาวอังคาร', 'moon', 'venus',
@@ -257,6 +264,10 @@
 
         if (hasOffTopicKeyword(lowerMessage)) {
             return false;
+        }
+
+        if (detectIntentFromText(lowerMessage) !== 'other') {
+            return true;
         }
 
         if (hasRelevantKeyword(lowerMessage)) {
