@@ -1139,7 +1139,8 @@ body {
     z-index: 1;
 }
 
-.s4-card-img img {
+.s4-card-img img,
+.s4-card-img video {
     display: block;
     width: 100%;
     height: 100%;
